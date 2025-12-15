@@ -45,4 +45,18 @@ message Route {
 
   // Encoded polyline string representing the path geometry (Google Polyline Algorithm Format).
   string polyline = 11;
+
+  // List of countries crossed during the route with statistics.
+  repeated CountryStats countries = 12;
+}
+
+message CountryStats {
+  // ISO country code (e.g. "US", "LV").
+  string country_code = 1;
+
+  // Distance driven in this country in meters.
+  int64 distance_m = 2;
+
+  // Time spent in this country in seconds.
+  int64 duration_s = 3;
 }

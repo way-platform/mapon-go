@@ -30,20 +30,43 @@ message UnitCanPeriodData {
   repeated CanMetricValue rpm_max = 3;
 
   // Fuel level values (%).
-  repeated CanMetricValue fuel_level = 4;
+  repeated CanMetricValue fuel_level_percent = 4;
 
   // Service distance values (km).
-  repeated CanMetricValue service_distance = 5;
+  repeated CanMetricValue service_distance_km = 5;
 
   // Total distance values (km).
-  repeated CanMetricValue total_distance = 6;
+  repeated CanMetricValue total_distance_km = 6;
 
   // Total fuel values (liters or kg).
-  repeated CanMetricValue total_fuel = 7;
+  repeated CanMetricValue total_fuel_l = 7;
 
   // Total engine hours values.
   repeated CanMetricValue total_engine_hours = 8;
 
   // Ambient temperature values (°C).
-  repeated CanMetricValue ambient_temp = 9;
+  repeated CanMetricValue ambient_temperature_c = 9;
+
+  // Weight on chassis total values (kg).
+  repeated CanMetricValue weight_on_chassis_total_kg = 10;
+
+  // EV Battery relative level values (%).
+  repeated CanMetricValue ev_battery_rel_percent = 11;
+
+  // EV Battery absolute level values (kWh).
+  repeated CanMetricValue ev_battery_abs_kwh = 12;
+
+  // EV Charging status values (0/1).
+  repeated CanMetricValue ev_charging = 13;
+
+  // Weight on axis values.
+  repeated AxisWeightMetricValue weight_on_axis = 14;
+}
+
+// AxisWeightMetricValue represents a weight metric on a specific axis/wheel.
+message AxisWeightMetricValue {
+  google.protobuf.Timestamp time = 1;
+  double value_kg = 2;
+  int32 axis_id = 3;
+  int32 wheel_id = 4;
 }

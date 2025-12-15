@@ -52,4 +52,25 @@ message UnitState {
 
   // Duration of this state in seconds.
   int64 duration_s = 12;
+
+  // Altitude in meters.
+  double altitude_m = 14;
+
+  // Gross combination weight in kilograms.
+  double gross_combination_weight_kg = 15;
+
+  // EV Battery State of Charge (Relative) in percent (0-100).
+  double battery_soc_percent = 16;
+
+  // EV Battery State of Charge (Absolute) in kWh.
+  double battery_soc_kwh = 17;
+
+  // Charging state (true if charging).
+  bool charging_state = 18;
+
+  // AdBlue level fraction (0-1).
+  double adblue_level_fraction = 19;
+
+  // Total fuel used lifetime in liters.
+  double total_fuel_used_lifetime_l = 20;
 }

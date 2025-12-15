@@ -140,7 +140,7 @@ func newListUnitsCommand() *cobra.Command {
 
 func newListIgnitionsCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data ignitions <unit-id ...>",
+		Use:     "ignitions <unit-id ...>",
 		Short:   "List ignition events",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -178,7 +178,7 @@ func newListIgnitionsCommand() *cobra.Command {
 
 func newListTemperaturesCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data temperatures <unit-id ...>",
+		Use:     "temperatures <unit-id ...>",
 		Short:   "List temperature data",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -216,7 +216,7 @@ func newListTemperaturesCommand() *cobra.Command {
 
 func newListDigitalInputsCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data digital-inputs <unit-id ...>",
+		Use:     "digital-inputs <unit-id ...>",
 		Short:   "List digital input events",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -254,7 +254,7 @@ func newListDigitalInputsCommand() *cobra.Command {
 
 func newListDigitalInputsExtendedCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data digital-inputs-extended <unit-id ...>",
+		Use:     "digital-inputs-extended <unit-id ...>",
 		Short:   "List extended digital input events",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -292,7 +292,7 @@ func newListDigitalInputsExtendedCommand() *cobra.Command {
 
 func newListIbuttonsCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data ibuttons <unit-id ...>",
+		Use:     "ibuttons <unit-id ...>",
 		Short:   "List iButton events",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -330,7 +330,7 @@ func newListIbuttonsCommand() *cobra.Command {
 
 func newListHumidityCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data humidity <unit-id ...>",
+		Use:     "humidity <unit-id ...>",
 		Short:   "List humidity data",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -368,7 +368,7 @@ func newListHumidityCommand() *cobra.Command {
 
 func newListCanPeriodDataCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data can-period <unit-id>",
+		Use:     "can-periods <unit-id>",
 		Short:   "List CAN data for a period",
 		GroupID: "unit-data",
 		Args:    cobra.ExactArgs(1),
@@ -404,7 +404,7 @@ func newListCanPeriodDataCommand() *cobra.Command {
 
 func newGetCanPointDataCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data can-point <unit-id>",
+		Use:     "can-point <unit-id>",
 		Short:   "Get CAN data at a specific time",
 		GroupID: "unit-data",
 		Args:    cobra.ExactArgs(1),
@@ -436,7 +436,7 @@ func newGetCanPointDataCommand() *cobra.Command {
 
 func newGetHistoryPointDataCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data history-point <unit-id>",
+		Use:     "history-point <unit-id>",
 		Short:   "Get historical data at a specific time",
 		GroupID: "unit-data",
 		Args:    cobra.ExactArgs(1),
@@ -470,7 +470,7 @@ func newGetHistoryPointDataCommand() *cobra.Command {
 
 func newGetUnitFieldsCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data fields <unit-id>",
+		Use:     "fields <unit-id>",
 		Short:   "Get unit custom fields",
 		GroupID: "unit-data",
 		Args:    cobra.ExactArgs(1),
@@ -500,7 +500,7 @@ func newGetUnitFieldsCommand() *cobra.Command {
 
 func newGetUnitDebugInfoCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data debug-info <unit-id ...>",
+		Use:     "debug-info <unit-id ...>",
 		Short:   "Get unit debug info",
 		GroupID: "unit-data",
 		Args:    cobra.MinimumNArgs(1),
@@ -534,7 +534,7 @@ func newGetUnitDebugInfoCommand() *cobra.Command {
 
 func newGetDrivingTimeExtendedCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "unit-data driving-time <unit-id>",
+		Use:     "driving-time <unit-id>",
 		Short:   "Get driving time extended",
 		GroupID: "unit-data",
 		Args:    cobra.ExactArgs(1),

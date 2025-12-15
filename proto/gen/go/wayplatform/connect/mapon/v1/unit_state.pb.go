@@ -38,6 +38,13 @@ type UnitState struct {
 	xxx_hidden_BatteryVoltageV            float64                `protobuf:"fixed64,10,opt,name=battery_voltage_v,json=batteryVoltageV"`
 	xxx_hidden_StartTime                  *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=start_time,json=startTime"`
 	xxx_hidden_DurationS                  int64                  `protobuf:"varint,12,opt,name=duration_s,json=durationS"`
+	xxx_hidden_AltitudeM                  float64                `protobuf:"fixed64,14,opt,name=altitude_m,json=altitudeM"`
+	xxx_hidden_GrossCombinationWeightKg   float64                `protobuf:"fixed64,15,opt,name=gross_combination_weight_kg,json=grossCombinationWeightKg"`
+	xxx_hidden_BatterySocPercent          float64                `protobuf:"fixed64,16,opt,name=battery_soc_percent,json=batterySocPercent"`
+	xxx_hidden_BatterySocKwh              float64                `protobuf:"fixed64,17,opt,name=battery_soc_kwh,json=batterySocKwh"`
+	xxx_hidden_ChargingState              bool                   `protobuf:"varint,18,opt,name=charging_state,json=chargingState"`
+	xxx_hidden_AdblueLevelFraction        float64                `protobuf:"fixed64,19,opt,name=adblue_level_fraction,json=adblueLevelFraction"`
+	xxx_hidden_TotalFuelUsedLifetimeL     float64                `protobuf:"fixed64,20,opt,name=total_fuel_used_lifetime_l,json=totalFuelUsedLifetimeL"`
 	XXX_raceDetectHookData                protoimpl.RaceDetectHookData
 	XXX_presence                          [1]uint32
 	unknownFields                         protoimpl.UnknownFields
@@ -165,6 +172,55 @@ func (x *UnitState) GetDurationS() int64 {
 	return 0
 }
 
+func (x *UnitState) GetAltitudeM() float64 {
+	if x != nil {
+		return x.xxx_hidden_AltitudeM
+	}
+	return 0
+}
+
+func (x *UnitState) GetGrossCombinationWeightKg() float64 {
+	if x != nil {
+		return x.xxx_hidden_GrossCombinationWeightKg
+	}
+	return 0
+}
+
+func (x *UnitState) GetBatterySocPercent() float64 {
+	if x != nil {
+		return x.xxx_hidden_BatterySocPercent
+	}
+	return 0
+}
+
+func (x *UnitState) GetBatterySocKwh() float64 {
+	if x != nil {
+		return x.xxx_hidden_BatterySocKwh
+	}
+	return 0
+}
+
+func (x *UnitState) GetChargingState() bool {
+	if x != nil {
+		return x.xxx_hidden_ChargingState
+	}
+	return false
+}
+
+func (x *UnitState) GetAdblueLevelFraction() float64 {
+	if x != nil {
+		return x.xxx_hidden_AdblueLevelFraction
+	}
+	return 0
+}
+
+func (x *UnitState) GetTotalFuelUsedLifetimeL() float64 {
+	if x != nil {
+		return x.xxx_hidden_TotalFuelUsedLifetimeL
+	}
+	return 0
+}
+
 func (x *UnitState) SetTime(v *timestamppb.Timestamp) {
 	x.xxx_hidden_Time = v
 }
@@ -175,47 +231,47 @@ func (x *UnitState) SetLocation(v *Location) {
 
 func (x *UnitState) SetSpeedKmh(v int32) {
 	x.xxx_hidden_SpeedKmh = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 20)
 }
 
 func (x *UnitState) SetDirectionDeg(v int32) {
 	x.xxx_hidden_DirectionDeg = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 20)
 }
 
 func (x *UnitState) SetOdometerM(v int64) {
 	x.xxx_hidden_OdometerM = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 20)
 }
 
 func (x *UnitState) SetIgnitionTotalDurationS(v int64) {
 	x.xxx_hidden_IgnitionTotalDurationS = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 20)
 }
 
 func (x *UnitState) SetMovementStatus(v MovementStatus) {
 	x.xxx_hidden_MovementStatus = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 20)
 }
 
 func (x *UnitState) SetUnrecognizedMovementStatus(v string) {
 	x.xxx_hidden_UnrecognizedMovementStatus = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 20)
 }
 
 func (x *UnitState) SetFuelLevelL(v float64) {
 	x.xxx_hidden_FuelLevelL = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 20)
 }
 
 func (x *UnitState) SetSupplyVoltageV(v float64) {
 	x.xxx_hidden_SupplyVoltageV = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 20)
 }
 
 func (x *UnitState) SetBatteryVoltageV(v float64) {
 	x.xxx_hidden_BatteryVoltageV = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 10, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 10, 20)
 }
 
 func (x *UnitState) SetStartTime(v *timestamppb.Timestamp) {
@@ -224,7 +280,42 @@ func (x *UnitState) SetStartTime(v *timestamppb.Timestamp) {
 
 func (x *UnitState) SetDurationS(v int64) {
 	x.xxx_hidden_DurationS = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 12, 13)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 12, 20)
+}
+
+func (x *UnitState) SetAltitudeM(v float64) {
+	x.xxx_hidden_AltitudeM = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 13, 20)
+}
+
+func (x *UnitState) SetGrossCombinationWeightKg(v float64) {
+	x.xxx_hidden_GrossCombinationWeightKg = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 14, 20)
+}
+
+func (x *UnitState) SetBatterySocPercent(v float64) {
+	x.xxx_hidden_BatterySocPercent = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 15, 20)
+}
+
+func (x *UnitState) SetBatterySocKwh(v float64) {
+	x.xxx_hidden_BatterySocKwh = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 16, 20)
+}
+
+func (x *UnitState) SetChargingState(v bool) {
+	x.xxx_hidden_ChargingState = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 17, 20)
+}
+
+func (x *UnitState) SetAdblueLevelFraction(v float64) {
+	x.xxx_hidden_AdblueLevelFraction = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 18, 20)
+}
+
+func (x *UnitState) SetTotalFuelUsedLifetimeL(v float64) {
+	x.xxx_hidden_TotalFuelUsedLifetimeL = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 19, 20)
 }
 
 func (x *UnitState) HasTime() bool {
@@ -318,6 +409,55 @@ func (x *UnitState) HasDurationS() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 12)
 }
 
+func (x *UnitState) HasAltitudeM() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 13)
+}
+
+func (x *UnitState) HasGrossCombinationWeightKg() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 14)
+}
+
+func (x *UnitState) HasBatterySocPercent() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 15)
+}
+
+func (x *UnitState) HasBatterySocKwh() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 16)
+}
+
+func (x *UnitState) HasChargingState() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 17)
+}
+
+func (x *UnitState) HasAdblueLevelFraction() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 18)
+}
+
+func (x *UnitState) HasTotalFuelUsedLifetimeL() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 19)
+}
+
 func (x *UnitState) ClearTime() {
 	x.xxx_hidden_Time = nil
 }
@@ -380,6 +520,41 @@ func (x *UnitState) ClearDurationS() {
 	x.xxx_hidden_DurationS = 0
 }
 
+func (x *UnitState) ClearAltitudeM() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 13)
+	x.xxx_hidden_AltitudeM = 0
+}
+
+func (x *UnitState) ClearGrossCombinationWeightKg() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 14)
+	x.xxx_hidden_GrossCombinationWeightKg = 0
+}
+
+func (x *UnitState) ClearBatterySocPercent() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 15)
+	x.xxx_hidden_BatterySocPercent = 0
+}
+
+func (x *UnitState) ClearBatterySocKwh() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 16)
+	x.xxx_hidden_BatterySocKwh = 0
+}
+
+func (x *UnitState) ClearChargingState() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 17)
+	x.xxx_hidden_ChargingState = false
+}
+
+func (x *UnitState) ClearAdblueLevelFraction() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 18)
+	x.xxx_hidden_AdblueLevelFraction = 0
+}
+
+func (x *UnitState) ClearTotalFuelUsedLifetimeL() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 19)
+	x.xxx_hidden_TotalFuelUsedLifetimeL = 0
+}
+
 type UnitState_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -412,6 +587,20 @@ type UnitState_builder struct {
 	StartTime *timestamppb.Timestamp
 	// Duration of this state in seconds.
 	DurationS *int64
+	// Altitude in meters.
+	AltitudeM *float64
+	// Gross combination weight in kilograms.
+	GrossCombinationWeightKg *float64
+	// EV Battery State of Charge (Relative) in percent (0-100).
+	BatterySocPercent *float64
+	// EV Battery State of Charge (Absolute) in kWh.
+	BatterySocKwh *float64
+	// Charging state (true if charging).
+	ChargingState *bool
+	// AdBlue level fraction (0-1).
+	AdblueLevelFraction *float64
+	// Total fuel used lifetime in liters.
+	TotalFuelUsedLifetimeL *float64
 }
 
 func (b0 UnitState_builder) Build() *UnitState {
@@ -421,45 +610,73 @@ func (b0 UnitState_builder) Build() *UnitState {
 	x.xxx_hidden_Time = b.Time
 	x.xxx_hidden_Location = b.Location
 	if b.SpeedKmh != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 20)
 		x.xxx_hidden_SpeedKmh = *b.SpeedKmh
 	}
 	if b.DirectionDeg != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 20)
 		x.xxx_hidden_DirectionDeg = *b.DirectionDeg
 	}
 	if b.OdometerM != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 20)
 		x.xxx_hidden_OdometerM = *b.OdometerM
 	}
 	if b.IgnitionTotalDurationS != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 20)
 		x.xxx_hidden_IgnitionTotalDurationS = *b.IgnitionTotalDurationS
 	}
 	if b.MovementStatus != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 20)
 		x.xxx_hidden_MovementStatus = *b.MovementStatus
 	}
 	if b.UnrecognizedMovementStatus != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 20)
 		x.xxx_hidden_UnrecognizedMovementStatus = b.UnrecognizedMovementStatus
 	}
 	if b.FuelLevelL != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 20)
 		x.xxx_hidden_FuelLevelL = *b.FuelLevelL
 	}
 	if b.SupplyVoltageV != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 20)
 		x.xxx_hidden_SupplyVoltageV = *b.SupplyVoltageV
 	}
 	if b.BatteryVoltageV != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 10, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 10, 20)
 		x.xxx_hidden_BatteryVoltageV = *b.BatteryVoltageV
 	}
 	x.xxx_hidden_StartTime = b.StartTime
 	if b.DurationS != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 12, 13)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 12, 20)
 		x.xxx_hidden_DurationS = *b.DurationS
+	}
+	if b.AltitudeM != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 13, 20)
+		x.xxx_hidden_AltitudeM = *b.AltitudeM
+	}
+	if b.GrossCombinationWeightKg != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 14, 20)
+		x.xxx_hidden_GrossCombinationWeightKg = *b.GrossCombinationWeightKg
+	}
+	if b.BatterySocPercent != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 15, 20)
+		x.xxx_hidden_BatterySocPercent = *b.BatterySocPercent
+	}
+	if b.BatterySocKwh != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 16, 20)
+		x.xxx_hidden_BatterySocKwh = *b.BatterySocKwh
+	}
+	if b.ChargingState != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 17, 20)
+		x.xxx_hidden_ChargingState = *b.ChargingState
+	}
+	if b.AdblueLevelFraction != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 18, 20)
+		x.xxx_hidden_AdblueLevelFraction = *b.AdblueLevelFraction
+	}
+	if b.TotalFuelUsedLifetimeL != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 19, 20)
+		x.xxx_hidden_TotalFuelUsedLifetimeL = *b.TotalFuelUsedLifetimeL
 	}
 	return m0
 }
@@ -468,7 +685,7 @@ var File_wayplatform_connect_mapon_v1_unit_state_proto protoreflect.FileDescript
 
 const file_wayplatform_connect_mapon_v1_unit_state_proto_rawDesc = "" +
 	"\n" +
-	"-wayplatform/connect/mapon/v1/unit_state.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\x1a2wayplatform/connect/mapon/v1/movement_status.proto\"\x86\x05\n" +
+	"-wayplatform/connect/mapon/v1/unit_state.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\x1a2wayplatform/connect/mapon/v1/movement_status.proto\"\xd3\a\n" +
 	"\tUnitState\x12.\n" +
 	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\x12B\n" +
 	"\blocation\x18\x02 \x01(\v2&.wayplatform.connect.mapon.v1.LocationR\blocation\x12\x1b\n" +
@@ -487,7 +704,15 @@ const file_wayplatform_connect_mapon_v1_unit_state_proto_rawDesc = "" +
 	"\n" +
 	"start_time\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x12\x1d\n" +
 	"\n" +
-	"duration_s\x18\f \x01(\x03R\tdurationSB\x99\x02\n" +
+	"duration_s\x18\f \x01(\x03R\tdurationS\x12\x1d\n" +
+	"\n" +
+	"altitude_m\x18\x0e \x01(\x01R\taltitudeM\x12=\n" +
+	"\x1bgross_combination_weight_kg\x18\x0f \x01(\x01R\x18grossCombinationWeightKg\x12.\n" +
+	"\x13battery_soc_percent\x18\x10 \x01(\x01R\x11batterySocPercent\x12&\n" +
+	"\x0fbattery_soc_kwh\x18\x11 \x01(\x01R\rbatterySocKwh\x12%\n" +
+	"\x0echarging_state\x18\x12 \x01(\bR\rchargingState\x122\n" +
+	"\x15adblue_level_fraction\x18\x13 \x01(\x01R\x13adblueLevelFraction\x12:\n" +
+	"\x1atotal_fuel_used_lifetime_l\x18\x14 \x01(\x01R\x16totalFuelUsedLifetimeLB\x99\x02\n" +
 	" com.wayplatform.connect.mapon.v1B\x0eUnitStateProtoP\x01ZRgithub.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1\xa2\x02\x03WCM\xaa\x02\x1cWayplatform.Connect.Mapon.V1\xca\x02\x1cWayplatform\\Connect\\Mapon\\V1\xe2\x02(Wayplatform\\Connect\\Mapon\\V1\\GPBMetadata\xea\x02\x1fWayplatform::Connect::Mapon::V1b\beditionsp\xe8\a"
 
 var file_wayplatform_connect_mapon_v1_unit_state_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
