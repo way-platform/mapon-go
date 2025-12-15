@@ -14,6 +14,9 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// This API endpoint is documented in:
+// docs/api/methods/19-method-driver.html
+
 // ListDriversRequest is the request for [Client.ListDrivers].
 type ListDriversRequest struct {
 	// ID filters by a specific driver ID.

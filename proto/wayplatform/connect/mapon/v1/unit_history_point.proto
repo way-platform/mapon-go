@@ -1,0 +1,27 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/can_metric_value.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// UnitHistoryPoint contains historical data for a unit at a specific point in time.
+message UnitHistoryPoint {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // Total distance from CAN bus.
+  CanMetricValue can_total_distance = 2;
+
+  // Mileage (total distance from GPS).
+  CanMetricValue mileage = 3;
+
+  // Position at the historical point.
+  Location position = 4;
+
+  // Timestamp of the position.
+  google.protobuf.Timestamp position_time = 5;
+}

@@ -15,10 +15,13 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// This API endpoint is documented in:
+// docs/api/methods/01-method-alert.html
+
 // ListAlertsRequest is the request for [Client.ListAlerts].
 type ListAlertsRequest struct {
 	From    time.Time
-	Till    time.Time
+	To      time.Time
 	UnitIDs []int64
 	Driver  int64
 }
@@ -28,7 +31,7 @@ type ListAlertsResponse struct {
 	Alerts []*maponv1.Alert
 }
 
-// ListAlerts lists triggered alerts.
+// ListAlerts returns triggered alerts.
 func (c *Client) ListAlerts(ctx context.Context, request *ListAlertsRequest, opts ...ClientOption) (_ *ListAlertsResponse, err error) {
 	defer func() {
 		if err != nil {
@@ -39,7 +42,7 @@ func (c *Client) ListAlerts(ctx context.Context, request *ListAlertsRequest, opt
 
 	params := url.Values{}
 	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.Till.UTC().Format(time.RFC3339))
+	params.Add("till", request.To.UTC().Format(time.RFC3339))
 
 	for _, id := range request.UnitIDs {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
@@ -134,12 +137,12 @@ func mapJSONAlertToProto(j jsonAlert) *maponv1.Alert {
 		if len(parts) == 2 {
 			lat, _ := strconv.ParseFloat(parts[0], 64)
 			lng, _ := strconv.ParseFloat(parts[1], 64)
-			
+
 			loc := &maponv1.Location{}
 			loc.SetLatitude(lat)
 			loc.SetLongitude(lng)
 			loc.SetAddress(j.Address)
-			
+
 			a.SetLocation(loc)
 		}
 	}

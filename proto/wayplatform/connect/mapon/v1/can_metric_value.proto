@@ -1,0 +1,49 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// CanMetricValue represents a single metric value with a timestamp.
+message CanMetricValue {
+  // Timestamp of the value.
+  google.protobuf.Timestamp time = 1;
+
+  // The value (can be numeric or string, stored as string for flexibility, or use specific types).
+  // Mapon API returns values as strings or numbers depending on field.
+  // We'll use string to be safe and parse in client if needed, or double if we are sure.
+  // Most CAN values are numeric. Let's use double.
+  double value = 2;
+}
+
+// UnitCanPeriodData aggregates CAN metric values over a period for a specific unit.
+message UnitCanPeriodData {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // Average RPM values.
+  repeated CanMetricValue rpm_average = 2;
+
+  // Maximum RPM values.
+  repeated CanMetricValue rpm_max = 3;
+
+  // Fuel level values (%).
+  repeated CanMetricValue fuel_level = 4;
+
+  // Service distance values (km).
+  repeated CanMetricValue service_distance = 5;
+
+  // Total distance values (km).
+  repeated CanMetricValue total_distance = 6;
+
+  // Total fuel values (liters or kg).
+  repeated CanMetricValue total_fuel = 7;
+
+  // Total engine hours values.
+  repeated CanMetricValue total_engine_hours = 8;
+
+  // Ambient temperature values (°C).
+  repeated CanMetricValue ambient_temp = 9;
+}

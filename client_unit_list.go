@@ -15,6 +15,9 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// This API endpoint is documented in:
+// docs/api/methods/08-method-unit.html
+
 // ListUnitsRequest is the request for [Client.ListUnits].
 type ListUnitsRequest struct {
 	// UnitIDs is a list of unit IDs to filter by.

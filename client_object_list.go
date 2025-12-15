@@ -12,6 +12,9 @@ import (
 	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 )
 
+// This API endpoint is documented in:
+// docs/api/methods/16-method-object.html
+
 // ListObjectsRequest is the request for [Client.ListObjects].
 type ListObjectsRequest struct {
 	// Optional filters can be added here if supported.

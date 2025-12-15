@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/way-platform/mapon-go"
 	"github.com/way-platform/mapon-go/cmd/mapon/internal/auth"
+	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
@@ -54,6 +55,24 @@ func newRootCommand() *cobra.Command {
 	cmd.AddGroup(&cobra.Group{ID: "units", Title: "Units"})
 	cmd.AddCommand(newListUnitsCommand())
 
+	cmd.AddGroup(&cobra.Group{ID: "unit-data", Title: "Unit Data"})
+	cmd.AddCommand(newListIgnitionsCommand())
+	cmd.AddCommand(newListTemperaturesCommand())
+	cmd.AddCommand(newListDigitalInputsCommand())
+	cmd.AddCommand(newListDigitalInputsExtendedCommand())
+	cmd.AddCommand(newListIbuttonsCommand())
+	cmd.AddCommand(newListHumidityCommand())
+	cmd.AddCommand(newListCanPeriodDataCommand())
+	cmd.AddCommand(newGetCanPointDataCommand())
+	cmd.AddCommand(newGetHistoryPointDataCommand())
+	cmd.AddCommand(newGetUnitFieldsCommand())
+	cmd.AddCommand(newGetUnitDebugInfoCommand())
+	cmd.AddCommand(newGetDrivingTimeExtendedCommand())
+
+	cmd.AddGroup(&cobra.Group{ID: "unit-groups", Title: "Unit Groups"})
+	cmd.AddCommand(newListUnitGroupsCommand())
+	cmd.AddCommand(newListUnitsInGroupCommand())
+
 	cmd.AddGroup(&cobra.Group{ID: "drivers", Title: "Drivers"})
 	cmd.AddCommand(newListDriversCommand())
 
@@ -78,6 +97,8 @@ func newRootCommand() *cobra.Command {
 	return cmd
 }
 
+// --- Units ---
+
 func newListUnitsCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "units",
@@ -92,7 +113,6 @@ func newListUnitsCommand() *cobra.Command {
 		if err != nil {
 			return err
 		}
-
 		var unitIDs []int64
 		for _, idStr := range *ids {
 			id, err := strconv.ParseInt(idStr, 10, 64)
@@ -101,7 +121,6 @@ func newListUnitsCommand() *cobra.Command {
 			}
 			unitIDs = append(unitIDs, id)
 		}
-
 		response, err := client.ListUnits(cmd.Context(), &mapon.ListUnitsRequest{
 			UnitIDs: unitIDs,
 			Include: *include,
@@ -116,6 +135,491 @@ func newListUnitsCommand() *cobra.Command {
 	}
 	return cmd
 }
+
+// --- Unit Data ---
+
+func newListIgnitionsCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data ignitions <unit-id ...>",
+		Short:   "List ignition events",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.ListIgnitions(cmd.Context(), &mapon.ListIgnitionsRequest{
+			UnitIDs: unitIDs,
+			From:    *from,
+			To:      *to,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListTemperaturesCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data temperatures <unit-id ...>",
+		Short:   "List temperature data",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.ListTemperatures(cmd.Context(), &mapon.ListTemperaturesRequest{
+			UnitIDs: unitIDs,
+			From:    *from,
+			To:      *to,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListDigitalInputsCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data digital-inputs <unit-id ...>",
+		Short:   "List digital input events",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.ListDigitalInputs(cmd.Context(), &mapon.ListDigitalInputsRequest{
+			UnitIDs: unitIDs,
+			From:    *from,
+			To:      *to,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListDigitalInputsExtendedCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data digital-inputs-extended <unit-id ...>",
+		Short:   "List extended digital input events",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.ListDigitalInputsExtended(cmd.Context(), &mapon.ListDigitalInputsExtendedRequest{
+			UnitIDs: unitIDs,
+			From:    *from,
+			To:      *to,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListIbuttonsCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data ibuttons <unit-id ...>",
+		Short:   "List iButton events",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.ListIbuttons(cmd.Context(), &mapon.ListIbuttonsRequest{
+			UnitIDs: unitIDs,
+			From:    *from,
+			To:      *to,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListHumidityCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data humidity <unit-id ...>",
+		Short:   "List humidity data",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.ListHumidity(cmd.Context(), &mapon.ListHumidityRequest{
+			UnitIDs: unitIDs,
+			From:    *from,
+			To:      *to,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListCanPeriodDataCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data can-period <unit-id>",
+		Short:   "List CAN data for a period",
+		GroupID: "unit-data",
+		Args:    cobra.ExactArgs(1),
+	}
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
+	include := cmd.Flags().StringSlice("include", nil, "Fields to include")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		unitID, err := strconv.ParseInt(args[0], 10, 64)
+		if err != nil {
+			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
+		}
+		res, err := client.ListCanPeriodData(cmd.Context(), &mapon.ListCanPeriodDataRequest{
+			UnitID:  unitID,
+			From:    *from,
+			To:      *to,
+			Include: *include,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newGetCanPointDataCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data can-point <unit-id>",
+		Short:   "Get CAN data at a specific time",
+		GroupID: "unit-data",
+		Args:    cobra.ExactArgs(1),
+	}
+	datetime := cmd.Flags().Time("datetime", time.Now(), []string{time.DateOnly, time.RFC3339}, "Datetime")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		unitID, err := strconv.ParseInt(args[0], 10, 64)
+		if err != nil {
+			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
+		}
+		res, err := client.GetCanDataPoint(cmd.Context(), &mapon.GetCanPointDataRequest{
+			UnitID:   unitID,
+			Datetime: *datetime,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newGetHistoryPointDataCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data history-point <unit-id>",
+		Short:   "Get historical data at a specific time",
+		GroupID: "unit-data",
+		Args:    cobra.ExactArgs(1),
+	}
+	datetime := cmd.Flags().Time("datetime", time.Now(), []string{time.DateOnly, time.RFC3339}, "Datetime")
+	include := cmd.Flags().StringSlice("include", nil, "Fields to include")
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		unitID, err := strconv.ParseInt(args[0], 10, 64)
+		if err != nil {
+			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
+		}
+		res, err := client.GetHistoryPointData(cmd.Context(), &mapon.GetHistoryPointDataRequest{
+			UnitID:   unitID,
+			Datetime: *datetime,
+			Include:  *include,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newGetUnitFieldsCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data fields <unit-id>",
+		Short:   "Get unit custom fields",
+		GroupID: "unit-data",
+		Args:    cobra.ExactArgs(1),
+	}
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		unitID, err := strconv.ParseInt(args[0], 10, 64)
+		if err != nil {
+			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
+		}
+		res, err := client.GetUnitFields(cmd.Context(), &mapon.GetUnitFieldsRequest{
+			UnitID: unitID,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newGetUnitDebugInfoCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data debug-info <unit-id ...>",
+		Short:   "Get unit debug info",
+		GroupID: "unit-data",
+		Args:    cobra.MinimumNArgs(1),
+	}
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		var unitIDs []int64
+		for _, idStr := range args {
+			id, err := strconv.ParseInt(idStr, 10, 64)
+			if err != nil {
+				return fmt.Errorf("invalid unit ID %s: %w", idStr, err)
+			}
+			unitIDs = append(unitIDs, id)
+		}
+		res, err := client.GetUnitDebugInfo(cmd.Context(), &mapon.GetUnitDebugInfoRequest{
+			UnitIDs: unitIDs,
+		})
+		if err != nil {
+			return err
+		}
+		for _, u := range res.Units {
+			fmt.Println(protojson.Format(u))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newGetDrivingTimeExtendedCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-data driving-time <unit-id>",
+		Short:   "Get driving time extended",
+		GroupID: "unit-data",
+		Args:    cobra.ExactArgs(1),
+	}
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		unitID, err := strconv.ParseInt(args[0], 10, 64)
+		if err != nil {
+			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
+		}
+		res, err := client.GetDrivingTimeExtended(cmd.Context(), &mapon.GetDrivingTimeExtendedRequest{
+			UnitID: unitID,
+		})
+		if err != nil {
+			return err
+		}
+		for _, d := range res.Drivers {
+			fmt.Println(protojson.Format(d))
+		}
+		return nil
+	}
+	return cmd
+}
+
+// --- Unit Groups ---
+
+func newListUnitGroupsCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-groups list",
+		Short:   "List unit groups",
+		GroupID: "unit-groups",
+	}
+	unitID := cmd.Flags().Int64("unit-id", 0, "Filter by Unit ID")
+
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		res, err := client.ListUnitGroups(cmd.Context(), &mapon.ListUnitGroupsRequest{
+			UnitID: *unitID,
+		})
+		if err != nil {
+			return err
+		}
+		for _, g := range res.Groups {
+			fmt.Println(protojson.Format(g))
+		}
+		return nil
+	}
+	return cmd
+}
+
+func newListUnitsInGroupCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "unit-groups units",
+		Short:   "List units in a group",
+		GroupID: "unit-groups",
+	}
+	groupID := cmd.Flags().Int64("group-id", 0, "Group ID")
+	_ = cmd.MarkFlagRequired("group-id")
+
+	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		client, err := newClient(cmd)
+		if err != nil {
+			return err
+		}
+		res, err := client.ListUnitsInGroup(cmd.Context(), &mapon.ListUnitsInGroupRequest{
+			GroupID: *groupID,
+		})
+		if err != nil {
+			return err
+		}
+		list := &maponv1.UnitIDsList{}
+		list.SetIds(res.UnitIDs)
+		fmt.Println(protojson.Format(list))
+		return nil
+	}
+	return cmd
+}
+
+// --- Other ---
 
 func newListDriversCommand() *cobra.Command {
 	cmd := &cobra.Command{
@@ -149,27 +653,15 @@ func newListRoutesCommand() *cobra.Command {
 		Short:   "List routes",
 		GroupID: "routes",
 	}
-	from := cmd.Flags().String("from", "", "Start time (RFC3339)")
-	till := cmd.Flags().String("till", "", "End time (RFC3339)")
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
 	ids := cmd.Flags().StringSlice("unit-id", nil, "Filter by unit ID")
 	include := cmd.Flags().StringSlice("include", nil, "Include additional data (polyline)")
-
-	_ = cmd.MarkFlagRequired("from")
-	_ = cmd.MarkFlagRequired("till")
 
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		client, err := newClient(cmd)
 		if err != nil {
 			return err
-		}
-
-		fromTime, err := time.Parse(time.RFC3339, *from)
-		if err != nil {
-			return fmt.Errorf("invalid from time: %w", err)
-		}
-		tillTime, err := time.Parse(time.RFC3339, *till)
-		if err != nil {
-			return fmt.Errorf("invalid till time: %w", err)
 		}
 		var unitIDs []int64
 		for _, idStr := range *ids {
@@ -180,8 +672,8 @@ func newListRoutesCommand() *cobra.Command {
 			unitIDs = append(unitIDs, id)
 		}
 		response, err := client.ListRoutes(cmd.Context(), &mapon.ListRoutesRequest{
-			From:    fromTime,
-			Till:    tillTime,
+			From:    *from,
+			To:      *to,
 			UnitIDs: unitIDs,
 			Include: *include,
 		})
@@ -225,26 +717,15 @@ func newListAlertsCommand() *cobra.Command {
 		Short:   "List alerts",
 		GroupID: "alerts",
 	}
-	from := cmd.Flags().String("from", "", "Start time (RFC3339)")
-	till := cmd.Flags().String("till", "", "End time (RFC3339)")
+	from := cmd.Flags().Time("from", time.Now().Add(-time.Hour*24), []string{time.DateOnly, time.RFC3339}, "From time")
+	to := cmd.Flags().Time("to", time.Now(), []string{time.DateOnly, time.RFC3339}, "To time")
 	ids := cmd.Flags().StringSlice("unit-id", nil, "Filter by unit ID")
 	driver := cmd.Flags().Int64("driver-id", 0, "Filter by driver ID")
-
-	_ = cmd.MarkFlagRequired("from")
-	_ = cmd.MarkFlagRequired("till")
 
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		client, err := newClient(cmd)
 		if err != nil {
 			return err
-		}
-		fromTime, err := time.Parse(time.RFC3339, *from)
-		if err != nil {
-			return fmt.Errorf("invalid from time: %w", err)
-		}
-		tillTime, err := time.Parse(time.RFC3339, *till)
-		if err != nil {
-			return fmt.Errorf("invalid till time: %w", err)
 		}
 		var unitIDs []int64
 		for _, idStr := range *ids {
@@ -255,8 +736,8 @@ func newListAlertsCommand() *cobra.Command {
 			unitIDs = append(unitIDs, id)
 		}
 		response, err := client.ListAlerts(cmd.Context(), &mapon.ListAlertsRequest{
-			From:    fromTime,
-			Till:    tillTime,
+			From:    *from,
+			To:      *to,
 			UnitIDs: unitIDs,
 			Driver:  *driver,
 		})
@@ -270,6 +751,8 @@ func newListAlertsCommand() *cobra.Command {
 	}
 	return cmd
 }
+
+// Helpers
 
 func newClient(cmd *cobra.Command) (*mapon.Client, error) {
 	debug, err := cmd.Root().PersistentFlags().GetBool("debug")
