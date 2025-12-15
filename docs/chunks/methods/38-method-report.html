@@ -1,0 +1,163 @@
+<div id="method-report" class="api-method-group"><h1>Report</h1><div id="method-report-Get-report-status" class="api-method"><h2>Get report status</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">report/status.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Check if report is ready for download.<br/>
+                        Possible statuses:
+                        <ul><li>queued - waiting in line to be processed</li><li>processing - building report</li><li>finished - report is available for download</li></ul>
+                    </div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Make process ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;finished&#34;,
+        &#34;process_id&#34;: &#34;1&#34;,
+        &#34;file_name&#34;: &#34;report.xlsx&#34;,
+        &#34;file_url&#34;: &#34;https://mapon.com/api/v1\/file.php?1&#34;
+    }
+}</pre></div></div></div><div id="method-report-Get-Ely-Report" class="api-method"><h2>Get Ely Report</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">report/ely.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get Ely Report data</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">date_from <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Date of period start. Format <code>Y-m-d</code></div></div></div><div class="item"><div class="cols"><div class="name">date_to <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Date of period end. Format <code>Y-m-d</code></div></div></div><div class="item"><div class="cols"><div class="name">time_from </div><div class="format">string</div><div class="description">Time of period start. Format <code>H:i</code>. Optional parameter. By default set to <code>00:00</code></div></div></div><div class="item"><div class="cols"><div class="name">time_till </div><div class="format">string</div><div class="description">Time of period start. Format <code>H:i</code>. Optional parameter. By default set to <code>23:59</code></div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Car <code>id</code> for required period.</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page number.</div></div></div><div class="item"><div class="cols"><div class="name">limit </div><div class="format">int</div><div class="description">Number of items per page. Minimum amount is 10 items.</div></div></div><div class="item"><div class="cols"><div class="name">enabled_columns </div><div class="format">string</div><div class="description">Coma separated list. For example: <code>step,lat,lng</code> <br/>
+                                <code>date</code> - Date. Enabled by default.<br/>
+                                <code>time</code> - Time. Enabled by default.<br/>
+                                <code>step</code> - Step<br/>
+                                <code>lat</code> - Latitude<br/>
+                                <code>lng</code> - Longitude<br/>
+                                <code>temp_left</code> - Temp left (°C)<br/>
+                                <code>temp_mid</code> - Temp mid (°C)<br/>
+                                <code>temp_right</code> - Temp right (°C)<br/>
+                                <code>temp_reserve</code> - Temp reserve (°C)<br/>
+                                <code>screed_width</code> - Screed width (m)<br/>
+                                <code>screed_selector</code> - Screed selector<br/>
+                                <code>screed_left_volt</code> - Screed left (mV)<br/>
+                                <code>screed_right_volt</code> - Screed right (mV)<br/>
+                                <code>ambient_temp</code> - Ambient Temperature (°C)<br/>
+                                <code>ambient_humidity</code> - Ambient Humidity (%)<br/>
+                                <code>screed_left</code> - Screed left (mm)<br/>
+                                <code>screed_right</code> - Screed right (mm)<br/>
+                                </div></div></div><div class="item"><div class="cols"><div class="name">next_cursor </div><div class="format">string</div><div class="description">Date time GMT</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Response consists of <code>columns</code>, <code>rows</code>, <code>nextCursor</code>:<br/>
+                    <code>columns</code> - Selected columns, <br/>
+                    <code>rows</code> - Data according to selected columns, <br/>
+                    <code>nextCursor</code> - Date time of the item in the next page.</div><pre>{
+    &#34;data&#34;: {
+        &#34;columns&#34;: [
+            &#34;date&#34;,
+            &#34;time&#34;,
+            &#34;step&#34;,
+            &#34;lat&#34;,
+            &#34;lng&#34;,
+            &#34;temp_left&#34;,
+            &#34;temp_mid&#34;,
+            &#34;temp_right&#34;,
+            &#34;temp_reserve&#34;,
+            &#34;screed_width&#34;,
+            &#34;screed_selector&#34;,
+            &#34;screed_left_volt&#34;,
+            &#34;screed_right_volt&#34;,
+            &#34;ambient_temp&#34;,
+            &#34;ambient_humidity&#34;,
+            &#34;screed_left&#34;,
+            &#34;screed_right&#34;
+        ],
+        &#34;rows&#34;: [
+            [
+                [
+                    &#34;2022-12-13&#34;
+                ],
+                [
+                    &#34;02:06:50&#34;
+                ],
+                [
+                    &#34;ON&#34;
+                ],
+                [
+                    &#34;28.45721&#34;
+                ],
+                [
+                    &#34;-43.27190&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;2,500&#34;
+                ],
+                [
+                    &#34;2,50 m&#34;
+                ],
+                [
+                    &#34;0&#34;
+                ],
+                [
+                    &#34;0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    0
+                ],
+                [
+                    &#34;0&#34;
+                ],
+                [
+                    &#34;0&#34;
+                ]
+            ],
+            [
+                [
+                    &#34;2022-12-13&#34;
+                ],
+                [
+                    &#34;02:14:50&#34;
+                ],
+                [
+                    &#34;ON&#34;
+                ],
+                [
+                    &#34;41.5373&#34;
+                ],
+                [
+                    &#34;2.237&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    &#34;2,500&#34;
+                ],
+                [
+                    &#34;2,50 m&#34;
+                ],
+                [
+                    &#34;0&#34;
+                ],
+                [
+                    &#34;0&#34;
+                ],
+                [
+                    &#34;0,0&#34;
+                ],
+                [
+                    0
+                ],
+                [
+                    &#34;0&#34;
+                ],
+                [
+                    &#34;0&#34;
+                ]
+            ]
+        ],
+        &#34;nextCursor&#34;: &#34;2022-12-13 01:26:51&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Access denied! - Invalid user</td></tr><tr><td>2</td><td>Missing or invalid <code>date_from</code> parameter!</td></tr><tr><td>3</td><td>Missing or invalid <code>date_to</code> parameter!</td></tr><tr><td>4</td><td>Missing or invalid <code>time_from</code> format!</td></tr><tr><td>5</td><td>Missing or invalid <code>time_till</code> format!</td></tr><tr><td>6</td><td>Invalid <code>next_cursor</code> format!</td></tr><tr><td>7</td><td>Missing <code>unit_id</code> parameter!</td></tr><tr><td>8</td><td>Unit not found!</td></tr><tr><td>9</td><td><code>limit</code> limit exceeded!</td></tr><tr><td>10</td><td>Requested time period must not exceed 31 days!</td></tr></tbody></table></div></div></div></div>

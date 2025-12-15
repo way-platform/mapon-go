@@ -1,0 +1,19 @@
+<div class="group-item"><h1 id="group-errors">Errors</h1><div class="group-item-content ">
+            <p>If request fails, validation is not passed or any other error occurs, the response will contain following data:</p>
+
+            <pre class="code"><code>{
+    &#34;error&#34;: {
+            &#34;code&#34;: 1004,
+            &#34;msg&#34;: &#34;Missing API key&#34;
+    }
+}
+</code></pre>
+
+            <p>Error codes equal and larger than #1000 are API wide (global) errors.</p>
+
+            <p>
+                Error codes starting from #1 to #999 are action specific errors. This means that for example error code #1 for action
+                <code>unit/list</code> can mean something else than for action <code>route/list</code>. Action specific error codes
+                are listed to each corresponding action description.
+            </p>
+        <h4 id="element-title-table">Global error codes</h4><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1000</td><td>Unknown error</td></tr><tr><td>1001</td><td>Server error</td></tr><tr><td>1002</td><td>Invalid request</td></tr><tr><td>1003</td><td>Invalid format</td></tr><tr><td>1004</td><td>Missing API key</td></tr><tr><td>1005</td><td>API key not found</td></tr><tr><td>1006</td><td>Method not available</td></tr><tr><td>1007</td><td>Method is not yet implemented</td></tr><tr><td>1008</td><td>API key does not have any associated units</td></tr><tr><td>1009</td><td>Use SSL for requests</td></tr><tr><td>1010</td><td>Error sending command to device</td></tr><tr><td>1011</td><td>Request limit reached</td></tr><tr><td>1012</td><td>Company suspended</td></tr><tr><td>1013</td><td>Endpoint needs &#34;unlimited&#34; api key access</td></tr><tr><td>1014</td><td>Invalid JSON data payload</td></tr><tr><td>1015</td><td>Endpoint needs a paid add-on feature</td></tr></tbody></table></div></div>

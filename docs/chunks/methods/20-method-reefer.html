@@ -1,0 +1,371 @@
+<div id="method-reefer" class="api-method-group"><h1>Reefer</h1><div id="method-reefer-List-alerts" class="api-method"><h2>List alerts</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/alert_list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns list of alarms</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">Alert id</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int || []</div><div class="description">One or more unit IDs</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;alerts&#34;: [
+            {
+                &#34;alert_id&#34;: 1,
+                &#34;car_id&#34;: 1,
+                &#34;settings&#34;: {
+                    &#34;runmode&#34;: &#34;1&#34;,
+                    &#34;setpoint_temp&#34;: &#34;5&#34;,
+                    &#34;over_setpoint_temp&#34;: &#34;3&#34;,
+                    &#34;under_setpoint_temp&#34;: &#34;3&#34;,
+                    &#34;gmt_from&#34;: &#34;2016-03-31T09:27:00Z&#34;,
+                    &#34;gmt_to&#34;: &#34;2016-04-30T09:27:00Z&#34;,
+                    &#34;user_id&#34;: &#34;1&#34;,
+                    &#34;compartment&#34;: &#34;0&#34;,
+                    &#34;cargo_cooling&#34;: 0,
+                    &#34;cargo_cooling_range&#34;: 0,
+                    &#34;channels&#34;: [
+                        &#34;sms&#34;
+                    ],
+                    &#34;notes&#34;: &#34;&#34;
+                },
+                &#34;last_data_gmt&#34;: &#34;2016-04-11 10:29:10&#34;,
+                &#34;current_flags&#34;: &#34;1&#34;,
+                &#34;current_flags_gmt&#34;: &#34;2016-04-09 16:17:02&#34;,
+                &#34;current_runmode&#34;: &#34;1&#34;,
+                &#34;current_runmode_gmt&#34;: &#34;2016-04-09 16:01:54&#34;,
+                &#34;current_setpoint_temp&#34;: 11.6,
+                &#34;current_setpoint_temp_gmt&#34;: &#34;2016-04-03 17:28:49&#34;,
+                &#34;current_return_temp&#34;: 13.9,
+                &#34;current_return_temp_gmt&#34;: &#34;2016-04-09 16:16:42&#34;,
+                &#34;current_compartment_state&#34;: &#34;off&#34;,
+                &#34;current_compartment_state_gmt&#34;: &#34;2016-04-09 16:17:02&#34;
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-reefer-Alert-set" class="api-method"><h2>Alert set</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/set_alert.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create new alert</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">runmode </div><div class="format">int</div><div class="description">Runmode: (-1, 0, 1)</div></div></div><div class="item"><div class="cols"><div class="name">setpoint </div><div class="format">float</div><div class="description">Setpoint temperature</div></div></div><div class="item"><div class="cols"><div class="name">under_setpoint </div><div class="format">float</div><div class="description">Max under setpoint temperature</div></div></div><div class="item"><div class="cols"><div class="name">over_setpoint </div><div class="format">float</div><div class="description">Max over setpoint temperature</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Active period from</div></div></div><div class="item"><div class="cols"><div class="name">to <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Active period to</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Alert owner user id</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">compartment <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Compartment id</div></div></div><div class="item"><div class="cols"><div class="name">channels <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Alert notification channels (sms, email, a3)</div></div></div><div class="item"><div class="cols"><div class="name">cargo_cooling <span class="required" title="Required">*</span></div><div class="format">bool</div><div class="description">Cargo cooling</div></div></div><div class="item"><div class="cols"><div class="name">cargo_cooling_range <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Cooling range temperature (2-7)</div></div></div><div class="item"><div class="cols"><div class="name">notes <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Cargo notes</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;alertId&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Incorrect &#34;runmode&#34; parameter.</td></tr><tr><td>2</td><td>Incorrect &#34;setpoint&#34; parameter.</td></tr><tr><td>3</td><td>Incorrect &#34;under_setpoint&#34; parameter.</td></tr><tr><td>4</td><td>Incorrect &#34;over_setpoint&#34; parameter.</td></tr><tr><td>5</td><td>Invalid or missing &#34;from&#34; parameter. Time example: 2013-02-13T12:17:21Z.</td></tr><tr><td>6</td><td>Invalid or missing &#34;to&#34; parameter. Time example: 2013-02-13T12:17:21Z.</td></tr><tr><td>7</td><td>Invalid or missing &#34;user_id&#34; parameter.</td></tr><tr><td>8</td><td>Invalid or missing &#34;unit_id&#34; parameter.</td></tr><tr><td>9</td><td>Invalid or missing &#34;compartment&#34; parameter.</td></tr><tr><td>10</td><td>Invalid or missing &#34;channels&#34; parameter.</td></tr><tr><td>11</td><td>Invalid &#34;channels&#34; parameter.</td></tr><tr><td>12</td><td>Invalid cargo cooling range. Range from 2-7 degrees C.</td></tr></tbody></table></div></div></div><div id="method-reefer-Alert-delete" class="api-method"><h2>Alert delete</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/alert_delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete alert</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">alert_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Alert id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>6</td><td>Invalid or missing &#34;alert_id&#34; parameter.</td></tr><tr><td>12</td><td>Cannot find carrier alert with id.</td></tr></tbody></table></div></div></div><div id="method-reefer-Alert-change-user" class="api-method"><h2>Alert change user</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/alert_change_user.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Change alert user</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">alert_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Alert id</div></div></div><div class="item"><div class="cols"><div class="name">old_user <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Old user id</div></div></div><div class="item"><div class="cols"><div class="name">new_user <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">New user id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;alertId&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>6</td><td>Invalid or missing &#34;alert_id&#34; parameter.</td></tr><tr><td>7</td><td>Invalid or missing &#34;old_user&#34; parameter.</td></tr><tr><td>8</td><td>Invalid or missing &#34;new_user&#34; parameter.</td></tr><tr><td>12</td><td>Cannot find carrier alert with defined parameters.</td></tr></tbody></table></div></div></div><div id="method-reefer-Change-setpoint" class="api-method"><h2>Change setpoint</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/change_setpoint.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Change refrigerator setpoint temperature</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">compartment <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Compartment id [0..N]</div></div></div><div class="item"><div class="cols"><div class="name">setpoint <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Setpoint temperature in (°C)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>2</td><td>Incorrect &#34;setpoint&#34; parameter.</td></tr><tr><td>3</td><td>Refrigerator does not support 2way communication</td></tr><tr><td>4</td><td>Cannot find sender for unit with specified parameters</td></tr><tr><td>8</td><td>Invalid or missing &#34;unit_id&#34; parameter.</td></tr><tr><td>9</td><td>Invalid or missing &#34;compartment&#34; parameter.</td></tr></tbody></table></div></div></div><div id="method-reefer-Runmodes-list" class="api-method"><h2>Runmodes list</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/runmodes.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Show current and available runmodes for refrigerator</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int || []</div><div class="description">One or more unit IDs</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;runmodes&#34;: [
+            {
+                &#34;unit_id&#34;: &#34;1&#34;,
+                &#34;current&#34;: {
+                    &#34;id&#34;: 1,
+                    &#34;name&#34;: &#34;Continuous&#34;
+                },
+                &#34;supported&#34;: [
+                    {
+                        &#34;id&#34;: 1,
+                        &#34;name&#34;: &#34;Continuous&#34;
+                    },
+                    {
+                        &#34;id&#34;: 2,
+                        &#34;name&#34;: &#34;Cycle Sentry&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>API key does not have associated unit with specified parameters</td></tr></tbody></table></div></div></div><div id="method-reefer-Change-runmode" class="api-method"><h2>Change runmode</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/change_runmode.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Change refrigerator runmode</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">runmode <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Runmode id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>3</td><td>Refrigerator does not support 2way communication</td></tr><tr><td>4</td><td>Cannot find sender for unit with specified parameters</td></tr><tr><td>5</td><td>Incorrect &#34;runmode&#34; parameter.</td></tr><tr><td>8</td><td>Invalid or missing &#34;unit_id&#34; parameter.</td></tr></tbody></table></div></div></div><div id="method-reefer-List-temperature-data" class="api-method"><h2>List temperature data</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/list_temperature_data.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Return temperature data for period</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period till</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;temperatures&#34;: {
+                    &#34;supply&#34;: {
+                        &#34;compartment_0&#34;: [
+                            {
+                                &#34;temperature&#34;: 8.2,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:26:31&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 7.4,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:27:55&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 6,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:28:12&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: -0.8,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:29:43&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: -7.3,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:33:21&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: -0.8,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:35:50&#34;
+                            }
+                        ]
+                    },
+                    &#34;return&#34;: {
+                        &#34;compartment_0&#34;: [
+                            {
+                                &#34;temperature&#34;: 7.5,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:26:31&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 7.6,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:27:55&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 7.5,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:28:12&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 6.4,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:29:43&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 1.7,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:33:21&#34;
+                            },
+                            {
+                                &#34;temperature&#34;: 1,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:35:50&#34;
+                            }
+                        ]
+                    },
+                    &#34;setpoint&#34;: {
+                        &#34;compartment_0&#34;: [
+                            {
+                                &#34;temperature&#34;: 2,
+                                &#34;gmt&#34;: &#34;2017-03-07 16:28:12&#34;
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>2</td><td>Invalid or missing &#34;unit_id&#34; parameter.</td></tr><tr><td>3</td><td>Invalid or missing &#34;from&#34; parameter. Time example: 2013-02-13T12:17:21Z.</td></tr><tr><td>4</td><td>Invalid or missing &#34;till&#34; parameter. Time example: 2013-02-13T12:17:21Z.</td></tr><tr><td>5</td><td>Invalid period</td></tr><tr><td>6</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-reefer-Historic-point-data" class="api-method"><h2>Historic point data</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/historic_point.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Return the reefer values (either neaerest of previous) at a given point in time</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">datetime <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Historic datetime point for which to retrieve the data. Format: <code>2020-05-26T15:00:00Z</code></div></div></div><div class="item"><div class="cols"><div class="name">select <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Historic value selection mode. Supported values: <code>previous</code>,<code>nearest</code>. <code>previous</code> looks for the last data entry before the specified <code>datetime</code>. <code>nearest</code> looks for the nearest data entry (by time) to the specified <code>datetime</code>. In both cases ONLY values within <b>1 day</b> of the specified <code>datetime</code> are returned.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">If any of the data categories did not have data at the specified <code>datetime</code>, then the corresponding response key will contain an empty array. <br/>If any category is missing a sub-category key e.g. <code>mode</code> does not have a <code>run</code> sub-key, then there was no data for the sub-category at the selected <code>datetime</code>.<br/><code>state</code> and <code>temperature</code> data are further grouped by compartment ID.</div><pre>{
+    &#34;data&#34;: {
+        &#34;refrigerator_type&#34;: &#34;CARRIER&#34;,
+        &#34;refrigerator_compartment_count&#34;: &#34;1&#34;,
+        &#34;refrigerator_communication_type&#34;: &#34;1&#34;,
+        &#34;flags&#34;: {
+            &#34;value&#34;: 7,
+            &#34;gmt&#34;: &#34;2020-05-26T14:16:17Z&#34;
+        },
+        &#34;hours&#34;: {
+            &#34;standby&#34;: {
+                &#34;value&#34;: 17750,
+                &#34;gmt&#34;: &#34;2020-05-26T14:31:55Z&#34;
+            },
+            &#34;diesel&#34;: {
+                &#34;value&#34;: 14236,
+                &#34;gmt&#34;: &#34;2020-05-26T13:27:22Z&#34;
+            },
+            &#34;electric&#34;: {
+                &#34;value&#34;: 435,
+                &#34;gmt&#34;: &#34;2020-05-26T12:02:32Z&#34;
+            }
+        },
+        &#34;mode&#34;: {
+            &#34;run&#34;: {
+                &#34;value&#34;: 1,
+                &#34;gmt&#34;: &#34;2020-05-26T14:16:20Z&#34;
+            },
+            &#34;speed&#34;: {
+                &#34;value&#34;: 1,
+                &#34;gmt&#34;: &#34;2020-05-26T14:21:28Z&#34;
+            },
+            &#34;power&#34;: {
+                &#34;value&#34;: 1,
+                &#34;gmt&#34;: &#34;2020-05-26T14:20:39Z&#34;
+            }
+        },
+        &#34;state&#34;: {
+            &#34;compartment_0&#34;: {
+                &#34;value&#34;: &#34;on&#34;,
+                &#34;gmt&#34;: &#34;2020-05-26T14:16:18Z&#34;
+            }
+        },
+        &#34;temperature&#34;: {
+            &#34;compartment_0&#34;: {
+                &#34;supply&#34;: {
+                    &#34;value&#34;: -18.9,
+                    &#34;gmt&#34;: &#34;2020-05-26T14:59:56Z&#34;
+                },
+                &#34;return&#34;: {
+                    &#34;value&#34;: -11.3,
+                    &#34;gmt&#34;: &#34;2020-05-26T14:59:56Z&#34;
+                },
+                &#34;setpoint&#34;: {
+                    &#34;value&#34;: -22,
+                    &#34;gmt&#34;: &#34;2020-05-26T12:02:32Z&#34;
+                },
+                &#34;cargowatch_ambient&#34;: {
+                    &#34;value&#34;: 30.1,
+                    &#34;gmt&#34;: &#34;2020-05-26T14:59:56Z&#34;
+                },
+                &#34;cargowatch_rear&#34;: {
+                    &#34;value&#34;: 8.6,
+                    &#34;gmt&#34;: &#34;2020-05-26T14:59:56Z&#34;
+                },
+                &#34;cargowatch_return&#34;: {
+                    &#34;value&#34;: 9.5,
+                    &#34;gmt&#34;: &#34;2020-05-26T14:59:56Z&#34;
+                }
+            }
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>2</td><td>Invalid or missing &#34;unit_id&#34; parameter.</td></tr><tr><td>3</td><td>Parameter &#34;datetime&#34; is missing or is not a valid datetime.</td></tr><tr><td>4</td><td>Invalid or missing &#34;select&#34; parameter. Allowed values: previous, nearest</td></tr></tbody></table></div></div></div><div id="method-reefer-Historic-period-data" class="api-method"><h2>Historic period data</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">reefer/historic_period.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get a list of historic reefer data values for a specified period</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Period start datetime. Format: <code>2020-05-26T15:00:00Z</code></div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Period end datetime. Format: <code>2020-05-26T15:00:00Z</code>. Maximum period: 30 days</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">If any of the data categories did not have data at the specified period, then the corresponding response key will contain an empty array. <br/>If any category is missing a sub-category key e.g. <code>mode</code> does not have a <code>run</code> sub-key, then there was no data for the sub-category at the selected period.<br/><code>state</code> and <code>temperature</code> data are further grouped by compartment ID.</div><pre>{
+    &#34;data&#34;: {
+        &#34;refrigerator_type&#34;: &#34;CARRIER&#34;,
+        &#34;refrigerator_compartment_count&#34;: &#34;1&#34;,
+        &#34;refrigerator_communication_type&#34;: &#34;1&#34;,
+        &#34;flags&#34;: [
+            {
+                &#34;value&#34;: 1,
+                &#34;gmt&#34;: &#34;2020-05-27T13:02:16Z&#34;
+            }
+        ],
+        &#34;hours&#34;: {
+            &#34;diesel&#34;: [
+                {
+                    &#34;value&#34;: 14237,
+                    &#34;gmt&#34;: &#34;2020-05-26T15:13:01Z&#34;
+                },
+                {
+                    &#34;value&#34;: 14238,
+                    &#34;gmt&#34;: &#34;2020-05-26T16:13:09Z&#34;
+                },
+                {
+                    &#34;value&#34;: 14239,
+                    &#34;gmt&#34;: &#34;2020-05-26T17:13:07Z&#34;
+                }
+            ],
+            &#34;standby&#34;: [
+                {
+                    &#34;value&#34;: 17751,
+                    &#34;gmt&#34;: &#34;2020-05-26T15:32:02Z&#34;
+                },
+                {
+                    &#34;value&#34;: 17752,
+                    &#34;gmt&#34;: &#34;2020-05-26T16:32:06Z&#34;
+                },
+                {
+                    &#34;value&#34;: 17753,
+                    &#34;gmt&#34;: &#34;2020-05-26T17:32:16Z&#34;
+                }
+            ],
+            &#34;electric&#34;: [
+                {
+                    &#34;value&#34;: 456,
+                    &#34;gmt&#34;: &#34;2020-05-26T15:23:17Z&#34;
+                }
+            ]
+        },
+        &#34;mode&#34;: {
+            &#34;run&#34;: [
+                {
+                    &#34;value&#34;: 0,
+                    &#34;gmt&#34;: &#34;2020-05-26T16:27:01Z&#34;
+                }
+            ],
+            &#34;speed&#34;: [
+                {
+                    &#34;value&#34;: 0,
+                    &#34;gmt&#34;: &#34;2020-05-26T17:18:34Z&#34;
+                },
+                {
+                    &#34;value&#34;: 1,
+                    &#34;gmt&#34;: &#34;2020-05-26T17:18:44Z&#34;
+                }
+            ],
+            &#34;power&#34;: [
+                {
+                    &#34;value&#34;: 1,
+                    &#34;gmt&#34;: &#34;2020-05-26T17:18:34Z&#34;
+                }
+            ]
+        },
+        &#34;state&#34;: {
+            &#34;compartment_0&#34;: [
+                {
+                    &#34;value&#34;: &#34;on&#34;,
+                    &#34;gmt&#34;: &#34;2020-05-27T09:41:16Z&#34;
+                },
+                {
+                    &#34;value&#34;: &#34;off&#34;,
+                    &#34;gmt&#34;: &#34;2020-05-27T13:02:16Z&#34;
+                }
+            ]
+        },
+        &#34;temperature&#34;: {
+            &#34;compartment_0&#34;: {
+                &#34;supply&#34;: [
+                    {
+                        &#34;value&#34;: -13.8,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:35:56Z&#34;
+                    },
+                    {
+                        &#34;value&#34;: -14.5,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:37:56Z&#34;
+                    },
+                    {
+                        &#34;value&#34;: -15.1,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:39:56Z&#34;
+                    }
+                ],
+                &#34;return&#34;: [
+                    {
+                        &#34;value&#34;: -6.7,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:35:56Z&#34;
+                    },
+                    {
+                        &#34;value&#34;: -6.8,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:37:56Z&#34;
+                    }
+                ],
+                &#34;setpoint&#34;: [
+                    {
+                        &#34;value&#34;: -7,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:35:56Z&#34;
+                    }
+                ],
+                &#34;cargowatch_rear&#34;: [
+                    {
+                        &#34;value&#34;: 7.8,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:35:56Z&#34;
+                    }
+                ],
+                &#34;cargowatch_return&#34;: [
+                    {
+                        &#34;value&#34;: 9.4,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:35:56Z&#34;
+                    }
+                ],
+                &#34;cargowatch_ambient&#34;: [
+                    {
+                        &#34;value&#34;: 23.8,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:35:56Z&#34;
+                    },
+                    {
+                        &#34;value&#34;: 25,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:37:56Z&#34;
+                    },
+                    {
+                        &#34;value&#34;: 25.3,
+                        &#34;gmt&#34;: &#34;2020-05-26T14:39:56Z&#34;
+                    }
+                ]
+            }
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>2</td><td>Invalid or missing &#34;unit_id&#34; parameter.</td></tr><tr><td>3</td><td>Parameter &#34;till&#34;|&#34;from&#34; is missing or is not a valid datetime.</td></tr><tr><td>4</td><td>Invalid period. Unable to parse period parameters.</td></tr><tr><td>5</td><td>Invalid period. Period end date must be greater than start date.</td></tr><tr><td>6</td><td>Period too large. Maximum allowed period is 30 days.</td></tr></tbody></table></div></div></div></div>

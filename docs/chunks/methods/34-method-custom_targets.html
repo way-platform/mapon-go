@@ -1,0 +1,58 @@
+<div id="method-custom_targets" class="api-method-group"><h1>Custom_targets</h1><div id="method-custom_targets-List-Custom-Targets" class="api-method"><h2>List Custom Targets</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">custom_targets/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Retrieves a list of custom targets defined for the company. These targets can represent various measurable parameters, thresholds, or goals that can be tracked.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <p>The response contains a <code>data</code> array, which holds a list of custom target objects. Each target object includes the following fields:</p>
+                        <ul>
+                            <li><code>id</code> (int) - The unique identifier for the custom target.</li>
+                            <li><code>label</code> (string) - A human-readable name or description for the custom target.</li>
+                            <li><code>units</code> (string) - The unit of measurement relevant to this target (e.g., &#34;minutes&#34;, &#34;celsius&#34;, &#34;km&#34;, &#34;revolutions_per_minute&#34;).</li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 593,
+            &#34;label&#34;: &#34;Engine Overheat Threshold&#34;,
+            &#34;units&#34;: &#34;celsius&#34;
+        },
+        {
+            &#34;id&#34;: 594,
+            &#34;label&#34;: &#34;Max Idle Time&#34;,
+            &#34;units&#34;: &#34;minutes&#34;
+        },
+        {
+            &#34;id&#34;: 595,
+            &#34;label&#34;: &#34;Service Interval&#34;,
+            &#34;units&#34;: &#34;km&#34;
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1012</td><td>Company not found. The company associated with the API key could not be determined or is not accessible.</td></tr><tr><td>1001</td><td>Failed to retrieve custom targets. This might be due to an issue accessing data for the specified distributor or an internal processing error.</td></tr></tbody></table></div></div></div><div id="method-custom_targets-Get-Custom-Target-Values" class="api-method"><h2>Get Custom Target Values</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">custom_targets/values.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Retrieves historical values for a specified custom target for one or more units (vehicles/assets) within a given date-time range. The period for which data can be requested is limited to 31 days.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int || []</div><div class="description">One or more unit IDs</div></div></div><div class="item"><div class="cols"><div class="name">target_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">The unique integer identifier (sent as a string) of the custom target for which to retrieve values. This parameter is required.</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Start of the date-time range (inclusive). Required. ISO8601 format (e.g., &#39;2025-05-01T00:00:00Z&#39; or &#39;2025-05-01T00:00:00+03:00&#39;).</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">End of the date-time range (inclusive). Required. ISO8601 format. Must be after &#39;from&#39;.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                                    <p>The response is an object containing a single <code>data</code> field. The <code>data</code> field is an object where each key is a string representation of a <code>unit_id</code> for which values were requested.</p>
+                                    <p>Each <code>unit_id</code> key maps to an array of value objects. If a requested unit has no data for the specified target and period, its corresponding array will be empty.</p>
+                                    <p>Each value object in the array contains:</p>
+                                    <ul>
+                                        <li><code>target_id</code> (int) - The identifier of the custom target type these values belong to (this will match the <code>target_id</code> request parameter).</li>
+                                        <li><code>value</code> (string|number|boolean) - The recorded value of the custom target. The actual data type can vary depending on the target&#39;s nature (e.g., &#34;Active&#34;, 123.45, true).</li>
+                                        <li><code>gmt</code> (string) - The UTC timestamp indicating when the value was recorded, in ISO8601 format with a &#34;Z&#34; (Zulu) suffix (e.g., &#34;YYYY-MM-DDTHH:MM:SSZ&#34;).</li>
+                                    </ul>
+                                </div><pre>{
+    &#34;data&#34;: {
+        &#34;533384&#34;: [
+            {
+                &#34;target_id&#34;: 101,
+                &#34;value&#34;: &#34;Active&#34;,
+                &#34;gmt&#34;: &#34;2025-05-14T10:00:00Z&#34;
+            },
+            {
+                &#34;target_id&#34;: 101,
+                &#34;value&#34;: &#34;Inactive&#34;,
+                &#34;gmt&#34;: &#34;2025-05-14T11:09:55Z&#34;
+            }
+        ],
+        &#34;533385&#34;: [
+            {
+                &#34;target_id&#34;: 101,
+                &#34;value&#34;: &#34;Active&#34;,
+                &#34;gmt&#34;: &#34;2025-05-14T09:30:00Z&#34;
+            }
+        ],
+        &#34;533386&#34;: []
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Unit id validation failed.</td></tr><tr><td>2</td><td>Invalid or missing &#34;from&#34; parameter</td></tr><tr><td>3</td><td>Invalid or missing &#34;till&#34; parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr><tr><td>6</td><td>Missing &#34;target_id&#34; parameter.</td></tr><tr><td>7</td><td>Specified &#34;target_id&#34; is invalid, not found, or not accessible for this company.</td></tr><tr><td>1012</td><td>Company suspended or not found.</td></tr></tbody></table></div></div></div></div>

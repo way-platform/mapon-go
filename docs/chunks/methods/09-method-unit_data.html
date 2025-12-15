@@ -1,0 +1,602 @@
+<div id="method-unit_data" class="api-method-group"><h1>Unit_data</h1><div id="method-unit_data-Ignitions" class="api-method"><h2>Ignitions</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/ignitions.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns ignition events</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int || []</div><div class="description">One or more unit IDs</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 8743,
+                &#34;ignitions&#34;: [
+                    {
+                        &#34;on&#34;: &#34;2016-09-08 10:54:47&#34;,
+                        &#34;off&#34;: &#34;2016-09-08 12:52:17&#34;
+                    },
+                    {
+                        &#34;on&#34;: &#34;2016-09-08 13:00:53&#34;,
+                        &#34;off&#34;: &#34;2016-09-08 13:06:22&#34;
+                    },
+                    {
+                        &#34;on&#34;: &#34;2016-09-08 13:17:57&#34;,
+                        &#34;off&#34;: &#34;2016-09-08 13:20:29&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-unit_data-Temperature" class="api-method"><h2>Temperature</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/temperature.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns measured temperature points</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">One unit ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;sensors&#34;: [
+                    {
+                        &#34;no&#34;: 1,
+                        &#34;temperatures&#34;: [
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;value&#34;: 5.2
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:23:17&#34;,
+                                &#34;value&#34;: 5.1
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:26:30&#34;,
+                                &#34;value&#34;: 5
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:28:30&#34;,
+                                &#34;value&#34;: 5.1
+                            }
+                        ]
+                    },
+                    {
+                        &#34;no&#34;: 2,
+                        &#34;temperatures&#34;: [
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:19:17&#34;,
+                                &#34;value&#34;: 2
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;value&#34;: 2.1
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:23:17&#34;,
+                                &#34;value&#34;: 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-unit_data-Digital-inputs" class="api-method"><h2>Digital inputs</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/digital_inputs.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns switches states for selected period. Digital inputs are selected so that the digital inputs activity period is in selected period and digital inputs switched on time is no more than 15 days before selected period start.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">One unit ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;digital_inputs&#34;: [
+                    {
+                        &#34;no&#34;: 1,
+                        &#34;states&#34;: [
+                            {
+                                &#34;on&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;off&#34;: &#34;2017-04-01 12:21:17&#34;
+                            },
+                            {
+                                &#34;on&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;off&#34;: &#34;2017-04-01 12:21:17&#34;
+                            }
+                        ]
+                    },
+                    {
+                        &#34;no&#34;: 2,
+                        &#34;states&#34;: [
+                            {
+                                &#34;on&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;off&#34;: &#34;2017-04-01 12:21:17&#34;
+                            },
+                            {
+                                &#34;on&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;off&#34;: &#34;2017-04-01 12:21:17&#34;
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-unit_data-Digital-inputs-extended" class="api-method"><h2>Digital inputs extended</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/digital_inputs_extended.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns switches states details for selected period. Digital inputs are selected so that the digital inputs activity period is in selected period and digital inputs switched on time is no more than 15 days before selected period start.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">One unit ID</div></div></div><div class="item"><div class="cols"><div class="name">input_id </div><div class="format">int || []</div><div class="description">One or more input id. By default all inputs will be returned</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">[]</div><div class="description">
+                                Add additional parameters to return<br/>
+                                <code>label</code> - Add label<br/>
+                                </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 123456,
+                &#34;digital_inputs&#34;: [
+                    {
+                        &#34;input_id&#34;: 1,
+                        &#34;label&#34;: &#34;Example label&#34;,
+                        &#34;states&#34;: [
+                            {
+                                &#34;gmt_on&#34;: &#34;2020-10-20 08:45:18&#34;,
+                                &#34;lat_on&#34;: 28.45721,
+                                &#34;lng_on&#34;: -43.2719,
+                                &#34;place_on&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                                &#34;gmt_off&#34;: &#34;2020-10-20 08:50:27&#34;,
+                                &#34;lat_off&#34;: 28.45721,
+                                &#34;lng_off&#34;: -43.2719,
+                                &#34;place_off&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                                &#34;distance_on&#34;: 1507,
+                                &#34;driver_id&#34;: 1234
+                            }
+                        ]
+                    },
+                    {
+                        &#34;input_id&#34;: 2,
+                        &#34;states&#34;: [
+                            {
+                                &#34;gmt_on&#34;: &#34;2020-10-19 23:31:27&#34;,
+                                &#34;lat_on&#34;: 28.45721,
+                                &#34;lng_on&#34;: -43.2719,
+                                &#34;place_on&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                                &#34;gmt_off&#34;: &#34;2020-10-20 00:03:45&#34;,
+                                &#34;lat_off&#34;: 28.45721,
+                                &#34;lng_off&#34;: -43.2719,
+                                &#34;place_off&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                                &#34;distance_on&#34;: 23490,
+                                &#34;driver_id&#34;: 1234
+                            },
+                            {
+                                &#34;gmt_on&#34;: &#34;2020-10-20 09:51:46&#34;,
+                                &#34;lat_on&#34;: 28.45721,
+                                &#34;lng_on&#34;: -43.2719,
+                                &#34;place_on&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                                &#34;gmt_off&#34;: null,
+                                &#34;lat_off&#34;: 0,
+                                &#34;lng_off&#34;: 0,
+                                &#34;place_off&#34;: &#34;&#34;,
+                                &#34;distance_on&#34;: 0,
+                                &#34;driver_id&#34;: 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or unknown <code>input_id</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>4</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>5</td><td>Invalid period</td></tr><tr><td>6</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-unit_data-Ibutton-authorization-history" class="api-method"><h2>Ibutton authorization history</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/ibuttons.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns ibuttons for selected period</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">One unit ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 123456,
+                &#34;ibuttons&#34;: [
+                    {
+                        &#34;gmt&#34;: &#34;2019-11-20 20:05:54&#34;,
+                        &#34;value&#34;: &#34;000000000000&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2019-11-20 20:12:38&#34;,
+                        &#34;value&#34;: &#34;000001238D0B&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-unit_data-CAN-data-(for-period)" class="api-method"><h2>CAN data (for period)</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/can_period.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns CAN data for a given period</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Single unit ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">[]</div><div class="description">
+                                Return only specific data. If empty, all CAN data will be included.
+                                Available CAN data:<br/>
+                                <code>rpm_average</code> - Average RPM<br/>
+                                <code>rpm_max</code> - Maximum RPM<br/>
+                                <code>fuel_level</code> - Fuel level (%)<br/>
+                                <code>service_distance</code> - Service distance (km)<br/>
+                                <code>total_distance</code> - Total driven distance (km)<br/>
+                                <code>total_fuel</code> - Total used fuel (l)<br/>
+                                <code>total_engine_hours</code> - Total engine hours (h)<br/>
+                                <code>ambient_temperature</code> - Ambient temperature (°C)<br/>
+                                <code>weight_on_axis</code> - Weight on axis (kg)<br/>
+                                <code>weight_on_chassis_total</code> - Weight on chassis total (kg)<br/>
+                                <code>weight_on_chassis_powered</code> - Weight on chassis powered (kg)<br/>
+                                <code>trailer_axle_load</code> - Trailer axle load (kg)<br/>
+                                <code>external_weight</code> - External weight<br/>
+                                <code>ev_values</code> - EV Values: Charger connected (ev_charger_connected), Charging status (ev_charging), Battery % (can_ev_battery_rel), Battery kWh (can_ev_battery_abs)
+                                </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <i>Please note that if unit&#39;s fuel consumption measurement is <code>kg/100km</code>, then <code>total_fuel</code> values are represented in KG, not in L</i>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;total_fuel&#34;: [
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:22:14&#34;,
+                        &#34;value&#34;: &#34;130410&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:30:14&#34;,
+                        &#34;value&#34;: &#34;130414&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:38:14&#34;,
+                        &#34;value&#34;: &#34;130417&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:46:14&#34;,
+                        &#34;value&#34;: &#34;130420&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:53:05&#34;,
+                        &#34;value&#34;: &#34;130424&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:55:05&#34;,
+                        &#34;value&#34;: &#34;130424&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:57:05&#34;,
+                        &#34;value&#34;: &#34;130425&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 12:59:05&#34;,
+                        &#34;value&#34;: &#34;130426&#34;
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2016-09-13 13:01:05&#34;,
+                        &#34;value&#34;: &#34;130426&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div><div id="method-unit_data-CAN-data-(single-point)" class="api-method"><h2>CAN data (single point)</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/can_point.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns CAN data in specific datetime</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Single unit ID</div></div></div><div class="item"><div class="cols"><div class="name">datetime <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Datetime</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">[]</div><div class="description">
+                                Return only specific data. If empty, all CAN data will be included.
+                                Available CAN data:<br/>
+                                <code>rpm_average</code> - Average RPM<br/>
+                                <code>rpm_max</code> - Maximum RPM<br/>
+                                <code>fuel_level</code> - Fuel level (%)<br/>
+                                <code>service_distance</code> - Service distance (km)<br/>
+                                <code>total_distance</code> - Total driven distance (km)<br/>
+                                <code>total_fuel</code> - Total used fuel (l)<br/>
+                                <code>total_engine_hours</code> - Total engine hours (h)<br/>
+                                <code>ambient_temperature</code> - Ambient temperature (°C)<br/>
+                                <code>weight_on_axis</code> - Weight on axis (kg)<br/>
+                                <code>trailer_axle_load</code> - Trailer axle load (kg)<br/>
+                                <code>external_weight</code> - External weight<br/>
+                                <code>ev_values</code> - EV Values: Charger connected (ev_charger_connected), Charging status (ev_charging), Battery % (can_ev_battery_rel), Battery kWh (can_ev_battery_abs)
+                                </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <i>Please note that if unit&#39;s fuel consumption measurement is <code>kg/100km</code>, then <code>total_fuel</code> values are represented in KG, not in L</i>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;rpm_average&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:53:00&#34;,
+                    &#34;value&#34;: &#34;0&#34;
+                },
+                &#34;rpm_max&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:53:00&#34;,
+                    &#34;value&#34;: &#34;0&#34;
+                },
+                &#34;fuel_level&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:45:08&#34;,
+                    &#34;value&#34;: &#34;12.4&#34;
+                },
+                &#34;total_distance&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:45:00&#34;,
+                    &#34;value&#34;: &#34;265357&#34;
+                },
+                &#34;total_fuel&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:45:00&#34;,
+                    &#34;value&#34;: &#34;69381.5&#34;
+                },
+                &#34;total_engine_hours&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:53:00&#34;,
+                    &#34;value&#34;: &#34;3836.85&#34;
+                },
+                &#34;weight_on_axis&#34;: [
+                    {
+                        &#34;gmt&#34;: &#34;2015-09-10 11:53:00&#34;,
+                        &#34;value&#34;: 4638,
+                        &#34;axis&#34;: 2,
+                        &#34;wheel&#34;: 3
+                    },
+                    {
+                        &#34;gmt&#34;: &#34;2015-09-10 11:53:01&#34;,
+                        &#34;value&#34;: 4908,
+                        &#34;axis&#34;: 3,
+                        &#34;wheel&#34;: 1
+                    }
+                ],
+                &#34;trailer_axle_load&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:53:00&#34;,
+                    &#34;value&#34;: 2112
+                },
+                &#34;ambient_temperature&#34;: {
+                    &#34;gmt&#34;: &#34;2015-09-10 11:53:00&#34;,
+                    &#34;value&#34;: &#34;4.4&#34;
+                }
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>datetime</code> parameter</td></tr></tbody></table></div></div></div><div id="method-unit_data-Historical-data-(single-point)" class="api-method"><h2>Historical data (single point)</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/history_point.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns historical vehicle data at specific datetime</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Single unit ID</div></div></div><div class="item"><div class="cols"><div class="name">datetime <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">
+                                Datetime. Supported format is:<br/>
+                                <code>YYYY-MM-DDTHH:II:SSZ</code><br/>
+                                Example:<br/>
+                                <code>2019-04-08T12:00:00Z</code>
+                            </div></div></div><div class="item"><div class="cols"><div class="name">include <span class="required" title="Required">*</span></div><div class="format">[]</div><div class="description">
+                                Return only specific data. Must include at least one value.
+                                Available data:<br/>
+                                <code>can_total_distance</code> - Total driven distance(km) at datetime from CAN<br/>
+                                <code>mileage</code> - Total driven distance (km) at datetime from GPS<br/>
+                                <code>position</code> - Latest reported GPS coordinate at datetime<br/>
+                                </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 125035,
+                &#34;can_total_distance&#34;: {
+                    &#34;gmt&#34;: &#34;2019-04-15 06:05:19&#34;,
+                    &#34;value&#34;: 92337
+                },
+                &#34;position&#34;: {
+                    &#34;gmt&#34;: &#34;2019-04-17 11:56:28&#34;,
+                    &#34;value&#34;: {
+                        &#34;lat&#34;: 28.45721,
+                        &#34;lng&#34;: -43.2719
+                    }
+                },
+                &#34;mileage&#34;: {
+                    &#34;gmt&#34;: &#34;2019-04-17 12:00:00&#34;,
+                    &#34;value&#34;: 92335.52
+                }
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-unit_data-Fields" class="api-method"><h2>Fields</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Return additional data about unit</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Single unit ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;fields&#34;: {
+                    &#34;field1&#34;: &#34;example&#34;,
+                    &#34;field2&#34;: 4
+                }
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-unit_data-Debug-info" class="api-method"><h2>Debug info</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/debug_info.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Return various information about unit to help debug problems</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int || []</div><div class="description">One or more unit IDs</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 11340,
+                &#34;last_location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;gmt&#34;: &#34;2015-05-25 12:41:15&#34;
+                },
+                &#34;fw_version&#34;: &#34;1.2.3&#34;,
+                &#34;tachograph&#34;: {
+                    &#34;last_test&#34;: null,
+                    &#34;last_id&#34;: &#34;2014-11-20 06:40:12&#34;,
+                    &#34;last_status&#34;: &#34;2015-05-24 02:26:36&#34;,
+                    &#34;last_vehicle_download&#34;: null,
+                    &#34;last_driver_download&#34;: null
+                },
+                &#34;can&#34;: {
+                    &#34;total_distance&#34;: {
+                        &#34;value&#34;: &#34;462416.21&#34;,
+                        &#34;gmt&#34;: &#34;2015-12-30 09:01:22&#34;
+                    }
+                },
+                &#34;gpsstatus&#34;: {
+                    &#34;value&#34;: &#34;on&#34;,
+                    &#34;gmt&#34;: &#34;2015-05-23 12:51:30&#34;
+                }
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-unit_data-Driving-time-(deprecated)" class="api-method"><h2>Driving time (deprecated)</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/drivingtime.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Please use driving_time_extended instead. Return drivers information about driving time</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Single unit ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;driver1&#34;: {
+            &#34;current_state&#34;: &#34;DRIVING&#34;,
+            &#34;source&#34;: &#34;can&#34;,
+            &#34;driver_id&#34;: 39585,
+            &#34;driver_name&#34;: &#34;Test driver&#34;,
+            &#34;driving_now&#34;: 4550,
+            &#34;until_rest&#34;: 11650,
+            &#34;today&#34;: {
+                &#34;current&#34;: 9430,
+                &#34;remaining&#34;: 26570
+            },
+            &#34;week&#34;: {
+                &#34;current&#34;: 56554,
+                &#34;remaining&#34;: 145046,
+                &#34;10h_driving_extensions&#34;: 0,
+                &#34;10h_driving_extensions_max&#34;: 2,
+                &#34;9h_rest_shortening&#34;: 2,
+                &#34;9h_rest_shortening_max&#34;: 3,
+                &#34;previous&#34;: 90917,
+                &#34;next&#34;: 201600
+            },
+            &#34;next_daily_rest&#34;: 37980,
+            &#34;next_daily_rest_remaining&#34;: 54000,
+            &#34;next_weekly_rest&#34;: 1526022578,
+            &#34;next_weekly_rest_remaining&#34;: 166116
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;unit_id&#34; parameter</td></tr><tr><td>1000</td><td>Prediction disabled</td></tr><tr><td>1001</td><td>Waiting for data update to calculate proper driving times</td></tr><tr><td>1015</td><td>Endpoint needs Tachograph remote download subscription</td></tr></tbody></table></div></div></div><div id="method-unit_data-Driving-time-extended" class="api-method"><h2>Driving time extended</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/driving_time_extended.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Return drivers information about driving time</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Single unit ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;driver1&#34;: {
+            &#34;current_state&#34;: &#34;DRIVING&#34;,
+            &#34;now&#34;: {
+                &#34;driving&#34;: 1933,
+                &#34;driving_remaining&#34;: 14267,
+                &#34;driving_available&#34;: 16200,
+                &#34;rest&#34;: 0
+            },
+            &#34;today&#34;: {
+                &#34;driving&#34;: 20048,
+                &#34;driving_remaining&#34;: 15952,
+                &#34;driving_available&#34;: 36000,
+                &#34;shift&#34;: 32635,
+                &#34;shift_start&#34;: 1588039020,
+                &#34;shift_remaining&#34;: 21365,
+                &#34;shift_available&#34;: 54000,
+                &#34;daily_rest_start&#34;: 1588093020,
+                &#34;daily_rest_min&#34;: 32400
+            },
+            &#34;week&#34;: {
+                &#34;driving&#34;: 55448,
+                &#34;driving_remaining&#34;: 136492,
+                &#34;driving_available&#34;: 191940,
+                &#34;10h_driving_extensions_used&#34;: 1,
+                &#34;10h_driving_extensions_remaining&#34;: 1,
+                &#34;10h_driving_extensions_available&#34;: 2,
+                &#34;9h_rest_shortening_used&#34;: 0,
+                &#34;9h_rest_shortening_remaining&#34;: 3,
+                &#34;9h_rest_shortening_available&#34;: 3,
+                &#34;weekly_rest_remaining&#34;: 399005,
+                &#34;weekly_rest_start&#34;: 1588470660,
+                &#34;weekly_rest_min&#34;: 86400,
+                &#34;previous_week_driving&#34;: 132060,
+                &#34;next_fixed_week_driving_remaining&#34;: 201600,
+                &#34;45_hour_rest&#34;: false,
+                &#34;previous_week_45_hour_rest&#34;: true
+            },
+            &#34;next_shift_start&#34;: 1588125420,
+            &#34;next_shift_remaining&#34;: 53765,
+            &#34;next_rest_min&#34;: 32400,
+            &#34;driver_id&#34;: 1,
+            &#34;driver_card_id&#34;: &#34;EN10000012345000&#34;,
+            &#34;driver_card_id_static&#34;: &#34;EN100000123450&#34;,
+            &#34;driver_name&#34;: &#34;John&#34;,
+            &#34;driver_surname&#34;: &#34;Smith&#34;
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;unit_id&#34; parameter</td></tr><tr><td>2</td><td>Prediction disabled</td></tr><tr><td>3</td><td>Waiting for data update to calculate proper driving times</td></tr><tr><td>4</td><td>Drive time intervals cannot be processed</td></tr><tr><td>1015</td><td>Endpoint needs Tachograph remote download subscription</td></tr></tbody></table></div></div></div><div id="method-unit_data-Nexogen-driving-time" class="api-method"><h2>Nexogen driving time</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/nexogen.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Return drivers driving time information for nexogen integration</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int</div><div class="description">Single unit ID, will return all units if unit ID not provided</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;12345&#34;: {
+            &#34;driver1&#34;: {
+                &#34;type&#34;: &#34;ExtendedEC561&#34;,
+                &#34;dataUpdatedAt&#34;: &#34;2020-05-12T06:49:30Z&#34;,
+                &#34;driverId&#34;: 1,
+                &#34;driverCardId&#34;: &#34;0000000001234001&#34;,
+                &#34;driverCardIdStatic&#34;: &#34;00000000012340&#34;,
+                &#34;startOfOperationalDay&#34;: &#34;2020-05-12T06:43:25Z&#34;,
+                &#34;startOfOperationalWeek&#34;: &#34;2020-05-12T06:43:25Z&#34;,
+                &#34;lastRegularWeeklyRestSettlementWeek&#34;: &#34;ThisWeek&#34;,
+                &#34;lastEvent&#34;: {
+                    &#34;activity&#34;: &#34;Drive&#34;,
+                    &#34;startedAt&#34;: &#34;2020-05-12T06:43:25Z&#34;
+                },
+                &#34;totals&#34;: {
+                    &#34;drive&#34;: {
+                        &#34;continuous&#34;: &#34;0:07&#34;,
+                        &#34;daily&#34;: &#34;0:07&#34;,
+                        &#34;weekly&#34;: &#34;0:07&#34;,
+                        &#34;fortnightly&#34;: &#34;0:07&#34;
+                    },
+                    &#34;duty&#34;: {
+                        &#34;continuous&#34;: &#34;0:07&#34;,
+                        &#34;daily&#34;: &#34;0:07&#34;
+                    },
+                    &#34;restCompensation&#34;: {
+                        &#34;weekly&#34;: &#34;0:00&#34;,
+                        &#34;total&#34;: &#34;0:00&#34;
+                    },
+                    &#34;extendedDrives&#34;: 0,
+                    &#34;reducedDayRests&#34;: 0,
+                    &#34;splitDayRests&#34;: 0
+                },
+                &#34;lastDownload&#34;: &#34;2020-05-01T17:55:49Z&#34;
+            }
+        },
+        &#34;12346&#34;: {
+            &#34;error&#34;: &#34;Waiting for data update to calculate proper driving times&#34;
+        },
+        &#34;12347&#34;: {
+            &#34;driver1&#34;: {
+                &#34;type&#34;: &#34;ExtendedEC561&#34;,
+                &#34;dataUpdatedAt&#34;: &#34;2020-05-12T06:49:30Z&#34;,
+                &#34;driverId&#34;: 2,
+                &#34;driverCardId&#34;: &#34;RUD0000012345100&#34;,
+                &#34;driverCardIdStatic&#34;: &#34;RUD00000123451&#34;,
+                &#34;startOfOperationalDay&#34;: &#34;2020-05-11T06:04:00Z&#34;,
+                &#34;startOfOperationalWeek&#34;: &#34;2020-05-11T06:04:00Z&#34;,
+                &#34;lastRegularWeeklyRestSettlementWeek&#34;: &#34;PreviousWeek&#34;,
+                &#34;lastEvent&#34;: {
+                    &#34;activity&#34;: &#34;Rest&#34;,
+                    &#34;startedAt&#34;: &#34;2020-05-11T14:58:47Z&#34;
+                },
+                &#34;totals&#34;: {
+                    &#34;drive&#34;: {
+                        &#34;continuous&#34;: &#34;0:00&#34;,
+                        &#34;daily&#34;: &#34;6:10&#34;,
+                        &#34;weekly&#34;: &#34;6:10&#34;,
+                        &#34;fortnightly&#34;: &#34;1.0:48&#34;
+                    },
+                    &#34;duty&#34;: {
+                        &#34;continuous&#34;: &#34;0:00&#34;,
+                        &#34;daily&#34;: &#34;6:17&#34;
+                    },
+                    &#34;restCompensation&#34;: {
+                        &#34;weekly&#34;: &#34;0:00&#34;,
+                        &#34;total&#34;: &#34;21:00&#34;
+                    },
+                    &#34;extendedDrives&#34;: 0,
+                    &#34;reducedDayRests&#34;: 0,
+                    &#34;splitDayRests&#34;: 0
+                },
+                &#34;lastDownload&#34;: &#34;2020-05-11T11:10:29Z&#34;
+            }
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Prediction disabled</td></tr><tr><td>3</td><td>Waiting for data update to calculate proper driving times</td></tr><tr><td>4</td><td>Drive time intervals cannot be processed</td></tr><tr><td>5</td><td>Getting all cars data disabled for current api key</td></tr><tr><td>6</td><td>No assigned drivers</td></tr><tr><td>1015</td><td>Endpoint needs Tachograph remote download subscription</td></tr></tbody></table></div></div></div><div id="method-unit_data-Humidity" class="api-method"><h2>Humidity</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_data/humidity.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns humidity levels in tanks</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">One unit ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Time to</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;sensors&#34;: [
+                    {
+                        &#34;no&#34;: 1,
+                        &#34;humidities&#34;: [
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;value&#34;: 23
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:23:17&#34;,
+                                &#34;value&#34;: 33.4
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:26:30&#34;,
+                                &#34;value&#34;: 5
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:28:30&#34;,
+                                &#34;value&#34;: 65.9
+                            }
+                        ]
+                    },
+                    {
+                        &#34;no&#34;: 2,
+                        &#34;humidities&#34;: [
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:19:17&#34;,
+                                &#34;value&#34;: 23.3
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:21:17&#34;,
+                                &#34;value&#34;: 4.8
+                            },
+                            {
+                                &#34;gmt&#34;: &#34;2017-04-01 12:23:17&#34;,
+                                &#34;value&#34;: 21.8
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div></div>

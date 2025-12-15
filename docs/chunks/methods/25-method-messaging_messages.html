@@ -1,0 +1,71 @@
+<div id="method-messaging_messages" class="api-method-group"><h1>Messaging_messages</h1><div id="method-messaging_messages-Send" class="api-method"><h2>Send</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">messaging_messages/send.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Send message to existing conversation</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Sender user id</div></div></div><div class="item"><div class="cols"><div class="name">conversation_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Conversation id</div></div></div><div class="item"><div class="cols"><div class="name">text </div><div class="format">string</div><div class="description">Required without <code>message_gps</code>, <code>message_attachments</code></div></div></div><div class="item"><div class="cols"><div class="name">gps </div><div class="format">array</div><div class="description">Location. Required without <code>message_text</code>, <code>message_attachments</code></div></div></div><div class="sub"><div class="item"><div class="cols"><div class="name">lat <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Latitude</div></div></div><div class="item"><div class="cols"><div class="name">lng <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Longitude</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Point address</div></div></div></div><div class="item"><div class="cols"><div class="name">attachments </div><div class="format">array (multipart/form-data)</div><div class="description">Message attachments. Multi file upload. Required without <code>message_text</code>, <code>message_gps</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">- Nullable vars: <code>text</code>,
+                            <code>gps</code>,
+                            <code>attachments</code><br/>
+                        - <code>status</code> possible values: sent,delivered,read,unread<br/>
+                        - <code>attachments.size</code> size in bytes
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;status&#34;: &#34;read&#34;,
+            &#34;created_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+            &#34;text&#34;: &#34;Lorem ipsum&#34;,
+            &#34;gps&#34;: {
+                &#34;lat&#34;: 28.45721,
+                &#34;lng&#34;: -43.2719,
+                &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+            },
+            &#34;attachments&#34;: [
+                {
+                    &#34;id&#34;: 1,
+                    &#34;name&#34;: &#34;sample.jpg&#34;,
+                    &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                    &#34;url&#34;: &#34;https:\/\/url-to-image.example?23424324323423&#34;,
+                    &#34;thumb_url&#34;: &#34;https:\/\/url-to-image-thumb.example?23424324323423&#34;,
+                    &#34;size&#34;: 234324
+                }
+            ],
+            &#34;sender&#34;: {
+                &#34;id&#34;: 1,
+                &#34;unit_id&#34;: null,
+                &#34;user_id&#34;: 1,
+                &#34;title&#34;: &#34;John Smith&#34;
+            }
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid parameter</td></tr><tr><td>2</td><td>user_id required</td></tr><tr><td>3</td><td>Invalid user</td></tr><tr><td>4</td><td>Invalid conversation</td></tr><tr><td>5</td><td>No sms feature</td></tr><tr><td>6</td><td>Empty message</td></tr></tbody></table></div></div></div><div id="method-messaging_messages-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">messaging_messages/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List conversation messages</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">User id. Returns user messages</div></div></div><div class="item"><div class="cols"><div class="name">conversation_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Conversation id. Returns conversation messages</div></div></div><div class="item"><div class="cols"><div class="name">cursor </div><div class="format">int</div><div class="description">Message id from which return data</div></div></div><div class="item"><div class="cols"><div class="name">cursor_direction </div><div class="format">string</div><div class="description">Allowed values: <code>prev</code>,<code>next</code>. If direction prev return messages with id less then given cursor, otherwise greater. Default value: <code>prev</code></div></div></div><div class="item"><div class="cols"><div class="name">limit </div><div class="format">int</div><div class="description">Min <code>1</code> Max <code>100</code> Default: <code>20</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">- Nullable vars: <code>text</code>,
+                            <code>gps</code>,
+                            <code>attachments</code><br/>
+                        - <code>status</code> possible values: sent,delivered,read,unread<br/>
+                        - <code>attachments.size</code> size in bytes
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;status&#34;: &#34;read&#34;,
+            &#34;created_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+            &#34;text&#34;: &#34;Lorem ipsum&#34;,
+            &#34;gps&#34;: {
+                &#34;lat&#34;: 28.45721,
+                &#34;lng&#34;: -43.2719,
+                &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+            },
+            &#34;attachments&#34;: [
+                {
+                    &#34;id&#34;: 1,
+                    &#34;name&#34;: &#34;sample.jpg&#34;,
+                    &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                    &#34;url&#34;: &#34;https:\/\/url-to-image.example?23424324323423&#34;,
+                    &#34;thumb_url&#34;: &#34;https:\/\/url-to-image-thumb.example?23424324323423&#34;,
+                    &#34;size&#34;: 234324
+                }
+            ],
+            &#34;sender&#34;: {
+                &#34;id&#34;: 1,
+                &#34;unit_id&#34;: null,
+                &#34;user_id&#34;: 1,
+                &#34;title&#34;: &#34;John Smith&#34;
+            }
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid parameter</td></tr><tr><td>2</td><td>user_id required</td></tr><tr><td>3</td><td>Invalid user</td></tr><tr><td>4</td><td>Invalid conversation</td></tr></tbody></table></div></div></div></div>

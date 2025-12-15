@@ -1,0 +1,269 @@
+<div id="method-routeplanning_places" class="api-method-group"><h1>Routeplanning_places</h1><div id="method-routeplanning_places-Get-place" class="api-method"><h2>Get place</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_places/get.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get place by id</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Place id</div></div></div><div class="item"><div class="cols"><div class="name">includes </div><div class="format">string</div><div class="description">Comma separated includes. Allowed includes: <code>polyline_to</code>;<code>files</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>int</code> id</li>
+                            <li><code>int</code> order_id</li>
+                            <li><code>int|null</code> route_id</li>
+                            <li><code>int|null</code> client_id</li>
+                            <li><code>int</code> sort_no</li>
+                            <li><code>string</code> address</li>
+                            <li><code>float</code> address_lat</li>
+                            <li><code>float</code> address_lng</li>
+                            <li><code>string</code> address_timezone</li>
+                            <li><code>int</code> geofence radius (meters)</li>
+                            <li><code>string</code> type Values:<code>visit</code>;<code>pickup</code><code>delivery</code></li>
+                            <li><code>string</code> status Value:<code>not_started</code>;<code>started</code>;<code>loading</code>;<code>completed</code>;<code>declined</code></li>
+                            <li><code>string|null</code> status_changed_at</li>
+                            <li><code>string|null</code> phone</li>
+                            <li><code>string|null</code> email</li>
+                            <li><code>string|null</code> cargo_type Values:<code>frozen</code></li>
+                            <li>
+                                <code>object</code> delivery_dates
+                                <ul>
+                                    <li><code>string|null</code> from</li>
+                                    <li><code>string|null</code> to</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <code>object</code> delivery_times
+                                <ul>
+                                    <li><code>string</code> from 24hour time</li>
+                                    <li><code>string</code> to 24hour time</li>
+                                </ul>
+                            </li>
+                            <li><code>bool</code> delivery_interval</li>
+                            <li><code>int|null</code> optimal_temperature_from</li>
+                            <li><code>int|null</code> optimal_temperature_to</li>
+                            <li><code>int</code> capacity_weight (kg)</li>
+                            <li><code>int</code> capacity (volume,pallets,loading meters,others units)</li>
+                            <li><code>int</code> stop_off_time (minutes)</li>
+                            <li><code>string</code> notes</li>
+                            <li><code>string|null</code> finished_at</li>
+                            <li><code>int</code> distance_to (meters)</li>
+                            <li><code>int</code> duration_to (seconds)</li>
+                            <li><code>string|null</code> planned_arrival_time</li>
+                            <li><code>string|null</code> arrival_time</li>
+                            <li><code>int|null</code> distance_left (meters)</li>
+                            <li><code>string</code> polyline_to</li>
+                            <li>
+                                <code>array</code> files
+                                <ul>
+                                    <li><code>int</code> id</li>
+                                    <li><code>string</code> name</li>
+                                    <li><code>string</code> url</li>
+                                    <li><code>string|null</code> thumb_url</li>
+                                    <li><code>string</code> mime</li>
+                                    <li><code>int</code> size (bytes)</li>
+                                    <li><code>int|null</code> width</li>
+                                    <li><code>int|null</code> height</li>
+                                    <li><code>string|null</code> orientation Value:<code>landscape</code>;<code>portrait</code></li>
+                                    <li><code>int|null</code> thumb_width</li>
+                                    <li><code>int|null</code> thumb_height</li>
+                                    <li><code>string|null</code> thumb_orientation Value:<code>landscape</code>;<code>portrait</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;id&#34;: 1,
+        &#34;order_id&#34;: 1,
+        &#34;route_id&#34;: 1,
+        &#34;client_id&#34;: 1,
+        &#34;sort_no&#34;: 0,
+        &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+        &#34;address_lat&#34;: 28.45721,
+        &#34;address_lng&#34;: -43.2719,
+        &#34;address_timezone&#34;: &#34;UTC&#34;,
+        &#34;geofence&#34;: 300,
+        &#34;type&#34;: &#34;visit&#34;,
+        &#34;status&#34;: &#34;not_started&#34;,
+        &#34;status_changed_at&#34;: &#34;1970-01-01 00:00:01&#34;,
+        &#34;phone&#34;: &#34;1234567890&#34;,
+        &#34;email&#34;: &#34;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9affe2fbf7eaf6ffdaffe2fbf7eaf6ffb4f4ffee">[email protected]</a>&#34;,
+        &#34;cargo_type&#34;: null,
+        &#34;delivery_dates&#34;: {
+            &#34;from&#34;: &#34;2021-08-20&#34;,
+            &#34;to&#34;: &#34;2021-08-25&#34;
+        },
+        &#34;delivery_times&#34;: {
+            &#34;from&#34;: &#34;09:00&#34;,
+            &#34;to&#34;: &#34;18:00&#34;
+        },
+        &#34;delivery_interval&#34;: true,
+        &#34;optimal_temperature_from&#34;: -6,
+        &#34;optimal_temperature_to&#34;: 6,
+        &#34;capacity_weight&#34;: 1234,
+        &#34;capacity&#34;: 22,
+        &#34;stop_off_time&#34;: 30,
+        &#34;notes&#34;: &#34;some notes&#34;,
+        &#34;finished_at&#34;: &#34;1970-01-01 00:00:03&#34;,
+        &#34;distance_to&#34;: 2144,
+        &#34;duration_to&#34;: 45352,
+        &#34;planned_arrival_time&#34;: &#34;1970-01-01 00:00:02&#34;,
+        &#34;arrival_time&#34;: &#34;1970-01-01 00:00:02&#34;,
+        &#34;distance_left&#34;: 0,
+        &#34;polyline_to&#34;: &#34;SDFHGS@#FIYD&#34;,
+        &#34;files&#34;: [
+            {
+                &#34;id&#34;: 1,
+                &#34;name&#34;: &#34;sample.jpeg&#34;,
+                &#34;url&#34;: &#34;http:\/\/example.com\/files.php\/?32432432&#34;,
+                &#34;thumb_url&#34;: &#34;http:\/\/example.com\/files.php\/?32432432&amp;thumb=true&#34;,
+                &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                &#34;size&#34;: 32434,
+                &#34;width&#34;: 1000,
+                &#34;height&#34;: 800,
+                &#34;orientation&#34;: &#34;landscape&#34;,
+                &#34;thumb_width&#34;: 150,
+                &#34;thumb_height&#34;: 100,
+                &#34;thumb_orientation&#34;: &#34;landscape&#34;
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>missing <code>id</code> parameter</td></tr><tr><td>2</td><td>invalid <code>id</code> parameter</td></tr><tr><td>3</td><td>invalid <code>includes</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_places-List-places" class="api-method"><h2>List places</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_places/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List company places</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">route_ids <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Route ids. Comma separated route ids</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Starts with: <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Min: <code>1</code>; Max: <code>250</code>; Default: <code>150</code></div></div></div><div class="item"><div class="cols"><div class="name">includes </div><div class="format">string</div><div class="description">Comma separated includes. Allowed includes: <code>polyline_to</code>;<code>files</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>array</code> data
+                        <ul>
+                            <li><code>int</code> id</li>
+                            <li><code>int</code> order_id</li>
+                            <li><code>int|null</code> route_id</li>
+                            <li><code>int|null</code> client_id</li>
+                            <li><code>int</code> sort_no</li>
+                            <li><code>string</code> address</li>
+                            <li><code>float</code> address_lat</li>
+                            <li><code>float</code> address_lng</li>
+                            <li><code>string</code> address_timezone</li>
+                            <li><code>int</code> geofence radius (meters)</li>
+                            <li><code>string</code> type Values:<code>visit</code>;<code>pickup</code><code>delivery</code></li>
+                            <li><code>string</code> status Value:<code>not_started</code>;<code>started</code>;<code>loading</code>;<code>completed</code>;<code>declined</code></li>
+                            <li><code>string|null</code> status_changed_at</li>
+                            <li><code>string|null</code> phone</li>
+                            <li><code>string|null</code> email</li>
+                            <li><code>string|null</code> cargo_type Values:<code>frozen</code></li>
+                            <li>
+                                <code>object</code> delivery_dates
+                                <ul>
+                                    <li><code>string|null</code> from</li>
+                                    <li><code>string|null</code> to</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <code>object</code> delivery_times
+                                <ul>
+                                    <li><code>string</code> from 24hour time</li>
+                                    <li><code>string</code> to 24hour time</li>
+                                </ul>
+                            </li>
+                            <li><code>bool</code> delivery_interval</li>
+                            <li><code>int|null</code> optimal_temperature_from</li>
+                            <li><code>int|null</code> optimal_temperature_to</li>
+                            <li><code>int</code> capacity_weight (kg)</li>
+                            <li><code>int</code> capacity (volume,pallets,loading meters,others units)</li>
+                            <li><code>int</code> stop_off_time (minutes)</li>
+                            <li><code>string</code> notes</li>
+                            <li><code>string|null</code> finished_at</li>
+                            <li><code>int</code> distance_to (meters)</li>
+                            <li><code>int</code> duration_to (seconds)</li>
+                            <li><code>string|null</code> planned_arrival_time</li>
+                            <li><code>string|null</code> arrival_time</li>
+                            <li><code>int|null</code> distance_left (meters)</li>
+                            <li><code>string</code> polyline_to</li>
+                            <li>
+                                <code>array</code> files
+                                <ul>
+                                    <li><code>int</code> id</li>
+                                    <li><code>string</code> name</li>
+                                    <li><code>string</code> url</li>
+                                    <li><code>string|null</code> thumb_url</li>
+                                    <li><code>string</code> mime</li>
+                                    <li><code>int</code> size (bytes)</li>
+                                    <li><code>int|null</code> width</li>
+                                    <li><code>int|null</code> height</li>
+                                    <li><code>string|null</code> orientation Value:<code>landscape</code>;<code>portrait</code></li>
+                                    <li><code>int|null</code> thumb_width</li>
+                                    <li><code>int|null</code> thumb_height</li>
+                                    <li><code>string|null</code> thumb_orientation Value:<code>landscape</code>;<code>portrait</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <code>object</code> _meta
+                        <ul>
+                            <li><code>int</code> total</li>
+                            <li><code>int</code> total_pages</li>
+                            <li><code>int</code> per_pages</li>
+                            <li><code>int</code> page</li>
+                        </ul>
+
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;order_id&#34;: 1,
+            &#34;route_id&#34;: 1,
+            &#34;client_id&#34;: 1,
+            &#34;sort_no&#34;: 0,
+            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;address_lat&#34;: 28.45721,
+            &#34;address_lng&#34;: -43.2719,
+            &#34;address_timezone&#34;: &#34;UTC&#34;,
+            &#34;geofence&#34;: 300,
+            &#34;type&#34;: &#34;visit&#34;,
+            &#34;status&#34;: &#34;not_started&#34;,
+            &#34;status_changed_at&#34;: &#34;1970-01-01 00:00:01&#34;,
+            &#34;phone&#34;: &#34;1234567890&#34;,
+            &#34;email&#34;: &#34;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="23465b424e534f4663465b424e534f460d4d4657">[email protected]</a>&#34;,
+            &#34;cargo_type&#34;: null,
+            &#34;delivery_dates&#34;: {
+                &#34;from&#34;: &#34;2021-08-20&#34;,
+                &#34;to&#34;: &#34;2021-08-25&#34;
+            },
+            &#34;delivery_times&#34;: {
+                &#34;from&#34;: &#34;09:00&#34;,
+                &#34;to&#34;: &#34;18:00&#34;
+            },
+            &#34;delivery_interval&#34;: true,
+            &#34;optimal_temperature_from&#34;: -6,
+            &#34;optimal_temperature_to&#34;: 6,
+            &#34;capacity_weight&#34;: 1234,
+            &#34;capacity&#34;: 22,
+            &#34;stop_off_time&#34;: 30,
+            &#34;notes&#34;: &#34;some notes&#34;,
+            &#34;finished_at&#34;: &#34;1970-01-01 00:00:03&#34;,
+            &#34;distance_to&#34;: 2144,
+            &#34;duration_to&#34;: 45352,
+            &#34;planned_arrival_time&#34;: &#34;1970-01-01 00:00:02&#34;,
+            &#34;arrival_time&#34;: &#34;1970-01-01 00:00:02&#34;,
+            &#34;distance_left&#34;: 0,
+            &#34;polyline_to&#34;: &#34;SDFHGS@#FIYD&#34;,
+            &#34;files&#34;: [
+                {
+                    &#34;id&#34;: 1,
+                    &#34;name&#34;: &#34;sample.jpeg&#34;,
+                    &#34;url&#34;: &#34;http:\/\/example.com\/files.php\/?32432432&#34;,
+                    &#34;thumb_url&#34;: &#34;http:\/\/example.com\/files.php\/?32432432&amp;thumb=true&#34;,
+                    &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                    &#34;size&#34;: 32434,
+                    &#34;width&#34;: 1000,
+                    &#34;height&#34;: 800,
+                    &#34;orientation&#34;: &#34;landscape&#34;,
+                    &#34;thumb_width&#34;: 150,
+                    &#34;thumb_height&#34;: 100,
+                    &#34;thumb_orientation&#34;: &#34;landscape&#34;
+                }
+            ]
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 25,
+        &#34;totalPages&#34;: 25,
+        &#34;perPage&#34;: 1,
+        &#34;page&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid or missing <code>route_ids</code> parameter</td></tr><tr><td>2</td><td>invalid route id</td></tr><tr><td>3</td><td>invalid <code>page</code> parameter</td></tr><tr><td>4</td><td>invalid <code>per_page</code> parameter</td></tr><tr><td>5</td><td>invalid <code>includes</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_places-Delete-places" class="api-method"><h2>Delete places</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_places/delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete given places</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">ids <span class="required" title="Required">*</span></div><div class="format">int[]</div><div class="description">Place ids</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>bool</code> deleted</li>
+                    </ul></div><pre>{
+    &#34;data&#34;: {
+        &#34;deleted&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>missing <code>ids</code> parameter</td></tr><tr><td>2</td><td>invalid <code>ids</code> parameter</td></tr><tr><td>3</td><td>invalid place</td></tr></tbody></table></div></div></div></div>

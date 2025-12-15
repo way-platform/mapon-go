@@ -1,0 +1,533 @@
+<div id="method-unit" class="api-method-group"><h1>Unit</h1><div id="method-unit-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns list of all available units and their current state data.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">string</div><div class="description">One or more unit IDs.</div></div></div><div class="item"><div class="cols"><div class="name">car_number </div><div class="format">string</div><div class="description">One or more car numbers. Blank spaces and &#34;-&#34; character will be ignored.</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">string or []</div><div class="description">
+                                Include additional data in results:<br/>
+                                <code>in_objects</code> - return objects where unit is located (currently this will work only if single unit is requested)<br/>
+                                <code>io_din</code> - return digital input info<br/>
+                                <code>fuel</code> - return fuel levels<br/>
+                                <code>fuel_tank</code> - return fuel tank volumes<br/>
+                                <code>can</code> - return can data<br/>
+                                <code>reefer</code> - return data about refrigerator<br/>
+                                <code>drivers</code> - return data about drivers<br/>
+                                <code>temperature</code> - return data about temperature sensors<br/>
+                                <code>ambienttemp</code> - return data about ambient temperature sensors<br/>
+                                <code>humidity</code> - return data about humidity sensors<br/>
+                                <code>device</code> - return data about installed device<br/>
+                                <code>supply_voltage</code> - return supply voltage<br/>
+                                <code>battery_voltage</code> - return battery voltage<br/>
+                                <code>battery_level_percentage</code> - return battery percentage (if data exists)<br/>
+                                <code>relays</code> - return relay data<br/>
+                                <code>weights</code> - return CAN weight data<br/>
+                                <code>ignition</code> - return current ignition state<br/>
+                                <code>tachograph</code> - return tachograph driver card presence and tachograph driver id information<br/>
+                                <code>altitude</code> - return latest GPS altitude<br/>
+                                <code>technical_details</code> - vehicle technical information<br/>
+                                <code>trailer_connections</code> - connected trailers information<br/>
+                                <code>saved_values</code> - return saved values from mappings (currently this will work only if single unit is requested)<br/>
+                                <code>ev_values</code> - return EV related values: Charger connected (ev_charger_connected), Charging status (ev_charging), Battery % (can_ev_battery_rel), Battery kWh (can_ev_battery_abs) (if data exists) <br/>
+                                </div></div></div><div class="item"><div class="cols"><div class="name">empty_box_id </div><div class="format">bool</div><div class="description">Include cars with removed device</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <b>data:units:state:name</b> values:<br/>
+                        <code>driving</code>,  
+                        <code>standing</code>, 
+                        <code>nodata</code>, 
+                        <code>nogps</code>, 
+                        <code>service</code>
+                        <br/>
+                        <br/>
+                        <b>data:units:movement_state:name</b> values:<br/>
+                        <code>driving</code>, 
+                        <code>standing</code>
+                        <br/>
+                        <br/>
+                        <b>data:units:direction</b> values:<br/>
+                        <code>0 - 360</code><br/>
+                        <br/>
+                        <b>data:units:fuel_type</b> values: <br/>
+                        <code>P</code> - Petrol<br/>
+                        <code>D</code> - Diesel<br/>
+                        <code>G</code> - LPG (liquefied petroleum gas)<br/>
+                        <code>E</code> - Electric<br/>
+                        <code>PROPANE</code> - Propane<br/>
+                        <code>LNG</code> - LNG (liquefied natural gas)<br/>
+                        <code>CNG</code> - CNG (compressed natural gas)<br/>
+                        <code>ETHANOL</code> - Ethanol<br/>
+                        <code>HYDROGEN</code> - Hydrogen<br/>
+                        <code>HYBRID</code> - Hybrid<br/>
+                        <br/>
+                        <b>data:units:avg_fuel_consumption:measurement</b> values:<br/>
+                        <code>l\100km</code> - fuel consumption by distance,
+                        <code>l/1h</code> - fuel consumption per hour
+                        <code>kg/100km</code> - fuel weight (for vehicles that use CNG) consumption by distance
+                        <br/>
+                        <i>Please note that if unit&#39;s fuel consumption measurement is <code>kg/100km</code> all fuel values, i.e. <code>avg_fuel_consumption</code> are represented in KG, not in L</i>
+                        <br/>
+                        <br/>
+                        <b>data:units:fuel_tank</b> values:<br/>
+                        <code>null</code> - fuel tank volumes not available<br/>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;box_id&#34;: 1,
+                &#34;company_id&#34;: 1,
+                &#34;country_code&#34;: &#34;XX&#34;,
+                &#34;label&#34;: &#34;VOLVO FH&#34;,
+                &#34;number&#34;: &#34;XX1234&#34;,
+                &#34;shortcut&#34;: &#34;XX1234&#34;,
+                &#34;vehicle_title&#34;: &#34;XX1234&#34;,
+                &#34;car_reg_certificate&#34;: &#34;SW33T&#34;,
+                &#34;vin&#34;: &#34;xxx&#34;,
+                &#34;type&#34;: &#34;car&#34;,
+                &#34;icon&#34;: &#34;no-icon&#34;,
+                &#34;lat&#34;: 28.45721,
+                &#34;lng&#34;: -43.2719,
+                &#34;direction&#34;: 0,
+                &#34;speed&#34;: 10,
+                &#34;mileage&#34;: 113746523,
+                &#34;last_update&#34;: &#34;2017-05-22T12:23:46Z&#34;,
+                &#34;ignition_total_time&#34;: 16508293,
+                &#34;state&#34;: {
+                    &#34;name&#34;: &#34;standing&#34;,
+                    &#34;start&#34;: &#34;2017-05-22T11:21:13Z&#34;,
+                    &#34;duration&#34;: 3840,
+                    &#34;debug_info&#34;: {
+                        &#34;msg&#34;: &#34;LOW VOLTAGE&#34;,
+                        &#34;data&#34;: {
+                            &#34;battery&#34;: &#34;1&#34;,
+                            &#34;last_voltage&#34;: &#34;4.43&#34;,
+                            &#34;power_status&#34;: &#34;on&#34;,
+                            &#34;power_status_gmt&#34;: &#34;2016-09-30 12:27:05&#34;,
+                            &#34;last_data&#34;: 1479280400
+                        }
+                    }
+                },
+                &#34;fuel_type&#34;: &#34;P&#34;,
+                &#34;avg_fuel_consumption&#34;: {
+                    &#34;norm&#34;: 8.2,
+                    &#34;measurement&#34;: &#34;l\/100km&#34;
+                },
+                &#34;created_at&#34;: &#34;2019-01-01T01:00:00Z&#34;,
+                &#34;movement_state&#34;: {
+                    &#34;name&#34;: &#34;standing&#34;,
+                    &#34;start&#34;: &#34;2017-05-22T11:21:13Z&#34;,
+                    &#34;duration&#34;: 3840
+                },
+                &#34;supply_voltage&#34;: {
+                    &#34;gmt&#34;: &#34;2017-12-27T11:35:51Z&#34;,
+                    &#34;value&#34;: 25.71
+                },
+                &#34;battery_voltage&#34;: {
+                    &#34;gmt&#34;: &#34;2017-12-27T11:37:51Z&#34;,
+                    &#34;value&#34;: 215.71
+                },
+                &#34;device&#34;: {
+                    &#34;id&#34;: 1,
+                    &#34;serial_number&#34;: &#34;1&#34;,
+                    &#34;imei&#34;: 11111,
+                    &#34;sim&#34;: &#34;555-2368&#34;
+                },
+                &#34;io_din&#34;: [
+                    {
+                        &#34;no&#34;: 1,
+                        &#34;label&#34;: &#34;Alarm&#34;,
+                        &#34;state&#34;: &#34;0&#34;
+                    },
+                    {
+                        &#34;no&#34;: 2,
+                        &#34;label&#34;: &#34;Ignition&#34;,
+                        &#34;state&#34;: &#34;1&#34;
+                    }
+                ],
+                &#34;connected&#34;: {
+                    &#34;unit_id&#34;: &#34;2&#34;,
+                    &#34;type&#34;: &#34;trailer&#34;,
+                    &#34;location&#34;: {
+                        &#34;lat&#34;: &#34;28.45721&#34;,
+                        &#34;lng&#34;: &#34;-43.27190&#34;
+                    }
+                },
+                &#34;fuel&#34;: [
+                    {
+                        &#34;type&#34;: &#34;CAN&#34;,
+                        &#34;metrics&#34;: &#34;L&#34;,
+                        &#34;value&#34;: 2052,
+                        &#34;last_update&#34;: &#34;2017-05-22T11:21:53Z&#34;
+                    }
+                ],
+                &#34;fuel_tank&#34;: {
+                    &#34;total_vol&#34;: 70,
+                    &#34;fuel_tank_vol_0&#34;: 70
+                },
+                &#34;in_objects&#34;: {
+                    &#34;objects&#34;: [
+                        {
+                            &#34;object_id&#34;: &#34;1&#34;,
+                            &#34;name&#34;: &#34;Example object&#34;
+                        }
+                    ]
+                },
+                &#34;temperature&#34;: {
+                    &#34;temp_2&#34;: {
+                        &#34;gmt&#34;: &#34;2017-05-17T09:02:38Z&#34;,
+                        &#34;value&#34;: 16.28
+                    }
+                },
+                &#34;ambienttemp&#34;: {
+                    &#34;gmt&#34;: &#34;2017-05-22T11:38:01Z&#34;,
+                    &#34;value&#34;: 28.3
+                },
+                &#34;humidity&#34;: {
+                    &#34;humidity_tank_2&#34;: {
+                        &#34;gmt&#34;: &#34;2017-05-17T09:02:48Z&#34;,
+                        &#34;value&#34;: 67.5
+                    }
+                },
+                &#34;can&#34;: {
+                    &#34;odom&#34;: {
+                        &#34;gmt&#34;: &#34;2017-05-22T11:38:01Z&#34;,
+                        &#34;value&#34;: &#34;115224.965&#34;
+                    },
+                    &#34;fuel_total&#34;: {
+                        &#34;gmt&#34;: &#34;2017-05-22T11:41:08Z&#34;,
+                        &#34;value&#34;: &#34;30527.5&#34;
+                    },
+                    &#34;engine_hours&#34;: {
+                        &#34;gmt&#34;: &#34;2017-05-22T11:21:51Z&#34;,
+                        &#34;value&#34;: &#34;1719.45&#34;
+                    }
+                },
+                &#34;weights&#34;: {
+                    &#34;axis&#34;: {
+                        &#34;1&#34;: {
+                            &#34;gmt&#34;: &#34;2019-11-08T14:03:09Z&#34;,
+                            &#34;value&#34;: &#34;4500&#34;
+                        },
+                        &#34;2&#34;: {
+                            &#34;gmt&#34;: &#34;2019-11-08T14:03:09Z&#34;,
+                            &#34;value&#34;: &#34;9600&#34;
+                        }
+                    },
+                    &#34;combination_weight&#34;: {
+                        &#34;gmt&#34;: &#34;2019-11-08T14:07:11Z&#34;,
+                        &#34;value&#34;: &#34;32000&#34;
+                    },
+                    &#34;powered_weight&#34;: {
+                        &#34;gmt&#34;: &#34;2019-11-08T14:49:28Z&#34;,
+                        &#34;value&#34;: &#34;14100&#34;
+                    }
+                },
+                &#34;reefer&#34;: {
+                    &#34;0&#34;: {
+                        &#34;flags&#34;: {
+                            &#34;flag&#34;: {
+                                &#34;value&#34;: 1,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            }
+                        },
+                        &#34;hours&#34;: {
+                            &#34;diesel&#34;: {
+                                &#34;value&#34;: 1788,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;electric&#34;: {
+                                &#34;value&#34;: 8,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;standby&#34;: {
+                                &#34;value&#34;: 97,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            }
+                        },
+                        &#34;mode&#34;: {
+                            &#34;power&#34;: {
+                                &#34;value&#34;: 0,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;run&#34;: {
+                                &#34;value&#34;: 1,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;speed&#34;: {
+                                &#34;value&#34;: 0,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            }
+                        },
+                        &#34;temperature&#34;: {
+                            &#34;return&#34;: {
+                                &#34;value&#34;: 4.7,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;setpoint&#34;: {
+                                &#34;value&#34;: 4,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;supply&#34;: {
+                                &#34;value&#34;: 1.5,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;cargowatch_rear&#34;: {
+                                &#34;value&#34;: -17.8,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            },
+                            &#34;cargowatch_return&#34;: {
+                                &#34;value&#34;: 7.4,
+                                &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                            }
+                        },
+                        &#34;state&#34;: {
+                            &#34;value&#34;: &#34;off&#34;,
+                            &#34;gmt&#34;: &#34;2016-01-26T06:55:30Z&#34;
+                        }
+                    },
+                    &#34;refrigerator_communication_type&#34;: &#34;2&#34;,
+                    &#34;refrigerator_compartment_count&#34;: &#34;1&#34;,
+                    &#34;refrigerator_type&#34;: &#34;THERMOKING&#34;
+                },
+                &#34;drivers&#34;: {
+                    &#34;driver1&#34;: {
+                        &#34;id&#34;: &#34;1&#34;,
+                        &#34;name&#34;: &#34;Name Surname&#34;,
+                        &#34;phone&#34;: &#34;&#34;,
+                        &#34;ibutton&#34;: &#34;&#34;,
+                        &#34;tacho_id&#34;: &#34;00000000000001&#34;
+                    },
+                    &#34;driver2&#34;: {
+                        &#34;id&#34;: &#34;2&#34;,
+                        &#34;name&#34;: &#34;Name Surname&#34;,
+                        &#34;phone&#34;: &#34;&#34;,
+                        &#34;ibutton&#34;: &#34;&#34;,
+                        &#34;tacho_id&#34;: &#34;00000000000002&#34;
+                    }
+                },
+                &#34;relays&#34;: [
+                    {
+                        &#34;relay_id&#34;: &#34;1&#34;,
+                        &#34;relay_state&#34;: &#34;0&#34;,
+                        &#34;type&#34;: &#34;basic&#34;,
+                        &#34;title&#34;: &#34;Door&#34;,
+                        &#34;inverted&#34;: &#34;0&#34;,
+                        &#34;control_while_moving&#34;: &#34;0&#34;,
+                        &#34;enabled&#34;: &#34;1&#34;
+                    },
+                    {
+                        &#34;relay_id&#34;: &#34;2&#34;,
+                        &#34;relay_state&#34;: &#34;1&#34;,
+                        &#34;type&#34;: &#34;engine_block&#34;,
+                        &#34;title&#34;: &#34;Engine&#34;,
+                        &#34;inverted&#34;: &#34;0&#34;,
+                        &#34;control_while_moving&#34;: &#34;0&#34;,
+                        &#34;enabled&#34;: &#34;1&#34;
+                    }
+                ],
+                &#34;application_fields&#34;: [
+                    {
+                        &#34;id&#34;: 1,
+                        &#34;application_id&#34;: 1,
+                        &#34;level&#34;: &#34;vehicle&#34;,
+                        &#34;type&#34;: &#34;text&#34;,
+                        &#34;title&#34;: &#34;Text title&#34;,
+                        &#34;title_translation&#34;: null,
+                        &#34;unique_per_company&#34;: false,
+                        &#34;value&#34;: &#34;xx&#34;,
+                        &#34;created_at&#34;: &#34;2019-01-01T00:00:00Z&#34;,
+                        &#34;updated_at&#34;: &#34;2019-01-01T09:00:00Z&#34;
+                    }
+                ],
+                &#34;tachograph&#34;: {
+                    &#34;driver1&#34;: {
+                        &#34;tacho_card&#34;: {
+                            &#34;gmt&#34;: &#34;2020-09-07T14:39:37Z&#34;,
+                            &#34;value&#34;: 1
+                        },
+                        &#34;tacho_id&#34;: {
+                            &#34;gmt&#34;: &#34;2020-09-07T14:42:11Z&#34;,
+                            &#34;value&#34;: &#34;0000000012345678&#34;
+                        }
+                    },
+                    &#34;driver2&#34;: {
+                        &#34;tacho_card&#34;: {
+                            &#34;gmt&#34;: &#34;2020-09-07T14:39:08Z&#34;,
+                            &#34;value&#34;: 0
+                        },
+                        &#34;tacho_id&#34;: {
+                            &#34;gmt&#34;: &#34;2020-09-06T23:59:59Z&#34;,
+                            &#34;value&#34;: &#34;&#34;
+                        }
+                    }
+                },
+                &#34;saved_values&#34;: [
+                    {
+                        &#34;key&#34;: &#34;My value&#34;,
+                        &#34;value&#34;: &#34;3&#34;,
+                        &#34;gmt&#34;: &#34;2024-05-19 21:42:46&#34;
+                    }
+                ],
+                &#34;technical_details&#34;: {
+                    &#34;stage_classification&#34;: &#34;Stage2&#34;,
+                    &#34;emission_class&#34;: &#34;Euro1&#34;,
+                    &#34;gross_weight&#34;: 2250,
+                    &#34;make_year&#34;: &#34;2001&#34;,
+                    &#34;make_month&#34;: &#34;3&#34;,
+                    &#34;power_ps&#34;: 14,
+                    &#34;power_kw&#34;: 10,
+                    &#34;cubic_capacity&#34;: 0.04,
+                    &#34;co2_emissions&#34;: {
+                        &#34;value&#34;: &#34;12&#34;,
+                        &#34;metrics&#34;: &#34;g\/km&#34;
+                    }
+                },
+                &#34;ev_values&#34;: {
+                    &#34;ev_charging&#34;: {
+                        &#34;gmt&#34;: &#34;2024-12-20T21:44:20Z&#34;,
+                        &#34;value&#34;: 1
+                    },
+                    &#34;ev_charger_connected&#34;: {
+                        &#34;gmt&#34;: &#34;2024-12-20T21:44:20Z&#34;,
+                        &#34;value&#34;: 1
+                    },
+                    &#34;can_ev_battery_rel&#34;: {
+                        &#34;gmt&#34;: &#34;2024-12-20T21:48:47Z&#34;,
+                        &#34;value&#34;: 43
+                    },
+                    &#34;can_ev_battery_abs&#34;: {
+                        &#34;gmt&#34;: &#34;2024-12-20T21:48:47Z&#34;,
+                        &#34;value&#34;: 112.1
+                    }
+                }
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td><code>in_objects</code> info is available only when requesting single unit</td></tr><tr><td>3</td><td><code>saved_values</code> info is available only when requesting single unit</td></tr></tbody></table></div></div></div><div id="method-unit-Install-*" class="api-method"><h2>Install *</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/install.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows you create unit</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">box_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Box id</div></div></div><div class="item"><div class="cols"><div class="name">number <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Unit number</div></div></div><div class="item"><div class="cols"><div class="name">label </div><div class="format">string</div><div class="description">Unit label</div></div></div><div class="item"><div class="cols"><div class="name">odometer </div><div class="format">int</div><div class="description">Vehicle odometer reading (meters)</div></div></div><div class="item"><div class="cols"><div class="name">notes </div><div class="format">string</div><div class="description">Notes</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;unit_id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified <code>box_id</code> or <code>car_number</code> parameter</td></tr><tr><td>2</td><td>Car number already in use</td></tr><tr><td>3</td><td>Can&#39;t find device with specified parameter</td></tr><tr><td>4</td><td>Error while creating car</td></tr></tbody></table></div></div></div><div id="method-unit-Uninstall-*" class="api-method"><h2>Uninstall *</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/uninstall.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows you remove device from unit</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">notes </div><div class="format">string</div><div class="description">Notes</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;unit_id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;unit_id&#34; parameter</td></tr><tr><td>2</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>3</td><td>Invalid value or incorrect format for parameter unit_id (int)</td></tr><tr><td>4</td><td>Unit is not associated with device</td></tr></tbody></table></div></div></div><div id="method-unit-Change-device-*" class="api-method"><h2>Change device *</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/change_device.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Change assigned device for the unit</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">box_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">New device ID. Must be in company storage</div></div></div><div class="item"><div class="cols"><div class="name">notes <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Notes</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;unit_id&#34;: 1,
+        &#34;box_id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;unit_id&#34; parameter</td></tr><tr><td>2</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>3</td><td>Unit must be from your own company</td></tr><tr><td>4</td><td>Invalid or unknown &#34;box_id&#34; parameter</td></tr><tr><td>5</td><td>API key does not have access to device with specified parameters</td></tr><tr><td>6</td><td>Failed to change unit device</td></tr></tbody></table></div></div></div><div id="method-unit-Edit" class="api-method"><h2>Edit</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/edit.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Edit unit details</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit ID. Optional if VIN is provided</div></div></div><div class="item"><div class="cols"><div class="name">vin <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Vehicle unit VIN. Optional if unit_id is provided</div></div></div><div class="item"><div class="cols"><div class="name">number </div><div class="format">string</div><div class="description">Unit number</div></div></div><div class="item"><div class="cols"><div class="name">label </div><div class="format">string</div><div class="description">Unit label</div></div></div><div class="item"><div class="cols"><div class="name">shortcut </div><div class="format">string</div><div class="description">Unit shortcut</div></div></div><div class="item"><div class="cols"><div class="name">vehicle_title </div><div class="format">string</div><div class="description">Unit title (car_nickname)</div></div></div><div class="item"><div class="cols"><div class="name">vehicle_type </div><div class="format">string</div><div class="description">Unit type (car, trailer, ship)</div></div></div><div class="item"><div class="cols"><div class="name">depot_id </div><div class="format">int</div><div class="description">Depot id</div></div></div><div class="item"><div class="cols"><div class="name">reefer_type </div><div class="format">string</div><div class="description">Reefer type (carrier/thermoking)</div></div></div><div class="item"><div class="cols"><div class="name">reefer_communication_level </div><div class="format">int</div><div class="description">Reefer communication level (0 - no communication 1 - one way, 2 - two way)</div></div></div><div class="item"><div class="cols"><div class="name">reefer_compartment_count </div><div class="format">int</div><div class="description">Reefer compartment count (1 or 2)</div></div></div><div class="item"><div class="cols"><div class="name">car_reg_certificate </div><div class="format">string</div><div class="description">Registration certificate number</div></div></div><div class="item"><div class="cols"><div class="name">licence_date </div><div class="format">date</div><div class="description">Licence date</div></div></div><div class="item"><div class="cols"><div class="name">service_till </div><div class="format">date</div><div class="description">Service till</div></div></div><div class="item"><div class="cols"><div class="name">fuel_type </div><div class="format">string</div><div class="description">    Vehicle fuel type. Allowed values:
+    <code title="Diesel">D</code>,
+    <code title="Benzine">P</code>,
+    <code title="Gas">G</code>,
+    <code title="Electric">E</code>,
+    <code>PROPANE</code>,
+    <code>LNG</code>,
+    <code>CNG</code>,
+    <code>ETHANOL</code>,
+    <code>HYDROGEN</code>,
+    <code>HYBRID</code>,
+    <code title="Agriculture fuel">L</code></div></div></div><div class="item"><div class="cols"><div class="name">fuel_tank </div><div class="format">int</div><div class="description">Fuel tank capacity (l)</div></div></div><div class="item"><div class="cols"><div class="name">fuel_tank_1 </div><div class="format">int</div><div class="description">Fuel tank 1 capacity (l). If individual tank is set, then total (fuel_tank) will be overwritten</div></div></div><div class="item"><div class="cols"><div class="name">fuel_tank_2 </div><div class="format">int</div><div class="description">Fuel tank 2 capacity (l). If individual tank is set, then total (fuel_tank) will be overwritten</div></div></div><div class="item"><div class="cols"><div class="name">fuel_tank_3 </div><div class="format">int</div><div class="description">Fuel tank 3 capacity (l). If individual tank is set, then total (fuel_tank) will be overwritten</div></div></div><div class="item"><div class="cols"><div class="name">fuel_tank_4 </div><div class="format">int</div><div class="description">Fuel tank 4 capacity (l). If individual tank is set, then total (fuel_tank) will be overwritten</div></div></div><div class="item"><div class="cols"><div class="name">catalyst_tank </div><div class="format">int</div><div class="description">Catalyst (AdBlue) tank capacity (l)</div></div></div><div class="item"><div class="cols"><div class="name">odometer </div><div class="format">int</div><div class="description">Vehicle odometer reading (meters)</div></div></div><div class="item"><div class="cols"><div class="name">odometer_date </div><div class="format">date</div><div class="description">Vehicle odometer reading date (default: now)</div></div></div><div class="item"><div class="cols"><div class="name">driver_id </div><div class="format">int</div><div class="description">Vehicle driver ID (0 to remove)</div></div></div><div class="item"><div class="cols"><div class="name">codriver_id </div><div class="format">int</div><div class="description">Vehicle co-driver ID (0 to remove)</div></div></div><div class="item"><div class="cols"><div class="name">icon </div><div class="format">string</div><div class="description">Vehicle icon. See list of available icons <a href="#method-unit-Available-vehicle-icons">here</a></div></div></div><div class="item"><div class="cols"><div class="name">fuel_consumption_measurement </div><div class="format">string</div><div class="description">Vehcile fuel consumption representation type. Available values: <code>l/100km</code> (default),<code>l/h</code> (for tractors), <code>kg/100km</code> (for vehicles with CNG fuel systems)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;unit_id&#34; or &#34;vin&#34; parameter</td></tr><tr><td>2</td><td>Invalid value or incorrect format for parameter unit_id (int)</td></tr><tr><td>3</td><td>Can`t find unit with specified parameters</td></tr><tr><td>4</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>5</td><td>service_till invalid format</td></tr><tr><td>6</td><td>Illegal driver ID</td></tr><tr><td>7</td><td>Illegal co-driver ID</td></tr><tr><td>8</td><td>Demo car</td></tr><tr><td>9</td><td>Can`t find depot associated with this API key</td></tr><tr><td>10</td><td>Invalid value or incorrect format for parameter reefer_type</td></tr><tr><td>11</td><td>Invalid value or incorrect format for parameter reefer_communication_level</td></tr><tr><td>12</td><td>Invalid value or incorrect format for parameter reefer_compartment_count</td></tr><tr><td>13</td><td>Invalid fuel representation value</td></tr></tbody></table></div></div></div><div id="method-unit-Change-Relay-*" class="api-method"><h2>Change Relay *</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/change_relay.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Change relay state (*special access rights are required to use this endpoint. Contact the support team to grant access). Note: Status &#34;ok&#34; in the response means that the request to change the relay has been made. In order to verify if the relay has been changed call the <code>https://mapon.com/api/v1/unit/list.json</code> endpoint with <code>relays</code> as the include parameter.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">relay_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Relay ID</div></div></div><div class="item"><div class="cols"><div class="name">relay_state <span class="required" title="Required">*</span></div><div class="format">bool</div><div class="description">Reley state (0/1)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;unit_id&#34; parameter</td></tr><tr><td>2</td><td>Invalid or unknown &#34;relay_id&#34; parameter</td></tr><tr><td>3</td><td>Invalid or unknown &#34;relay_state&#34; parameter</td></tr><tr><td>4</td><td>API key does not have any units associated</td></tr><tr><td>5</td><td>Company does not have any users to associate the relay change with</td></tr><tr><td>6</td><td>Relay id not found</td></tr><tr><td>7</td><td>Can not block engine while vehicle is driving</td></tr></tbody></table></div></div></div><div id="method-unit-Custom-fields" class="api-method"><h2>Custom fields</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/custom_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns unit custom fields and values</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;label&#34;: &#34;Tyre size&#34;,
+            &#34;type&#34;: &#34;select&#34;,
+            &#34;settings&#34;: {
+                &#34;options&#34;: {
+                    &#34;5ae07f0120141&#34;: &#34;R14&#34;,
+                    &#34;5ae07f012017a&#34;: &#34;R15&#34;,
+                    &#34;5ae07f01201b2&#34;: &#34;R16&#34;
+                }
+            },
+            &#34;value&#34;: &#34;5ae07f012017a&#34;
+        },
+        {
+            &#34;id&#34;: 2,
+            &#34;label&#34;: &#34;Photo&#34;,
+            &#34;type&#34;: &#34;image&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;http:\/\/example.com?file.php?234sf23fsw&#34;
+        },
+        {
+            &#34;id&#34;: 3,
+            &#34;label&#34;: &#34;Trailer no.&#34;,
+            &#34;type&#34;: &#34;text&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;AAA 0000&#34;
+        },
+        {
+            &#34;id&#34;: 4,
+            &#34;label&#34;: &#34;datums&#34;,
+            &#34;type&#34;: &#34;date&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;1524661491&#34;
+        },
+        {
+            &#34;id&#34;: 5,
+            &#34;label&#34;: &#34;Video&#34;,
+            &#34;type&#34;: &#34;hyperlink&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;http:\/\/example.com\/aaa.mp4&#34;,
+            &#34;title&#34;: &#34;Test&#34;
+        },
+        {
+            &#34;id&#34;: 6,
+            &#34;label&#34;: &#34;Documents&#34;,
+            &#34;type&#34;: &#34;file&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: null
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>3</td><td>Can&#39;t find unit with specified parameters</td></tr><tr><td>4</td><td>Invalid value or incorrect format for parameter unit_id (int)</td></tr></tbody></table></div></div></div><div id="method-unit-Edit-Custom-fields-values" class="api-method"><h2>Edit Custom fields values</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/save_custom_fields_values.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows edit unit custom fields values</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">fields <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Associative array (key - custom field id; value - field value)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;unit_id&#34; or/and &#34;fields&#34; parameter</td></tr><tr><td>2</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>3</td><td>Can&#39;t find unit with specified parameters</td></tr><tr><td>4</td><td>Can&#39;t find fields with specified parameters</td></tr><tr><td>5</td><td>Fields with type hyperlink JSON string must contain title un value keys</td></tr><tr><td>6</td><td>Invalid field &#34;{FIELD_NAME}&#34; value.</td></tr><tr><td>7</td><td>File upload allowed only for fields with types: image, file</td></tr><tr><td>8</td><td>Fields with type {FIELD_TYPE} Allowed formats: {ALLOWED_FORMATS}</td></tr><tr><td>9</td><td>Invalid value or incorrect format for parameter unit_id (int)</td></tr></tbody></table></div></div></div><div id="method-unit-Available-vehicle-icons" class="api-method"><h2>Available vehicle icons</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit/available_icons.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns list of available vehicle icons to describe the type of vehicle</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;icons&#34;: [
+            &#34;&#34;,
+            &#34;animal&#34;,
+            &#34;bicycle&#34;,
+            &#34;boat&#34;,
+            &#34;boom-lift&#34;,
+            &#34;box&#34;,
+            &#34;bulldozer&#34;,
+            &#34;bus&#34;,
+            &#34;car&#34;,
+            &#34;cement&#34;,
+            &#34;cistern&#34;,
+            &#34;crane&#34;,
+            &#34;elevator&#34;,
+            &#34;emergency&#34;,
+            &#34;excavator&#34;,
+            &#34;forklift&#34;,
+            &#34;generator&#34;,
+            &#34;golfcart&#34;,
+            &#34;loader&#34;,
+            &#34;minibus&#34;,
+            &#34;motorbike&#34;,
+            &#34;no-icon&#34;,
+            &#34;paver&#34;,
+            &#34;person&#34;,
+            &#34;radio&#34;,
+            &#34;roller&#34;,
+            &#34;stationary-crane&#34;,
+            &#34;tractor&#34;,
+            &#34;trailer&#34;,
+            &#34;trailer-freezer&#34;,
+            &#34;train&#34;,
+            &#34;train-wagon&#34;,
+            &#34;tram&#34;,
+            &#34;trolleybus&#34;,
+            &#34;truck&#34;,
+            &#34;truck-heavy&#34;,
+            &#34;truck-no-trailer&#34;
+        ]
+    }
+}</pre></div></div></div></div>

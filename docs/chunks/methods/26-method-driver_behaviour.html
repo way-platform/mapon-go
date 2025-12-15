@@ -1,0 +1,183 @@
+<div id="method-driver_behaviour" class="api-method-group"><h1>Driver_behaviour</h1><div id="method-driver_behaviour-Units-report" class="api-method"><h2>Units report</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver_behaviour/report_units.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List units driver behaviour data</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">date_from <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Formatted date Y-m-d. e.g. 1970-01-01</div></div></div><div class="item"><div class="cols"><div class="name">date_till <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Formatted date Y-m-d. e.g. 1970-01-01</div></div></div><div class="item"><div class="cols"><div class="name">depot_id </div><div class="format">int</div><div class="description">Depot id</div></div></div><div class="item"><div class="cols"><div class="name">group_id </div><div class="format">int</div><div class="description">Group id</div></div></div><div class="item"><div class="cols"><div class="name">unit_ids </div><div class="format">string</div><div class="description">Comma separated unit ids</div></div></div><div class="item"><div class="cols"><div class="name">metrics </div><div class="format">string</div><div class="description">Comma separated metrics. Set metrics that you do want them to be taken into account when calculating driving results.<br/>
+                                Allowed values: <code>effective_speed</code>,<code>excessive_idling</code>,
+                                <code>cruise_control</code>,<code>coasting</code>,<code>harsh_braking</code>,
+                                <code>harsh_acceleration</code>,<code>harsh_cornering</code>,<code>green_rpm</code>,<code>speeding</code><br/>
+                                By default enabled all.
+                            </div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page no. Starts with 1</div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Items count per page. Default: <code>1000</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        Distance is returned in km, duration seconds. All fields except unit_id, title may be null.<br/><i>Please note that if <code>fuel_avg_consumption_measure</code> value is <code>kg/100km</code> then all fuel values are returned in KG, not in L</i>
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;unit_id&#34;: 1,
+            &#34;title&#34;: &#34;AAA000&#34;,
+            &#34;driven_user_ids&#34;: [],
+            &#34;overall&#34;: {
+                &#34;grade&#34;: &#34;F&#34;,
+                &#34;score&#34;: 20.37
+            },
+            &#34;effective_speed&#34;: {
+                &#34;grade&#34;: &#34;F&#34;,
+                &#34;score&#34;: 71.15,
+                &#34;distance&#34;: 1405.305,
+                &#34;duration&#34;: 92509
+            },
+            &#34;excessive_idling&#34;: {
+                &#34;grade&#34;: &#34;D&#34;,
+                &#34;score&#34;: 11.24,
+                &#34;duration&#34;: 14617
+            },
+            &#34;cruise_control&#34;: {
+                &#34;grade&#34;: &#34;D&#34;,
+                &#34;score&#34;: 57.42,
+                &#34;distance&#34;: 1043.321,
+                &#34;duration&#34;: 42964
+            },
+            &#34;coasting&#34;: {
+                &#34;grade&#34;: &#34;C&#34;,
+                &#34;score&#34;: 10.42,
+                &#34;distance&#34;: 382.856,
+                &#34;duration&#34;: 14831
+            },
+            &#34;harsh_braking&#34;: {
+                &#34;grade&#34;: &#34;D&#34;,
+                &#34;score&#34;: 33.89,
+                &#34;count&#34;: 51
+            },
+            &#34;harsh_acceleration&#34;: {
+                &#34;grade&#34;: &#34;F&#34;,
+                &#34;score&#34;: 51.83,
+                &#34;count&#34;: 78
+            },
+            &#34;harsh_cornering&#34;: {
+                &#34;grade&#34;: &#34;G&#34;,
+                &#34;score&#34;: 366.12,
+                &#34;count&#34;: 551
+            },
+            &#34;green_rpm&#34;: {
+                &#34;grade&#34;: &#34;G&#34;,
+                &#34;score&#34;: 12.96,
+                &#34;distance&#34;: 361.543,
+                &#34;duration&#34;: 16848
+            },
+            &#34;speeding&#34;: {
+                &#34;grade&#34;: &#34;E&#34;,
+                &#34;score&#34;: 16.36,
+                &#34;distance&#34;: 108.241,
+                &#34;duration&#34;: 4641
+            },
+            &#34;distance_gps&#34;: 2357.729,
+            &#34;distance_can&#34;: 512,
+            &#34;driving_duration&#34;: 130028,
+            &#34;excessive_idling_pto_duration&#34;: null,
+            &#34;fuel_avg_consumption&#34;: 3.91,
+            &#34;fuel_avg_consumption_measure&#34;: &#34;l\/100km&#34;,
+            &#34;fuel_avg_consumption_by_norm&#34;: null,
+            &#34;fuel_avg_consumption_ratio&#34;: null,
+            &#34;fuel_consumption&#34;: null,
+            &#34;fuel_consumption_can&#34;: 20,
+            &#34;excessive_idling_consumption_can&#34;: 6,
+            &#34;pto_idle_fuel_consumption_can&#34;: null,
+            &#34;stop_count&#34;: 111,
+            &#34;stop_duration&#34;: 1165972,
+            &#34;avg_speed&#34;: 14.18
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 25,
+        &#34;totalPages&#34;: 25,
+        &#34;perPage&#34;: 1,
+        &#34;page&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or missing <code>date_from</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>date_till</code> parameter</td></tr><tr><td>3</td><td>Invalid <code>page</code> parameter</td></tr><tr><td>4</td><td>Invalid <code>per_page</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>depot</code> parameter</td></tr><tr><td>6</td><td>Invalid <code>group</code> parameter</td></tr><tr><td>7</td><td>Invalid <code>metrics</code> parameter</td></tr><tr><td>8</td><td>Invalid period</td></tr><tr><td>9</td><td>Period can not exceed 31 days</td></tr><tr><td>11</td><td>Invalid <code>unit_ids</code> parameter</td></tr></tbody></table></div></div></div><div id="method-driver_behaviour-Drivers-report" class="api-method"><h2>Drivers report</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver_behaviour/report_drivers.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List drivers behaviour data</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">date_from <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Formatted date Y-m-d. e.g. 1970-01-01</div></div></div><div class="item"><div class="cols"><div class="name">date_till <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Formatted date Y-m-d. e.g. 1970-01-01</div></div></div><div class="item"><div class="cols"><div class="name">depot_id </div><div class="format">int</div><div class="description">Depot id</div></div></div><div class="item"><div class="cols"><div class="name">group_id </div><div class="format">int</div><div class="description">Group id</div></div></div><div class="item"><div class="cols"><div class="name">driver_ids </div><div class="format">string</div><div class="description">Comma separated user ids</div></div></div><div class="item"><div class="cols"><div class="name">metrics </div><div class="format">string</div><div class="description">Comma separated metrics. Set metrics that you do want them to be taken into account when calculating driving results.<br/>
+                                Allowed values: <code>effective_speed</code>,<code>excessive_idling</code>,
+                                <code>cruise_control</code>,<code>coasting</code>,<code>harsh_braking</code>,
+                                <code>harsh_acceleration</code>,<code>harsh_cornering</code>,<code>green_rpm</code>, <code>speeding</code><br/>
+                                By default enabled all.
+                            </div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page no. Starts with 1</div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Items count per page. Default: <code>1000</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        Distance is returned in km, duration seconds. All fields except unit_id, title may be null.<br/><i>Please note that if <code>fuel_avg_consumption_measure</code> value is <code>kg/100km</code> then all fuel values are returned in KG, not in L</i>
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;user_id&#34;: 1,
+            &#34;title&#34;: &#34;John Smith&#34;,
+            &#34;driven_units_ids&#34;: [
+                1
+            ],
+            &#34;overall&#34;: {
+                &#34;grade&#34;: &#34;D&#34;,
+                &#34;score&#34;: 48.75
+            },
+            &#34;effective_speed&#34;: {
+                &#34;grade&#34;: &#34;G&#34;,
+                &#34;score&#34;: 64.73,
+                &#34;distance&#34;: 698.22,
+                &#34;duration&#34;: 62451
+            },
+            &#34;excessive_idling&#34;: {
+                &#34;grade&#34;: &#34;F&#34;,
+                &#34;score&#34;: 25.84,
+                &#34;duration&#34;: 24930
+            },
+            &#34;cruise_control&#34;: {
+                &#34;grade&#34;: &#34;D&#34;,
+                &#34;score&#34;: 57.42,
+                &#34;distance&#34;: 1043.321,
+                &#34;duration&#34;: 42964
+            },
+            &#34;coasting&#34;: {
+                &#34;grade&#34;: &#34;C&#34;,
+                &#34;score&#34;: 10.42,
+                &#34;distance&#34;: 382.856,
+                &#34;duration&#34;: 14831
+            },
+            &#34;harsh_braking&#34;: {
+                &#34;grade&#34;: &#34;B&#34;,
+                &#34;score&#34;: 8.96,
+                &#34;count&#34;: 10
+            },
+            &#34;harsh_acceleration&#34;: {
+                &#34;grade&#34;: &#34;B&#34;,
+                &#34;score&#34;: 9.85,
+                &#34;count&#34;: 11
+            },
+            &#34;harsh_cornering&#34;: {
+                &#34;grade&#34;: &#34;B&#34;,
+                &#34;score&#34;: 8.96,
+                &#34;count&#34;: 10
+            },
+            &#34;green_rpm&#34;: {
+                &#34;grade&#34;: &#34;G&#34;,
+                &#34;score&#34;: 55.08,
+                &#34;distance&#34;: 626.837,
+                &#34;duration&#34;: 53137
+            },
+            &#34;speeding&#34;: {
+                &#34;grade&#34;: &#34;F&#34;,
+                &#34;score&#34;: 20.51,
+                &#34;distance&#34;: 88.052,
+                &#34;duration&#34;: 3486
+            },
+            &#34;distance_gps&#34;: 1609.468,
+            &#34;distance_can&#34;: 1564,
+            &#34;driving_duration&#34;: 96478,
+            &#34;excessive_idling_pto_duration&#34;: null,
+            &#34;fuel_avg_consumption&#34;: 13.75,
+            &#34;fuel_avg_consumption_measure&#34;: &#34;l\/100km&#34;,
+            &#34;fuel_avg_consumption_by_norm&#34;: 0,
+            &#34;fuel_avg_consumption_ratio&#34;: null,
+            &#34;fuel_consumption&#34;: null,
+            &#34;fuel_consumption_can&#34;: 215,
+            &#34;excessive_idling_consumption_can&#34;: 27,
+            &#34;pto_idle_fuel_consumption_can&#34;: null,
+            &#34;stop_count&#34;: 98,
+            &#34;stop_duration&#34;: 1199522,
+            &#34;avg_speed&#34;: 58.36
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 3,
+        &#34;totalPages&#34;: 3,
+        &#34;perPage&#34;: 1,
+        &#34;page&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or missing <code>date_from</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>date_till</code> parameter</td></tr><tr><td>3</td><td>Invalid <code>page</code> parameter</td></tr><tr><td>4</td><td>Invalid <code>per_page</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>depot</code> parameter</td></tr><tr><td>6</td><td>Invalid <code>group</code> parameter</td></tr><tr><td>7</td><td>Invalid <code>metrics</code> parameter</td></tr><tr><td>8</td><td>Invalid period</td></tr><tr><td>9</td><td>Period can not exceed 31 days</td></tr><tr><td>11</td><td>Invalid <code>driver_ids</code> parameter</td></tr></tbody></table></div></div></div></div>

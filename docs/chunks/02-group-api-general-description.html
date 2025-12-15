@@ -1,0 +1,30 @@
+<div class="group-item"><h1 id="group-api-general-description">API general description</h1><div class="group-item-content ">
+            <p>Base URL for every HTTP request is:</p>
+
+            <p><code>https://mapon.com/api/v1/</code></p>
+
+            <p>
+                API is defined by classes and actions. For example, there are <code>unit</code> class which can have multiple
+                actions. For example, <code>list</code> action which returns car list with current location and other data. URL for
+                such request would look like this:
+            </p>
+
+            <p><code>https://mapon.com/api/v1/<u>unit/list</u>.json?key=<em>yourapikey</em></code></p>
+
+            <p>
+                <code>list</code> is default action for every class, so this means you can also make this request by omitting the
+                <code>/list</code> part:
+            </p>
+
+            <p><code>https://mapon.com/api/v1/unit.json?key=<em>yourapikey</em></code></p>
+
+            <p>Some actions can take arrays as input parameters. For example, <em>unit/list</em> input parameter <em>unit_id</em>
+                has type &#34;int or int array&#34;. This means you can either pass single value:<br/></p>
+
+            <p><code>https://mapon.com/api/v1/unit/list.json?key=<em>yourapikey</em>&amp;<u>unit_id=14700</u></code></p>
+
+            <p>Or you can pass multiple values by adding <code>[]</code> to parameter names:</p>
+
+            <p><code>https://mapon.com/api/v1/unit/list.json?key=<em>yourapikey</em>&amp;unit_id<u>[]</u>=14700&amp;unit_id<u>[]</u>=14701</code>
+            </p>
+        </div></div>

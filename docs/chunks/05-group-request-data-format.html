@@ -1,0 +1,8 @@
+<div class="group-item"><h1 id="group-request-data-format">Request data format</h1><div class="group-item-content ">
+            <p><b>HTTP GET method</b> - all parameters must be added to the url query string, for example:</p>
+            <p><code>https://mapon.com/api/v1/unit/list.json?key=<em>yourapikey</em>&amp;unit_id<u>[]</u>=14700&amp;unit_id<u>[]</u>=14701</code></p>
+            <p><b>HTTP POST or HTTP DELETE method</b> - parameters must be sent in the request body. Supported content types are: <code>Urlencoded string</code>, <code>JSON</code></p>
+            <p>By default, we treat the request payload as urlencoded string (as if the <code>Content-Type</code> header was set to <code>application/x-www-form-urlencoded</code> or <code>multipart/form-data</code></p>
+            <p>If you wish to pass request payload as <code>JSON</code>, then you <b>MUST</b> set the <code>Content-Type</code> header as <code>application/json</code></p>
+            <p><i>Please note that passing request payload as <code>JSON</code> ia only currently supported for POST and DELETE requests</i></p>
+        </div></div>
