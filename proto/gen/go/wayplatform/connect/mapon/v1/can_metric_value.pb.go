@@ -129,20 +129,25 @@ func (b0 CanMetricValue_builder) Build() *CanMetricValue {
 
 // UnitCanPeriodData aggregates CAN metric values over a period for a specific unit.
 type UnitCanPeriodData struct {
-	state                       protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_UnitId           int64                  `protobuf:"varint,1,opt,name=unit_id,json=unitId"`
-	xxx_hidden_RpmAverage       *[]*CanMetricValue     `protobuf:"bytes,2,rep,name=rpm_average,json=rpmAverage"`
-	xxx_hidden_RpmMax           *[]*CanMetricValue     `protobuf:"bytes,3,rep,name=rpm_max,json=rpmMax"`
-	xxx_hidden_FuelLevel        *[]*CanMetricValue     `protobuf:"bytes,4,rep,name=fuel_level,json=fuelLevel"`
-	xxx_hidden_ServiceDistance  *[]*CanMetricValue     `protobuf:"bytes,5,rep,name=service_distance,json=serviceDistance"`
-	xxx_hidden_TotalDistance    *[]*CanMetricValue     `protobuf:"bytes,6,rep,name=total_distance,json=totalDistance"`
-	xxx_hidden_TotalFuel        *[]*CanMetricValue     `protobuf:"bytes,7,rep,name=total_fuel,json=totalFuel"`
-	xxx_hidden_TotalEngineHours *[]*CanMetricValue     `protobuf:"bytes,8,rep,name=total_engine_hours,json=totalEngineHours"`
-	xxx_hidden_AmbientTemp      *[]*CanMetricValue     `protobuf:"bytes,9,rep,name=ambient_temp,json=ambientTemp"`
-	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
-	XXX_presence                [1]uint32
-	unknownFields               protoimpl.UnknownFields
-	sizeCache                   protoimpl.SizeCache
+	state                             protoimpl.MessageState    `protogen:"opaque.v1"`
+	xxx_hidden_UnitId                 int64                     `protobuf:"varint,1,opt,name=unit_id,json=unitId"`
+	xxx_hidden_RpmAverage             *[]*CanMetricValue        `protobuf:"bytes,2,rep,name=rpm_average,json=rpmAverage"`
+	xxx_hidden_RpmMax                 *[]*CanMetricValue        `protobuf:"bytes,3,rep,name=rpm_max,json=rpmMax"`
+	xxx_hidden_FuelLevelPercent       *[]*CanMetricValue        `protobuf:"bytes,4,rep,name=fuel_level_percent,json=fuelLevelPercent"`
+	xxx_hidden_ServiceDistanceKm      *[]*CanMetricValue        `protobuf:"bytes,5,rep,name=service_distance_km,json=serviceDistanceKm"`
+	xxx_hidden_TotalDistanceKm        *[]*CanMetricValue        `protobuf:"bytes,6,rep,name=total_distance_km,json=totalDistanceKm"`
+	xxx_hidden_TotalFuelL             *[]*CanMetricValue        `protobuf:"bytes,7,rep,name=total_fuel_l,json=totalFuelL"`
+	xxx_hidden_TotalEngineHours       *[]*CanMetricValue        `protobuf:"bytes,8,rep,name=total_engine_hours,json=totalEngineHours"`
+	xxx_hidden_AmbientTemperatureC    *[]*CanMetricValue        `protobuf:"bytes,9,rep,name=ambient_temperature_c,json=ambientTemperatureC"`
+	xxx_hidden_WeightOnChassisTotalKg *[]*CanMetricValue        `protobuf:"bytes,10,rep,name=weight_on_chassis_total_kg,json=weightOnChassisTotalKg"`
+	xxx_hidden_EvBatteryRelPercent    *[]*CanMetricValue        `protobuf:"bytes,11,rep,name=ev_battery_rel_percent,json=evBatteryRelPercent"`
+	xxx_hidden_EvBatteryAbsKwh        *[]*CanMetricValue        `protobuf:"bytes,12,rep,name=ev_battery_abs_kwh,json=evBatteryAbsKwh"`
+	xxx_hidden_EvCharging             *[]*CanMetricValue        `protobuf:"bytes,13,rep,name=ev_charging,json=evCharging"`
+	xxx_hidden_WeightOnAxis           *[]*AxisWeightMetricValue `protobuf:"bytes,14,rep,name=weight_on_axis,json=weightOnAxis"`
+	XXX_raceDetectHookData            protoimpl.RaceDetectHookData
+	XXX_presence                      [1]uint32
+	unknownFields                     protoimpl.UnknownFields
+	sizeCache                         protoimpl.SizeCache
 }
 
 func (x *UnitCanPeriodData) Reset() {
@@ -195,37 +200,37 @@ func (x *UnitCanPeriodData) GetRpmMax() []*CanMetricValue {
 	return nil
 }
 
-func (x *UnitCanPeriodData) GetFuelLevel() []*CanMetricValue {
+func (x *UnitCanPeriodData) GetFuelLevelPercent() []*CanMetricValue {
 	if x != nil {
-		if x.xxx_hidden_FuelLevel != nil {
-			return *x.xxx_hidden_FuelLevel
+		if x.xxx_hidden_FuelLevelPercent != nil {
+			return *x.xxx_hidden_FuelLevelPercent
 		}
 	}
 	return nil
 }
 
-func (x *UnitCanPeriodData) GetServiceDistance() []*CanMetricValue {
+func (x *UnitCanPeriodData) GetServiceDistanceKm() []*CanMetricValue {
 	if x != nil {
-		if x.xxx_hidden_ServiceDistance != nil {
-			return *x.xxx_hidden_ServiceDistance
+		if x.xxx_hidden_ServiceDistanceKm != nil {
+			return *x.xxx_hidden_ServiceDistanceKm
 		}
 	}
 	return nil
 }
 
-func (x *UnitCanPeriodData) GetTotalDistance() []*CanMetricValue {
+func (x *UnitCanPeriodData) GetTotalDistanceKm() []*CanMetricValue {
 	if x != nil {
-		if x.xxx_hidden_TotalDistance != nil {
-			return *x.xxx_hidden_TotalDistance
+		if x.xxx_hidden_TotalDistanceKm != nil {
+			return *x.xxx_hidden_TotalDistanceKm
 		}
 	}
 	return nil
 }
 
-func (x *UnitCanPeriodData) GetTotalFuel() []*CanMetricValue {
+func (x *UnitCanPeriodData) GetTotalFuelL() []*CanMetricValue {
 	if x != nil {
-		if x.xxx_hidden_TotalFuel != nil {
-			return *x.xxx_hidden_TotalFuel
+		if x.xxx_hidden_TotalFuelL != nil {
+			return *x.xxx_hidden_TotalFuelL
 		}
 	}
 	return nil
@@ -240,10 +245,55 @@ func (x *UnitCanPeriodData) GetTotalEngineHours() []*CanMetricValue {
 	return nil
 }
 
-func (x *UnitCanPeriodData) GetAmbientTemp() []*CanMetricValue {
+func (x *UnitCanPeriodData) GetAmbientTemperatureC() []*CanMetricValue {
 	if x != nil {
-		if x.xxx_hidden_AmbientTemp != nil {
-			return *x.xxx_hidden_AmbientTemp
+		if x.xxx_hidden_AmbientTemperatureC != nil {
+			return *x.xxx_hidden_AmbientTemperatureC
+		}
+	}
+	return nil
+}
+
+func (x *UnitCanPeriodData) GetWeightOnChassisTotalKg() []*CanMetricValue {
+	if x != nil {
+		if x.xxx_hidden_WeightOnChassisTotalKg != nil {
+			return *x.xxx_hidden_WeightOnChassisTotalKg
+		}
+	}
+	return nil
+}
+
+func (x *UnitCanPeriodData) GetEvBatteryRelPercent() []*CanMetricValue {
+	if x != nil {
+		if x.xxx_hidden_EvBatteryRelPercent != nil {
+			return *x.xxx_hidden_EvBatteryRelPercent
+		}
+	}
+	return nil
+}
+
+func (x *UnitCanPeriodData) GetEvBatteryAbsKwh() []*CanMetricValue {
+	if x != nil {
+		if x.xxx_hidden_EvBatteryAbsKwh != nil {
+			return *x.xxx_hidden_EvBatteryAbsKwh
+		}
+	}
+	return nil
+}
+
+func (x *UnitCanPeriodData) GetEvCharging() []*CanMetricValue {
+	if x != nil {
+		if x.xxx_hidden_EvCharging != nil {
+			return *x.xxx_hidden_EvCharging
+		}
+	}
+	return nil
+}
+
+func (x *UnitCanPeriodData) GetWeightOnAxis() []*AxisWeightMetricValue {
+	if x != nil {
+		if x.xxx_hidden_WeightOnAxis != nil {
+			return *x.xxx_hidden_WeightOnAxis
 		}
 	}
 	return nil
@@ -251,7 +301,7 @@ func (x *UnitCanPeriodData) GetAmbientTemp() []*CanMetricValue {
 
 func (x *UnitCanPeriodData) SetUnitId(v int64) {
 	x.xxx_hidden_UnitId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 14)
 }
 
 func (x *UnitCanPeriodData) SetRpmAverage(v []*CanMetricValue) {
@@ -262,28 +312,48 @@ func (x *UnitCanPeriodData) SetRpmMax(v []*CanMetricValue) {
 	x.xxx_hidden_RpmMax = &v
 }
 
-func (x *UnitCanPeriodData) SetFuelLevel(v []*CanMetricValue) {
-	x.xxx_hidden_FuelLevel = &v
+func (x *UnitCanPeriodData) SetFuelLevelPercent(v []*CanMetricValue) {
+	x.xxx_hidden_FuelLevelPercent = &v
 }
 
-func (x *UnitCanPeriodData) SetServiceDistance(v []*CanMetricValue) {
-	x.xxx_hidden_ServiceDistance = &v
+func (x *UnitCanPeriodData) SetServiceDistanceKm(v []*CanMetricValue) {
+	x.xxx_hidden_ServiceDistanceKm = &v
 }
 
-func (x *UnitCanPeriodData) SetTotalDistance(v []*CanMetricValue) {
-	x.xxx_hidden_TotalDistance = &v
+func (x *UnitCanPeriodData) SetTotalDistanceKm(v []*CanMetricValue) {
+	x.xxx_hidden_TotalDistanceKm = &v
 }
 
-func (x *UnitCanPeriodData) SetTotalFuel(v []*CanMetricValue) {
-	x.xxx_hidden_TotalFuel = &v
+func (x *UnitCanPeriodData) SetTotalFuelL(v []*CanMetricValue) {
+	x.xxx_hidden_TotalFuelL = &v
 }
 
 func (x *UnitCanPeriodData) SetTotalEngineHours(v []*CanMetricValue) {
 	x.xxx_hidden_TotalEngineHours = &v
 }
 
-func (x *UnitCanPeriodData) SetAmbientTemp(v []*CanMetricValue) {
-	x.xxx_hidden_AmbientTemp = &v
+func (x *UnitCanPeriodData) SetAmbientTemperatureC(v []*CanMetricValue) {
+	x.xxx_hidden_AmbientTemperatureC = &v
+}
+
+func (x *UnitCanPeriodData) SetWeightOnChassisTotalKg(v []*CanMetricValue) {
+	x.xxx_hidden_WeightOnChassisTotalKg = &v
+}
+
+func (x *UnitCanPeriodData) SetEvBatteryRelPercent(v []*CanMetricValue) {
+	x.xxx_hidden_EvBatteryRelPercent = &v
+}
+
+func (x *UnitCanPeriodData) SetEvBatteryAbsKwh(v []*CanMetricValue) {
+	x.xxx_hidden_EvBatteryAbsKwh = &v
+}
+
+func (x *UnitCanPeriodData) SetEvCharging(v []*CanMetricValue) {
+	x.xxx_hidden_EvCharging = &v
+}
+
+func (x *UnitCanPeriodData) SetWeightOnAxis(v []*AxisWeightMetricValue) {
+	x.xxx_hidden_WeightOnAxis = &v
 }
 
 func (x *UnitCanPeriodData) HasUnitId() bool {
@@ -308,17 +378,27 @@ type UnitCanPeriodData_builder struct {
 	// Maximum RPM values.
 	RpmMax []*CanMetricValue
 	// Fuel level values (%).
-	FuelLevel []*CanMetricValue
+	FuelLevelPercent []*CanMetricValue
 	// Service distance values (km).
-	ServiceDistance []*CanMetricValue
+	ServiceDistanceKm []*CanMetricValue
 	// Total distance values (km).
-	TotalDistance []*CanMetricValue
+	TotalDistanceKm []*CanMetricValue
 	// Total fuel values (liters or kg).
-	TotalFuel []*CanMetricValue
+	TotalFuelL []*CanMetricValue
 	// Total engine hours values.
 	TotalEngineHours []*CanMetricValue
 	// Ambient temperature values (°C).
-	AmbientTemp []*CanMetricValue
+	AmbientTemperatureC []*CanMetricValue
+	// Weight on chassis total values (kg).
+	WeightOnChassisTotalKg []*CanMetricValue
+	// EV Battery relative level values (%).
+	EvBatteryRelPercent []*CanMetricValue
+	// EV Battery absolute level values (kWh).
+	EvBatteryAbsKwh []*CanMetricValue
+	// EV Charging status values (0/1).
+	EvCharging []*CanMetricValue
+	// Weight on axis values.
+	WeightOnAxis []*AxisWeightMetricValue
 }
 
 func (b0 UnitCanPeriodData_builder) Build() *UnitCanPeriodData {
@@ -326,17 +406,183 @@ func (b0 UnitCanPeriodData_builder) Build() *UnitCanPeriodData {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.UnitId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 14)
 		x.xxx_hidden_UnitId = *b.UnitId
 	}
 	x.xxx_hidden_RpmAverage = &b.RpmAverage
 	x.xxx_hidden_RpmMax = &b.RpmMax
-	x.xxx_hidden_FuelLevel = &b.FuelLevel
-	x.xxx_hidden_ServiceDistance = &b.ServiceDistance
-	x.xxx_hidden_TotalDistance = &b.TotalDistance
-	x.xxx_hidden_TotalFuel = &b.TotalFuel
+	x.xxx_hidden_FuelLevelPercent = &b.FuelLevelPercent
+	x.xxx_hidden_ServiceDistanceKm = &b.ServiceDistanceKm
+	x.xxx_hidden_TotalDistanceKm = &b.TotalDistanceKm
+	x.xxx_hidden_TotalFuelL = &b.TotalFuelL
 	x.xxx_hidden_TotalEngineHours = &b.TotalEngineHours
-	x.xxx_hidden_AmbientTemp = &b.AmbientTemp
+	x.xxx_hidden_AmbientTemperatureC = &b.AmbientTemperatureC
+	x.xxx_hidden_WeightOnChassisTotalKg = &b.WeightOnChassisTotalKg
+	x.xxx_hidden_EvBatteryRelPercent = &b.EvBatteryRelPercent
+	x.xxx_hidden_EvBatteryAbsKwh = &b.EvBatteryAbsKwh
+	x.xxx_hidden_EvCharging = &b.EvCharging
+	x.xxx_hidden_WeightOnAxis = &b.WeightOnAxis
+	return m0
+}
+
+// AxisWeightMetricValue represents a weight metric on a specific axis/wheel.
+type AxisWeightMetricValue struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Time        *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=time"`
+	xxx_hidden_ValueKg     float64                `protobuf:"fixed64,2,opt,name=value_kg,json=valueKg"`
+	xxx_hidden_AxisId      int32                  `protobuf:"varint,3,opt,name=axis_id,json=axisId"`
+	xxx_hidden_WheelId     int32                  `protobuf:"varint,4,opt,name=wheel_id,json=wheelId"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *AxisWeightMetricValue) Reset() {
+	*x = AxisWeightMetricValue{}
+	mi := &file_wayplatform_connect_mapon_v1_can_metric_value_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AxisWeightMetricValue) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AxisWeightMetricValue) ProtoMessage() {}
+
+func (x *AxisWeightMetricValue) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_can_metric_value_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *AxisWeightMetricValue) GetTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.xxx_hidden_Time
+	}
+	return nil
+}
+
+func (x *AxisWeightMetricValue) GetValueKg() float64 {
+	if x != nil {
+		return x.xxx_hidden_ValueKg
+	}
+	return 0
+}
+
+func (x *AxisWeightMetricValue) GetAxisId() int32 {
+	if x != nil {
+		return x.xxx_hidden_AxisId
+	}
+	return 0
+}
+
+func (x *AxisWeightMetricValue) GetWheelId() int32 {
+	if x != nil {
+		return x.xxx_hidden_WheelId
+	}
+	return 0
+}
+
+func (x *AxisWeightMetricValue) SetTime(v *timestamppb.Timestamp) {
+	x.xxx_hidden_Time = v
+}
+
+func (x *AxisWeightMetricValue) SetValueKg(v float64) {
+	x.xxx_hidden_ValueKg = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
+}
+
+func (x *AxisWeightMetricValue) SetAxisId(v int32) {
+	x.xxx_hidden_AxisId = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *AxisWeightMetricValue) SetWheelId(v int32) {
+	x.xxx_hidden_WheelId = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
+}
+
+func (x *AxisWeightMetricValue) HasTime() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Time != nil
+}
+
+func (x *AxisWeightMetricValue) HasValueKg() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *AxisWeightMetricValue) HasAxisId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *AxisWeightMetricValue) HasWheelId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *AxisWeightMetricValue) ClearTime() {
+	x.xxx_hidden_Time = nil
+}
+
+func (x *AxisWeightMetricValue) ClearValueKg() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_ValueKg = 0
+}
+
+func (x *AxisWeightMetricValue) ClearAxisId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_AxisId = 0
+}
+
+func (x *AxisWeightMetricValue) ClearWheelId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_WheelId = 0
+}
+
+type AxisWeightMetricValue_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	Time    *timestamppb.Timestamp
+	ValueKg *float64
+	AxisId  *int32
+	WheelId *int32
+}
+
+func (b0 AxisWeightMetricValue_builder) Build() *AxisWeightMetricValue {
+	m0 := &AxisWeightMetricValue{}
+	b, x := &b0, m0
+	_, _ = b, x
+	x.xxx_hidden_Time = b.Time
+	if b.ValueKg != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
+		x.xxx_hidden_ValueKg = *b.ValueKg
+	}
+	if b.AxisId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
+		x.xxx_hidden_AxisId = *b.AxisId
+	}
+	if b.WheelId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		x.xxx_hidden_WheelId = *b.WheelId
+	}
 	return m0
 }
 
@@ -347,43 +593,61 @@ const file_wayplatform_connect_mapon_v1_can_metric_value_proto_rawDesc = "" +
 	"3wayplatform/connect/mapon/v1/can_metric_value.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"V\n" +
 	"\x0eCanMetricValue\x12.\n" +
 	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x01R\x05value\"\xb7\x05\n" +
+	"\x05value\x18\x02 \x01(\x01R\x05value\"\xb6\t\n" +
 	"\x11UnitCanPeriodData\x12\x17\n" +
 	"\aunit_id\x18\x01 \x01(\x03R\x06unitId\x12M\n" +
 	"\vrpm_average\x18\x02 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\n" +
 	"rpmAverage\x12E\n" +
-	"\arpm_max\x18\x03 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x06rpmMax\x12K\n" +
-	"\n" +
-	"fuel_level\x18\x04 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\tfuelLevel\x12W\n" +
-	"\x10service_distance\x18\x05 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x0fserviceDistance\x12S\n" +
-	"\x0etotal_distance\x18\x06 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\rtotalDistance\x12K\n" +
-	"\n" +
-	"total_fuel\x18\a \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\ttotalFuel\x12Z\n" +
-	"\x12total_engine_hours\x18\b \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x10totalEngineHours\x12O\n" +
-	"\fambient_temp\x18\t \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\vambientTempB\x9e\x02\n" +
+	"\arpm_max\x18\x03 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x06rpmMax\x12Z\n" +
+	"\x12fuel_level_percent\x18\x04 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x10fuelLevelPercent\x12\\\n" +
+	"\x13service_distance_km\x18\x05 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x11serviceDistanceKm\x12X\n" +
+	"\x11total_distance_km\x18\x06 \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x0ftotalDistanceKm\x12N\n" +
+	"\ftotal_fuel_l\x18\a \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\n" +
+	"totalFuelL\x12Z\n" +
+	"\x12total_engine_hours\x18\b \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x10totalEngineHours\x12`\n" +
+	"\x15ambient_temperature_c\x18\t \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x13ambientTemperatureC\x12h\n" +
+	"\x1aweight_on_chassis_total_kg\x18\n" +
+	" \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x16weightOnChassisTotalKg\x12a\n" +
+	"\x16ev_battery_rel_percent\x18\v \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x13evBatteryRelPercent\x12Y\n" +
+	"\x12ev_battery_abs_kwh\x18\f \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\x0fevBatteryAbsKwh\x12M\n" +
+	"\vev_charging\x18\r \x03(\v2,.wayplatform.connect.mapon.v1.CanMetricValueR\n" +
+	"evCharging\x12Y\n" +
+	"\x0eweight_on_axis\x18\x0e \x03(\v23.wayplatform.connect.mapon.v1.AxisWeightMetricValueR\fweightOnAxis\"\x96\x01\n" +
+	"\x15AxisWeightMetricValue\x12.\n" +
+	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\x12\x19\n" +
+	"\bvalue_kg\x18\x02 \x01(\x01R\avalueKg\x12\x17\n" +
+	"\aaxis_id\x18\x03 \x01(\x05R\x06axisId\x12\x19\n" +
+	"\bwheel_id\x18\x04 \x01(\x05R\awheelIdB\x9e\x02\n" +
 	" com.wayplatform.connect.mapon.v1B\x13CanMetricValueProtoP\x01ZRgithub.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1\xa2\x02\x03WCM\xaa\x02\x1cWayplatform.Connect.Mapon.V1\xca\x02\x1cWayplatform\\Connect\\Mapon\\V1\xe2\x02(Wayplatform\\Connect\\Mapon\\V1\\GPBMetadata\xea\x02\x1fWayplatform::Connect::Mapon::V1b\beditionsp\xe8\a"
 
-var file_wayplatform_connect_mapon_v1_can_metric_value_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_wayplatform_connect_mapon_v1_can_metric_value_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_wayplatform_connect_mapon_v1_can_metric_value_proto_goTypes = []any{
 	(*CanMetricValue)(nil),        // 0: wayplatform.connect.mapon.v1.CanMetricValue
 	(*UnitCanPeriodData)(nil),     // 1: wayplatform.connect.mapon.v1.UnitCanPeriodData
-	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
+	(*AxisWeightMetricValue)(nil), // 2: wayplatform.connect.mapon.v1.AxisWeightMetricValue
+	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
 }
 var file_wayplatform_connect_mapon_v1_can_metric_value_proto_depIdxs = []int32{
-	2, // 0: wayplatform.connect.mapon.v1.CanMetricValue.time:type_name -> google.protobuf.Timestamp
-	0, // 1: wayplatform.connect.mapon.v1.UnitCanPeriodData.rpm_average:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 2: wayplatform.connect.mapon.v1.UnitCanPeriodData.rpm_max:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 3: wayplatform.connect.mapon.v1.UnitCanPeriodData.fuel_level:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 4: wayplatform.connect.mapon.v1.UnitCanPeriodData.service_distance:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 5: wayplatform.connect.mapon.v1.UnitCanPeriodData.total_distance:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 6: wayplatform.connect.mapon.v1.UnitCanPeriodData.total_fuel:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 7: wayplatform.connect.mapon.v1.UnitCanPeriodData.total_engine_hours:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	0, // 8: wayplatform.connect.mapon.v1.UnitCanPeriodData.ambient_temp:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
-	9, // [9:9] is the sub-list for method output_type
-	9, // [9:9] is the sub-list for method input_type
-	9, // [9:9] is the sub-list for extension type_name
-	9, // [9:9] is the sub-list for extension extendee
-	0, // [0:9] is the sub-list for field type_name
+	3,  // 0: wayplatform.connect.mapon.v1.CanMetricValue.time:type_name -> google.protobuf.Timestamp
+	0,  // 1: wayplatform.connect.mapon.v1.UnitCanPeriodData.rpm_average:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 2: wayplatform.connect.mapon.v1.UnitCanPeriodData.rpm_max:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 3: wayplatform.connect.mapon.v1.UnitCanPeriodData.fuel_level_percent:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 4: wayplatform.connect.mapon.v1.UnitCanPeriodData.service_distance_km:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 5: wayplatform.connect.mapon.v1.UnitCanPeriodData.total_distance_km:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 6: wayplatform.connect.mapon.v1.UnitCanPeriodData.total_fuel_l:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 7: wayplatform.connect.mapon.v1.UnitCanPeriodData.total_engine_hours:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 8: wayplatform.connect.mapon.v1.UnitCanPeriodData.ambient_temperature_c:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 9: wayplatform.connect.mapon.v1.UnitCanPeriodData.weight_on_chassis_total_kg:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 10: wayplatform.connect.mapon.v1.UnitCanPeriodData.ev_battery_rel_percent:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 11: wayplatform.connect.mapon.v1.UnitCanPeriodData.ev_battery_abs_kwh:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	0,  // 12: wayplatform.connect.mapon.v1.UnitCanPeriodData.ev_charging:type_name -> wayplatform.connect.mapon.v1.CanMetricValue
+	2,  // 13: wayplatform.connect.mapon.v1.UnitCanPeriodData.weight_on_axis:type_name -> wayplatform.connect.mapon.v1.AxisWeightMetricValue
+	3,  // 14: wayplatform.connect.mapon.v1.AxisWeightMetricValue.time:type_name -> google.protobuf.Timestamp
+	15, // [15:15] is the sub-list for method output_type
+	15, // [15:15] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_wayplatform_connect_mapon_v1_can_metric_value_proto_init() }
@@ -397,7 +661,7 @@ func file_wayplatform_connect_mapon_v1_can_metric_value_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wayplatform_connect_mapon_v1_can_metric_value_proto_rawDesc), len(file_wayplatform_connect_mapon_v1_can_metric_value_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -35,6 +35,7 @@ type Route struct {
 	xxx_hidden_AvgSpeedKmh      float64                `protobuf:"fixed64,9,opt,name=avg_speed_kmh,json=avgSpeedKmh"`
 	xxx_hidden_MaxSpeedKmh      float64                `protobuf:"fixed64,10,opt,name=max_speed_kmh,json=maxSpeedKmh"`
 	xxx_hidden_Polyline         *string                `protobuf:"bytes,11,opt,name=polyline"`
+	xxx_hidden_Countries        *[]*CountryStats       `protobuf:"bytes,12,rep,name=countries"`
 	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
 	XXX_presence                [1]uint32
 	unknownFields               protoimpl.UnknownFields
@@ -151,29 +152,38 @@ func (x *Route) GetPolyline() string {
 	return ""
 }
 
+func (x *Route) GetCountries() []*CountryStats {
+	if x != nil {
+		if x.xxx_hidden_Countries != nil {
+			return *x.xxx_hidden_Countries
+		}
+	}
+	return nil
+}
+
 func (x *Route) SetRouteId(v int64) {
 	x.xxx_hidden_RouteId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 12)
 }
 
 func (x *Route) SetUnitId(v int64) {
 	x.xxx_hidden_UnitId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 12)
 }
 
 func (x *Route) SetDriverId(v int64) {
 	x.xxx_hidden_DriverId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 12)
 }
 
 func (x *Route) SetType(v RouteType) {
 	x.xxx_hidden_Type = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 12)
 }
 
 func (x *Route) SetUnrecognizedType(v string) {
 	x.xxx_hidden_UnrecognizedType = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 12)
 }
 
 func (x *Route) SetStart(v *UnitState) {
@@ -186,22 +196,26 @@ func (x *Route) SetEnd(v *UnitState) {
 
 func (x *Route) SetDistanceM(v int64) {
 	x.xxx_hidden_DistanceM = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 12)
 }
 
 func (x *Route) SetAvgSpeedKmh(v float64) {
 	x.xxx_hidden_AvgSpeedKmh = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 12)
 }
 
 func (x *Route) SetMaxSpeedKmh(v float64) {
 	x.xxx_hidden_MaxSpeedKmh = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 12)
 }
 
 func (x *Route) SetPolyline(v string) {
 	x.xxx_hidden_Polyline = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 10, 11)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 10, 12)
+}
+
+func (x *Route) SetCountries(v []*CountryStats) {
+	x.xxx_hidden_Countries = &v
 }
 
 func (x *Route) HasRouteId() bool {
@@ -361,6 +375,8 @@ type Route_builder struct {
 	MaxSpeedKmh *float64
 	// Encoded polyline string representing the path geometry (Google Polyline Algorithm Format).
 	Polyline *string
+	// List of countries crossed during the route with statistics.
+	Countries []*CountryStats
 }
 
 func (b0 Route_builder) Build() *Route {
@@ -368,42 +384,184 @@ func (b0 Route_builder) Build() *Route {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.RouteId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 12)
 		x.xxx_hidden_RouteId = *b.RouteId
 	}
 	if b.UnitId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 12)
 		x.xxx_hidden_UnitId = *b.UnitId
 	}
 	if b.DriverId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 12)
 		x.xxx_hidden_DriverId = *b.DriverId
 	}
 	if b.Type != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 12)
 		x.xxx_hidden_Type = *b.Type
 	}
 	if b.UnrecognizedType != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 12)
 		x.xxx_hidden_UnrecognizedType = b.UnrecognizedType
 	}
 	x.xxx_hidden_Start = b.Start
 	x.xxx_hidden_End = b.End
 	if b.DistanceM != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 12)
 		x.xxx_hidden_DistanceM = *b.DistanceM
 	}
 	if b.AvgSpeedKmh != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 12)
 		x.xxx_hidden_AvgSpeedKmh = *b.AvgSpeedKmh
 	}
 	if b.MaxSpeedKmh != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 12)
 		x.xxx_hidden_MaxSpeedKmh = *b.MaxSpeedKmh
 	}
 	if b.Polyline != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 10, 11)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 10, 12)
 		x.xxx_hidden_Polyline = b.Polyline
+	}
+	x.xxx_hidden_Countries = &b.Countries
+	return m0
+}
+
+type CountryStats struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_CountryCode *string                `protobuf:"bytes,1,opt,name=country_code,json=countryCode"`
+	xxx_hidden_DistanceM   int64                  `protobuf:"varint,2,opt,name=distance_m,json=distanceM"`
+	xxx_hidden_DurationS   int64                  `protobuf:"varint,3,opt,name=duration_s,json=durationS"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *CountryStats) Reset() {
+	*x = CountryStats{}
+	mi := &file_wayplatform_connect_mapon_v1_route_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CountryStats) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CountryStats) ProtoMessage() {}
+
+func (x *CountryStats) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_route_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *CountryStats) GetCountryCode() string {
+	if x != nil {
+		if x.xxx_hidden_CountryCode != nil {
+			return *x.xxx_hidden_CountryCode
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *CountryStats) GetDistanceM() int64 {
+	if x != nil {
+		return x.xxx_hidden_DistanceM
+	}
+	return 0
+}
+
+func (x *CountryStats) GetDurationS() int64 {
+	if x != nil {
+		return x.xxx_hidden_DurationS
+	}
+	return 0
+}
+
+func (x *CountryStats) SetCountryCode(v string) {
+	x.xxx_hidden_CountryCode = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *CountryStats) SetDistanceM(v int64) {
+	x.xxx_hidden_DistanceM = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *CountryStats) SetDurationS(v int64) {
+	x.xxx_hidden_DurationS = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *CountryStats) HasCountryCode() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *CountryStats) HasDistanceM() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *CountryStats) HasDurationS() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *CountryStats) ClearCountryCode() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_CountryCode = nil
+}
+
+func (x *CountryStats) ClearDistanceM() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_DistanceM = 0
+}
+
+func (x *CountryStats) ClearDurationS() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_DurationS = 0
+}
+
+type CountryStats_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// ISO country code (e.g. "US", "LV").
+	CountryCode *string
+	// Distance driven in this country in meters.
+	DistanceM *int64
+	// Time spent in this country in seconds.
+	DurationS *int64
+}
+
+func (b0 CountryStats_builder) Build() *CountryStats {
+	m0 := &CountryStats{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.CountryCode != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_CountryCode = b.CountryCode
+	}
+	if b.DistanceM != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_DistanceM = *b.DistanceM
+	}
+	if b.DurationS != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_DurationS = *b.DurationS
 	}
 	return m0
 }
@@ -412,7 +570,7 @@ var File_wayplatform_connect_mapon_v1_route_proto protoreflect.FileDescriptor
 
 const file_wayplatform_connect_mapon_v1_route_proto_rawDesc = "" +
 	"\n" +
-	"(wayplatform/connect/mapon/v1/route.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\x1a-wayplatform/connect/mapon/v1/route_type.proto\x1a-wayplatform/connect/mapon/v1/unit_state.proto\"\xbf\x03\n" +
+	"(wayplatform/connect/mapon/v1/route.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\x1a-wayplatform/connect/mapon/v1/route_type.proto\x1a-wayplatform/connect/mapon/v1/unit_state.proto\"\x89\x04\n" +
 	"\x05Route\x12\x19\n" +
 	"\broute_id\x18\x01 \x01(\x03R\arouteId\x12\x17\n" +
 	"\aunit_id\x18\x02 \x01(\x03R\x06unitId\x12\x1b\n" +
@@ -426,25 +584,34 @@ const file_wayplatform_connect_mapon_v1_route_proto_rawDesc = "" +
 	"\ravg_speed_kmh\x18\t \x01(\x01R\vavgSpeedKmh\x12\"\n" +
 	"\rmax_speed_kmh\x18\n" +
 	" \x01(\x01R\vmaxSpeedKmh\x12\x1a\n" +
-	"\bpolyline\x18\v \x01(\tR\bpolylineB\x95\x02\n" +
+	"\bpolyline\x18\v \x01(\tR\bpolyline\x12H\n" +
+	"\tcountries\x18\f \x03(\v2*.wayplatform.connect.mapon.v1.CountryStatsR\tcountries\"o\n" +
+	"\fCountryStats\x12!\n" +
+	"\fcountry_code\x18\x01 \x01(\tR\vcountryCode\x12\x1d\n" +
+	"\n" +
+	"distance_m\x18\x02 \x01(\x03R\tdistanceM\x12\x1d\n" +
+	"\n" +
+	"duration_s\x18\x03 \x01(\x03R\tdurationSB\x95\x02\n" +
 	" com.wayplatform.connect.mapon.v1B\n" +
 	"RouteProtoP\x01ZRgithub.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1\xa2\x02\x03WCM\xaa\x02\x1cWayplatform.Connect.Mapon.V1\xca\x02\x1cWayplatform\\Connect\\Mapon\\V1\xe2\x02(Wayplatform\\Connect\\Mapon\\V1\\GPBMetadata\xea\x02\x1fWayplatform::Connect::Mapon::V1b\beditionsp\xe8\a"
 
-var file_wayplatform_connect_mapon_v1_route_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_wayplatform_connect_mapon_v1_route_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_wayplatform_connect_mapon_v1_route_proto_goTypes = []any{
-	(*Route)(nil),     // 0: wayplatform.connect.mapon.v1.Route
-	(RouteType)(0),    // 1: wayplatform.connect.mapon.v1.RouteType
-	(*UnitState)(nil), // 2: wayplatform.connect.mapon.v1.UnitState
+	(*Route)(nil),        // 0: wayplatform.connect.mapon.v1.Route
+	(*CountryStats)(nil), // 1: wayplatform.connect.mapon.v1.CountryStats
+	(RouteType)(0),       // 2: wayplatform.connect.mapon.v1.RouteType
+	(*UnitState)(nil),    // 3: wayplatform.connect.mapon.v1.UnitState
 }
 var file_wayplatform_connect_mapon_v1_route_proto_depIdxs = []int32{
-	1, // 0: wayplatform.connect.mapon.v1.Route.type:type_name -> wayplatform.connect.mapon.v1.RouteType
-	2, // 1: wayplatform.connect.mapon.v1.Route.start:type_name -> wayplatform.connect.mapon.v1.UnitState
-	2, // 2: wayplatform.connect.mapon.v1.Route.end:type_name -> wayplatform.connect.mapon.v1.UnitState
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	2, // 0: wayplatform.connect.mapon.v1.Route.type:type_name -> wayplatform.connect.mapon.v1.RouteType
+	3, // 1: wayplatform.connect.mapon.v1.Route.start:type_name -> wayplatform.connect.mapon.v1.UnitState
+	3, // 2: wayplatform.connect.mapon.v1.Route.end:type_name -> wayplatform.connect.mapon.v1.UnitState
+	1, // 3: wayplatform.connect.mapon.v1.Route.countries:type_name -> wayplatform.connect.mapon.v1.CountryStats
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_wayplatform_connect_mapon_v1_route_proto_init() }
@@ -461,7 +628,7 @@ func file_wayplatform_connect_mapon_v1_route_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wayplatform_connect_mapon_v1_route_proto_rawDesc), len(file_wayplatform_connect_mapon_v1_route_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

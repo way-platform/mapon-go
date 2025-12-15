@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// TellTaleValue represents a single tell-tale (dashboard indicator) status.
+message TellTaleValue {
+  // Human-readable name of the tell-tale (e.g. "PARKING_BRAKE").
+  string name = 1;
+
+  // Numeric ID of the tell-tale (FMS standard).
+  int32 telltale_id = 2;
+
+  // Status value (0-7).
+  int32 value = 3;
+
+  // Description of the status value (e.g. "Condition Red").
+  string value_title = 4;
+
+  // Timestamp when the value was recorded.
+  google.protobuf.Timestamp time = 5;
+}
+
+// UnitTellTaleData aggregates tell-tale values for a specific unit.
+message UnitTellTaleData {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of tell-tale values.
+  repeated TellTaleValue values = 2;
+}

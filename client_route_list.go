@@ -124,6 +124,12 @@ type jsonRoute struct {
 
 	Start jsonRoutePoint `json:"start"`
 	End   jsonRoutePoint `json:"end"`
+
+	Countries []struct {
+		Code     string `json:"code"`
+		Distance int64  `json:"distance"`
+		Time     int64  `json:"time"`
+	} `json:"countries"`
 }
 
 type jsonRoutePoint struct {
@@ -154,6 +160,16 @@ func mapJSONRouteToProto(unitID int64, j jsonRoute) *maponv1.Route {
 
 	r.SetStart(mapJSONPointToState(j.Start))
 	r.SetEnd(mapJSONPointToState(j.End))
+
+	var countries []*maponv1.CountryStats
+	for _, c := range j.Countries {
+		cs := &maponv1.CountryStats{}
+		cs.SetCountryCode(c.Code)
+		cs.SetDistanceM(c.Distance)
+		cs.SetDurationS(c.Time)
+		countries = append(countries, cs)
+	}
+	r.SetCountries(countries)
 
 	return r
 }
