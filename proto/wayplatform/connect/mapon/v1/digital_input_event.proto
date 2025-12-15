@@ -1,0 +1,34 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// DigitalInputEvent represents a state change of a digital input (switch).
+message DigitalInputEvent {
+  // Timestamp when the input was switched ON.
+  google.protobuf.Timestamp on_time = 1;
+
+  // Timestamp when the input was switched OFF.
+  google.protobuf.Timestamp off_time = 2;
+}
+
+// DigitalInputData groups events for a specific digital input number.
+message DigitalInputData {
+  // The input number (e.g., 1, 2, ...).
+  int32 input_number = 1;
+
+  // List of events for this input.
+  repeated DigitalInputEvent events = 2;
+}
+
+// UnitDigitalInputs aggregates digital input data for a specific unit.
+message UnitDigitalInputs {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of digital inputs and their events.
+  repeated DigitalInputData inputs = 2;
+}

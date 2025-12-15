@@ -1,0 +1,34 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// HumidityRecord represents a humidity reading from a sensor.
+message HumidityRecord {
+  // Timestamp of the reading.
+  google.protobuf.Timestamp time = 1;
+
+  // Humidity value in percent (0-100).
+  double value_percent = 2;
+}
+
+// UnitHumiditySensor groups humidity records for a specific sensor.
+message UnitHumiditySensor {
+  // The sensor number.
+  int32 number = 1;
+
+  // List of humidity records.
+  repeated HumidityRecord humidities = 2;
+}
+
+// UnitHumidity aggregates humidity data for a specific unit.
+message UnitHumidity {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of humidity sensors.
+  repeated UnitHumiditySensor sensors = 2;
+}

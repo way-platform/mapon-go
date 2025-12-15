@@ -1,0 +1,68 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// CanDataPoint represents a snapshot of CAN bus data at a specific point in time.
+message CanDataPoint {
+  // Timestamp of the data point.
+  google.protobuf.Timestamp time = 1;
+
+  // Average engine RPM.
+  int32 rpm_average = 2;
+
+  // Maximum engine RPM.
+  int32 rpm_max = 3;
+
+  // Fuel level in percent.
+  double fuel_level_percent = 4;
+
+  // Service distance in kilometers.
+  int64 service_distance_km = 5;
+
+  // Total driven distance in kilometers.
+  int64 total_distance_km = 6;
+
+  // Total fuel consumed in liters (or kg for CNG).
+  double total_fuel_l = 7;
+
+  // Total engine hours.
+  double total_engine_hours = 8;
+
+  // Ambient temperature in Celsius.
+  double ambient_temperature_c = 9;
+
+  // Weights on axes.
+  repeated AxisWeight axis_weights = 10;
+
+  // Trailer axle load in kg.
+  double trailer_axle_load_kg = 11;
+
+  // External weight in kg.
+  double external_weight_kg = 12;
+
+  // EV: Charger connected status.
+  bool ev_charger_connected = 13;
+
+  // EV: Charging status.
+  string ev_charging_status = 14;
+
+  // EV: Battery relative level (%).
+  double ev_battery_rel_percent = 15;
+
+  // EV: Battery absolute level (kWh).
+  double ev_battery_abs_kwh = 16;
+
+  // AxisWeight represents weight on a specific vehicle axis/wheel.
+  message AxisWeight {
+    // Weight value in kg.
+    double value_kg = 1;
+    // Axis index.
+    int32 axis_id = 2;
+    // Wheel index.
+    int32 wheel_id = 3;
+  }
+}

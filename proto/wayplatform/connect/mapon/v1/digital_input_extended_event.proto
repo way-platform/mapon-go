@@ -1,0 +1,50 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// DigitalInputExtendedEvent represents a detailed state change of a digital input, including location and driver info.
+message DigitalInputExtendedEvent {
+  // Timestamp when the input was switched ON.
+  google.protobuf.Timestamp on_time = 1;
+
+  // Location where the input was switched ON.
+  Location on_location = 2;
+
+  // Timestamp when the input was switched OFF.
+  google.protobuf.Timestamp off_time = 3;
+
+  // Location where the input was switched OFF.
+  Location off_location = 4;
+
+  // Distance travelled while the input was ON, in meters.
+  int64 distance_m = 5;
+
+  // Identifier of the driver active during this event.
+  int64 driver_id = 6;
+}
+
+// DigitalInputExtendedData groups extended events for a specific digital input.
+message DigitalInputExtendedData {
+  // The unique ID of the input configuration.
+  int64 input_id = 1;
+
+  // The label of the input.
+  string label = 2;
+
+  // List of extended events for this input.
+  repeated DigitalInputExtendedEvent events = 3;
+}
+
+// UnitDigitalInputsExtended aggregates extended digital input data for a specific unit.
+message UnitDigitalInputsExtended {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of inputs and their extended events.
+  repeated DigitalInputExtendedData inputs = 2;
+}

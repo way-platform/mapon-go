@@ -1,0 +1,17 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// UnitGroup represents a group of units.
+message UnitGroup {
+  // Unique identifier for the group.
+  int64 group_id = 1;
+
+  // Name of the group.
+  string name = 2;
+
+  // Identifier of the parent group (0 if root).
+  int64 parent_id = 3;
+}

@@ -1,0 +1,44 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// UnitDebugInfo contains technical debug information for a unit.
+message UnitDebugInfo {
+  // Last known location of the unit.
+  Location last_location = 1;
+
+  // Timestamp of the last location.
+  google.protobuf.Timestamp last_location_time = 2;
+
+  // Firmware version of the device.
+  string fw_version = 3;
+
+  // Timestamp of the last tachograph test.
+  google.protobuf.Timestamp last_tacho_test = 4;
+
+  // Timestamp of the last tachograph ID received.
+  google.protobuf.Timestamp last_tacho_id = 5;
+
+  // Total distance from CAN bus in kilometers.
+  double can_total_distance_km = 6;
+
+  // GPS status (e.g., "on", "off").
+  string gps_status = 7;
+
+  // Timestamp of the GPS status.
+  google.protobuf.Timestamp gps_status_time = 8;
+}
+
+// UnitDebugInfoData aggregates debug info for a specific unit.
+message UnitDebugInfoData {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // The debug info.
+  UnitDebugInfo debug_info = 2;
+}

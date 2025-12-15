@@ -1,0 +1,38 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// DrivingTimeInfo represents the current and remaining driving time budgets for a driver.
+message DrivingTimeInfo {
+  // Current activity state (e.g., "DRIVING", "REST").
+  string current_state = 1;
+
+  // Driving time accumulated in the current session (seconds).
+  int64 now_driving_s = 2;
+
+  // Driving time remaining in the current session (seconds).
+  int64 now_driving_remaining_s = 3;
+
+  // Driving time accumulated today (seconds).
+  int64 today_driving_s = 4;
+
+  // Driving time remaining today (seconds).
+  int64 today_driving_remaining_s = 5;
+
+  // Driving time accumulated this week (seconds).
+  int64 week_driving_s = 6;
+
+  // Driving time remaining this week (seconds).
+  int64 week_driving_remaining_s = 7;
+
+  // Identifier of the driver.
+  int64 driver_id = 8;
+
+  // Name of the driver.
+  string driver_name = 9;
+
+  // Surname of the driver.
+  string driver_surname = 10;
+}

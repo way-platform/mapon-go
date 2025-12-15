@@ -1,0 +1,25 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// IbuttonEvent represents an iButton authorization event.
+message IbuttonEvent {
+  // Timestamp of the authorization event.
+  google.protobuf.Timestamp time = 1;
+
+  // The unique identifier/value of the iButton key.
+  string value = 2;
+}
+
+// UnitIbuttons aggregates iButton events for a specific unit.
+message UnitIbuttons {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of iButton events.
+  repeated IbuttonEvent ibuttons = 2;
+}

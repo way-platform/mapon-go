@@ -1,0 +1,23 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// UnitField represents a custom field key-value pair for a unit.
+message UnitField {
+  // The key or name of the field.
+  string key = 1;
+
+  // The value of the field.
+  string value = 2;
+}
+
+// UnitFields aggregates custom fields for a specific unit.
+message UnitFields {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of custom fields.
+  repeated UnitField fields = 2;
+}

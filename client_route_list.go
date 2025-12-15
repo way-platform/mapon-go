@@ -15,10 +15,13 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// This API endpoint is documented in:
+// docs/api/methods/13-method-route.html
+
 // ListRoutesRequest is the request for [Client.ListRoutes].
 type ListRoutesRequest struct {
 	From    time.Time
-	Till    time.Time
+	To      time.Time
 	UnitIDs []int64
 	// Include additional data. E.g., "polyline".
 	Include []string
@@ -29,7 +32,7 @@ type ListRoutesResponse struct {
 	Routes []*maponv1.Route
 }
 
-// ListRoutes lists the routes for units in the specified period.
+// ListRoutes returns list of stops and routes for units in the specified period.
 func (c *Client) ListRoutes(ctx context.Context, request *ListRoutesRequest, opts ...ClientOption) (_ *ListRoutesResponse, err error) {
 	defer func() {
 		if err != nil {
@@ -41,7 +44,7 @@ func (c *Client) ListRoutes(ctx context.Context, request *ListRoutesRequest, opt
 	params := url.Values{}
 	// API expects Y-m-dTH:i:sZ
 	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.Till.UTC().Format(time.RFC3339))
+	params.Add("till", request.To.UTC().Format(time.RFC3339))
 
 	for _, id := range request.UnitIDs {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
@@ -157,7 +160,7 @@ func mapJSONRouteToProto(unitID int64, j jsonRoute) *maponv1.Route {
 
 func mapJSONPointToState(p jsonRoutePoint) *maponv1.UnitState {
 	s := &maponv1.UnitState{}
-	
+
 	loc := &maponv1.Location{}
 	loc.SetLatitude(p.Lat)
 	loc.SetLongitude(p.Lng)

@@ -2,16 +2,14 @@ edition = "2023";
 
 package wayplatform.connect.mapon.v1;
 
-option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
-
-// Location represents a geographical position with an optional address.
+// Location represents a geographical point with optional address information.
 message Location {
-  // Latitude in decimal degrees.
   double latitude = 1;
-
-  // Longitude in decimal degrees.
   double longitude = 2;
-
-  // Reverse-geocoded address string (e.g., "123 Main St, City").
   string address = 3;
+}
+
+// UnitIDsList represents a list of unit IDs.
+message UnitIDsList {
+  repeated int64 ids = 1;
 }

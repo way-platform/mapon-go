@@ -1,0 +1,26 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// IgnitionEvent represents a single ignition on/off event for a unit.
+message IgnitionEvent {
+  // Timestamp when the ignition was turned on.
+  google.protobuf.Timestamp on_time = 1;
+
+  // Timestamp when the ignition was turned off.
+  // Can be missing/empty if ignition is currently on.
+  google.protobuf.Timestamp off_time = 2;
+}
+
+// UnitIgnitions aggregates ignition events for a specific unit.
+message UnitIgnitions {
+  // The ID of the unit.
+  int64 unit_id = 1;
+
+  // List of ignition events.
+  repeated IgnitionEvent ignitions = 2;
+}
