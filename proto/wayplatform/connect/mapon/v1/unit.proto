@@ -1,0 +1,51 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "wayplatform/connect/mapon/v1/unit_state.proto";
+import "wayplatform/connect/mapon/v1/unit_type.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// Unit represents a vehicle or tracking unit in the Mapon system.
+message Unit {
+  // Unique identifier for the unit.
+  int64 unit_id = 1;
+
+  // Identifier of the company owning the unit.
+  int64 company_id = 2;
+
+  // User-defined label for the unit (e.g. "VOLVO FH").
+  string label = 3;
+
+  // Registration number or license plate.
+  string number = 4;
+
+  // Vehicle Identification Number (VIN).
+  string vin = 5;
+
+  // Type of the unit.
+  UnitType type = 6;
+
+  // The raw string value of the type if it is not one of the known UnitType enum values.
+  // This field is populated only when 'type' is UNIT_TYPE_UNRECOGNIZED.
+  string unrecognized_type = 7;
+
+  // The current telemetry state of the unit.
+  UnitState state = 8;
+
+  // Device associated with the unit.
+  Device device = 9;
+
+  // Device represents the tracking hardware installed in the unit.
+  message Device {
+    // Unique identifier of the device.
+    int64 device_id = 1;
+
+    // Serial number of the device.
+    string serial_number = 2;
+
+    // IMEI (International Mobile Equipment Identity) of the device.
+    string imei = 3;
+  }
+}

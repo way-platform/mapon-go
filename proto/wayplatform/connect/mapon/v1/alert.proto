@@ -1,0 +1,37 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// Alert represents a triggered event or alarm.
+message Alert {
+  // Unique identifier for the alert event.
+  int64 alert_id = 1;
+
+  // Identifier of the unit that triggered the alert.
+  int64 unit_id = 2;
+
+  // Identifier of the driver associated with the unit at the time of the alert.
+  // 0 if no driver was identified.
+  int64 driver_id = 3;
+
+  // Type code of the alert (e.g., "speeding", "sosbutton", "no_power").
+  string type = 4;
+
+  // Human-readable message describing the alert.
+  string message = 5;
+
+  // Timestamp when the alert occurred.
+  google.protobuf.Timestamp time = 6;
+
+  // Location where the alert occurred.
+  Location location = 7;
+
+  // Value associated with the alert (e.g., speed in km/h for speeding alerts, or voltage).
+  // The interpretation depends on the alert type.
+  string value_raw = 8;
+}

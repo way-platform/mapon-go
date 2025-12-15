@@ -1,0 +1,30 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// Object represents a geofence or point of interest (POI).
+message Object {
+  // Unique identifier for the object.
+  int64 object_id = 1;
+
+  // Name of the object.
+  string name = 2;
+
+  // Geometry of the object in Well-Known Text (WKT) format.
+  // e.g., "POLYGON((...))" or "POINT(...)".
+  string wkt = 3;
+
+  // Identifier of the group this object belongs to.
+  int64 group_id = 4;
+
+  // Identifier of the user who owns this object (if private).
+  int64 user_id = 5;
+
+  // Indicates if the object is private.
+  bool is_private = 6;
+
+  // Hex color code for displaying the object (e.g., "FF0000").
+  string color_hex = 7;
+}

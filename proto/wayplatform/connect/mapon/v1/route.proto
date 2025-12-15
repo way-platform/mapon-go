@@ -1,0 +1,48 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+import "wayplatform/connect/mapon/v1/route_type.proto";
+import "wayplatform/connect/mapon/v1/unit_state.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// Route represents a trip or a stop for a specific unit.
+message Route {
+  // Unique identifier for the route segment.
+  int64 route_id = 1;
+
+  // Identifier of the unit that performed this route.
+  int64 unit_id = 2;
+
+  // Identifier of the driver assigned to this route.
+  // 0 if no driver was assigned.
+  int64 driver_id = 3;
+
+  // Type of the route segment (movement or stationary).
+  RouteType type = 4;
+
+  // The raw string value of the type if it is not one of the known RouteType enum values.
+  // This field is populated only when 'type' is ROUTE_TYPE_UNRECOGNIZED.
+  string unrecognized_type = 5;
+
+  // The state of the unit at the beginning of this route segment.
+  UnitState start = 6;
+
+  // The state of the unit at the end of this route segment.
+  UnitState end = 7;
+
+  // Total distance covered in this route segment in meters.
+  int64 distance_m = 8;
+
+  // Average speed in kilometers per hour.
+  double avg_speed_kmh = 9;
+
+  // Maximum speed in kilometers per hour.
+  double max_speed_kmh = 10;
+
+  // Encoded polyline string representing the path geometry (Google Polyline Algorithm Format).
+  string polyline = 11;
+}

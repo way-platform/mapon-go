@@ -1,0 +1,72 @@
+<div id="method-tracking" class="api-method-group"><h1>Tracking</h1><div id="method-tracking-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tracking/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Get all enabled tracking links</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period from (filters by Tracking link creation date)</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period till (filters by Tracking link creation date)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: &#34;48249&#34;,
+            &#34;gmt&#34;: &#34;2017-07-07 11:16:23&#34;,
+            &#34;car_id&#34;: [
+                &#34;42218&#34;
+            ],
+            &#34;from&#34;: &#34;1499374800&#34;,
+            &#34;till&#34;: &#34;1499461199&#34;,
+            &#34;routes&#34;: false,
+            &#34;comment&#34;: &#34;Note for tracking link&#34;,
+            &#34;hash&#34;: &#34;379573ba19b5e84110d60ff2e1c85544&#34;,
+            &#34;deleted&#34;: &#34;N&#34;,
+            &#34;deactive_object_id&#34;: &#34;0&#34;,
+            &#34;additional_data&#34;: [],
+            &#34;user_name&#34;: &#34;Test user&#34;,
+            &#34;user_id&#34;: &#34;19047&#34;,
+            &#34;restrict_routes_period&#34;: [],
+            &#34;comment_visibility&#34;: true
+        }
+    ]
+}</pre></div></div></div><div id="method-tracking-Edit" class="api-method"><h2>Edit</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tracking/edit.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Edit existing tracking link</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Tracking link unique ID</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Tracking available from (Datetime timestamp)</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Tracking available till (Datetime timestamp)</div></div></div><div class="item"><div class="cols"><div class="name">routes <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description"><code>0</code> to disable or <code>1</code> to allow see routes in period</div></div></div><div class="item"><div class="cols"><div class="name">car_id <span class="required" title="Required">*</span></div><div class="format">[]</div><div class="description">Integers of car Ids</div></div></div><div class="item"><div class="cols"><div class="name">restrict_routes_period </div><div class="format">[]</div><div class="description">Additional parameters<br/>
+                                <code>time_from</code> - Specific time from (Example: <code>09:00</code>)<br/>
+                                <code>time_to</code> - Specific time to (Example: <code>15:00</code>)<br/>
+                                
+                                At least one of these keys must be defined:<br/>
+                                <code>d1</code><br/>
+                                <code>d2</code><br/>
+                                <code>d3</code><br/>
+                                <code>d4</code><br/>
+                                <code>d5</code><br/>
+                                <code>d6</code><br/>
+                                <code>d7</code>
+                                </div></div></div><div class="item"><div class="cols"><div class="name">comment </div><div class="format">string</div><div class="description">Comment for tracking link</div></div></div><div class="item"><div class="cols"><div class="name">comment_visibility </div><div class="format">int</div><div class="description">Make tracking link comment visible on tracking page. <code>0</code> - not visible, <code>1</code> - visible. Default value is <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">language </div><div class="format">string</div><div class="description">Tracking link language</div></div></div><div class="item"><div class="cols"><div class="name">deactive_object_id </div><div class="format">int</div><div class="description">When car will arrive in the territory it will be removed from tracking link</div></div></div><div class="item"><div class="cols"><div class="name">active_in_object_id </div><div class="format">int</div><div class="description">Tracking activates only if vehicle is in defined territory</div></div></div><div class="item"><div class="cols"><div class="name">additional_data </div><div class="format">[]</div><div class="description">
+                Additional data for carrier<br/>
+                <code>carrier_temp</code> - []
+                <br/>
+                Example:<br/>
+                    <code>carrier_temp&#34;:[{&#34;comp_id&#34;:1,&#34;types&#34;:[&#34;supply&#34;,&#34;defrost&#34;,&#34;return&#34;,&#34;setpoint&#34;]}</code>
+                            </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div></div><div id="method-tracking-Create" class="api-method"><h2>Create</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tracking/create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Create new tracking link</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Tracking available from (Datetime timestamp)</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Tracking available till (Datetime timestamp)</div></div></div><div class="item"><div class="cols"><div class="name">routes <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description"><code>0</code> to disable or <code>1</code> to allow see routes in period</div></div></div><div class="item"><div class="cols"><div class="name">car_id <span class="required" title="Required">*</span></div><div class="format">[]</div><div class="description">Integers of car Ids</div></div></div><div class="item"><div class="cols"><div class="name">restrict_routes_period </div><div class="format">[]</div><div class="description">Additional parameters<br/>
+                                <code>time_from</code> - Specific time from (Example: <code>09:00</code>)<br/>
+                                <code>time_to</code> - Specific time to (Example: <code>15:00</code>)<br/>
+                                
+                                At least one of these keys must be defined:<br/>
+                                <code>d1</code><br/>
+                                <code>d2</code><br/>
+                                <code>d3</code><br/>
+                                <code>d4</code><br/>
+                                <code>d5</code><br/>
+                                <code>d6</code><br/>
+                                <code>d7</code>
+                                </div></div></div><div class="item"><div class="cols"><div class="name">comment </div><div class="format">string</div><div class="description">Comment for tracking link</div></div></div><div class="item"><div class="cols"><div class="name">comment_visibility </div><div class="format">int</div><div class="description">Make tracking link comment visible on tracking page. <code>0</code> - not visible, <code>1</code> - visible. Default value is <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">language </div><div class="format">string</div><div class="description">Tracking link language</div></div></div><div class="item"><div class="cols"><div class="name">deactive_object_id </div><div class="format">int</div><div class="description">When car will arrive in the territory it will be removed from tracking link</div></div></div><div class="item"><div class="cols"><div class="name">active_in_object_id </div><div class="format">int</div><div class="description">Tracking activates only if vehicle is in defined territory</div></div></div><div class="item"><div class="cols"><div class="name">additional_data </div><div class="format">[]</div><div class="description">
+                Additional data for carrier<br/>
+                <code>carrier_temp</code> - []
+                <br/>
+                Example:<br/>
+                    <code>carrier_temp&#34;:[{&#34;comp_id&#34;:1,&#34;types&#34;:[&#34;supply&#34;,&#34;defrost&#34;,&#34;return&#34;,&#34;setpoint&#34;]}</code>
+                            </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;tracking_id&#34;: &#34;fd0ca1ae382c15fa18cd4cde4435d93a&#34;
+    }
+}</pre></div></div></div><div id="method-tracking-Delete" class="api-method"><h2>Delete</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tracking/delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Delete tracking link</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unique tracking link ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div></div></div>

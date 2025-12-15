@@ -1,0 +1,31 @@
+<div id="method-tachograph" class="api-method-group"><h1>Tachograph</h1><div id="method-tachograph-List-driver-DDD-files" class="api-method"><h2>List driver DDD files</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tachograph/list_ddd_driver.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns list of driver DDD files. Max period 1 month.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period till</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;files&#34;: [
+            {
+                &#34;id&#34;: 1,
+                &#34;car_id&#34;: 1,
+                &#34;card_number&#34;: &#34;UAD000000000001&#34;,
+                &#34;card_name&#34;: &#34;John&#34;,
+                &#34;card_surname&#34;: &#34;Doe&#34;,
+                &#34;card_birthday&#34;: &#34;1966-07-17&#34;,
+                &#34;created&#34;: &#34;2018-01-01 00:09:03&#34;,
+                &#34;filename&#34;: &#34;1_00_20180101_1.ddd&#34;
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-tachograph-Download-driver-DDD-file" class="api-method"><h2>Download driver DDD file</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tachograph/download_ddd_driver.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li></ul><div class="tab description">Echo binary data file with Content-Type: application/octet-stream</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">File ID</div></div></div></div></div></div><div id="method-tachograph-List-vehicle-DDD-files" class="api-method"><h2>List vehicle DDD files</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tachograph/list_ddd_vehicle.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns list of vehicle DDD files. Max period 1 month.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period from</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Data period till</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;files&#34;: [
+            {
+                &#34;id&#34;: 1,
+                &#34;car_id&#34;: 1,
+                &#34;registration_number&#34;: &#34;XX 1234&#34;,
+                &#34;period_start&#34;: &#34;2017-12-19&#34;,
+                &#34;period_end&#34;: &#34;2017-12-29&#34;,
+                &#34;next_calibration&#34;: &#34;2018-06-23&#34;,
+                &#34;created&#34;: &#34;2017-12-30 00:53:24&#34;,
+                &#34;filename&#34;: &#34;1_merged.ddd&#34;
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-tachograph-Download-vehicle-DDD-file" class="api-method"><h2>Download vehicle DDD file</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tachograph/download_ddd_vehicle.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li></ul><div class="tab description">Echo binary data file with Content-Type: application/octet-stream</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">File ID</div></div></div></div></div></div></div>

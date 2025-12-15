@@ -1,0 +1,48 @@
+<div id="method-messaging_channels" class="api-method-group"><h1>Messaging_channels</h1><div id="method-messaging_channels-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">messaging_channels/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">List user channels</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">User id. Returns user channels</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        - Nullable vars: <code>last_message_at</code>,
+                            <code>last_message</code>,
+                            <code>last_message.text</code>,
+                            <code>last_message.gps</code>,
+                            <code>last_message.attachments</code><br/>
+                        - <code>last_message.status</code> possible values: sent,delivered,read,unread<br/>
+                        - <code>last_message.attachments.size</code> size in bytes
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;name&#34;: &#34;Documents&#34;,
+            &#34;is_admin&#34;: true,
+            &#34;is_muted&#34;: false,
+            &#34;last_message_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+            &#34;last_message&#34;: {
+                &#34;id&#34;: 1,
+                &#34;status&#34;: &#34;read&#34;,
+                &#34;created_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+                &#34;text&#34;: &#34;Lorem ipsum&#34;,
+                &#34;gps&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                },
+                &#34;attachments&#34;: [
+                    {
+                        &#34;id&#34;: 1,
+                        &#34;name&#34;: &#34;sample.jpg&#34;,
+                        &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                        &#34;url&#34;: &#34;https:\/\/url-to-image.example?23424324323423&#34;,
+                        &#34;thumb_url&#34;: &#34;https:\/\/url-to-image-thumb.example?23424324323423&#34;,
+                        &#34;size&#34;: 234324
+                    }
+                ],
+                &#34;sender&#34;: {
+                    &#34;id&#34;: 1,
+                    &#34;unit_id&#34;: null,
+                    &#34;user_id&#34;: 1,
+                    &#34;title&#34;: &#34;John Smith&#34;
+                }
+            },
+            &#34;unread_total&#34;: 1,
+            &#34;user_count&#34;: 2
+        }
+    ]
+}</pre></div></div></div></div>

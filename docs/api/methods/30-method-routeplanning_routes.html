@@ -1,0 +1,220 @@
+<div id="method-routeplanning_routes" class="api-method-group"><h1>Routeplanning_routes</h1><div id="method-routeplanning_routes-Create/Update" class="api-method"><h2>Create/Update</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/save.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create or update route</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">Existing route id</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Route title</div></div></div><div class="item"><div class="cols"><div class="name">assignee_driver_id </div><div class="format">int</div><div class="description">Use only if communication type with driver. Required if communication type with driver</div></div></div><div class="item"><div class="cols"><div class="name">assignee_driver_unit_id </div><div class="format">int</div><div class="description">Use only if communication type with driver. Unit with which the route will be driven</div></div></div><div class="item"><div class="cols"><div class="name">assignee_unit_id </div><div class="format">int</div><div class="description">Use only if communication type with car. Required if communication type with car</div></div></div><div class="item"><div class="cols"><div class="name">departure_at </div><div class="format">string|null</div><div class="description">Formatted date Y-m-d H:i:s in GMT. e.g. 1970-01-01T00:00:00. NULL to unset departure date time</div></div></div><div class="item"><div class="cols"><div class="name">start_address </div><div class="format">string|null</div><div class="description">Route start address. NULL to unset start address</div></div></div><div class="item"><div class="cols"><div class="name">end_address </div><div class="format">string|null</div><div class="description">Route start address. NULL to unset start address</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                            <code>object</code> data
+                            <ul>
+                                <li><code>int</code> id. Route id</li>
+                            </ul>
+                        </div><pre>{
+    &#34;data&#34;: {
+        &#34;id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid <code>id</code> parameter</td></tr><tr><td>2</td><td>optimization in progress</td></tr><tr><td>3</td><td>invalid <code>assignee_driver_id</code> parameter</td></tr><tr><td>4</td><td><code>assignee_driver_id</code> required with <code>assignee_driver_unit_id</code></td></tr><tr><td>5</td><td>invalid <code>assignee_driver_unit_id</code> parameter</td></tr><tr><td>6</td><td>invalid <code>assignee_unit_id</code> parameter</td></tr><tr><td>7</td><td>invalid <code>departure_at</code> parameter</td></tr><tr><td>8</td><td>invalid <code>start_address</code> parameter</td></tr><tr><td>9</td><td>invalid <code>end_address</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Get-route" class="api-method"><h2>Get route</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/get.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get route by id</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route id</div></div></div><div class="item"><div class="cols"><div class="name">includes </div><div class="format">string</div><div class="description">Comma separated includes. Allowed includes: <code>polyline</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>int</code> id</li>
+                            <li><code>string</code> name</li>
+                            <li><code>int|null</code> unit_id. If communication type with vehicle</li>
+                            <li><code>int|null</code> driver_id. If communication type with driver</li>
+                            <li><code>int|null</code> driver_unit_id. If communication type with driver</li>
+                            <li><code>string|null</code> start_address</li>
+                            <li><code>float|null</code> start_lat</li>
+                            <li><code>float|null</code> start_lng</li>
+                            <li><code>string|null</code> start_timezone</li>
+                            <li><code>string|null</code> end_address</li>
+                            <li><code>float|null</code> end_lat</li>
+                            <li><code>float|null</code> end_lng</li>
+                            <li><code>string|null</code> end_timezone</li>
+                            <li><code>string|null</code> departure_at</li>
+                            <li><code>string|null</code> planned_at</li>
+                            <li><code>bool</code> is_in_progress</li>
+                            <li><code>int</code> places_total</li>
+                            <li><code>int</code> places_completed</li>
+                            <li><code>int</code> distance (meters)</li>
+                            <li><code>int</code> duration (seconds)</li>
+                            <li><code>float</code> costs_per_km (EURO cents)</li>
+                            <li><code>float</code> costs_per_h (EURO cents)</li>
+                            <li>
+                                <code>array</code> toll_costs
+                                <ul>
+                                    <li><code>string</code> name</li>
+                                    <li><code>string</code> country_code</li>
+                                    <li><code>float</code> amount (EURO cents)</li>
+                                </ul>
+                            </li>
+                            <li><code>string</code> polyline</li>
+                        </ul>
+
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;id&#34;: 1,
+        &#34;name&#34;: &#34;ROUTE #123&#34;,
+        &#34;unit_id&#34;: 1,
+        &#34;driver_id&#34;: null,
+        &#34;driver_unit_id&#34;: null,
+        &#34;start_address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+        &#34;start_lat&#34;: 28.45721,
+        &#34;start_lng&#34;: -43.2719,
+        &#34;start_timezone&#34;: &#34;UTC&#34;,
+        &#34;end_address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+        &#34;end_lat&#34;: 28.45721,
+        &#34;end_lng&#34;: -43.2719,
+        &#34;end_timezone&#34;: &#34;UTC&#34;,
+        &#34;departure_at&#34;: &#34;1970-01-01 00:00:05&#34;,
+        &#34;planned_at&#34;: &#34;1970-01-01 00:00:02&#34;,
+        &#34;is_in_progress&#34;: true,
+        &#34;places_total&#34;: 10,
+        &#34;places_completed&#34;: 1,
+        &#34;distance&#34;: 234,
+        &#34;duration&#34;: 34235,
+        &#34;costs_per_km&#34;: 0.05,
+        &#34;cost_per_h&#34;: 24,
+        &#34;toll_costs&#34;: [
+            {
+                &#34;name&#34;: &#34;TOLL&#34;,
+                &#34;country&#34;: &#34;GB&#34;,
+                &#34;amount&#34;: &#34;24&#34;
+            }
+        ],
+        &#34;polyline&#34;: &#34;HJH#4JH!@#&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>missing <code>id</code> parameter</td></tr><tr><td>2</td><td>invalid route</td></tr><tr><td>3</td><td>invalid <code>includes</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-List-routes" class="api-method"><h2>List routes</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List company routes</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_ids </div><div class="format">string</div><div class="description">Comma separated unit_ids. Only if communication type with vehicle</div></div></div><div class="item"><div class="cols"><div class="name">driver_ids </div><div class="format">array</div><div class="description">Comma separated driver_ids. Only if communication type with driver</div></div></div><div class="item"><div class="cols"><div class="name">is_in_progress </div><div class="format">int</div><div class="description">Values: <code>0</code>;<code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Starts with <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Min: <code>1</code>; Max: <code>250</code>; Default: <code>150</code></div></div></div><div class="item"><div class="cols"><div class="name">includes </div><div class="format">string</div><div class="description">Comma separated includes. Allowed includes: <code>polyline</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>array</code> data
+                        <ul>
+                            <li><code>int</code> id</li>
+                            <li><code>string</code> name</li>
+                            <li><code>int|null</code> unit_id. If communication type with vehicle</li>
+                            <li><code>int|null</code> driver_id. If communication type with driver</li>
+                            <li><code>int|null</code> driver_unit_id. If communication type with driver</li>
+                            <li><code>string|null</code> start_address</li>
+                            <li><code>float|null</code> start_lat</li>
+                            <li><code>float|null</code> start_lng</li>
+                            <li><code>string|null</code> start_timezone</li>
+                            <li><code>string|null</code> end_address</li>
+                            <li><code>float|null</code> end_lat</li>
+                            <li><code>float|null</code> end_lng</li>
+                            <li><code>string|null</code> end_timezone</li>
+                            <li><code>string|null</code> departure_at</li>
+                            <li><code>string|null</code> planned_at</li>
+                            <li><code>bool</code> is_in_progress</li>
+                            <li><code>int</code> places_total</li>
+                            <li><code>int</code> places_completed</li>
+                            <li><code>int</code> distance (meters)</li>
+                            <li><code>int</code> duration (seconds)</li>
+                            <li><code>float</code> costs_per_km (EURO cents)</li>
+                            <li><code>float</code> costs_per_h (EURO cents)</li>
+                            <li>
+                                <code>array</code> toll_costs
+                                <ul>
+                                    <li><code>string</code> name</li>
+                                    <li><code>string</code> country_code</li>
+                                    <li><code>float</code> amount (EURO cents)</li>
+                                </ul>
+                            </li>
+                            <li><code>string</code> polyline</li>
+                        </ul>
+                        <code>object</code> _meta
+                        <ul>
+                            <li><code>int</code> total</li>
+                            <li><code>int</code> total_pages</li>
+                            <li><code>int</code> per_pages</li>
+                            <li><code>int</code> page</li>
+                        </ul>
+
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;name&#34;: &#34;ROUTE #123&#34;,
+            &#34;unit_id&#34;: 1,
+            &#34;driver_id&#34;: null,
+            &#34;driver_unit_id&#34;: null,
+            &#34;start_address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;start_lat&#34;: 28.45721,
+            &#34;start_lng&#34;: -43.2719,
+            &#34;start_timezone&#34;: &#34;UTC&#34;,
+            &#34;end_address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;end_lat&#34;: 28.45721,
+            &#34;end_lng&#34;: -43.2719,
+            &#34;end_timezone&#34;: &#34;UTC&#34;,
+            &#34;departure_at&#34;: &#34;1970-01-01 00:00:05&#34;,
+            &#34;planned_at&#34;: &#34;1970-01-01 00:00:02&#34;,
+            &#34;is_in_progress&#34;: true,
+            &#34;places_total&#34;: 10,
+            &#34;places_completed&#34;: 1,
+            &#34;distance&#34;: 234,
+            &#34;duration&#34;: 34235,
+            &#34;costs_per_km&#34;: 0.05,
+            &#34;cost_per_h&#34;: 24,
+            &#34;toll_costs&#34;: [
+                {
+                    &#34;name&#34;: &#34;TOLL&#34;,
+                    &#34;country&#34;: &#34;GB&#34;,
+                    &#34;amount&#34;: &#34;24&#34;
+                }
+            ],
+            &#34;polyline&#34;: &#34;HJH#4JH!@#&#34;
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 25,
+        &#34;totalPages&#34;: 25,
+        &#34;perPage&#34;: 1,
+        &#34;page&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td><code>unit_ids</code> parameter only with communication with vehicle</td></tr><tr><td>2</td><td>invalid or missing <code>unit_ids</code> parameter</td></tr><tr><td>3</td><td><code>driver_ids</code> parameter only with communication with driver</td></tr><tr><td>4</td><td>invalid or missing <code>driver_ids</code> parameter</td></tr><tr><td>5</td><td>invalid <code>page</code> parameter</td></tr><tr><td>6</td><td>invalid <code>per_page</code> parameter</td></tr><tr><td>7</td><td>invalid <code>includes</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Send-route-to-assignee" class="api-method"><h2>Send route to assignee</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/send_to_assignee.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Route will be available on driver application</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>bool</code> sent</li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;sent&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid or missing <code>id</code> parameter</td></tr><tr><td>2</td><td>invalid route</td></tr><tr><td>3</td><td>route already planned</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Set-route-start-address-and/or-departure-date-time" class="api-method"><h2>Set route start address and/or departure date time</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/set_start_address.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Set route start address and/or departure date time</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route id</div></div></div><div class="item"><div class="cols"><div class="name">departure_at </div><div class="format">string|null</div><div class="description">Formatted date Y-m-d H:i:s in GMT. e.g. 1970-01-01T00:00:00. NULL to unset departure date time</div></div></div><div class="item"><div class="cols"><div class="name">address </div><div class="format">string|null</div><div class="description">Route start address. NULL to unset start address</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>string</code> status Values: ok;failed</li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid or missing <code>id</code> parameter</td></tr><tr><td>2</td><td>invalid route</td></tr><tr><td>3</td><td>route optimization in progress</td></tr><tr><td>4</td><td>route last place already is started</td></tr><tr><td>5</td><td>invalid <code>address</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Set-route-end-address" class="api-method"><h2>Set route end address</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/set_end_address.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Set route end address</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route id</div></div></div><div class="item"><div class="cols"><div class="name">address <span class="required" title="Required">*</span></div><div class="format">string|null</div><div class="description">Route end address. NULL to unset end address</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>string</code> status Values: ok;failed</li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid or missing <code>id</code> parameter</td></tr><tr><td>2</td><td>invalid route</td></tr><tr><td>3</td><td>route optimization in progress</td></tr><tr><td>4</td><td>route already started</td></tr><tr><td>5</td><td>invalid <code>departure_at</code> parameter</td></tr><tr><td>6</td><td>invalid or missing <code>address</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Start-route-optimization" class="api-method"><h2>Start route optimization</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/optimize.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Start route optimization. Use this endpoint with the &#34;Check optimization progress&#34; endpoint</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route id</div></div></div><div class="item"><div class="cols"><div class="name">truck_restrictions_enabled </div><div class="format">int</div><div class="description">Enable/disable truck restrictions. See Driving Preferences in vehicle profile. Possible value: <code>0</code>;<code>1</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>string</code> status Possible values: <code>failed</code>,<code>waiting</code>(optimization has been queued)</li>
+                            <li><code>int|null</code> optimization_id Optimization id to use in the &#34;Check optimization progress&#34; endpoint</li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;waiting&#34;,
+        &#34;optimization_id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or missing <code>id</code> parameter</td></tr><tr><td>2</td><td>There is nothing to optimize. The route has already been completed</td></tr><tr><td>3</td><td>Optimization already in progress</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Check-optimization-progress" class="api-method"><h2>Check optimization progress</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/optimize_check_progress.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Check optimization progress,status. To start optimization see the &#34;Start route optimization&#34; endpoint</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">optimization_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Optimization id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>string</code> status Possible values: <code>waiting</code>,<code>running</code>,<code>finished</code>,<code>canceled</code>,<code>failed</code>,<code>no_solution</code>,<code>unreachable_points</code>,<code>nothing_to_optimize</code></li>
+                            <li><code>int</code> progress (%)</li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;running&#34;,
+        &#34;progress&#34;: 50
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or missing <code>optimization_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-routeplanning_routes-Delete-routes" class="api-method"><h2>Delete routes</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">routeplanning_routes/delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete given routes</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">ids <span class="required" title="Required">*</span></div><div class="format">int[]</div><div class="description">Route ids</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>object</code> data
+                        <ul>
+                            <li><code>bool</code> deleted</li>
+                    </ul></div><pre>{
+    &#34;data&#34;: {
+        &#34;deleted&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>missing <code>ids</code> parameter</td></tr><tr><td>2</td><td>invalid <code>ids</code> parameter</td></tr><tr><td>3</td><td>invalid route</td></tr></tbody></table></div></div></div></div>

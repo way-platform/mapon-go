@@ -1,0 +1,27 @@
+<div id="method-unit_commands" class="api-method-group"><h1>Unit_commands</h1><div id="method-unit_commands-Get-available-commands" class="api-method"><h2>Get available commands</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_commands/get_available.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get unit available command list</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">unit id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                            Returns empty array if no commands available.<br/>
+                            Full list of available commands:
+                            <ul>
+                                <li>open_doors</li>
+                                <li>close_doors</li>
+                                <li>open_trunk</li>
+                                <li>open_windows</li>
+                                <li>close_windows</li>
+                                <li>hazard_lights</li>
+                            </ul>
+                        </div><pre>{
+    &#34;data&#34;: [
+        &#34;open_doors&#34;,
+        &#34;close_doors&#34;,
+        &#34;open_trunk&#34;,
+        &#34;open_windows&#34;,
+        &#34;close_windows&#34;,
+        &#34;hazard_lights&#34;
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified or invalid <code>unit_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-unit_commands-Execute-unit-command" class="api-method"><h2>Execute unit command</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">unit_commands/execute.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Execute unit command</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Unit id</div></div></div><div class="item"><div class="cols"><div class="name">command <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Command. Available commands for unit can be get using the &#34;Get available commands&#34; method</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        - string <code>status</code> Possible values:<code>ok</code>,<code>failed</code>    
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified or invalid <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Not specified or invalid <code>command</code> parameter</td></tr></tbody></table></div></div></div></div>

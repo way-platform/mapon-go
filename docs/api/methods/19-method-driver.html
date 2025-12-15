@@ -1,0 +1,621 @@
+<div id="method-driver" class="api-method-group"><h1>Driver</h1><div id="method-driver-Create-driver" class="api-method"><h2>Create driver</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create new driver</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">name <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">First name</div></div></div><div class="item"><div class="cols"><div class="name">surname <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Last name</div></div></div><div class="item"><div class="cols"><div class="name">access_to_route_sheet </div><div class="format">bool</div><div class="description">Driver can login using email and password</div></div></div><div class="item"><div class="cols"><div class="name">driverlink_access </div><div class="format">bool</div><div class="description">Driver driving log access</div></div></div><div class="item"><div class="cols"><div class="name">email </div><div class="format">string</div><div class="description">Unique e-mail</div></div></div><div class="item"><div class="cols"><div class="name">lang </div><div class="format">string</div><div class="description">2 letter language code for one of supported languages</div></div></div><div class="item"><div class="cols"><div class="name">phone </div><div class="format">string</div><div class="description">Phone with country code (e.g.+123)</div></div></div><div class="item"><div class="cols"><div class="name">ibutton </div><div class="format">string</div><div class="description">iButton ID</div></div></div><div class="item"><div class="cols"><div class="name">tacho </div><div class="format">string</div><div class="description">Tachograph card ID</div></div></div><div class="item"><div class="cols"><div class="name">depot </div><div class="format">integer</div><div class="description">Driver&#39;s depot id</div></div></div><div class="item"><div class="cols"><div class="name">unit </div><div class="format">integer</div><div class="description">Driver&#39;s assigned unit id</div></div></div><div class="item"><div class="cols"><div class="name">access_all_units </div><div class="format">integer</div><div class="description">Enable / disable all unit access for driver. Only allowed if used API key has access to all units.Values: <code>1</code> and <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">unit_ids </div><div class="format">string</div><div class="description">Comma separated list of unit ids that the driver should be given access to. Ignored if <code>access_all_units</code> is <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">unit_group_ids </div><div class="format">string</div><div class="description">Comma separated list of unit groups that the driver should be given access to. Ignored if <code>access_all_units</code> is <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">send_password_to_email </div><div class="format">integer</div><div class="description">Whether or not to send created driver&#39;s password to provided email. Values: <code>1</code> and <code>0</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;id&#34;: 1,
+    &#34;password&#34;: &#34;password123&#34;
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing <code>name</code> parameter</td></tr><tr><td>2</td><td>Missing <code>surname</code> parameter</td></tr><tr><td>3</td><td>Email is already in use</td></tr></tbody></table></div></div></div><div id="method-driver-Update-driver" class="api-method"><h2>Update driver</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/update.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Update driver</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">driver_id <span class="required" title="Required">*</span></div><div class="format">integer</div><div class="description">Driver ID</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">First name</div></div></div><div class="item"><div class="cols"><div class="name">surname </div><div class="format">string</div><div class="description">Last name</div></div></div><div class="item"><div class="cols"><div class="name">access_to_route_sheet </div><div class="format">integer</div><div class="description">Driver can login using email and password. Values: <code>1</code> and <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">driverlink_access </div><div class="format">integer</div><div class="description">Driver driving log access. Values: <code>1</code> and <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">email </div><div class="format">string</div><div class="description">Unique e-mail</div></div></div><div class="item"><div class="cols"><div class="name">lang </div><div class="format">string</div><div class="description">2 letter language code for one of supported languages</div></div></div><div class="item"><div class="cols"><div class="name">phone </div><div class="format">string</div><div class="description">Phone with country code (e.g. +123)</div></div></div><div class="item"><div class="cols"><div class="name">ibutton </div><div class="format">string</div><div class="description">iButton ID</div></div></div><div class="item"><div class="cols"><div class="name">tacho </div><div class="format">string</div><div class="description">Tachograph card ID</div></div></div><div class="item"><div class="cols"><div class="name">blocked </div><div class="format">integer</div><div class="description">Whether to block or unblock driver. Values: <code>1</code> and <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">blocked_text </div><div class="format">string</div><div class="description">Driver blocking reason. Required if <code>blocked</code> is <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">depot </div><div class="format">integer</div><div class="description">Driver&#39;s depot id. Pass empty value to remove driver depot.</div></div></div><div class="item"><div class="cols"><div class="name">unit </div><div class="format">integer</div><div class="description">Driver&#39;s assigned unit id. Pass empty value to remove driver from unit.</div></div></div><div class="item"><div class="cols"><div class="name">access_all_units </div><div class="format">integer</div><div class="description">Enable / disable all unit access for driver. Only allowed if used API key has access to all units. Values: <code>1</code> and <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">unit_ids </div><div class="format">string</div><div class="description">Comma separated list of unit ids that the driver should be given access to. Ignored if <code>access_all_units</code> is <code>1</code>. Pass empty value to remove previously allowed units.</div></div></div><div class="item"><div class="cols"><div class="name">unit_group_ids </div><div class="format">string</div><div class="description">Comma separated list of unit groups that the driver should be given access to. Ignored if <code>access_all_units</code> is <code>1</code>. Pass empty value to remove previously allowed unit groups.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;status&#34;: &#34;successful&#34;
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid <code>driver_id</code> parameter</td></tr><tr><td>2</td><td>Email is already in use</td></tr><tr><td>3</td><td>Invalid <code>phone</code> parameter</td></tr></tbody></table></div></div></div><div id="method-driver-Change-password" class="api-method"><h2>Change password</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/change_password.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Changes existing drivers password</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">driver_id <span class="required" title="Required">*</span></div><div class="format">integer</div><div class="description">Unique driver ID</div></div></div><div class="item"><div class="cols"><div class="name">password <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">New password for the driver. Must be at least 8 characters long, must contain at least 1 number, must contain at least 1 letter and/or symbol. Must be different than the current drivers password.</div></div></div><div class="item"><div class="cols"><div class="name">force_change </div><div class="format">integer</div><div class="description">If set, will force to ignore password validation rules. The password still cannot be empty.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;status&#34;: &#34;successful&#34;
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>driver_id</code> parameter</td></tr><tr><td>2</td><td><code>Password</code> does not fulfill complexity requirements. Accompanied by a message that explains which rule check failed</td></tr><tr><td>3</td><td><code>Password</code> is the same as the current drivers password</td></tr><tr><td>4</td><td>No access to driver with id <code>driver_id</code></td></tr></tbody></table></div></div></div><div id="method-driver-Delete-driver" class="api-method"><h2>Delete driver</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Delete driver</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">driver_id <span class="required" title="Required">*</span></div><div class="format">integer</div><div class="description">Driver unique ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;status&#34;: &#34;successful&#34;
+}</pre></div></div></div><div id="method-driver-List-drivers" class="api-method"><h2>List drivers</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">List all company drivers</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">integer</div><div class="description">Driver unique ID</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">string or []</div><div class="description">
+                                Include additional data in results:<br/>
+                                <code>fields</code> - return driver custom field values<br/>
+                                </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;drivers&#34;: [
+            {
+                &#34;id&#34;: 19867,
+                &#34;name&#34;: &#34;John&#34;,
+                &#34;surname&#34;: &#34;Doe&#34;,
+                &#34;email&#34;: &#34;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e48e8b8c8aca808b81a4819c8589948881ca878b89">[email protected]</a>&#34;,
+                &#34;phone&#34;: &#34;+123456789&#34;,
+                &#34;language&#34;: &#34;en&#34;,
+                &#34;ibutton&#34;: &#34;&#34;,
+                &#34;tacho&#34;: &#34;&#34;,
+                &#34;access_to_route_sheet&#34;: 1,
+                &#34;blocked&#34;: false,
+                &#34;blocked_text_fe&#34;: &#34;&#34;,
+                &#34;created&#34;: &#34;2016-08-10 12:50:56&#34;,
+                &#34;fields&#34;: {
+                    &#34;95451&#34;: &#34;111&#34;
+                },
+                &#34;application_fields&#34;: [
+                    {
+                        &#34;id&#34;: 1,
+                        &#34;application_id&#34;: 1,
+                        &#34;level&#34;: &#34;driver&#34;,
+                        &#34;type&#34;: &#34;text&#34;,
+                        &#34;title&#34;: &#34;Text title&#34;,
+                        &#34;title_translation&#34;: null,
+                        &#34;unique_per_company&#34;: false,
+                        &#34;value&#34;: &#34;xx&#34;,
+                        &#34;created_at&#34;: &#34;2019-01-01T00:00:00Z&#34;,
+                        &#34;updated_at&#34;: &#34;2019-01-01T09:00:00Z&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-driver-List-drivers-Unit-groups" class="api-method"><h2>List drivers Unit groups</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/list_unit_groups.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List all driver unit groups</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">integer</div><div class="description">Driver unique ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 123,
+            &#34;name&#34;: &#34;Group 123&#34;,
+            &#34;parent_id&#34;: 12
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid &#34;id&#34; parameter</td></tr><tr><td>2</td><td>Driver not found</td></tr></tbody></table></div></div></div><div id="method-driver-Custom-fields" class="api-method"><h2>Custom fields</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/custom_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns driver custom fields and values</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">ids <span class="required" title="Required">*</span></div><div class="format">int|array</div><div class="description">Driver ids one or multiple</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;drivers&#34;: [
+            {
+                &#34;id&#34;: 5021,
+                &#34;fields&#34;: [
+                    {
+                        &#34;id&#34;: 1496512,
+                        &#34;label&#34;: &#34;CF text&#34;,
+                        &#34;type&#34;: &#34;text&#34;,
+                        &#34;settings&#34;: [],
+                        &#34;value&#34;: &#34;John&#34;
+                    },
+                    {
+                        &#34;id&#34;: 1500649,
+                        &#34;label&#34;: &#34;CF date&#34;,
+                        &#34;type&#34;: &#34;date&#34;,
+                        &#34;settings&#34;: [],
+                        &#34;value&#34;: 1609417794
+                    },
+                    {
+                        &#34;id&#34;: 1500650,
+                        &#34;label&#34;: &#34;CF file&#34;,
+                        &#34;type&#34;: &#34;file&#34;,
+                        &#34;settings&#34;: [],
+                        &#34;value&#34;: &#34;https:\/\/example.com\/2574322&#34;
+                    },
+                    {
+                        &#34;id&#34;: 1500651,
+                        &#34;label&#34;: &#34;CF link&#34;,
+                        &#34;type&#34;: &#34;hyperlink&#34;,
+                        &#34;settings&#34;: [],
+                        &#34;value&#34;: &#34;https:\/\/www.lipsum.com\/&#34;,
+                        &#34;title&#34;: &#34;Lorem&#34;
+                    },
+                    {
+                        &#34;id&#34;: 1500652,
+                        &#34;label&#34;: &#34;CF image&#34;,
+                        &#34;type&#34;: &#34;image&#34;,
+                        &#34;settings&#34;: [],
+                        &#34;value&#34;: &#34;https:\/\/example.com\/2574323&#34;
+                    },
+                    {
+                        &#34;id&#34;: 1500653,
+                        &#34;label&#34;: &#34;CF select&#34;,
+                        &#34;type&#34;: &#34;select&#34;,
+                        &#34;settings&#34;: {
+                            &#34;options&#34;: {
+                                &#34;5ff6fe6bc6224&#34;: &#34;true&#34;,
+                                &#34;5ff6fe6bc6227&#34;: &#34;false&#34;
+                            }
+                        },
+                        &#34;value&#34;: &#34;5ff6fe6bc6224&#34;
+                    }
+                ]
+            },
+            {
+                &#34;id&#34;: 87359,
+                &#34;fields&#34;: [
+                    {
+                        &#34;id&#34;: 1496512,
+                        &#34;label&#34;: &#34;CF text&#34;,
+                        &#34;type&#34;: &#34;text&#34;,
+                        &#34;settings&#34;: [],
+                        &#34;value&#34;: &#34;Gun&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified <code>ids</code> parameter</td></tr><tr><td>2</td><td>API key does not have associated driver with specified parameters</td></tr></tbody></table></div></div></div><div id="method-driver-Create/Edit-driver-custom-fields" class="api-method"><h2>Create/Edit driver custom fields</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/save_custom_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows create/edit driver custom fields</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Driver id</div></div></div><div class="item"><div class="cols"><div class="name">columns <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Associative array (
+                                 id - column id (will edit existing field is passed in); 
+                                 label - name of field;
+                                 type - text | select | file | image | hyperlink;
+                                 selectedOptions - Multidimensional array(array(value =&gt; optionLabel1), array(value =&gt; optionLabel2)); (Optional parameter for type &#34;select&#34;)
+                                 ).</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;id&#34; parameter</td></tr><tr><td>2</td><td>Driver not found</td></tr><tr><td>3</td><td>Missing &#34;columns&#34; parameter</td></tr><tr><td>4</td><td>Not specified &#34;column id&#34; parameter</td></tr><tr><td>5</td><td>Column with id &#34;{column id}&#34; not found</td></tr><tr><td>6</td><td>Missing &#34;type&#34; parameter.</td></tr><tr><td>7</td><td>Missing &#34;label&#34; parameter</td></tr></tbody></table></div></div></div><div id="method-driver-Delete-driver-custom-fields" class="api-method"><h2>Delete driver custom fields</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/delete_custom_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows delete driver custom fields</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Driver id</div></div></div><div class="item"><div class="cols"><div class="name">columnIds <span class="required" title="Required">*</span></div><div class="format">Indexed array</div><div class="description">Array of custom fields ids</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;id&#34; parameter</td></tr><tr><td>2</td><td>Driver not found</td></tr><tr><td>3</td><td>Not specified &#34;columnIds&#34; parameter</td></tr><tr><td>4</td><td>Column with id &#34;{columnId}&#34; not found</td></tr></tbody></table></div></div></div><div id="method-driver-Edit-driver-custom-fields-values" class="api-method"><h2>Edit driver custom fields values</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/save_custom_fields_values.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows edit driver custom fields values</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Driver id</div></div></div><div class="item"><div class="cols"><div class="name">fields <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Associative array (key - custom field id; value - field value).
+                                 In case you want to modify select option, you have to pass in that option ID as a value</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;id&#34; or/and &#34;fields&#34; parameter</td></tr><tr><td>2</td><td>Driver not found</td></tr><tr><td>3</td><td>Invalid value or incorrect format for parameter id (int)</td></tr><tr><td>4</td><td>Can&#39;t find fields with specified parameters</td></tr><tr><td>5</td><td>Fields with type hyperlink JSON string must contain title and value keys</td></tr><tr><td>6</td><td>Invalid field &#34;{FIELD_NAME}&#34; value.</td></tr><tr><td>7</td><td>File upload allowed only for fields with types: image, file</td></tr><tr><td>8</td><td>Fields with type {FIELD_TYPE} Allowed formats: {ALLOWED_FORMATS}</td></tr></tbody></table></div></div></div><div id="method-driver-Get-driver-activity-intervals-(daily)-|-BETA" class="api-method"><h2>Get driver activity intervals (daily) | BETA</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/daily_activities.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">
+                        <p><b>BETA VERSION</b> This end-point is fully usable but there might be issues. Please contact client support if you encounter any problems.<br/></p>
+                        Get a list of driver activity intervals grouped by days.<br/>
+                        Grouping by days happens <b>according to company timezone</b><br/>
+                        Please note that due to technical limitations data will be selected for whole days. For example, if you pass period <code>YYYY-MM-DD 12:00:00 - YYYY-MM-DD 20:00:00</code>, the data will be returned for period <code>YYYY-MM-DD 00:00:00 - YYYY-MM-DD 23:59:59</code> instead. <br/>
+                        Maximum period: 31 days<br/>
+                        Can select only a single driver<br/>
+                        Data sources: CAN, Tachograph driver files<br/>
+                    </div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description"><code>UTC</code> datetime string in <code>Y-m-dTH:i:sZ</code> format</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description"><code>UTC</code>  datetime string in <code>Y-m-dTH:i:sZ</code> format</div></div></div><div class="item"><div class="cols"><div class="name">driver <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Driver ID</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">string</div><div class="description">
+                                Comma separated list of additional data to include.<br/>
+                                Currently supported values:<br/>
+                                <ul>
+                                    <li><code>card_events</code> - include information about driver card insertion / removal events</li>
+                                    <li><code>work_place_events</code> - include information about events when driver has started / finished a work period</li>
+                                </ul>
+                            </div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        Response contains array of objects. Each array element corresponds to a single day.<br/>
+                        Properties of day object:<br/>
+                        <ul>
+                            <li><code>day</code> - datetime value of the start of the day</li>
+                            <li><code>summary</code> - all values are total durations in seconds</li>
+                            <li><code>activities</code> - array of <code>activity</code> objects</li>     
+                        </ul><br/>
+                        <code>activity</code> object structure:<br/>
+                        <ul>
+                            <li><code>start</code> - timestamp</li>
+                            <li><code>end</code> - timestamp</li>
+                            <li><code>duration</code> - seconds</li>
+                            <li><code>status</code> - status value. Possible values: <code>DRIVING</code>, <code>REST</code>, <code>WORK</code>, <code>AVAILABLE</code>, <code>CARD_INSERTED</code>, <code>CARD_REMOVED</code>, <code>WORK_PERIOD_STARTED</code>, <code>WORK_PERIOD_FINISHED</code></li>
+                            <li><code>source</code> - activity source identifier. Possible values: <code>ddd</code> - driver tachograph file, <code>can</code> - data obtained via device CAN connection or <code>unkn</code> - unknown data source. Appears only when available data does not cover the whole selected time period. In such cases gaps are filled with <code>REST</code> activities</li>
+                            <li><code>unitId</code> - id of the vehicle to which driver was assigned during the activity</li>
+                        </ul> 
+                    </div><pre>[
+    {
+        &#34;day&#34;: &#34;2023-07-02 00:00:00&#34;,
+        &#34;summary&#34;: {
+            &#34;shift&#34;: 0,
+            &#34;driving&#34;: 0,
+            &#34;rest&#34;: 86399
+        },
+        &#34;activities&#34;: [
+            {
+                &#34;start&#34;: 1688245200,
+                &#34;end&#34;: 1688331599,
+                &#34;duration&#34;: 86399,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            }
+        ]
+    },
+    {
+        &#34;day&#34;: &#34;2023-07-03 00:00:00&#34;,
+        &#34;summary&#34;: {
+            &#34;shift&#34;: 23160,
+            &#34;driving&#34;: 14640,
+            &#34;rest&#34;: 31080
+        },
+        &#34;activities&#34;: [
+            {
+                &#34;start&#34;: 1688331600,
+                &#34;end&#34;: 1688356920,
+                &#34;duration&#34;: 25320,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688356920,
+                &#34;end&#34;: 1688356920,
+                &#34;duration&#34;: 0,
+                &#34;status&#34;: &#34;CARD_INSERTED&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688356920,
+                &#34;end&#34;: 1688357940,
+                &#34;duration&#34;: 1020,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688357940,
+                &#34;end&#34;: 1688358000,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688358000,
+                &#34;end&#34;: 1688358420,
+                &#34;duration&#34;: 420,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688358420,
+                &#34;end&#34;: 1688358720,
+                &#34;duration&#34;: 300,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688358720,
+                &#34;end&#34;: 1688358900,
+                &#34;duration&#34;: 180,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688358900,
+                &#34;end&#34;: 1688359320,
+                &#34;duration&#34;: 420,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688359320,
+                &#34;end&#34;: 1688359380,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688359380,
+                &#34;end&#34;: 1688359500,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688359500,
+                &#34;end&#34;: 1688359620,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688359620,
+                &#34;end&#34;: 1688360100,
+                &#34;duration&#34;: 480,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688360100,
+                &#34;end&#34;: 1688363460,
+                &#34;duration&#34;: 3360,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688363460,
+                &#34;end&#34;: 1688363640,
+                &#34;duration&#34;: 180,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688363640,
+                &#34;end&#34;: 1688363700,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688363700,
+                &#34;end&#34;: 1688364660,
+                &#34;duration&#34;: 960,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688364660,
+                &#34;end&#34;: 1688364720,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688364720,
+                &#34;end&#34;: 1688366580,
+                &#34;duration&#34;: 1860,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688366580,
+                &#34;end&#34;: 1688366700,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688366700,
+                &#34;end&#34;: 1688367780,
+                &#34;duration&#34;: 1080,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688367780,
+                &#34;end&#34;: 1688371020,
+                &#34;duration&#34;: 3240,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688371020,
+                &#34;end&#34;: 1688371440,
+                &#34;duration&#34;: 420,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688371440,
+                &#34;end&#34;: 1688371500,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688371500,
+                &#34;end&#34;: 1688371920,
+                &#34;duration&#34;: 420,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688371920,
+                &#34;end&#34;: 1688372040,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688372040,
+                &#34;end&#34;: 1688372700,
+                &#34;duration&#34;: 660,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688372700,
+                &#34;end&#34;: 1688372760,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688372760,
+                &#34;end&#34;: 1688372880,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688372880,
+                &#34;end&#34;: 1688375460,
+                &#34;duration&#34;: 2580,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688375460,
+                &#34;end&#34;: 1688375640,
+                &#34;duration&#34;: 180,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688375640,
+                &#34;end&#34;: 1688376360,
+                &#34;duration&#34;: 720,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688376360,
+                &#34;end&#34;: 1688376960,
+                &#34;duration&#34;: 600,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688376960,
+                &#34;end&#34;: 1688377080,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688377080,
+                &#34;end&#34;: 1688377320,
+                &#34;duration&#34;: 240,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688377320,
+                &#34;end&#34;: 1688378160,
+                &#34;duration&#34;: 840,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688378160,
+                &#34;end&#34;: 1688378220,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688378220,
+                &#34;end&#34;: 1688380980,
+                &#34;duration&#34;: 2760,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688380980,
+                &#34;end&#34;: 1688381400,
+                &#34;duration&#34;: 420,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688381400,
+                &#34;end&#34;: 1688381520,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688381520,
+                &#34;end&#34;: 1688384400,
+                &#34;duration&#34;: 2880,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688384400,
+                &#34;end&#34;: 1688384880,
+                &#34;duration&#34;: 480,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688384880,
+                &#34;end&#34;: 1688385060,
+                &#34;duration&#34;: 180,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688385060,
+                &#34;end&#34;: 1688385240,
+                &#34;duration&#34;: 180,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688385240,
+                &#34;end&#34;: 1688385300,
+                &#34;duration&#34;: 60,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688385300,
+                &#34;end&#34;: 1688385720,
+                &#34;duration&#34;: 420,
+                &#34;status&#34;: &#34;WORK&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688385720,
+                &#34;end&#34;: 1688385840,
+                &#34;duration&#34;: 120,
+                &#34;status&#34;: &#34;DRIVING&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688385840,
+                &#34;end&#34;: 1688385840,
+                &#34;duration&#34;: 0,
+                &#34;status&#34;: &#34;CARD_REMOVED&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            },
+            {
+                &#34;start&#34;: 1688385840,
+                &#34;end&#34;: 1688421599,
+                &#34;duration&#34;: 0,
+                &#34;status&#34;: &#34;REST&#34;,
+                &#34;source&#34;: &#34;ddd&#34;,
+                &#34;unitId&#34;: 424168
+            }
+        ]
+    }
+]</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or missing <code>driver</code> parameter</td></tr><tr><td>2</td><td>Invalid parameter <code>from</code></td></tr><tr><td>3</td><td>Invalid parameter <code>till</code></td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Invalid period days</td></tr><tr><td>6</td><td>Invalid period length (max 31d)</td></tr><tr><td>7</td><td>Invalid include</td></tr></tbody></table></div></div></div><div id="method-driver-Assign-user-to-driver" class="api-method"><h2>Assign user to driver</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/link_user.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Assign user to driver user</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">driver_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Id of driver which will be assigned to user</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Id of user to whom we assign driver</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;User linked to driver&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr><tr><td>11</td><td>Invalid or missing &#34;driver&#34; parameter</td></tr><tr><td>12</td><td>User not valid type</td></tr><tr><td>13</td><td>Company communication type must be &#34;driver&#34;</td></tr></tbody></table></div></div></div><div id="method-driver-Unassign-user-from-driver" class="api-method"><h2>Unassign user from driver</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/unlink_user.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Unassign user that is assigned to driver</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">driver_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Id of driver who we will no longer have assigned user</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;Driver unlinked from user&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>11</td><td>Invalid or missing &#34;driver&#34; parameter</td></tr><tr><td>13</td><td>Company communication type must be &#34;driver&#34;</td></tr></tbody></table></div></div></div><div id="method-driver-Associate-external-drivers-with-Mapon-drivers" class="api-method"><h2>Associate external drivers with Mapon drivers</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">driver/associate_external_driver.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows associating external drivers with Mapon drivers. The request supports both single associations and batch associations.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">associations <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">List of associations between external drivers and Mapon drivers</div></div></div><div class="sub"><div class="item"><div class="cols"><div class="name">driverId <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Id of Mapon driver who will be associated to external driver</div></div></div><div class="item"><div class="cols"><div class="name">employeeId <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Id of external driver who will be associated to Mapon driver. Id does not have to be numeric - it is more like a username type of identifier</div></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns batch operation results with summary statistics and individual results for each mapping.<br/><code>summary</code> - contains total count, successful count, and failed count of operations.<br/><code>results</code> - array of individual operation results, each containing <code>status</code> (success/failed), <code>driverId</code>, <code>employeeId</code>, <code>companyId</code>, and optional <code>message</code> for failed operations.</div><pre>{
+    &#34;data&#34;: {
+        &#34;summary&#34;: {
+            &#34;total&#34;: 2,
+            &#34;successful&#34;: 1,
+            &#34;failed&#34;: 1
+        },
+        &#34;results&#34;: [
+            {
+                &#34;status&#34;: &#34;success&#34;,
+                &#34;driverId&#34;: 123,
+                &#34;employeeId&#34;: &#34;EMP001&#34;,
+                &#34;companyId&#34;: 123
+            },
+            {
+                &#34;status&#34;: &#34;failed&#34;,
+                &#34;driverId&#34;: 124,
+                &#34;employeeId&#34;: &#34;EMP002&#34;,
+                &#34;companyId&#34;: 123,
+                &#34;message&#34;: &#34;Driver not found&#34;
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing <code>associations</code> array</td></tr><tr><td>2</td><td>Invalid <code>associations</code> array - must be non-empty array</td></tr><tr><td>3</td><td>Missing or invalid <code>driverId</code> parameter</td></tr><tr><td>4</td><td><code>driverId</code> must be a positive integer</td></tr></tbody></table></div></div></div></div>

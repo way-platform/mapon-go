@@ -1,0 +1,12 @@
+<div class="group-item"><h1 id="group-authentication-authorization">Authentication &amp; Authorization</h1><div class="group-item-content ">
+            <p>Authentication is done by using API Key. API Keys are managed by company administrators.</p>
+            <p>API Key can be with unlimited access rights to units and/or actions, but it’s also possible to authorize individual API Key to use just limited list of units and/or actions.</p>
+
+            <p>
+                To authenticate, API Key is passed to each HTTP GET request as query parameter <code>key</code> or for a HTTP POST request as form field parameter <code>key</code>. 
+                In practice the HTTP request will look similar to this:
+            </p>
+
+            <p><code>https://mapon.com/api/v1/unit.json?<u>key=<em>yourapikey</em></u></code></p>
+            <p>You can also add the API Key to the request header, by setting header <code>key</code> value</p>
+        </div></div>

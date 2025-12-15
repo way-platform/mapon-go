@@ -1,0 +1,105 @@
+<div id="method-object" class="api-method-group"><h1>Object</h1><div id="method-object-List-objects" class="api-method"><h2>List objects</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns list of company objects</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">Object id</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Object name</div></div></div><div class="item"><div class="cols"><div class="name">group_id </div><div class="format">int</div><div class="description">Object group id</div></div></div><div class="item"><div class="cols"><div class="name">deleted </div><div class="format">int</div><div class="description">Include deleted objects</div></div></div><div class="item"><div class="cols"><div class="name">updated_from </div><div class="format">datetime</div><div class="description">Filter object by update time. Update time is changed only when object gets modified by the users in the system. Modifications through the API does not affect the update time. This can be used to synchronise changes in both directions.</div></div></div><div class="item"><div class="cols"><div class="name">updated_till </div><div class="format">datetime</div><div class="description">See updated_from description</div></div></div><div class="item"><div class="cols"><div class="name">wkt_lon_first </div><div class="format">bool</div><div class="description">WKT with longitude first for points. WGS84 Bounds</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;objects&#34;: [
+            {
+                &#34;id&#34;: 1,
+                &#34;name&#34;: &#34;Object Name&#34;,
+                &#34;wkt&#34;: &#34;POLYGON((56.927624872333446 24.018473625183105,56.92456859150492 24.018945693969727,56.92479108782985 24.023537635803223,56.927648291143406 24.022915363311768,56.927624872333446 24.018473625183105))&#34;,
+                &#34;user_id&#34;: &#34;1&#34;,
+                &#34;group_id&#34;: &#34;0&#34;,
+                &#34;private&#34;: &#34;N&#34;,
+                &#34;updated&#34;: &#34;2016-04-16T11:23:16Z&#34;,
+                &#34;created&#34;: &#34;2016-04-15T07:59:01Z&#34;,
+                &#34;deleted&#34;: &#34;Y&#34;,
+                &#34;deleted_gmt&#34;: &#34;2016-04-17T12:09:48Z&#34;
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-object-Insert/Update-object" class="api-method"><h2>Insert/Update object</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/save.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create new object or update an existing</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">Object id. If not empty, object with this ID will be updated</div></div></div><div class="item"><div class="cols"><div class="name">name <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Object name</div></div></div><div class="item"><div class="cols"><div class="name">wkt <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Object polygon in WKT format</div></div></div><div class="item"><div class="cols"><div class="name">wkt_lon_first </div><div class="format">bool</div><div class="description">WKT with longitude first for points. WGS84 Bounds</div></div></div><div class="item"><div class="cols"><div class="name">group_id </div><div class="format">int</div><div class="description">Object group id</div></div></div><div class="item"><div class="cols"><div class="name">user_id </div><div class="format">int</div><div class="description">Object owner user id, only for new records</div></div></div><div class="item"><div class="cols"><div class="name">private </div><div class="format">string</div><div class="description">Object private or public, only for new records. Possible values [&#34;Y&#34;|&#34;N&#34;]. Value will be overridden by user preset settings if <code>user_id</code> defined.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid <code>name</code> parameter</td></tr><tr><td>2</td><td>Invalid <code>wkt</code> parameter</td></tr><tr><td>3</td><td>Invalid <code>user_id</code> parameter</td></tr><tr><td>4</td><td>Invalid <code>group_id</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>private</code> parameter</td></tr><tr><td>6</td><td>Invalid <code>wkt</code> polygon. Check if polygon starts and end in same location.</td></tr><tr><td>7</td><td>Cannot change <code>private</code> option and <code>user_id</code> for existing object</td></tr><tr><td>8</td><td>Cannot create private object in public group and public object in private group</td></tr><tr><td>9</td><td>Cannot create private object without specifying <code>user_id</code></td></tr></tbody></table></div></div></div><div id="method-object-Delete-object" class="api-method"><h2>Delete object</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete object by ID</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Object id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid <code>id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-object-Custom-fields" class="api-method"><h2>Custom fields</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/custom_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns object custom fields and values</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Object id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;label&#34;: &#34;Tyre size&#34;,
+            &#34;type&#34;: &#34;select&#34;,
+            &#34;settings&#34;: {
+                &#34;options&#34;: {
+                    &#34;5ae07f0120141&#34;: &#34;R14&#34;,
+                    &#34;5ae07f012017a&#34;: &#34;R15&#34;,
+                    &#34;5ae07f01201b2&#34;: &#34;R16&#34;
+                }
+            },
+            &#34;value&#34;: &#34;5ae07f012017a&#34;
+        },
+        {
+            &#34;id&#34;: 2,
+            &#34;label&#34;: &#34;Photo&#34;,
+            &#34;type&#34;: &#34;image&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;http:\/\/example.com?file.php?234sf23fsw&#34;
+        },
+        {
+            &#34;id&#34;: 3,
+            &#34;label&#34;: &#34;Trailer no.&#34;,
+            &#34;type&#34;: &#34;text&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;AAA 0000&#34;
+        },
+        {
+            &#34;id&#34;: 4,
+            &#34;label&#34;: &#34;datums&#34;,
+            &#34;type&#34;: &#34;date&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;1524661491&#34;
+        },
+        {
+            &#34;id&#34;: 5,
+            &#34;label&#34;: &#34;Video&#34;,
+            &#34;type&#34;: &#34;hyperlink&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: &#34;http:\/\/example.com\/aaa.mp4&#34;,
+            &#34;title&#34;: &#34;Test&#34;
+        },
+        {
+            &#34;id&#34;: 6,
+            &#34;label&#34;: &#34;Documents&#34;,
+            &#34;type&#34;: &#34;file&#34;,
+            &#34;settings&#34;: [],
+            &#34;value&#34;: null
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified <code>id</code> parameter</td></tr><tr><td>2</td><td>Access denied</td></tr><tr><td>3</td><td>Can&#39;t find unit with specified parameters</td></tr><tr><td>4</td><td>Invalid value or incorrect format for parameter id (int)</td></tr></tbody></table></div></div></div><div id="method-object-Edit-Custom-fields-values" class="api-method"><h2>Edit Custom fields values</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/save_custom_fields_values.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Allows edit object custom fields values</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Object id</div></div></div><div class="item"><div class="cols"><div class="name">fields <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Associative array (key - custom field id; value - field value).
+                             In case you want to modify select option, you have to pass in that option ID as a value</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Not specified &#34;id&#34; or/and &#34;fields&#34; parameter</td></tr><tr><td>2</td><td>API key does not have associated unit with specified parameters</td></tr><tr><td>3</td><td>Can&#39;t find object with specified parameters</td></tr><tr><td>4</td><td>Can&#39;t find fields with specified parameters</td></tr><tr><td>5</td><td>Fields with type hyperlink JSON string must contain title un value keys</td></tr><tr><td>6</td><td>Invalid field &#34;{FIELD_NAME}&#34; value.</td></tr><tr><td>7</td><td>File upload allowed only for fields with types: image, file</td></tr><tr><td>8</td><td>Fields with type {FIELD_TYPE} Allowed formats: {ALLOWED_FORMATS}</td></tr><tr><td>9</td><td>Invalid value or incorrect format for parameter id (int)</td></tr></tbody></table></div></div></div><div id="method-object-Get-objects-groups" class="api-method"><h2>Get objects groups</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/list_groups.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns list of object groups</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">Object group id</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Object group name</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;groups&#34;: [
+            {
+                &#34;id&#34;: 1,
+                &#34;name&#34;: &#34;Group name&#34;,
+                &#34;user_id&#34;: &#34;0&#34;,
+                &#34;private&#34;: &#34;N&#34;,
+                &#34;color&#34;: &#34;FF0000&#34;
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-object-Insert/Update-object-group" class="api-method"><h2>Insert/Update object group</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/save_group.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create new object group or update an existing</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">Object group id. If not empty, object group with this ID will be updated</div></div></div><div class="item"><div class="cols"><div class="name">name <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Object group name</div></div></div><div class="item"><div class="cols"><div class="name">color <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Object group color (hex eg. FF0000)</div></div></div><div class="item"><div class="cols"><div class="name">user_id </div><div class="format">int</div><div class="description">Object group owner user id, only for new records</div></div></div><div class="item"><div class="cols"><div class="name">private </div><div class="format">string</div><div class="description">Object group private or public, only for new records. Possible values [&#34;Y&#34;|&#34;N&#34;]</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid &#34;name&#34; parameter.</td></tr><tr><td>2</td><td>Invalid &#34;color&#34; parameter.</td></tr><tr><td>3</td><td>Invalid &#34;user_id&#34; parameter.</td></tr><tr><td>4</td><td>Invalid &#34;private&#34; parameter. Possible values [&#34;Y&#34;|&#34;N&#34;].</td></tr><tr><td>5</td><td>Cannot change <code>private</code> option and <code>user_id</code> for existing object group</td></tr><tr><td>6</td><td>Cannot create private object group without specifying <code>user_id</code></td></tr></tbody></table></div></div></div><div id="method-object-Delete-object-group" class="api-method"><h2>Delete object group</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">object/delete_group.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete object group</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Object group id</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid &#34;id&#34; parameter.</td></tr><tr><td>2</td><td>Group not found.</td></tr><tr><td>3</td><td>Can not delete group! Group has object.</td></tr></tbody></table></div></div></div></div>
