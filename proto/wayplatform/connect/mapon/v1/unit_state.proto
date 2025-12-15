@@ -1,0 +1,45 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// UnitState represents the dynamic telemetry data of a unit at a specific point in time.
+// This message is used for both the current state of a unit and historical snapshots (e.g., route start/end).
+message UnitState {
+  // Timestamp of the state update.
+  google.protobuf.Timestamp time = 1;
+
+  // Geographical location of the unit.
+  Location location = 2;
+
+  // Current speed in kilometers per hour.
+  int32 speed_kmh = 3;
+
+  // Direction of movement in degrees (0-360).
+  int32 direction_deg = 4;
+
+  // Total distance travelled by the unit in meters (odometer).
+  // API documentation refers to this as "mileage" or "odometer" in meters.
+  int64 odometer_m = 5;
+
+  // Total time the ignition has been on in seconds.
+  int64 ignition_total_duration_s = 6;
+
+  // Current movement status.
+  // Common values: "driving", "standing", "nodata", "nogps", "service".
+  string movement_status = 7;
+
+  // Fuel level in liters.
+  // Note: If unit's consumption is kg/100km, this might represent kg.
+  double fuel_level_l = 8;
+
+  // Supply voltage in volts.
+  double supply_voltage_v = 9;
+
+  // Battery voltage in volts.
+  double battery_voltage_v = 10;
+}

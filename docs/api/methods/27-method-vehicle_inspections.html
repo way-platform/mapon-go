@@ -1,0 +1,115 @@
+<div id="method-vehicle_inspections" class="api-method-group"><h1>Vehicle_inspections</h1><div id="method-vehicle_inspections-List-inspections" class="api-method"><h2>List inspections</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">vehicle_inspections/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">status </div><div class="format">string</div><div class="description">Comma separated status.
+                            <ul>
+                                <li><code>1</code> - Delayed</li>
+                                <li><code>2</code> - Pass</li>
+                                <li><code>3</code> - Failed</li>
+                                <li><code>4</code> - Resolved</li>
+                            </ul>
+                            </div></div></div><div class="item"><div class="cols"><div class="name">inspection_date_from </div><div class="format">string</div><div class="description">Datetime in GMT. Formatted date Y-m-d H:i:s. e.g. 1970-01-01 00:00:00</div></div></div><div class="item"><div class="cols"><div class="name">inspection_date_to </div><div class="format">string</div><div class="description">Datetime in GMT. Formatted date Y-m-d H:i:s. e.g. 1970-01-01 00:00:00</div></div></div><div class="item"><div class="cols"><div class="name">depot_id </div><div class="format">int</div><div class="description">Depot id</div></div></div><div class="item"><div class="cols"><div class="name">group_id </div><div class="format">int</div><div class="description">Group id. <code>-1</code> for ungrouped units</div></div></div><div class="item"><div class="cols"><div class="name">unit_ids </div><div class="format">string</div><div class="description">Comma separated unit ids</div></div></div><div class="item"><div class="cols"><div class="name">empty_box_id </div><div class="format">int</div><div class="description">Include cars with removed device. Allowed values:<code>0</code> - return only units with devices;<code>1</code> - return all. Default:<code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page no. Starts with 1</div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Items count per page. Min:<code>1</code>;Max:<code>250</code>;Default:<code>50</code></div></div></div><div class="item"><div class="cols"><div class="name">includes </div><div class="format">string</div><div class="description">Comma separated includes.<br/>Allowed values:
+<ul>
+    <li><code>items</code> filled inspection data</li>
+</ul>
+</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>array</code> data
+                        <ul>
+                            <li><code>int</code> id</li>
+                            <li><code>string</code> title</li>
+                            <li><code>int</code> unit_id</li>
+                            <li><code>float</code> lat</li>
+                            <li><code>float</code> lng</li>
+                            <li><code>string</code> address</li>
+                            <li><code>int</code> status 1-delayed;2-pass;3-failed;4-resolved</li>
+                            <li><code>string|null</code> status_at Datetime in GMT. Formatted date Y-m-d H:i:s. e.g. 1970-01-01 00:00:00</li>
+                            <li><code>string</code> number</li>
+                            <li><code>string|null</code> inspected_at Datetime in GMT. Formatted date Y-m-d H:i:s. e.g. 1970-01-01 00:00:00</li>
+                            <li><code>int</code> odometer (km)</li>
+                            <li><code>string|null</code> performer_full_name</li>
+                            <li><code>string|null</code> performer_signature_image_file_url</li>
+                            <li><code>int|null</code> total_time_spent (s)</li>
+                            <li>
+                                <code>array</code> items
+                                <ul>
+                                   <li><code>int</code> id</li>
+                                   <li><code>string</code> name</li>
+                                   <li><code>string</code> notes</li>
+                                   <li><code>int</code> status 0-fail;1-pass</li>
+                                   <li><code>int</code> time_spent (seconds)</li>
+                                   <li>
+                                        <code>array|null</code> historical_damage_items
+                                        <ul>
+                                            <li><code>int</code> id</li>
+                                            <li><code>string</code> notes</li>
+                                            <li><code>int</code> status 0-open;1-ongoing;2-awaiting_approval;3-repaired</li>
+                                            <li>
+                                                <code>array|null</code> attachments
+                                                <ul>
+                                                    <li><code>int</code> id</li>
+                                                    <li><code>string</code> url</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                   </li>
+                                   <li>
+                                        <code>array|null</code> attachments
+                                        <ul>
+                                            <li><code>int</code> id</li>
+                                            <li><code>string</code> url</li>
+                                        </ul>
+                                   </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;title&#34;: &#34;Daily inspection&#34;,
+            &#34;unit_id&#34;: &#34;2&#34;,
+            &#34;lat&#34;: 28.45721,
+            &#34;lng&#34;: -43.2719,
+            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;status&#34;: 1,
+            &#34;status_at&#34;: &#34;1970-01-01 00:00:01&#34;,
+            &#34;number&#34;: &#34;ABC123456&#34;,
+            &#34;inspected_at&#34;: &#34;1970-01-01 00:00:02&#34;,
+            &#34;odometer&#34;: &#34;123456&#34;,
+            &#34;performer_full_name&#34;: &#34;John Smith&#34;,
+            &#34;performer_signature_image_file_url&#34;: &#34;https:\/\/sample.org\/file.php?hash=12345&#34;,
+            &#34;total_time_spent&#34;: 600,
+            &#34;items&#34;: [
+                {
+                    &#34;id&#34;: 1,
+                    &#34;name&#34;: &#34;Tyre check&#34;,
+                    &#34;notes&#34;: &#34;Some notes&#34;,
+                    &#34;status&#34;: 1,
+                    &#34;time_spent&#34;: 30,
+                    &#34;historical_damage_items&#34;: [
+                        {
+                            &#34;id&#34;: 1,
+                            &#34;notes&#34;: &#34;Some more notes&#34;,
+                            &#34;status&#34;: 3,
+                            &#34;attachments&#34;: [
+                                {
+                                    &#34;id&#34;: 1,
+                                    &#34;url&#34;: &#34;https:\/\/sample.org\/file.php?hash=65432&#34;
+                                }
+                            ]
+                        }
+                    ],
+                    &#34;attachments&#34;: [
+                        {
+                            &#34;id&#34;: 1,
+                            &#34;url&#34;: &#34;https:\/\/sample.org\/file.php?hash=54321&#34;
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 25,
+        &#34;totalPages&#34;: 25,
+        &#34;perPage&#34;: 1,
+        &#34;page&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid <code>status</code> parameter</td></tr><tr><td>2</td><td>invalid <code>unit_ids</code> parameter</td></tr><tr><td>3</td><td>invalid <code>depot_id</code> parameter</td></tr><tr><td>4</td><td>invalid <code>group_id</code> parameter</td></tr><tr><td>5</td><td>invalid <code>page</code> parameter</td></tr><tr><td>6</td><td>invalid <code>per_page</code> parameter</td></tr><tr><td>7</td><td>invalid <code>inspection_date_from</code> parameter</td></tr><tr><td>8</td><td>invalid <code>inspection_date_to</code> parameter</td></tr><tr><td>9</td><td><code>inspection_date_from</code>/<code>inspection_date_to</code> parameter required with <code>inspection_date_to</code>/<code>inspection_date_from</code> parameter</td></tr><tr><td>10</td><td>invalid <code>includes</code> parameter</td></tr></tbody></table></div></div></div></div>

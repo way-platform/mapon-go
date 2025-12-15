@@ -1,0 +1,17 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// RouteType represents the type of a route segment.
+enum RouteType {
+  // Default value, used when the type is missing or not set.
+  ROUTE_TYPE_UNSPECIFIED = 0;
+  // Used when the received value does not match any known enum member.
+  ROUTE_TYPE_UNRECOGNIZED = 1;
+  // Represents a movement segment.
+  ROUTE = 2;
+  // Represents a stationary period (stop).
+  STOP = 3;
+}

@@ -1,0 +1,580 @@
+<div id="method-device" class="api-method-group"><h1>Device</h1><div id="method-device-SMS-History-*" class="api-method"><h2>SMS History *</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/sms_history.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get all SMS history (*Special access rights are required to use this endpoint. Contact the support team to grant access)</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">device_id <span class="required" title="Required">*</span></div><div class="format">integer</div><div class="description">Device ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: [
+        [
+            [
+                {
+                    &#34;phone&#34;: &#34;123456789&#34;,
+                    &#34;response&#34;: &#34;Data Link: 1 GPRS: 1 Phone: 0 SIM: 0 LAC: 3&#34;,
+                    &#34;received_at&#34;: &#34;2017-04-06 10:21:03&#34;
+                },
+                {
+                    &#34;phone&#34;: &#34;123456789&#34;,
+                    &#34;response&#34;: &#34;Param ID:2004 New Val:1234&#34;,
+                    &#34;received_at&#34;: &#34;2017-04-06 10:25:59&#34;
+                }
+            ]
+        ]
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;id&#34; parameter</td></tr><tr><td>2</td><td>API key does not have any units associated</td></tr></tbody></table></div></div></div><div id="method-device-Get-device-SMS/TCP-commands-*" class="api-method"><h2>Get device SMS/TCP commands *</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/get_commands.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get device SMS/TCP commands (*Special access rights are required to use this endpoint. Contact the support team to grant access)</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">device_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Device ID</div></div></div><div class="item"><div class="cols"><div class="name">transport <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Transport type [sms, tcp]</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;commands&#34;: [
+            {
+                &#34;command&#34;: &#34;command_name&#34;,
+                &#34;params&#34;: {
+                    &#34;param1&#34;: null,
+                    &#34;param2&#34;: &#34;test&#34;
+                }
+            },
+            {
+                &#34;command&#34;: &#34;another_command_name&#34;,
+                &#34;params&#34;: {
+                    &#34;param3&#34;: null,
+                    &#34;param4&#34;: &#34;test&#34;
+                }
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;device_id&#34; parameter</td></tr><tr><td>2</td><td>API key does not have any units associated</td></tr><tr><td>3</td><td>Invalid or unknown &#34;transport&#34; parameter</td></tr><tr><td>4</td><td>SMS/TCP Commands not available</td></tr></tbody></table></div></div></div><div id="method-device-Send-SMS-Command-*" class="api-method"><h2>Send SMS Command *</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/send_sms_command.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Send SMS command to device (*Special access rights are required to use this endpoint. Contact the support team to grant access)</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">device_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Device ID</div></div></div><div class="item"><div class="cols"><div class="name">command <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Device command</div></div></div><div class="item"><div class="cols"><div class="name">params </div><div class="format">string[]</div><div class="description">Device command parameters (e.g params[&#34;param2&#34;] = &#34;value&#34;)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;device_id&#34; parameter</td></tr><tr><td>2</td><td>Invalid or unknown &#34;command&#34; parameter</td></tr><tr><td>3</td><td>API key does not have any units associated</td></tr><tr><td>4</td><td>Device does not support this SMS command</td></tr><tr><td>5</td><td>Invalid &#34;params&#34; parameter</td></tr><tr><td>6</td><td>SMS Command not available</td></tr><tr><td>7</td><td>Could not execute command</td></tr></tbody></table></div></div></div><div id="method-device-Send-TCP-Command-*" class="api-method"><h2>Send TCP Command *</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/send_tcp_command.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Send TCP command to device (*Special access rights are required to use this endpoint. Contact the support team to grant access)</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">device_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Device ID</div></div></div><div class="item"><div class="cols"><div class="name">command <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Device command</div></div></div><div class="item"><div class="cols"><div class="name">params </div><div class="format">string[]</div><div class="description">Device command parameters (e.g params[&#34;param2&#34;] = &#34;value&#34;)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;result&#34;: &#34;Version 1.0.0&#34;
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;device_id&#34; parameter</td></tr><tr><td>2</td><td>Invalid or unknown &#34;command&#34; parameter</td></tr><tr><td>3</td><td>API key does not have any units associated</td></tr><tr><td>4</td><td>Device does not support this SMS command</td></tr><tr><td>5</td><td>Invalid &#34;params&#34; parameter</td></tr><tr><td>6</td><td>SMS Command not available</td></tr><tr><td>7</td><td>Could not execute command</td></tr></tbody></table></div></div></div><div id="method-device-Get-device-list" class="api-method"><h2>Get device list</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get list of company devices - installed on vehicles and/or in company storage</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">box_id </div><div class="format">int</div><div class="description">Device ID</div></div></div><div class="item"><div class="cols"><div class="name">serial </div><div class="format">string</div><div class="description">Device serial number</div></div></div><div class="item"><div class="cols"><div class="name">imei </div><div class="format">string</div><div class="description">Device IMEI number</div></div></div><div class="item"><div class="cols"><div class="name">model </div><div class="format">string</div><div class="description">Device model. Must be a model supported by our system</div></div></div><div class="item"><div class="cols"><div class="name">model_ver </div><div class="format">string</div><div class="description">Devive model version. Requires &#34;model&#34; parameter to be present.</div></div></div><div class="item"><div class="cols"><div class="name">installed </div><div class="format">int</div><div class="description">Allowed values: <code>0,1</code> If set to 1, only devices that are installed on vehicles will be returned</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;devices&#34;: [
+            {
+                &#34;box_id&#34;: 163129,
+                &#34;unit_id&#34;: null,
+                &#34;model&#34;: &#34;G-BOX&#34;,
+                &#34;model_ver&#34;: &#34;&#34;,
+                &#34;installed&#34;: false,
+                &#34;imei&#34;: &#34;&#34;,
+                &#34;serial&#34;: &#34;&#34;,
+                &#34;phone&#34;: &#34;12345678&#34;
+            },
+            {
+                &#34;box_id&#34;: 1219190,
+                &#34;unit_id&#34;: 99799,
+                &#34;model&#34;: &#34;QUECLINK&#34;,
+                &#34;model_ver&#34;: &#34;GV500&#34;,
+                &#34;installed&#34;: true,
+                &#34;imei&#34;: &#34;531207365827640&#34;,
+                &#34;serial&#34;: &#34;&#34;,
+                &#34;phone&#34;: &#34;12345678&#34;
+            },
+            {
+                &#34;box_id&#34;: 25166049,
+                &#34;unit_id&#34;: 121651,
+                &#34;model&#34;: &#34;YEPZON&#34;,
+                &#34;model_ver&#34;: &#34;&#34;,
+                &#34;installed&#34;: true,
+                &#34;imei&#34;: &#34;&#34;,
+                &#34;serial&#34;: &#34;DSGH-GIFR-FYP9&#34;,
+                &#34;phone&#34;: &#34;12345678&#34;
+            },
+            {
+                &#34;box_id&#34;: 26016924,
+                &#34;unit_id&#34;: 116168,
+                &#34;model&#34;: &#34;RUPTELA&#34;,
+                &#34;model_ver&#34;: &#34;TCO4&#34;,
+                &#34;installed&#34;: true,
+                &#34;imei&#34;: &#34;518992226807892&#34;,
+                &#34;serial&#34;: &#34;&#34;,
+                &#34;phone&#34;: &#34;&#34;
+            },
+            {
+                &#34;box_id&#34;: 26046442,
+                &#34;unit_id&#34;: 117660,
+                &#34;model&#34;: &#34;TELTONIKA&#34;,
+                &#34;model_ver&#34;: &#34;FMB640&#34;,
+                &#34;installed&#34;: true,
+                &#34;imei&#34;: &#34;518992226807892&#34;,
+                &#34;serial&#34;: &#34;1110863003&#34;,
+                &#34;phone&#34;: &#34;&#34;
+            },
+            {
+                &#34;box_id&#34;: 315355,
+                &#34;unit_id&#34;: 118416,
+                &#34;model&#34;: &#34;G-BOX2_MINI&#34;,
+                &#34;model_ver&#34;: &#34;&#34;,
+                &#34;installed&#34;: true,
+                &#34;imei&#34;: &#34;309964817321180&#34;,
+                &#34;serial&#34;: &#34;302571&#34;,
+                &#34;phone&#34;: &#34;&#34;
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid &#34;box_id&#34; parameter (non-integer value)</td></tr><tr><td>2</td><td>Invalid &#34;model&#34; parameter (model not supported by system)</td></tr><tr><td>3</td><td>Parameter &#34;model&#34; is required with parameter &#34;model_ver&#34;</td></tr><tr><td>4</td><td>Invalid &#34;model_ver&#34; paramter (model version does not exist for selected model)</td></tr><tr><td>5</td><td>Invalid &#34;imei&#34; parameter</td></tr><tr><td>6</td><td>Invalid &#34;serial&#34; parameter</td></tr></tbody></table></div></div></div><div id="method-device-Supported-device-models" class="api-method"><h2>Supported device models</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/models.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Obtain a list of supported device models and their attributes</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">custom_fields </div><div class="format">int</div><div class="description">Whether to list supported device custom fields. Allowed values: <code>1</code> and <code>0</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;TELTONIKA&#34;: {
+            &#34;model&#34;: &#34;TELTONIKA&#34;,
+            &#34;title&#34;: &#34;TELTONIKA&#34;,
+            &#34;display_id&#34;: &#34;sn&#34;,
+            &#34;versions&#34;: {
+                &#34;FM6300&#34;: &#34;FM63&#34;,
+                &#34;FM6320&#34;: &#34;FM6320&#34;,
+                &#34;FM5300&#34;: &#34;FM53&#34;,
+                &#34;FM4200&#34;: &#34;FM42&#34;,
+                &#34;FM4100&#34;: &#34;FM41&#34;,
+                &#34;FM3600&#34;: &#34;FM3600&#34;,
+                &#34;FM3602&#34;: &#34;FM3602&#34;,
+                &#34;FM3612&#34;: &#34;FM3612&#34;,
+                &#34;FM36M1&#34;: &#34;FM36M1&#34;,
+                &#34;FM3622&#34;: &#34;FM3622&#34;,
+                &#34;FM3300&#34;: &#34;FM33&#34;,
+                &#34;FM3200&#34;: &#34;FM32&#34;,
+                &#34;FM3001&#34;: &#34;FM3001&#34;,
+                &#34;FM2200&#34;: &#34;FM22&#34;,
+                &#34;FM2100&#34;: &#34;FM21&#34;,
+                &#34;FM1200&#34;: &#34;FM12&#34;,
+                &#34;FM1100&#34;: &#34;FM11&#34;,
+                &#34;FM1000&#34;: &#34;FM10&#34;,
+                &#34;FMA110&#34;: &#34;FMA110&#34;,
+                &#34;FMA120&#34;: &#34;FMA120&#34;,
+                &#34;FMA202&#34;: &#34;FMA202&#34;,
+                &#34;FMA204&#34;: &#34;FMA204&#34;,
+                &#34;FMB001&#34;: &#34;FMB001&#34;,
+                &#34;FMB003&#34;: &#34;FMB003&#34;,
+                &#34;FMB010&#34;: &#34;FMB010&#34;,
+                &#34;FMB110&#34;: &#34;FMB110&#34;,
+                &#34;FMB120&#34;: &#34;FMB120&#34;,
+                &#34;FMB122&#34;: &#34;FMB122&#34;,
+                &#34;FMB125&#34;: &#34;FMB125&#34;,
+                &#34;FMB202&#34;: &#34;FMB202&#34;,
+                &#34;FMB204&#34;: &#34;FMB204&#34;,
+                &#34;FMB640&#34;: &#34;FMB640&#34;,
+                &#34;FMB920&#34;: &#34;FMB920&#34;,
+                &#34;FMB630&#34;: &#34;FMB630&#34;,
+                &#34;GH4000&#34;: &#34;GH40&#34;,
+                &#34;FMT100&#34;: &#34;FMT100&#34;,
+                &#34;CM2400&#34;: &#34;CM2400&#34;,
+                &#34;TMT250&#34;: &#34;TMT250&#34;,
+                &#34;TSM232&#34;: &#34;TSM232&#34;,
+                &#34;RUT850&#34;: &#34;RUT850&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;sn&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [
+                &#34;firmware&#34;
+            ],
+            &#34;custom_fields&#34;: [
+                {
+                    &#34;name&#34;: &#34;drop_data_if_no_power&#34;,
+                    &#34;type&#34;: &#34;select&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [
+                        &#34;no&#34;,
+                        &#34;yes&#34;
+                    ],
+                    &#34;value&#34;: &#34;&#34;
+                },
+                {
+                    &#34;name&#34;: &#34;password&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: &#34;&#34;
+                },
+                {
+                    &#34;name&#34;: &#34;username&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: &#34;&#34;
+                }
+            ]
+        },
+        &#34;QUECLINK&#34;: {
+            &#34;model&#34;: &#34;QUECLINK&#34;,
+            &#34;title&#34;: &#34;QUECLINK&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;GV55&#34;: &#34;GV55&#34;,
+                &#34;GV65&#34;: &#34;GV65&#34;,
+                &#34;GV65PLUS&#34;: &#34;GV65PLUS&#34;,
+                &#34;GV75&#34;: &#34;GV75&#34;,
+                &#34;GV200&#34;: &#34;GV200&#34;,
+                &#34;GV300&#34;: &#34;GV300&#34;,
+                &#34;GL100&#34;: &#34;GL100&#34;,
+                &#34;GL200&#34;: &#34;GL200&#34;,
+                &#34;GL300&#34;: &#34;GL300&#34;,
+                &#34;GL300W&#34;: &#34;GL300W&#34;,
+                &#34;GL300M&#34;: &#34;GL300M&#34;,
+                &#34;GL500&#34;: &#34;GL500&#34;,
+                &#34;GL505&#34;: &#34;GL505&#34;,
+                &#34;GL520&#34;: &#34;GL520&#34;,
+                &#34;GL5053&#34;: &#34;GL505-3&#34;,
+                &#34;GV500&#34;: &#34;GV500&#34;,
+                &#34;GV600W&#34;: &#34;GV600W&#34;,
+                &#34;GMT100&#34;: &#34;GMT100&#34;,
+                &#34;GMT200&#34;: &#34;GMT200&#34;,
+                &#34;GS100&#34;: &#34;GS100&#34;,
+                &#34;GT200&#34;: &#34;GT200&#34;,
+                &#34;GT301&#34;: &#34;GT301&#34;,
+                &#34;GB100&#34;: &#34;GB100&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;WEBTECH&#34;: {
+            &#34;model&#34;: &#34;WEBTECH&#34;,
+            &#34;title&#34;: &#34;WEBTECH&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;GOSAFE&#34;: {
+            &#34;model&#34;: &#34;GOSAFE&#34;,
+            &#34;title&#34;: &#34;Gosafe&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;DMT&#34;: {
+            &#34;model&#34;: &#34;DMT&#34;,
+            &#34;title&#34;: &#34;DMT&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;MOBILE&#34;: {
+            &#34;model&#34;: &#34;MOBILE&#34;,
+            &#34;title&#34;: &#34;Phone Tracking App&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;RUPTELA&#34;: {
+            &#34;model&#34;: &#34;RUPTELA&#34;,
+            &#34;title&#34;: &#34;Ruptela&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;ECO3&#34;: &#34;ECO3&#34;,
+                &#34;ECO4&#34;: &#34;ECO4&#34;,
+                &#34;PRO3&#34;: &#34;PRO3&#34;,
+                &#34;TCO3&#34;: &#34;TCO3&#34;,
+                &#34;TCO4&#34;: &#34;TCO4&#34;,
+                &#34;PLUG4&#34;: &#34;PLUG4&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;MEITRACK&#34;: {
+            &#34;model&#34;: &#34;MEITRACK&#34;,
+            &#34;title&#34;: &#34;Meitrack&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;MVT100&#34;: &#34;MVT100&#34;,
+                &#34;MVT340&#34;: &#34;MVT340&#34;,
+                &#34;MVT380&#34;: &#34;MVT380&#34;,
+                &#34;MVT600&#34;: &#34;MVT600&#34;,
+                &#34;MVT800&#34;: &#34;MVT800&#34;,
+                &#34;T355G&#34;: &#34;T355G&#34;,
+                &#34;T366G&#34;: &#34;T366G&#34;,
+                &#34;TC68S&#34;: &#34;TC68S&#34;,
+                &#34;MT90&#34;: &#34;MT90&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: [
+                {
+                    &#34;name&#34;: &#34;password&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: &#34;&#34;
+                }
+            ]
+        },
+        &#34;CALAMP&#34;: {
+            &#34;model&#34;: &#34;CALAMP&#34;,
+            &#34;title&#34;: &#34;CalAmp&#34;,
+            &#34;display_id&#34;: &#34;id&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;LEVEL&#34;: {
+            &#34;model&#34;: &#34;LEVEL&#34;,
+            &#34;title&#34;: &#34;Level&#34;,
+            &#34;display_id&#34;: &#34;sn&#34;,
+            &#34;versions&#34;: {
+                &#34;GC75&#34;: &#34;GC 75&#34;,
+                &#34;GC092034&#34;: &#34;GC 092 034&#34;,
+                &#34;GC092044&#34;: &#34;GC 092 044&#34;,
+                &#34;GC092232&#34;: &#34;GC 092 232&#34;,
+                &#34;GC092242&#34;: &#34;GC 092 242&#34;,
+                &#34;GC092245&#34;: &#34;GC 092 245&#34;,
+                &#34;GC092542&#34;: &#34;GC 092 542&#34;,
+                &#34;GC095253&#34;: &#34;GC 095 253&#34;,
+                &#34;GC095&#34;: &#34;GC 095&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;sn&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: [
+                {
+                    &#34;name&#34;: &#34;ciphered&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: 0
+                },
+                {
+                    &#34;name&#34;: &#34;enc_key&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: &#34;&#34;
+                },
+                {
+                    &#34;name&#34;: &#34;packed_records&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: 1
+                }
+            ]
+        },
+        &#34;COBAN&#34;: {
+            &#34;model&#34;: &#34;COBAN&#34;,
+            &#34;title&#34;: &#34;Coban&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;TKSTAR&#34;: {
+            &#34;model&#34;: &#34;TKSTAR&#34;,
+            &#34;title&#34;: &#34;TKStar&#34;,
+            &#34;display_id&#34;: &#34;id&#34;,
+            &#34;versions&#34;: {
+                &#34;TK1000&#34;: &#34;TK1000&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;DEFENSTAR&#34;: {
+            &#34;model&#34;: &#34;DEFENSTAR&#34;,
+            &#34;title&#34;: &#34;Defenstar&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;GPS668&#34;: &#34;GPS668&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;CONCOX&#34;: {
+            &#34;model&#34;: &#34;CONCOX&#34;,
+            &#34;title&#34;: &#34;Concox&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;MT200&#34;: &#34;MT200&#34;,
+                &#34;ET200&#34;: &#34;ET200&#34;,
+                &#34;GT710&#34;: &#34;GT710&#34;,
+                &#34;QBIT&#34;: &#34;QBIT&#34;,
+                &#34;AT3&#34;: &#34;AT3&#34;,
+                &#34;GV20&#34;: &#34;GV20&#34;,
+                &#34;AT4&#34;: &#34;AT4&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: [
+                {
+                    &#34;name&#34;: &#34;timezone&#34;,
+                    &#34;type&#34;: &#34;select_timezone&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: &#34;&#34;
+                }
+            ]
+        },
+        &#34;CELLOCATOR&#34;: {
+            &#34;model&#34;: &#34;CELLOCATOR&#34;,
+            &#34;title&#34;: &#34;Cellocator&#34;,
+            &#34;display_id&#34;: &#34;sn&#34;,
+            &#34;versions&#34;: {
+                &#34;IQ&#34;: &#34;Cello IQ&#34;,
+                &#34;CANIQ&#34;: &#34;Cello CANiQ&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;TOPFLY_ORIGINAL&#34;: {
+            &#34;model&#34;: &#34;TOPFLY_ORIGINAL&#34;,
+            &#34;title&#34;: &#34;TopFly&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;T8603&#34;: &#34;T8603&#34;,
+                &#34;T8803-PRO&#34;: &#34;T8803-PRO&#34;,
+                &#34;T8803+&#34;: &#34;T8803+&#34;,
+                &#34;T8806&#34;: &#34;T8806&#34;,
+                &#34;T8808-A&#34;: &#34;T8808-A&#34;,
+                &#34;T8808-B&#34;: &#34;T8808-B&#34;,
+                &#34;T8808+&#34;: &#34;T8808+&#34;,
+                &#34;TLW1&#34;: &#34;TLW1&#34;,
+                &#34;TLD1&#34;: &#34;TLD1&#34;,
+                &#34;TLP1&#34;: &#34;TLP1&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: [
+                {
+                    &#34;name&#34;: &#34;password&#34;,
+                    &#34;type&#34;: &#34;text&#34;,
+                    &#34;model_ver&#34;: &#34;&#34;,
+                    &#34;options&#34;: [],
+                    &#34;value&#34;: &#34;&#34;
+                }
+            ]
+        },
+        &#34;DIGITAL_SYSTEMS&#34;: {
+            &#34;model&#34;: &#34;DIGITAL_SYSTEMS&#34;,
+            &#34;title&#34;: &#34;Digital Systems&#34;,
+            &#34;display_id&#34;: &#34;sn&#34;,
+            &#34;versions&#34;: {
+                &#34;DSF10&#34;: &#34;DSF10&#34;,
+                &#34;DSF21&#34;: &#34;DSF21&#34;,
+                &#34;DSF22&#34;: &#34;DSF22&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;sn&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;HUABAO&#34;: {
+            &#34;model&#34;: &#34;HUABAO&#34;,
+            &#34;title&#34;: &#34;HUABAO&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;A5E&#34;: &#34;A5E&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;sn&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;SUNTECH&#34;: {
+            &#34;model&#34;: &#34;SUNTECH&#34;,
+            &#34;title&#34;: &#34;SUNTECH&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;APLICOM&#34;: {
+            &#34;model&#34;: &#34;APLICOM&#34;,
+            &#34;title&#34;: &#34;Aplicom&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: {
+                &#34;A9&#34;: &#34;A9&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;imei&#34;,
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;HUA_SHENG&#34;: {
+            &#34;model&#34;: &#34;HUA_SHENG&#34;,
+            &#34;title&#34;: &#34;Hua Sheng Telematics&#34;,
+            &#34;display_id&#34;: &#34;imei&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;ULBOTECH&#34;: {
+            &#34;model&#34;: &#34;ULBOTECH&#34;,
+            &#34;title&#34;: &#34;UlboTech&#34;,
+            &#34;display_id&#34;: &#34;id&#34;,
+            &#34;versions&#34;: [],
+            &#34;required_fields&#34;: [],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        },
+        &#34;JOINTECH&#34;: {
+            &#34;model&#34;: &#34;JOINTECH&#34;,
+            &#34;title&#34;: &#34;Jointech&#34;,
+            &#34;display_id&#34;: &#34;sn&#34;,
+            &#34;versions&#34;: {
+                &#34;JT701&#34;: &#34;JT701&#34;
+            },
+            &#34;required_fields&#34;: [
+                &#34;model_ver&#34;
+            ],
+            &#34;additional_fields&#34;: [],
+            &#34;custom_fields&#34;: []
+        }
+    }
+}</pre></div></div></div><div id="method-device-Create-new-device" class="api-method"><h2>Create new device</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">device/create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create a new device</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">model <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Model name identifier. Must be supported by the system. See device/models.json for available model details</div></div></div><div class="item"><div class="cols"><div class="name">model_ver </div><div class="format">string</div><div class="description">Model version. Required for models that have versions available. Only values from supported model versions are allowed</div></div></div><div class="item"><div class="cols"><div class="name">imei </div><div class="format">string</div><div class="description">Device IMEI. Required for some models (see device/models.json for more information). Must be a valid IMEI.</div></div></div><div class="item"><div class="cols"><div class="name">sn </div><div class="format">string</div><div class="description">Device serial number. Required for some models (see device/models.json for more information).</div></div></div><div class="item"><div class="cols"><div class="name">sim </div><div class="format">string</div><div class="description">Phone number. Must be a valid phone number. Only numbers and a single &#39;+&#39; symbol may be present</div></div></div><div class="item"><div class="cols"><div class="name">hardware </div><div class="format">string</div><div class="description">Hardware version</div></div></div><div class="item"><div class="cols"><div class="name">software </div><div class="format">string</div><div class="description">Software version</div></div></div><div class="item"><div class="cols"><div class="name">firmware </div><div class="format">string</div><div class="description">Firmware version. Not available for some models</div></div></div><div class="item"><div class="cols"><div class="name">imsi </div><div class="format">string</div><div class="description">IMSI number</div></div></div><div class="item"><div class="cols"><div class="name">customFields </div><div class="format">array</div><div class="description">Device custom fields. See device/models.json for available fields.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;status&#34;: &#34;ok&#34;,
+        &#34;box_id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Failed to create box</td></tr><tr><td>2</td><td>Invalid or unknown &#34;model&#34; parameter</td></tr><tr><td>3</td><td>Invalid or unknown &#34;model_ver&#34; parameter</td></tr><tr><td>4</td><td>Missing a required field value</td></tr><tr><td>5</td><td>Invalid &#34;imei&#34; parameter</td></tr><tr><td>6</td><td>Invalid &#34;sn&#34; parameter</td></tr><tr><td>7</td><td>Invalid &#34;sim&#34; parameter</td></tr><tr><td>8</td><td>Unsupported field</td></tr><tr><td>9</td><td>Generic field validation error</td></tr><tr><td>10</td><td>Custom field validation error</td></tr></tbody></table></div></div></div></div>

@@ -1,0 +1,121 @@
+<div id="method-messaging_conversations" class="api-method-group"><h1>Messaging_conversations</h1><div id="method-messaging_conversations-Create" class="api-method"><h2>Create</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">messaging_conversations/create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create conversation.<br/>- If conversation with user/car exists returns existing conversation.<br/>- If type individual and receivers &gt; 1, then multiple conversations created</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Sender user id</div></div></div><div class="item"><div class="cols"><div class="name">channel_id </div><div class="format">int</div><div class="description">Channel id</div></div></div><div class="item"><div class="cols"><div class="name">group_title </div><div class="format">string</div><div class="description">Group title. Only for group conversations</div></div></div><div class="item"><div class="cols"><div class="name">medium <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Conversation medium. Allowed values: <code>general</code>, <code>sms</code>, <code>garmin</code></div></div></div><div class="item"><div class="cols"><div class="name">type <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Conversation type. Allowed values: <code>individual</code>, <code>group</code></div></div></div><div class="item"><div class="cols"><div class="name">receivers <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Optional for group conversations</div></div></div><div class="sub"><div class="item"><div class="cols"><div class="name">type <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Conversation type. Allowed values: <code>user</code>, <code>car</code></div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">User/car id</div></div></div></div><div class="item"><div class="cols"><div class="name">message_text </div><div class="format">string</div><div class="description">Required without <code>message_gps</code>, <code>message_attachments</code></div></div></div><div class="item"><div class="cols"><div class="name">message_gps </div><div class="format">array</div><div class="description">Location. Required without <code>message_text</code>, <code>message_attachments</code></div></div></div><div class="sub"><div class="item"><div class="cols"><div class="name">lat <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Latitude</div></div></div><div class="item"><div class="cols"><div class="name">lng <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Longitude</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Point address</div></div></div></div><div class="item"><div class="cols"><div class="name">message_attachments </div><div class="format">array (multipart/form-data)</div><div class="description">Message attachments. Multi file upload. Required without <code>message_text</code>, <code>message_gps</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        - Nullable vars: <code>removed_at</code>,
+                            <code>joined_at</code>,
+                            <code>last_message_at</code>,
+                            <code>last_message</code>,
+                            <code>last_message.text</code>,
+                            <code>last_message.gps</code>,
+                            <code>last_message.attachments</code>,
+                            <code>conversation_with</code><br/>
+                        - <code>type</code> possible values: individual,group<br/>
+                        - <code>conversation_with</code> - null in group conversations<br/>
+                        - <code>last_message.status</code> possible values: sent,delivered,read,unread<br/>
+                        - <code>last_message.attachments.size</code> size in bytes
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: &#34;1&#34;,
+            &#34;title&#34;: &#34;John Smith (AAAA0000)&#34;,
+            &#34;type&#34;: &#34;individual&#34;,
+            &#34;unread_total&#34;: 0,
+            &#34;removed_at&#34;: null,
+            &#34;is_favorite&#34;: false,
+            &#34;is_admin&#34;: false,
+            &#34;joined_at&#34;: &#34;1970-01-01T00:00:01+00:00&#34;,
+            &#34;last_message_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+            &#34;last_message&#34;: {
+                &#34;id&#34;: 1,
+                &#34;status&#34;: &#34;read&#34;,
+                &#34;created_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+                &#34;text&#34;: &#34;Lorem ipsum&#34;,
+                &#34;gps&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                },
+                &#34;attachments&#34;: [
+                    {
+                        &#34;id&#34;: 1,
+                        &#34;name&#34;: &#34;sample.jpg&#34;,
+                        &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                        &#34;url&#34;: &#34;https:\/\/url-to-image.example?23424324323423&#34;,
+                        &#34;thumb_url&#34;: &#34;https:\/\/url-to-image-thumb.example?23424324323423&#34;,
+                        &#34;size&#34;: 234324
+                    }
+                ],
+                &#34;sender&#34;: {
+                    &#34;id&#34;: 1,
+                    &#34;unit_id&#34;: null,
+                    &#34;user_id&#34;: 1,
+                    &#34;title&#34;: &#34;John Smith&#34;
+                }
+            },
+            &#34;conversation_with&#34;: {
+                &#34;id&#34;: 1,
+                &#34;unit_id&#34;: null,
+                &#34;user_id&#34;: 1,
+                &#34;title&#34;: &#34;John Smith&#34;
+            }
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid parameter</td></tr><tr><td>2</td><td>user_id required</td></tr><tr><td>3</td><td>Invalid user</td></tr><tr><td>4</td><td>Invalid medium</td></tr><tr><td>5</td><td>No sms feature</td></tr><tr><td>6</td><td>Only individual conversations in channels</td></tr><tr><td>7</td><td>Group title required</td></tr><tr><td>8</td><td>Empty message</td></tr><tr><td>9</td><td>Invalid receivers</td></tr><tr><td>10</td><td>Invalid channel</td></tr><tr><td>11</td><td>Invalid receiver user</td></tr><tr><td>12</td><td>Invalid receiver unit</td></tr><tr><td>13</td><td>Invalid message attachment</td></tr><tr><td>14</td><td>Invalid type</td></tr></tbody></table></div></div></div><div id="method-messaging_conversations-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">messaging_conversations/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">List user conversations</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">user_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">User id. Returns user conversations</div></div></div><div class="item"><div class="cols"><div class="name">medium <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Conversation medium. Allowed values: general, sms, garmin</div></div></div><div class="item"><div class="cols"><div class="name">belongs_to_channel </div><div class="format">int</div><div class="description">Allowed values: <code>0</code>,<code>1</code> If <code>1</code> returns conversations which belongs to channels. Default value: <code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">channel_id </div><div class="format">int</div><div class="description">Returns given channel conversations</div></div></div><div class="item"><div class="cols"><div class="name">ids </div><div class="format">comma separated integers</div><div class="description">Returns given conversations</div></div></div><div class="item"><div class="cols"><div class="name">type </div><div class="format">string</div><div class="description">Conversation type. Allowed values: individual, group</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        - Nullable vars: <code>removed_at</code>,
+                            <code>joined_at</code>,
+                            <code>last_message_at</code>,
+                            <code>last_message</code>,
+                            <code>last_message.text</code>,
+                            <code>last_message.gps</code>,
+                            <code>last_message.attachments</code>,
+                            <code>conversation_with</code><br/>
+                        - <code>type</code> possible values: individual,group<br/>
+                        - <code>conversation_with</code> - null in group conversations<br/>
+                        - <code>last_message.status</code> possible values: sent,delivered,read,unread<br/>
+                        - <code>last_message.attachments.size</code> size in bytes
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: &#34;1&#34;,
+            &#34;title&#34;: &#34;John Smith (AAAA0000)&#34;,
+            &#34;type&#34;: &#34;individual&#34;,
+            &#34;unread_total&#34;: 0,
+            &#34;removed_at&#34;: null,
+            &#34;is_favorite&#34;: false,
+            &#34;is_admin&#34;: false,
+            &#34;joined_at&#34;: &#34;1970-01-01T00:00:01+00:00&#34;,
+            &#34;last_message_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+            &#34;last_message&#34;: {
+                &#34;id&#34;: 1,
+                &#34;status&#34;: &#34;read&#34;,
+                &#34;created_at&#34;: &#34;1970-01-01T00:00:02+00:00&#34;,
+                &#34;text&#34;: &#34;Lorem ipsum&#34;,
+                &#34;gps&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                },
+                &#34;attachments&#34;: [
+                    {
+                        &#34;id&#34;: 1,
+                        &#34;name&#34;: &#34;sample.jpg&#34;,
+                        &#34;mime&#34;: &#34;image\/jpeg&#34;,
+                        &#34;url&#34;: &#34;https:\/\/url-to-image.example?23424324323423&#34;,
+                        &#34;thumb_url&#34;: &#34;https:\/\/url-to-image-thumb.example?23424324323423&#34;,
+                        &#34;size&#34;: 234324
+                    }
+                ],
+                &#34;sender&#34;: {
+                    &#34;id&#34;: 1,
+                    &#34;unit_id&#34;: null,
+                    &#34;user_id&#34;: 1,
+                    &#34;title&#34;: &#34;John Smith&#34;
+                }
+            },
+            &#34;conversation_with&#34;: {
+                &#34;id&#34;: 1,
+                &#34;unit_id&#34;: null,
+                &#34;user_id&#34;: 1,
+                &#34;title&#34;: &#34;John Smith&#34;
+            }
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid parameter</td></tr><tr><td>2</td><td>user_id required</td></tr><tr><td>3</td><td>Invalid user</td></tr><tr><td>4</td><td>Invalid medium</td></tr><tr><td>5</td><td>Invalid type</td></tr></tbody></table></div></div></div></div>

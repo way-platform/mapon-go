@@ -1,0 +1,131 @@
+<div id="method-tell_tale" class="api-method-group"><h1>Tell_tale</h1><div id="method-tell_tale-Get-Tell-Tale-Values" class="api-method"><h2>Get Tell Tale Values</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tell_tale/values.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Retrieves FMS tell tale values for specified vehicles within a date range. Tell tales are dashboard indicator lights and warnings from the vehicle&#39;s FMS (Fleet Management System) interface, representing real-time status of various vehicle systems including brakes, engine, transmission, lighting, emissions, and safety systems. The FMS standard defines 75 different tell tale types organized into 5 blocks, covering everything from basic indicators like parking brake and fuel level to advanced systems like lane departure warning and electric vehicle battery management. Each tell tale can report status values from 0 (Off) to 7 (Not Available), with intermediate values indicating different warning levels. The period for which data can be requested is limited to 31 days.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Vehicle unit ID. Only single unit supported for this endpoint.</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Start of the date-time range (inclusive). Required. <code>UTC</code> datetime string in <code>Y-m-dTH:i:sZ</code> format</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">End of the date-time range (inclusive). Required. <code>UTC</code> datetime string in <code>Y-m-dTH:i:sZ</code> format. Must be after &#39;from&#39;.</div></div></div><div class="item"><div class="cols"><div class="name">telltale_id </div><div class="format">int</div><div class="description">Filter by specific tell tale ID. Available IDs: 1-75 (see FMS standard tell tale types).</div></div></div><div class="item"><div class="cols"><div class="name">cursor </div><div class="format">datetime</div><div class="description">Cursor for pagination. <code>UTC</code> datetime string in <code>Y-m-dTH:i:sZ</code> format. Must be within the from/till date range.</div></div></div><div class="item"><div class="cols"><div class="name">limit </div><div class="format">int</div><div class="description">Maximum number of records to return. Range: <code>1-10000</code>, default: <code>1000</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                    <p>The response contains a <code>data</code> object where each key is a string representation of a <code>unit_id</code> for which values were requested.</p>
+                    <p>Each <code>unit_id</code> key maps to an array of tell tale value objects. If a requested unit has no data for the specified period, its corresponding array will be empty.</p>
+                    <p>Each tell tale value object contains:</p>
+                    <ul>
+                        <li><code>name</code> (string) - Human-readable tell tale name (e.g., &#34;PARKING_BRAKE&#34;, &#34;ENGINE_OIL&#34;).</li>
+                        <li><code>telltale_id</code> (int) - Numeric tell tale identifier (1-75).</li>
+                        <li><code>value</code> (int) - Numeric status value (0-7).</li>
+                        <li><code>value_title</code> (string) - Human-readable status description.</li>
+                        <li><code>datetime</code> (string) - The UTC timestamp when the tell tale value was recorded, in ISO8601 format with &#34;Z&#34; suffix.</li>
+                    </ul>
+                    <p><strong>Status Values (FmsTelltaleStatus enum):</strong></p>
+                    <ul>
+                        <li><code>0</code> - OFF</li>
+                        <li><code>1</code> - CONDITION_RED (Critical warning)</li>
+                        <li><code>2</code> - CONDITION_YELLOW (Warning)</li>
+                        <li><code>3</code> - CONDITION_INFO (Information)</li>
+                        <li><code>4-6</code> - Reserved</li>
+                        <li><code>7</code> - NOT_AVAILABLE</li>
+                    </ul>
+                    <p><strong>Available Tell Tale Types (FmsTellTaleBlocks enum):</strong></p>
+                    <ul>
+                        <li><code>1</code> - COOLING_AIR_CONDITIONING</li>
+                        <li><code>2</code> - HIGH_BEAM_MAIN_BEAM</li>
+                        <li><code>3</code> - LOW_BEAM_DIPPED_BEAM</li>
+                        <li><code>4</code> - TURN_SIGNALS</li>
+                        <li><code>5</code> - HAZARD_WARNING</li>
+                        <li><code>6</code> - PROVISION_FOR_THE_DISABLED_OR_HANDICAPPED_PERSONS</li>
+                        <li><code>7</code> - PARKING_BRAKE</li>
+                        <li><code>8</code> - BRAKE_FAILURE_BRAKE_SYSTEM_MALFUNCTION</li>
+                        <li><code>9</code> - HATCH_OPEN</li>
+                        <li><code>10</code> - FUEL_LEVEL</li>
+                        <li><code>11</code> - ENGINE_COOLANT_TEMPERATURE</li>
+                        <li><code>12</code> - BATTERY_CHARGING_CONDITION</li>
+                        <li><code>13</code> - ENGINE_OIL</li>
+                        <li><code>14</code> - POSITION_LIGHTS_SIDE_LIGHTS</li>
+                        <li><code>15</code> - FRONT_FOG_LIGHT</li>
+                        <li><code>16</code> - REAR_FOG_LIGHT</li>
+                        <li><code>17</code> - PARK_HEATING</li>
+                        <li><code>18</code> - ENGINE_MIL_INDICATOR</li>
+                        <li><code>19</code> - SERVICE_CALL_FOR_MAINTENANCE</li>
+                        <li><code>20</code> - TRANSMISSION_FLUID_TEMPERATURE</li>
+                        <li><code>21</code> - TRANSMISSION_FAILURE_MALFUNCTION</li>
+                        <li><code>22</code> - ANTILOCK_BRAKE_SYSTEM_FAILURE</li>
+                        <li><code>23</code> - WORN_BRAKE_LININGS</li>
+                        <li><code>24</code> - WINDSCREEN_WASHER_FLUID</li>
+                        <li><code>25</code> - TIRE_FAILURE_MALFUNCTION</li>
+                        <li><code>26</code> - MALFUNCTION_GENERAL_FAILURE</li>
+                        <li><code>27</code> - ENGINE_OIL_TEMPERATURE</li>
+                        <li><code>28</code> - ENGINE_OIL_LEVEL</li>
+                        <li><code>29</code> - ENGINE_COOLANT_LEVEL</li>
+                        <li><code>30</code> - STEERING_FLUID_LEVEL</li>
+                        <li><code>31</code> - STEERING_FAILURE</li>
+                        <li><code>32</code> - HEIGHT_CONTROL_LEVELLING</li>
+                        <li><code>33</code> - RETARDER</li>
+                        <li><code>34</code> - ENGINE_EMISSION_SYSTEM_FAILURE_MIL_INDICATOR</li>
+                        <li><code>35</code> - ESC_INDICATION</li>
+                        <li><code>36</code> - BRAKE_LIGHTS</li>
+                        <li><code>37</code> - ARTICULATION</li>
+                        <li><code>38</code> - STOP_REQUEST</li>
+                        <li><code>39</code> - PRAM_REQUEST</li>
+                        <li><code>40</code> - BUS_STOP_BRAKE</li>
+                        <li><code>41</code> - ADBLUE_LEVEL</li>
+                        <li><code>42</code> - RAISING</li>
+                        <li><code>43</code> - LOWERING</li>
+                        <li><code>44</code> - KNEELING</li>
+                        <li><code>45</code> - ENGINE_COMPARTMENT_TEMPERATURE</li>
+                        <li><code>46</code> - AUXILIARY_AIR_PRESSURE</li>
+                        <li><code>47</code> - AIR_FILTER_CLOGGED</li>
+                        <li><code>48</code> - FUEL_FILTER_DIFFERENTIAL_PRESSURE</li>
+                        <li><code>49</code> - SEAT_BELT</li>
+                        <li><code>50</code> - EBS</li>
+                        <li><code>51</code> - LANE_DEPARTURE_INDICATION</li>
+                        <li><code>52</code> - ADVANCED_EMERGENCY_BRAKING_SYSTEM</li>
+                        <li><code>53</code> - ACC</li>
+                        <li><code>54</code> - TRAILER_CONNECTED</li>
+                        <li><code>55</code> - ABS_TRAILER_1_2</li>
+                        <li><code>56</code> - AIRBAG</li>
+                        <li><code>57</code> - EBS_TRAILER_1_2</li>
+                        <li><code>58</code> - TACHOGRAPH_INDICATION</li>
+                        <li><code>59</code> - ESC_SWITCHED_OFF</li>
+                        <li><code>60</code> - LANE_DEPARTURE_WARNING_SWITCHED_OFF</li>
+                        <li><code>61</code> - ENGINE_EMISSION_FILTER_SOOT_FILTER</li>
+                        <li><code>62</code> - ELECTRIC_MOTOR_FAILURES</li>
+                        <li><code>63</code> - ADBLUE_TAMPERING</li>
+                        <li><code>64</code> - MULTIPLEX_SYSTEM</li>
+                        <li><code>65</code> - BATTERY_PACK</li>
+                        <li><code>66</code> - HIGH_VOLTAGE_SYSTEM_CAUTION</li>
+                        <li><code>67</code> - BATTERY_PACK_TEMPERATURE</li>
+                        <li><code>68</code> - LIMITED_PERFORMANCE_ELECTRIC_MOTOR</li>
+                        <li><code>69</code> - BATTERY_PACK_COOLING</li>
+                        <li><code>70</code> - RESERVED_FOR_FMS_STANDARD_70</li>
+                        <li><code>71</code> - RESERVED_FOR_FMS_STANDARD_71</li>
+                        <li><code>72</code> - RESERVED_FOR_FMS_STANDARD_72</li>
+                        <li><code>73</code> - RESERVED_FOR_FMS_STANDARD_73</li>
+                        <li><code>74</code> - RESERVED_FOR_FMS_STANDARD_74</li>
+                        <li><code>75</code> - RESERVED_FOR_FMS_STANDARD_75</li>
+                    </ul>
+                    <p><strong>Pagination:</strong> The response includes pagination metadata with <code>has_more</code> indicating if more records are available, <code>cursor</code> for the next page, and current <code>limit</code>.</p>
+                </div><pre>{
+    &#34;data&#34;: {
+        &#34;12345&#34;: [
+            {
+                &#34;name&#34;: &#34;PARKING_BRAKE&#34;,
+                &#34;telltale_id&#34;: 7,
+                &#34;value&#34;: 1,
+                &#34;value_title&#34;: &#34;Condition Red&#34;,
+                &#34;datetime&#34;: &#34;2024-01-15T10:30:45Z&#34;
+            },
+            {
+                &#34;name&#34;: &#34;ENGINE_OIL&#34;,
+                &#34;telltale_id&#34;: 13,
+                &#34;value&#34;: 2,
+                &#34;value_title&#34;: &#34;Condition Yellow&#34;,
+                &#34;datetime&#34;: &#34;2024-01-15T10:31:12Z&#34;
+            },
+            {
+                &#34;name&#34;: &#34;FUEL_LEVEL&#34;,
+                &#34;telltale_id&#34;: 10,
+                &#34;value&#34;: 0,
+                &#34;value_title&#34;: &#34;Off&#34;,
+                &#34;datetime&#34;: &#34;2024-01-15T10:32:30Z&#34;
+            }
+        ]
+    },
+    &#34;pagination&#34;: {
+        &#34;has_more&#34;: true,
+        &#34;cursor&#34;: &#34;2024-01-15T10:32:30Z&#34;,
+        &#34;limit&#34;: 1000
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown &#34;unit_id&#34; parameter</td></tr><tr><td>2</td><td>Invalid or missing &#34;from&#34; parameter</td></tr><tr><td>3</td><td>Invalid or missing &#34;till&#34; parameter</td></tr><tr><td>4</td><td>Invalid period (from date must be before till date)</td></tr><tr><td>5</td><td>Period cannot exceed 31 days</td></tr><tr><td>6</td><td>Limit must be between 1 and 10000</td></tr><tr><td>7</td><td>Invalid cursor format. Must be in ISO 8601 format</td></tr><tr><td>8</td><td>Cursor date cannot be before start date</td></tr><tr><td>9</td><td>Cursor date must be before end date</td></tr><tr><td>1008</td><td>API key does not have any associated units</td></tr></tbody></table></div></div></div></div>

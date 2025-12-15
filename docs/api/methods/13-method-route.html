@@ -1,0 +1,199 @@
+<div id="method-route" class="api-method-group"><h1>Route</h1><div id="method-route-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">route/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns list of stops and routes.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Filter stops/routes by time</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Filter stops/routes by time</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int || []</div><div class="description">One or more unit IDs</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">string or []</div><div class="description">
+                                Include additional data in results:<br/>
+                                <code>polyline</code> - encoded polyline (see Google Maps API <a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">Encoded Polyline Algorithm Format</a>
+                                 and <a href="https://developers.google.com/maps/documentation/javascript/geometry#Encoding">Geometry Library Encoding Methods</a> on how to decode this data)<br/>
+                                <code>speed</code> - route velocity and time information<br/>
+                                <code>decoded_route</code> - list of coordinates together with time and speed (available only when requesting routes for one unit)<br/>
+                                <code>driver_id</code> - ID of the driver that was driving the car during the route. Will be 0 if no driver was registered for the route.<br/>
+                                <code>countries</code> - Each route will include array with time and distance in each driven country<br/>
+                                <code>can</code> - Each route will include array of start and end can data<br/>
+                                <code>route_details</code> - Extra route details<br/>
+                                <code>structured_addresses</code> - Detailed address information. Available only for routes after 2019-07-17<br/>
+                                <code>route_fields</code> - custom route fields. Will be returned for routes with type &#34;route&#34;. Contains values for fields:
+                                <code>client_title</code>,<code>invoice</code>,<code>custom_distance</code>,<code>selected_distance</code>,
+                                <code>extra_passengers</code>,<code>extra_expenses</code>,<code>trailer</code>. If field is not present, it had no value for the route.
+                            </div></div></div><div class="item"><div class="cols"><div class="name">empty_box_id </div><div class="format">bool</div><div class="description">Include cars with removed device</div></div></div><div class="item"><div class="cols"><div class="name">driver_id </div><div class="format">int</div><div class="description">Driver ID</div></div></div><div class="item"><div class="cols"><div class="name">route_types </div><div class="format">string</div><div class="description">Comma separated list of route types. Allowed values: <code>business</code>, <code>private</code></div></div></div><div class="item"><div class="cols"><div class="name">split_routes_on_border_crossing </div><div class="format">int</div><div class="description">Values: <code>0</code> or <code>1</code>.<br/> If selected, routes that cross country borders will be split into several virtual routes. A new virtual route will be included for each country the original route was in. The response structure for the virtual routes remains the same.<br/> Please note that due to technical limitations of the split routes only being virtual the following properties can not be split and will match the values of the original route: <code>route_id</code>, <code>avg_speed</code>, <code>max_speed</code>, <code>polyline</code>, <code>speed</code>, <code>route_details</code>, <code>route_fields</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <i>Please note that if unit&#39;s fuel consumption measurement is <code>kg/100km</code>, then <code>can -&gt; total_fuel</code> values are represented in KG, not in L</i>
+                        <br/>If parameter <code>split_routes_on_border_crossing</code> is set and the route is actually split into virtual parts for each country then the <code>routes-&gt;start-&gt;address</code> and <code>routes-&gt;end-&gt;address</code> fields will contain only ISO country code.
+                        <br/><code>routes-&gt;start-&gt;address</code> shows the country that the unit entered and <code>routes-&gt;end-&gt;address</code> shows the country the unit exited.
+                    </div><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;routes&#34;: [
+                    {
+                        &#34;type&#34;: &#34;stop&#34;,
+                        &#34;route_id&#34;: 987988691,
+                        &#34;start&#34;: {
+                            &#34;time&#34;: &#34;2013-03-12T15:07:06Z&#34;,
+                            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                            &#34;address_structured&#34;: {
+                                &#34;country&#34;: &#34;XX&#34;,
+                                &#34;countryCode&#34;: &#34;xx&#34;,
+                                &#34;city&#34;: &#34;Barcelona&#34;,
+                                &#34;postCode&#34;: &#34;08005&#34;,
+                                &#34;street&#34;: &#34;Carrer de Pujades&#34;,
+                                &#34;house&#34;: &#34;55&#34;,
+                                &#34;district&#34;: &#34;Barcelones&#34;,
+                                &#34;state&#34;: &#34;Catalunya&#34;,
+                                &#34;region&#34;: &#34;Barcelona&#34;
+                            },
+                            &#34;lat&#34;: 28.45721,
+                            &#34;lng&#34;: -43.2719
+                        },
+                        &#34;end&#34;: {
+                            &#34;time&#34;: &#34;2013-03-13T05:50:02Z&#34;
+                        }
+                    },
+                    {
+                        &#34;type&#34;: &#34;route&#34;,
+                        &#34;route_id&#34;: 9785023147,
+                        &#34;start&#34;: {
+                            &#34;time&#34;: &#34;2013-03-13T05:50:02Z&#34;,
+                            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                            &#34;address_structured&#34;: {
+                                &#34;country&#34;: &#34;XX&#34;,
+                                &#34;countryCode&#34;: &#34;xx&#34;,
+                                &#34;city&#34;: &#34;City&#34;,
+                                &#34;postCode&#34;: &#34;12345&#34;,
+                                &#34;street&#34;: &#34;Main Street&#34;,
+                                &#34;house&#34;: &#34;123&#34;,
+                                &#34;district&#34;: &#34;City&#34;,
+                                &#34;state&#34;: &#34;AB&#34;,
+                                &#34;region&#34;: &#34;City&#34;
+                            },
+                            &#34;lat&#34;: 28.45721,
+                            &#34;lng&#34;: -43.2719,
+                            &#34;can&#34;: {
+                                &#34;fuel_level&#34;: 13,
+                                &#34;fuel_level_liters&#34;: 5,
+                                &#34;service_distance&#34;: 13000,
+                                &#34;total_distance&#34;: 12131,
+                                &#34;total_fuel&#34;: 152,
+                                &#34;total_engine_hours&#34;: 2041
+                            }
+                        },
+                        &#34;end&#34;: {
+                            &#34;time&#34;: &#34;2013-03-13T06:06:27Z&#34;,
+                            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                            &#34;address_structured&#34;: {
+                                &#34;country&#34;: &#34;XX&#34;,
+                                &#34;countryCode&#34;: &#34;xx&#34;,
+                                &#34;city&#34;: &#34;City&#34;,
+                                &#34;postCode&#34;: &#34;12345&#34;,
+                                &#34;street&#34;: &#34;Main Street&#34;,
+                                &#34;house&#34;: &#34;123&#34;,
+                                &#34;district&#34;: &#34;City&#34;,
+                                &#34;state&#34;: &#34;AB&#34;,
+                                &#34;region&#34;: &#34;City&#34;
+                            },
+                            &#34;lat&#34;: 28.45721,
+                            &#34;lng&#34;: -43.2719,
+                            &#34;can&#34;: {
+                                &#34;fuel_level&#34;: 13,
+                                &#34;fuel_level_liters&#34;: 5,
+                                &#34;service_distance&#34;: 13131,
+                                &#34;total_distance&#34;: 13131,
+                                &#34;total_fuel&#34;: 222,
+                                &#34;total_engine_hours&#34;: 2341
+                            }
+                        },
+                        &#34;avg_speed&#34;: 52,
+                        &#34;max_speed&#34;: 72,
+                        &#34;decoded_route&#34;: {
+                            &#34;points&#34;: [
+                                {
+                                    &#34;gmt&#34;: &#34;2017-04-03T14:44:16Z&#34;,
+                                    &#34;lat&#34;: 28.45721,
+                                    &#34;lng&#34;: -43.2719,
+                                    &#34;speed&#34;: 0
+                                }
+                            ]
+                        },
+                        &#34;distance&#34;: 15770,
+                        &#34;countries&#34;: [
+                            {
+                                &#34;code&#34;: &#34;EN&#34;,
+                                &#34;distance&#34;: 31546,
+                                &#34;time&#34;: 1324
+                            },
+                            {
+                                &#34;code&#34;: &#34;EN&#34;,
+                                &#34;distance&#34;: 956461,
+                                &#34;time&#34;: 3536
+                            }
+                        ],
+                        &#34;driver_id&#34;: 43722,
+                        &#34;route_details&#34;: {
+                            &#34;type&#34;: &#34;new&#34;,
+                            &#34;group_id&#34;: &#34;10&#34;,
+                            &#34;explanation&#34;: &#34;Explanation&#34;,
+                            &#34;explanation_time&#34;: &#34;2019-01-25 02:12:00&#34;
+                        },
+                        &#34;route_fields&#34;: {
+                            &#34;client_title&#34;: &#34;Client company&#34;,
+                            &#34;invoice&#34;: &#34;John Smith&#34;,
+                            &#34;custom_distance&#34;: &#34;123&#34;,
+                            &#34;selected_distance&#34;: &#34;111&#34;,
+                            &#34;extra_passengers&#34;: &#34;0&#34;,
+                            &#34;extra_expenses&#34;: &#34;1.2&#34;,
+                            &#34;trailer&#34;: &#34;no&#34;
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr><tr><td>6</td><td><code>decoded_route</code> parameter available only when requesting routes for one unit</td></tr><tr><td>7</td><td>Invalid or unknown <code>driver_id</code> parameter</td></tr><tr><td>8</td><td>Invalid or unknown <code>route_types</code> parameter</td></tr><tr><td>9</td><td>Failed to get period days</td></tr></tbody></table></div></div></div><div id="method-route-Custom-fields" class="api-method"><h2>Custom fields</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">route/custom_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns custom fields for specific route</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">route_id <span class="required" title="Required">*</span></div><div class="format">int || []</div><div class="description">Route ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;route_id&#34;: 12345678,
+            &#34;fields&#34;: {
+                &#34;client_title&#34;: &#34;Temparamente&#34;,
+                &#34;extra_passengers&#34;: &#34;1&#34;,
+                &#34;type&#34;: &#34;business&#34;,
+                &#34;explanation&#34;: &#34;Kalasdidu&#34;
+            }
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Maximum 100 routes per request</td></tr></tbody></table></div></div></div><div id="method-route-Country-crossings" class="api-method"><h2>Country crossings</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">route/country_crossings.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns list of countries crossed by unit in requested period (max 31 days).</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">One unit id</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Filter country crossings by time</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description">Filter country crossings by time</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;units&#34;: [
+            {
+                &#34;unit_id&#34;: 1,
+                &#34;crossings&#34;: [
+                    {
+                        &#34;to&#34;: {
+                            &#34;code&#34;: &#34;LT&#34;,
+                            &#34;name&#34;: &#34;Lithuania&#34;
+                        },
+                        &#34;gmt&#34;: &#34;2019-06-25T12:28:15Z&#34;
+                    },
+                    {
+                        &#34;from&#34;: {
+                            &#34;code&#34;: &#34;LT&#34;,
+                            &#34;name&#34;: &#34;Lithuania&#34;
+                        },
+                        &#34;to&#34;: {
+                            &#34;code&#34;: &#34;PL&#34;,
+                            &#34;name&#34;: &#34;Poland&#34;
+                        },
+                        &#34;gmt&#34;: &#34;2019-06-26T21:13:16Z&#34;
+                    },
+                    {
+                        &#34;from&#34;: {
+                            &#34;code&#34;: &#34;PL&#34;,
+                            &#34;name&#34;: &#34;Poland&#34;
+                        },
+                        &#34;to&#34;: {
+                            &#34;code&#34;: &#34;DE&#34;,
+                            &#34;name&#34;: &#34;Germany&#34;
+                        },
+                        &#34;gmt&#34;: &#34;2019-06-27T18:38:57Z&#34;
+                    }
+                ]
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid or unknown <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid or missing <code>from</code> parameter</td></tr><tr><td>3</td><td>Invalid or missing <code>till</code> parameter</td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Period can not exceed 31 days</td></tr></tbody></table></div></div></div></div>

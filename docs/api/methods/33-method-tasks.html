@@ -1,0 +1,344 @@
+<div id="method-tasks" class="api-method-group"><h1>Tasks</h1><div id="method-tasks-Create-Task" class="api-method"><h2>Create Task</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create a new vehicle task</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Vehicle/Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">planned_arrival_time <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Planned arrival time in datetime format</div></div></div><div class="item"><div class="cols"><div class="name">destination_lat <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Destination latitude coordinate</div></div></div><div class="item"><div class="cols"><div class="name">destination_lng <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Destination longitude coordinate</div></div></div><div class="item"><div class="cols"><div class="name">type </div><div class="format">string</div><div class="description">Task type.<br/>Allowed values:
+<code title="Loading">loading</code>,
+<code title="Unloading">unloading</code>,
+<code title="Fueling">fueling</code>,
+<code title="Driver change">driver_change</code>,
+<code title="Trailer change">trailer_change</code>,
+<code title="Resting">resting</code>,
+<code title="Ferry">ferry</code>,
+<code title="Train">train</code>,
+<code title="Border crossing">border_crossing</code>,
+<code title="Trailer hook on">trailer_hook_on</code>,
+<code title="Trailer hook off">trailer_hook_off</code></div></div></div><div class="item"><div class="cols"><div class="name">instructions </div><div class="format">string</div><div class="description">Task instructions</div></div></div><div class="item"><div class="cols"><div class="name">order_id </div><div class="format">string</div><div class="description">Order ID associated with the task</div></div></div><div class="item"><div class="cols"><div class="name">client_id </div><div class="format">string</div><div class="description">Client ID associated with the task</div></div></div><div class="item"><div class="cols"><div class="name">route_id </div><div class="format">int</div><div class="description">Route ID to associate the task with</div></div></div><div class="item"><div class="cols"><div class="name">trailer_id </div><div class="format">int</div><div class="description">Trailer ID associated with the task</div></div></div><div class="item"><div class="cols"><div class="name">required_document_types </div><div class="format">array</div><div class="description">    Array of required document types that must be scanned and submitted by drivers.<br/>
+    Allowed values can be retrieved from the <code>type</code> properties of the <a href="https://mapon.com/api/v1/../../api#method-tasks-List-document-types">List Document Types</a> endpoint.</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns the ID of the newly created task.</div><pre>{
+    &#34;data&#34;: {
+        &#34;id&#34;: 12345
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing or invalid <code>planned_arrival_time</code> parameter</td></tr><tr><td>2</td><td>Missing or invalid <code>destination_lat</code> or <code>destination_lng</code> parameter</td></tr><tr><td>3</td><td>Missing or invalid <code>unit_id</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>route_id</code> parameter</td></tr><tr><td>6</td><td>Invalid <code>required_document_types</code> parameter</td></tr><tr><td>7</td><td>Invalid <code>trailer_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-tasks-Edit-Task" class="api-method"><h2>Edit Task</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/edit.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Edit an existing vehicle task</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Task ID to edit</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Vehicle/Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">planned_arrival_time <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Planned arrival time in datetime format</div></div></div><div class="item"><div class="cols"><div class="name">destination_lat <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Destination latitude coordinate</div></div></div><div class="item"><div class="cols"><div class="name">destination_lng <span class="required" title="Required">*</span></div><div class="format">float</div><div class="description">Destination longitude coordinate</div></div></div><div class="item"><div class="cols"><div class="name">status </div><div class="format">string</div><div class="description">Task status.<br/>Allowed values:
+<code title="Not Started">not_started</code>,
+<code title="In Progress">in_progress</code>,
+<code title="Waiting">waiting</code>,
+<code title="Completed">completed</code></div></div></div><div class="item"><div class="cols"><div class="name">type </div><div class="format">string</div><div class="description">Task type.<br/>Allowed values:
+<code title="Loading">loading</code>,
+<code title="Unloading">unloading</code>,
+<code title="Fueling">fueling</code>,
+<code title="Driver change">driver_change</code>,
+<code title="Trailer change">trailer_change</code>,
+<code title="Resting">resting</code>,
+<code title="Ferry">ferry</code>,
+<code title="Train">train</code>,
+<code title="Border crossing">border_crossing</code>,
+<code title="Trailer hook on">trailer_hook_on</code>,
+<code title="Trailer hook off">trailer_hook_off</code></div></div></div><div class="item"><div class="cols"><div class="name">instructions </div><div class="format">string</div><div class="description">Task instructions</div></div></div><div class="item"><div class="cols"><div class="name">order_id </div><div class="format">string</div><div class="description">Order ID associated with the task</div></div></div><div class="item"><div class="cols"><div class="name">client_id </div><div class="format">string</div><div class="description">Client ID associated with the task</div></div></div><div class="item"><div class="cols"><div class="name">route_id </div><div class="format">int</div><div class="description">Route ID to associate the task with</div></div></div><div class="item"><div class="cols"><div class="name">trailer_id </div><div class="format">int</div><div class="description">Trailer ID associated with the task</div></div></div><div class="item"><div class="cols"><div class="name">required_document_types </div><div class="format">array</div><div class="description">    Array of required document types that must be scanned and submitted by drivers.<br/>
+    Allowed values can be retrieved from the <code>type</code> properties of the <a href="https://mapon.com/api/v1/../../api#method-tasks-List-document-types">List Document Types</a> endpoint.<br/>    Document types that were previously required but are not included in this array will be unassigned.<br/>
+    <code>null</code> — no changes will be made to the existing required document types.<br/>
+    <code>[]</code> (Empty array) — no documents will be required to be scanned.<br/></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns success status when task is successfully updated.</div><pre>{
+    &#34;data&#34;: {
+        &#34;success&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing or invalid <code>planned_arrival_time</code> parameter</td></tr><tr><td>2</td><td>Missing or invalid <code>destination_lat</code> or <code>destination_lng</code> parameter</td></tr><tr><td>3</td><td>Missing or invalid <code>unit_id</code> parameter</td></tr><tr><td>4</td><td>Missing or Invalid <code>id</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>route_id</code> parameter</td></tr><tr><td>6</td><td>Invalid <code>required_document_types</code> parameter</td></tr><tr><td>7</td><td>Invalid <code>trailer_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-tasks-Delete-Task" class="api-method"><h2>Delete Task</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/delete.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete a vehicle task by ID</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Task ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns success status when task is successfully deleted.</div><pre>{
+    &#34;data&#34;: {
+        &#34;success&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing or invalid <code>id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-tasks-List-Tasks" class="api-method"><h2>List Tasks</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Retrieve a list of vehicle tasks for a specific unit</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Vehicle/Unit ID to retrieve tasks for</div></div></div><div class="item"><div class="cols"><div class="name">get_since </div><div class="format">string</div><div class="description">ISO 8601 timestamp to retrieve tasks updated after this time</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">    Returns an array of tasks associated with the specified unit.<br/>
+    Each task&#39;s <code>route_section</code> represents the segment of the route <code>beginning</code> at that task&#39;s location.<br/>
+    <code>route_sequence_num</code> - unsigned integer representing the position of the task within the route. Value is <code>null</code> if the task is not assigned to any route.<br/><code>type</code> - possible values:
+<code title="Loading">loading</code>,
+<code title="Unloading">unloading</code>,
+<code title="Fueling">fueling</code>,
+<code title="Driver change">driver_change</code>,
+<code title="Trailer change">trailer_change</code>,
+<code title="Resting">resting</code>,
+<code title="Ferry">ferry</code>,
+<code title="Train">train</code>,
+<code title="Border crossing">border_crossing</code>,
+<code title="Trailer hook on">trailer_hook_on</code>,
+<code title="Trailer hook off">trailer_hook_off</code><br/><code>status</code> - possible values:
+<code title="Not Started">not_started</code>,
+<code title="In Progress">in_progress</code>,
+<code title="Waiting">waiting</code>,
+<code title="Completed">completed</code></div><pre>{
+    &#34;data&#34;: {
+        &#34;tasks&#34;: [
+            {
+                &#34;id&#34;: 45678,
+                &#34;unit_id&#34;: 123,
+                &#34;type&#34;: &#34;not_started&#34;,
+                &#34;status&#34;: &#34;pending&#34;,
+                &#34;created_at&#34;: &#34;2024-01-15T08:00:00Z&#34;,
+                &#34;updated_at&#34;: &#34;2024-01-15T10:45:00Z&#34;,
+                &#34;completed_at&#34;: null,
+                &#34;instruction&#34;: &#34;Deliver package to reception&#34;,
+                &#34;route_sequence_num&#34;: 2,
+                &#34;client&#34;: &#34;ABC Corporation&#34;,
+                &#34;destination&#34;: {
+                    &#34;city&#34;: &#34;New York&#34;,
+                    &#34;country_code&#34;: &#34;US&#34;,
+                    &#34;name&#34;: &#34;123 Main Street, New York, NY&#34;,
+                    &#34;point&#34;: {
+                        &#34;lat&#34;: 40.7128,
+                        &#34;lng&#34;: -74.006
+                    },
+                    &#34;zip_code&#34;: &#34;10001&#34;
+                },
+                &#34;route_section&#34;: {
+                    &#34;distance_in_meters&#34;: 5432,
+                    &#34;duration_in_seconds&#34;: 900,
+                    &#34;start_point&#34;: {
+                        &#34;lat&#34;: 40.7,
+                        &#34;lng&#34;: -74.01
+                    },
+                    &#34;end_point&#34;: {
+                        &#34;lat&#34;: 40.7128,
+                        &#34;lng&#34;: -74.006
+                    },
+                    &#34;polyline&#34;: &#34;google_encoded_polyline_string&#34;,
+                    &#34;start_task_id&#34;: 45677,
+                    &#34;end_task_id&#34;: 45678
+                },
+                &#34;trailer_id&#34;: 123,
+                &#34;required_document_types&#34;: [
+                    &#34;cmr&#34;,
+                    &#34;pod&#34;,
+                    &#34;plt&#34;
+                ],
+                &#34;attachments&#34;: [
+                    &#34;https:\/\/example.com\/file1&#34;,
+                    &#34;https:\/\/example.com\/file2&#34;
+                ],
+                &#34;documents&#34;: [
+                    {
+                        &#34;type&#34;: &#34;cmr&#34;,
+                        &#34;links&#34;: [
+                            &#34;https:\/\/example.com\/file3&#34;,
+                            &#34;https:\/\/example.com\/file4&#34;
+                        ]
+                    },
+                    {
+                        &#34;type&#34;: &#34;pod&#34;,
+                        &#34;links&#34;: [
+                            &#34;https:\/\/example.com\/file5&#34;
+                        ]
+                    }
+                ],
+                &#34;route_id&#34;: 123
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing required parameter <code>unit_id</code></td></tr><tr><td>2</td><td>Invalid <code>unit_id</code> parameter. Must be a positive integer.</td></tr><tr><td>3</td><td>Empty <code>get_since</code> parameter</td></tr><tr><td>4</td><td>Invalid <code>get_since</code> parameter. Must be a valid ISO 8601 timestamp.</td></tr></tbody></table></div></div></div><div id="method-tasks-List-document-types" class="api-method"><h2>List document types</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/list_document_types.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Retrieve a list of possible document types that can be requested from the driver</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">    Returns an array of available document types that can be required from drivers.<br/>
+    Each item in the array includes:<br/>
+    • <code>type</code> — unique code of the document type used in API requests (e.g., in <code>required_document_types</code>).<br/>
+    • <code>title</code> — human-readable name of the document type.<br/>
+    • <code>description</code> — optional text describing the purpose or usage of the document type.</div><pre>{
+    &#34;data&#34;: {
+        &#34;document_types&#34;: [
+            {
+                &#34;type&#34;: &#34;cmr&#34;,
+                &#34;title&#34;: &#34;CMR&#34;,
+                &#34;description&#34;: null
+            },
+            {
+                &#34;type&#34;: &#34;pod&#34;,
+                &#34;title&#34;: &#34;P.O.D&#34;,
+                &#34;description&#34;: &#34;Purpose of this document&#34;
+            }
+        ]
+    }
+}</pre></div></div></div><div id="method-tasks-Create-Route" class="api-method"><h2>Create Route</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/route_create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create a new task route</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Vehicle/Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">task_ids </div><div class="format">array</div><div class="description">    Array of task IDs to include in the route.<br/>
+    The order of task IDs determines the sequence of tasks within the route.<br/></div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Route name (1-255 characters)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns the ID of the newly created route.</div><pre>{
+    &#34;data&#34;: {
+        &#34;route_id&#34;: 12345
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid <code>unit_id</code> parameter</td></tr><tr><td>4</td><td>Invalid <code>task_ids</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>name</code> parameter: must be between 1 and 255 characters</td></tr></tbody></table></div></div></div><div id="method-tasks-Edit-Route" class="api-method"><h2>Edit Route</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/route_tasks_edit.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Edit an existing route (name, status, or tasks)</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">route_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route ID</div></div></div><div class="item"><div class="cols"><div class="name">task_ids </div><div class="format">array</div><div class="description">    Array of task IDs to assign to the route.<br/>
+    The order of task IDs determines the sequence of tasks within the route.<br/>
+    Tasks that were previously assigned to the route but are not included in this array will be unassigned from route.</div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Route name (1-255 characters)</div></div></div><div class="item"><div class="cols"><div class="name">status </div><div class="format">string</div><div class="description">Route status.<br/>Allowed values:
+<code title="Planned (sent to the vehicle)">planned</code>,
+<code title="Active">active</code>,
+<code title="Completed">completed</code>,
+<code title="Draft">draft</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns success status when route is successfully updated.</div><pre>{
+    &#34;data&#34;: {
+        &#34;success&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>4</td><td>Invalid <code>task_ids</code> parameter</td></tr><tr><td>5</td><td>Invalid <code>name</code> parameter: must be between 1 and 255 characters</td></tr><tr><td>6</td><td>Missing <code>route_id</code> parameter</td></tr><tr><td>7</td><td>Invalid <code>route_id</code> parameter</td></tr><tr><td>8</td><td>At least one of <code>name</code> or <code>task_ids</code> or <code>status</code> must be provided</td></tr></tbody></table></div></div></div><div id="method-tasks-Delete-Route" class="api-method"><h2>Delete Route</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/delete_route.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">    Delete a vehicle task route by ID.<br/>
+    This action also deletes all vehicle tasks that are assigned to the route.<br/>
+    The route cannot be deleted if its <code>status</code> is <code>active</code> or <code>completed</code>.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route ID</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns success status when the route and its assigned tasks are successfully deleted.</div><pre>{
+    &#34;data&#34;: {
+        &#34;success&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing <code>id</code> parameter</td></tr><tr><td>2</td><td>Invalid <code>id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-tasks-Remove-Tasks-from-Route" class="api-method"><h2>Remove Tasks from Route</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/route_tasks_remove.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Remove tasks from an existing route</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">route_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Route ID</div></div></div><div class="item"><div class="cols"><div class="name">task_ids <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Array of task IDs to remove from the route</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Returns success status when tasks are successfully removed from the route.</div><pre>{
+    &#34;data&#34;: {
+        &#34;success&#34;: true
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>3</td><td>Missing <code>task_ids</code> parameter</td></tr><tr><td>4</td><td>Invalid <code>task_ids</code> parameter</td></tr><tr><td>6</td><td>Missing <code>route_id</code> parameter</td></tr><tr><td>7</td><td>Invalid <code>route_id</code> parameter</td></tr></tbody></table></div></div></div><div id="method-tasks-List-Unfinished-Routes" class="api-method"><h2>List Unfinished Routes</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">tasks/list_unfinished_routes.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">    Retrieve a list of unfinished task routes for a specific vehicle (unit).<br/>
+    Routes with statuses <code>planned</code>, <code>active</code>, or <code>draft</code> are returned.<br/>
+    Routes are ordered by their <code>id</code> in ascending order.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">unit_id <span class="required" title="Required">*</span></div><div class="format">int</div><div class="description">Vehicle/Unit ID to retrieve unfinished routes for</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">    Returns an array of unfinished routes associated with the specified vehicle.<br/>
+    Each route includes:<br/>
+    • <code>task_ids</code> — ordered list of task IDs belonging to the route.<br/>
+    • <code>tasks</code> — associative array of task details, keyed by task ID.<br/>
+    • <code>distance_in_meters</code> and <code>duration_in_seconds</code> — total route distance and duration.<br/>
+    • <code>routing</code> — calculated routing information including notices, directions, and geometry. May be <code>null</code> if not calculated.<br/>
+    • <code>routing</code> is <code>null</code> if routing has not been calculated yet or the calculation has failed.<br/><br/>
+
+    <b>Routing details:</b><br/>
+    • <code>routing</code> — represents the calculated route path between the task destinations.<br/>
+    • <code>routing.directions</code> — contains full route geometry, total distance, and duration.<br/>
+    • <code>routing.directions.legs</code> — represents each segment between two consecutive tasks, each with its own <code>polyline</code>, <code>distance_in_meters</code>, and <code>duration_in_seconds</code>.<br/>
+    • <code>routing.notices</code> — array of routing warnings or errors (may be empty).<br/><br/>
+
+    Routing notice codes:<br/>
+    <code>could_not_reach</code> — destination could not be reached.<br/>
+    <code>out_of_time_window</code> — arrival time is outside of allowed window.<br/>
+    <code>could_not_optimize</code> — route could not be optimized.<br/>
+    <code>short_rest_break</code> — driver’s rest break too short.<br/>
+    <code>long_rest_break</code> — driver’s rest break too long.<br/>
+    <code>could_not_reach_with_issue</code> — destination reachable but with detected issue.<br/>
+    <code>violating_admin_truck_restriction</code> — violates administrative truck restriction.<br/>
+    <code>arrived_earlier</code> — arrived earlier than planned.<br/>
+    <code>arrived_late</code> — arrived later than planned.<br/><br/>
+
+    Routing notice severities:<br/>
+    <code>error</code> — critical issue preventing successful routing.<br/>
+    <code>warning</code> — routing succeeded with warnings or restrictions.<br/>
+    <code>info</code> — informational notice only.<br/><br/>
+
+    Each task object follows the same structure as in the <a href="https://mapon.com/api/v1/../../api#method-tasks-List-Tasks">List Tasks</a> method (excluding <code>route_section</code> parameter).</div><pre>{
+    &#34;data&#34;: {
+        &#34;routes&#34;: [
+            {
+                &#34;id&#34;: 33982,
+                &#34;name&#34;: &#34;#033982&#34;,
+                &#34;status&#34;: &#34;active&#34;,
+                &#34;task_ids&#34;: [
+                    45677,
+                    45678
+                ],
+                &#34;tasks&#34;: {
+                    &#34;45677&#34;: {
+                        &#34;id&#34;: 45677,
+                        &#34;unit_id&#34;: 123,
+                        &#34;type&#34;: &#34;loading&#34;,
+                        &#34;status&#34;: &#34;completed&#34;,
+                        &#34;created_at&#34;: &#34;2024-01-15T08:00:00Z&#34;,
+                        &#34;updated_at&#34;: &#34;2024-01-15T10:45:00Z&#34;,
+                        &#34;completed_at&#34;: &#34;2024-01-15T10:45:00Z&#34;,
+                        &#34;instruction&#34;: &#34;Deliver package to reception&#34;,
+                        &#34;route_sequence_num&#34;: 0,
+                        &#34;client&#34;: &#34;ABC Corporation&#34;,
+                        &#34;destination&#34;: {
+                            &#34;city&#34;: &#34;New York&#34;,
+                            &#34;country_code&#34;: &#34;US&#34;,
+                            &#34;name&#34;: &#34;123 Main Street, New York, NY&#34;,
+                            &#34;point&#34;: {
+                                &#34;lat&#34;: 40.7128,
+                                &#34;lng&#34;: -74.006
+                            },
+                            &#34;zip_code&#34;: &#34;10001&#34;
+                        },
+                        &#34;trailer_id&#34;: 123,
+                        &#34;required_document_types&#34;: [
+                            &#34;cmr&#34;,
+                            &#34;pod&#34;,
+                            &#34;plt&#34;
+                        ],
+                        &#34;attachments&#34;: [
+                            &#34;https:\/\/example.com\/file1&#34;,
+                            &#34;https:\/\/example.com\/file2&#34;
+                        ],
+                        &#34;documents&#34;: [
+                            {
+                                &#34;type&#34;: &#34;cmr&#34;,
+                                &#34;links&#34;: [
+                                    &#34;https:\/\/example.com\/file3&#34;,
+                                    &#34;https:\/\/example.com\/file4&#34;
+                                ]
+                            },
+                            {
+                                &#34;type&#34;: &#34;pod&#34;,
+                                &#34;links&#34;: [
+                                    &#34;https:\/\/example.com\/file5&#34;
+                                ]
+                            }
+                        ],
+                        &#34;route_id&#34;: 33982
+                    },
+                    &#34;45678&#34;: {
+                        &#34;id&#34;: 45678,
+                        &#34;unit_id&#34;: 123,
+                        &#34;type&#34;: &#34;loading&#34;,
+                        &#34;status&#34;: &#34;in_progress&#34;,
+                        &#34;created_at&#34;: &#34;2024-01-15T11:00:00Z&#34;,
+                        &#34;updated_at&#34;: &#34;2024-01-15T11:45:00Z&#34;,
+                        &#34;completed_at&#34;: null,
+                        &#34;instruction&#34;: &#34;Unload goods at client&#34;,
+                        &#34;route_sequence_num&#34;: 1,
+                        &#34;client&#34;: &#34;XYZ Logistics&#34;,
+                        &#34;destination&#34;: {
+                            &#34;city&#34;: &#34;Boston&#34;,
+                            &#34;country_code&#34;: &#34;US&#34;,
+                            &#34;name&#34;: &#34;456 Atlantic Avenue, Boston, MA&#34;,
+                            &#34;point&#34;: {
+                                &#34;lat&#34;: 42.3601,
+                                &#34;lng&#34;: -71.0589
+                            },
+                            &#34;zip_code&#34;: &#34;02110&#34;
+                        },
+                        &#34;trailer_id&#34;: 123,
+                        &#34;required_document_types&#34;: [
+                            &#34;cmr&#34;
+                        ],
+                        &#34;attachments&#34;: [],
+                        &#34;documents&#34;: [],
+                        &#34;route_id&#34;: 33982
+                    }
+                },
+                &#34;distance_in_meters&#34;: 5432,
+                &#34;duration_in_seconds&#34;: 900,
+                &#34;routing&#34;: {
+                    &#34;status&#34;: &#34;calculated&#34;,
+                    &#34;calculated_at&#34;: &#34;2024-01-15 11:50:00&#34;,
+                    &#34;notices&#34;: [
+                        {
+                            &#34;title&#34;: &#34;Violated access restriction for this type of vehicle&#34;,
+                            &#34;code&#34;: &#34;violating_truck_restriction&#34;,
+                            &#34;severity&#34;: &#34;warning&#34;,
+                            &#34;lat&#34;: 40.7051,
+                            &#34;lng&#34;: -74.0086
+                        }
+                    ],
+                    &#34;directions&#34;: {
+                        &#34;distance_in_meters&#34;: 5432,
+                        &#34;duration_in_seconds&#34;: 900,
+                        &#34;polyline&#34;: &#34;google_encoded_polyline_string&#34;,
+                        &#34;legs&#34;: [
+                            {
+                                &#34;distance_in_meters&#34;: 5432,
+                                &#34;duration_in_seconds&#34;: 900,
+                                &#34;start_point&#34;: {
+                                    &#34;lat&#34;: 40.7,
+                                    &#34;lng&#34;: -74.01
+                                },
+                                &#34;end_point&#34;: {
+                                    &#34;lat&#34;: 40.7128,
+                                    &#34;lng&#34;: -74.006
+                                },
+                                &#34;polyline&#34;: &#34;google_encoded_polyline_string&#34;,
+                                &#34;start_task_id&#34;: 45677,
+                                &#34;end_task_id&#34;: 45678
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                &#34;id&#34;: 33990,
+                &#34;name&#34;: &#34;#033990&#34;,
+                &#34;status&#34;: &#34;draft&#34;,
+                &#34;task_ids&#34;: [],
+                &#34;tasks&#34;: [],
+                &#34;distance_in_meters&#34;: 0,
+                &#34;duration_in_seconds&#34;: 0,
+                &#34;routing&#34;: null
+            }
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing <code>unit_id</code> parameter</td></tr><tr><td>2</td><td>Invalid <code>unit_id</code> parameter</td></tr></tbody></table></div></div></div></div>

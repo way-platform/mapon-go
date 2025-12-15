@@ -1,0 +1,25 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// UnitType represents the classification of a unit (vehicle/asset).
+enum UnitType {
+  // Default value, used when the type is missing or not set.
+  UNIT_TYPE_UNSPECIFIED = 0;
+  // Used when the received value does not match any known enum member.
+  UNIT_TYPE_UNRECOGNIZED = 1;
+  // Represents a standard passenger car.
+  CAR = 2;
+  // Represents a truck or heavy goods vehicle.
+  TRUCK = 3;
+  // Represents a trailer.
+  TRAILER = 4;
+  // Represents a van or light commercial vehicle.
+  VAN = 5;
+  // Represents a bus.
+  BUS = 6;
+  // Represents a tractor (agricultural or semi-truck).
+  TRACTOR = 7;
+}

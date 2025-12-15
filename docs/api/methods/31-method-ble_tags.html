@@ -1,0 +1,305 @@
+<div id="method-ble_tags" class="api-method-group"><h1>Ble_tags</h1><div id="method-ble_tags-Get-BLE-tag-list" class="api-method"><h2>Get BLE tag list</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">ble_tags/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Returns a list of BLE tags belonging to company. Only active tags are included.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page number. Default value: 1</div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Entry count to return per request. Default: 10. Min: 10. Max: 150</div></div></div><div class="item"><div class="cols"><div class="name">sort_by </div><div class="format">string</div><div class="description">Field name to sort by. Allowed values:<code>beacon_id</code>, <code>name</code>, <code>radius</code>, <code>first_scan_gmt</code>, <code>last_scan_gmt</code>, <code>scan_count</code>, <code>location_updated_at</code>, <code>created_at</code></div></div></div><div class="item"><div class="cols"><div class="name">sort_order </div><div class="format">string</div><div class="description">Sort direction. Allowed values: ASC, DESC</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">All dates are returned in <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code><br/><code>location_precision_radius</code> field value is in meters.<br/>Fields <code>name</code>,<code>location_precision_radius</code>,<code>first_scan</code>,<code>last_scan</code>,<code>location_changed</code> and fields from <code>location</code> can be null.<br/><code>location_precision_radius</code> (by default 50m if empty) determines the radius of approximated tag location circle. If the tag is scanned outside this location, a new location will be registered.</div><pre>{
+    &#34;data&#34;: {
+        &#34;tags&#34;: [
+            {
+                &#34;id&#34;: 3,
+                &#34;beacon_id&#34;: &#34;142516384b514e87f34f0bab15d480f1245e71ec&#34;,
+                &#34;serial_nr&#34;: &#34;00145673&#34;,
+                &#34;name&#34;: &#34;Marcellus Crooks&#34;,
+                &#34;location_precision_radius&#34;: 156,
+                &#34;first_scan&#34;: &#34;2020-12-18T09:47:33Z&#34;,
+                &#34;last_scan&#34;: &#34;2020-12-31T07:54:47Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-11T14:23:37Z&#34;,
+                &#34;scan_count&#34;: 2287,
+                &#34;location_changed&#34;: &#34;2020-12-31T07:54:47Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 28,
+                &#34;beacon_id&#34;: &#34;559e47f53ba1bf5e7701205e7b1873abe555654d&#34;,
+                &#34;serial_nr&#34;: &#34;00326684&#34;,
+                &#34;name&#34;: &#34;Benton Ortiz DVM&#34;,
+                &#34;location_precision_radius&#34;: 182,
+                &#34;first_scan&#34;: &#34;2020-12-11T03:37:14Z&#34;,
+                &#34;last_scan&#34;: &#34;2020-12-25T20:53:02Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-10T19:57:04Z&#34;,
+                &#34;scan_count&#34;: 7556,
+                &#34;location_changed&#34;: &#34;2020-12-25T20:53:02Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 36,
+                &#34;beacon_id&#34;: &#34;755b4febe32949b4b08f9bc1df1c61610fe73e3d&#34;,
+                &#34;serial_nr&#34;: &#34;15777443&#34;,
+                &#34;name&#34;: &#34;Prof. Whitney Kozey Jr.&#34;,
+                &#34;location_precision_radius&#34;: 132,
+                &#34;first_scan&#34;: &#34;2020-12-23T10:33:32Z&#34;,
+                &#34;last_scan&#34;: &#34;2020-12-23T10:40:38Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-12T04:33:06Z&#34;,
+                &#34;scan_count&#34;: 733,
+                &#34;location_changed&#34;: &#34;2020-12-23T10:40:38Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 38,
+                &#34;beacon_id&#34;: &#34;7db40b0287d327f687ffef224a492d0cd7943896&#34;,
+                &#34;serial_nr&#34;: &#34;96542674&#34;,
+                &#34;name&#34;: &#34;Prof. Nestor Donnelly DDS&#34;,
+                &#34;location_precision_radius&#34;: 159,
+                &#34;first_scan&#34;: &#34;2020-12-28T03:53:56Z&#34;,
+                &#34;last_scan&#34;: &#34;2021-01-02T11:36:35Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-20T06:44:56Z&#34;,
+                &#34;scan_count&#34;: 5050,
+                &#34;location_changed&#34;: &#34;2021-01-02T11:36:35Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 51,
+                &#34;beacon_id&#34;: &#34;829118e8c9bed05dc589d0d7b5731ca2627e747b&#34;,
+                &#34;serial_nr&#34;: &#34;3355667743&#34;,
+                &#34;name&#34;: &#34;Dr. Antoinette VonRueden III&#34;,
+                &#34;location_precision_radius&#34;: 241,
+                &#34;first_scan&#34;: null,
+                &#34;last_scan&#34;: null,
+                &#34;created_at&#34;: &#34;2021-01-07T11:07:54Z&#34;,
+                &#34;scan_count&#34;: 0,
+                &#34;location_changed&#34;: null,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: null,
+                    &#34;lng&#34;: null,
+                    &#34;address&#34;: null
+                }
+            },
+            {
+                &#34;id&#34;: 40,
+                &#34;beacon_id&#34;: &#34;886ab681d6426778cd4c2156b6482396047ff5e2&#34;,
+                &#34;serial_nr&#34;: &#34;7478935568&#34;,
+                &#34;name&#34;: &#34;Alena Mann&#34;,
+                &#34;location_precision_radius&#34;: 245,
+                &#34;first_scan&#34;: &#34;2020-12-07T07:39:23Z&#34;,
+                &#34;last_scan&#34;: &#34;2020-12-29T12:25:46Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-06T16:39:36Z&#34;,
+                &#34;scan_count&#34;: 8848,
+                &#34;location_changed&#34;: &#34;2020-12-29T12:25:46Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 47,
+                &#34;beacon_id&#34;: &#34;90abfe6ea4b82fc65c8ef8fc5ed0b53dea616e10&#34;,
+                &#34;serial_nr&#34;: &#34;765323248&#34;,
+                &#34;name&#34;: &#34;Rod Kautzer Jr.&#34;,
+                &#34;location_precision_radius&#34;: 237,
+                &#34;first_scan&#34;: &#34;2020-12-23T17:47:24Z&#34;,
+                &#34;last_scan&#34;: &#34;2021-01-02T19:31:03Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-12T03:00:30Z&#34;,
+                &#34;scan_count&#34;: 2830,
+                &#34;location_changed&#34;: &#34;2021-01-02T19:31:03Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 19,
+                &#34;beacon_id&#34;: &#34;a1b364d0c700e763d774a94d6336347671ab6968&#34;,
+                &#34;serial_nr&#34;: &#34;4647211885&#34;,
+                &#34;name&#34;: &#34;Anastasia Hintz&#34;,
+                &#34;location_precision_radius&#34;: 167,
+                &#34;first_scan&#34;: &#34;2020-12-18T04:18:49Z&#34;,
+                &#34;last_scan&#34;: &#34;2021-01-03T13:56:07Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-14T18:12:28Z&#34;,
+                &#34;scan_count&#34;: 7514,
+                &#34;location_changed&#34;: &#34;2021-01-03T13:56:07Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 5,
+                &#34;beacon_id&#34;: &#34;c9abec0dca3dea02f28597e41503f10bf574338e&#34;,
+                &#34;serial_nr&#34;: &#34;1144758758&#34;,
+                &#34;name&#34;: &#34;Theron Beer&#34;,
+                &#34;location_precision_radius&#34;: 228,
+                &#34;first_scan&#34;: &#34;2020-12-18T09:22:30Z&#34;,
+                &#34;last_scan&#34;: &#34;2021-01-02T16:03:31Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-17T08:07:58Z&#34;,
+                &#34;scan_count&#34;: 7566,
+                &#34;location_changed&#34;: &#34;2021-01-02T16:03:31Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            },
+            {
+                &#34;id&#34;: 22,
+                &#34;beacon_id&#34;: &#34;e6628b1b7afe817b6ab02962289689ac8524e2c7&#34;,
+                &#34;serial_nr&#34;: &#34;00345632&#34;,
+                &#34;name&#34;: &#34;Angel Rice&#34;,
+                &#34;location_precision_radius&#34;: 183,
+                &#34;first_scan&#34;: &#34;2020-12-25T15:08:07Z&#34;,
+                &#34;last_scan&#34;: &#34;2020-12-29T08:04:12Z&#34;,
+                &#34;created_at&#34;: &#34;2020-12-20T04:23:28Z&#34;,
+                &#34;scan_count&#34;: 3476,
+                &#34;location_changed&#34;: &#34;2020-12-29T08:04:12Z&#34;,
+                &#34;location&#34;: {
+                    &#34;lat&#34;: 28.45721,
+                    &#34;lng&#34;: -43.2719,
+                    &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+                }
+            }
+        ],
+        &#34;_meta&#34;: {
+            &#34;total&#34;: 12,
+            &#34;pages&#34;: 2,
+            &#34;per_page&#34;: 10,
+            &#34;page&#34;: 1
+        }
+    }
+}</pre></div></div></div><div id="method-ble_tags-Get-BLE-tag-historic-point-data" class="api-method"><h2>Get BLE tag historic point data</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">ble_tags/history_point.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get BLE tag historic data for single datetime point. Looks for closest (by time) values within 30 day period of the passed datetime.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">BLE Tag unique ID. Either <code>id</code> or <code>beacon_id</code> parameter is required. <code>id</code> takes precedence if both are provided</div></div></div><div class="item"><div class="cols"><div class="name">beacon_id </div><div class="format">string</div><div class="description">BLE Tag serial ID. Either <code>id</code> or <code>beacon_id</code> parameter is required. <code>id</code> takes precedence if both are provided</div></div></div><div class="item"><div class="cols"><div class="name">datetime <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Datetime string. Can be in any valid format, but preferred format is <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code>. Datetime must be in GMT timezone</div></div></div><div class="item"><div class="cols"><div class="name">includes <span class="required" title="Required">*</span></div><div class="format">array</div><div class="description">Allowed values:<br/><code>scan</code> - returns data for the closest tag scan.<br/><code>location</code> - returns data for the closest tag location</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">All dates are returned in <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code><br/><code>car_id</code>, <code>rssi</code>, <code>voltage</code>, <code>temperature</code> and <code>humidity</code> fields can be null.<br/><code>voltage</code> returns values in mV (microvolts).<br/> <code>temperature</code> returns values in Celsius.<br/><code>humidity</code> returns relative humidity value as percent.<br/> <code>location.lat</code> and <code>location.lng</code> represent the center of the approximated tag location. The approximated location is a circle with radius as specified by the tag location precision radius (or 50m default radius).<br/><code>location.bounds</code> - outer border for the location circle polygon. Returned as array of coords (lat, lng).</div><pre>{
+    &#34;data&#34;: {
+        &#34;scan&#34;: {
+            &#34;gmt&#34;: &#34;2020-12-31T07:54:47Z&#34;,
+            &#34;car_id&#34;: 141116,
+            &#34;car_state&#34;: &#34;ignition&#34;,
+            &#34;lat&#34;: 28.45721,
+            &#34;lng&#34;: -43.2719,
+            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;rssi&#34;: -52,
+            &#34;voltage&#34;: 523,
+            &#34;temperature&#34;: 17,
+            &#34;humidity&#34;: 52
+        },
+        &#34;location&#34;: {
+            &#34;gmt_from&#34;: &#34;2020-12-31T07:54:47Z&#34;,
+            &#34;gmt_till&#34;: null,
+            &#34;lat&#34;: 28.45721,
+            &#34;lng&#34;: -43.2719,
+            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;bounds&#34;: [
+                [
+                    28.45721,
+                    -43.2719
+                ],
+                [
+                    28.45721,
+                    -43.2719
+                ],
+                [
+                    28.45721,
+                    -43.2719
+                ],
+                [
+                    28.45721,
+                    -43.2719
+                ],
+                [
+                    28.45721,
+                    -43.2719
+                ],
+                [
+                    28.45721,
+                    -43.2719
+                ],
+                [
+                    28.45721,
+                    -43.2719
+                ]
+            ]
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing &#34;id&#34; or &#34;beacon_id&#34; parameters</td></tr><tr><td>2</td><td>Requested tag does not exist</td></tr><tr><td>3</td><td>Missing &#34;datetime&#34; parameter</td></tr><tr><td>4</td><td>Invalid &#34;datetime&#34; parameter</td></tr><tr><td>5</td><td>Missing &#34;include&#34; parameter</td></tr><tr><td>6</td><td>Invalid &#34;include&#34; parameter. Available values: scan, location</td></tr></tbody></table></div></div></div><div id="method-ble_tags-Get-tag-scans" class="api-method"><h2>Get tag scans</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">ble_tags/scans.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns a list of tag scans in period. Maximum period: 31 days.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">BLE Tag unique ID. Either <code>id</code> or <code>beacon_id</code> parameter is required. <code>id</code> takes precedence if both are provided</div></div></div><div class="item"><div class="cols"><div class="name">beacon_id </div><div class="format">string</div><div class="description">BLE Tag serial ID. Either <code>id</code> or <code>beacon_id</code> parameter is required. <code>id</code> takes precedence if both are provided</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Period start datetime string. Can be in any valid format, but preferred format is <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code>. Datetime must be in GMT timezone</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Period end datetime string. Maximum period: 31 days. Can be in any valid format, but preferred format is <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code>. Datetime must be in GMT timezone</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page number. Default value: 1</div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Entry count to return per request. Default: 10. Min: 10. Max: 150</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">All dates are returned in <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code><br/><code>car_id</code>, <code>rssi</code>, <code>voltage</code>, <code>temperature</code> and <code>humidity</code> fields can be null.<br/><code>voltage</code> returns values in mV (microvolts).<br/> <code>temperature</code> returns values in Celsius.<br/><code>humidity</code> returns relative humidity value as percent.<br/></div><pre>{
+    &#34;data&#34;: {
+        &#34;scans&#34;: [
+            {
+                &#34;gmt&#34;: &#34;2020-12-31T07:54:47Z&#34;,
+                &#34;car_id&#34;: 141116,
+                &#34;car_state&#34;: &#34;ignition&#34;,
+                &#34;lat&#34;: 28.45721,
+                &#34;lng&#34;: -43.2719,
+                &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                &#34;rssi&#34;: -52,
+                &#34;voltage&#34;: 523,
+                &#34;temperature&#34;: 17,
+                &#34;humidity&#34;: 52
+            }
+        ],
+        &#34;_meta&#34;: {
+            &#34;total&#34;: 1,
+            &#34;pages&#34;: 1,
+            &#34;per_page&#34;: 10,
+            &#34;page&#34;: 1
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing &#34;id&#34; or &#34;beacon_id&#34; parameters</td></tr><tr><td>2</td><td>Requested tag does not exist</td></tr><tr><td>3</td><td>Missing &#34;from&#34; parameter</td></tr><tr><td>4</td><td>Missing &#34;till&#34; parameter</td></tr><tr><td>5</td><td>Parameter &#34;from&#34; is not a valid datetime</td></tr><tr><td>6</td><td>Parameter &#34;till&#34; is not a valid datetime</td></tr><tr><td>7</td><td>Invalid period. Period end date must be greater than start date.</td></tr><tr><td>8</td><td>Period too large. Maximum allowed period is 31 days.</td></tr></tbody></table></div></div></div><div id="method-ble_tags-Get-tag-locations" class="api-method"><h2>Get tag locations</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">ble_tags/locations.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Returns tag location history list in period. Maximum period: 31 days.</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">id </div><div class="format">int</div><div class="description">BLE Tag unique ID. Either <code>id</code> or <code>beacon_id</code> parameter is required. <code>id</code> takes precedence if both are provided</div></div></div><div class="item"><div class="cols"><div class="name">beacon_id </div><div class="format">string</div><div class="description">BLE Tag serial ID. Either <code>id</code> or <code>beacon_id</code> parameter is required. <code>id</code> takes precedence if both are provided</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Period start datetime string. Can be in any valid format, but preferred format is <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code>. Datetime must be in GMT timezone</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">Period end datetime string. Maximum period: 31 days. Can be in any valid format, but preferred format is <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code>. Datetime must be in GMT timezone</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Page number. Default value: 1</div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Entry count to return per request. Default: 10. Min: 10. Max: 150</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">All dates are returned in <code>YYYY-MM-DDTHH:II:SSZ</code> format. Example: <code>2019-04-08T12:00:00Z</code><br/><code>lat</code> and <code>lng</code> represent the center of the approximated tag location. The approximated location is a circle with radius as specified by the tag location precision radius (or 50m default radius).<br/><code>bounds</code> - outer border for the location circle polygon. Returned as array of coords (lat, lng).<br/><code>gmt_till</code> can be null if location has not changed</div><pre>{
+    &#34;data&#34;: {
+        &#34;locations&#34;: [
+            {
+                &#34;gmt_from&#34;: &#34;2020-12-31T07:54:47Z&#34;,
+                &#34;gmt_till&#34;: null,
+                &#34;lat&#34;: 28.45721,
+                &#34;lng&#34;: -43.2719,
+                &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+                &#34;bounds&#34;: [
+                    [
+                        28.45721,
+                        -43.2719
+                    ],
+                    [
+                        28.45721,
+                        -43.2719
+                    ],
+                    [
+                        28.45721,
+                        -43.2719
+                    ],
+                    [
+                        28.45721,
+                        -43.2719
+                    ],
+                    [
+                        28.45721,
+                        -43.2719
+                    ],
+                    [
+                        28.45721,
+                        -43.2719
+                    ],
+                    [
+                        28.45721,
+                        -43.2719
+                    ]
+                ]
+            }
+        ],
+        &#34;_meta&#34;: {
+            &#34;total&#34;: 1,
+            &#34;pages&#34;: 1,
+            &#34;per_page&#34;: 10,
+            &#34;page&#34;: 1
+        }
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Missing &#34;id&#34; or &#34;beacon_id&#34; parameters</td></tr><tr><td>2</td><td>Requested tag does not exist</td></tr><tr><td>3</td><td>Missing &#34;from&#34; parameter</td></tr><tr><td>4</td><td>Missing &#34;till&#34; parameter</td></tr><tr><td>5</td><td>Parameter &#34;from&#34; is not a valid datetime</td></tr><tr><td>6</td><td>Parameter &#34;till&#34; is not a valid datetime</td></tr><tr><td>7</td><td>Invalid period. Period end date must be greater than start date.</td></tr><tr><td>8</td><td>Period too large. Maximum allowed period is 31 days.</td></tr></tbody></table></div></div></div></div>

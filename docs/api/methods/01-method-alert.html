@@ -1,0 +1,1431 @@
+<div id="method-alert" class="api-method-group"><h1>Alert</h1><div id="method-alert-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">alert/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Triggered alerts</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description"><code>UTC</code> datetime string in <code>Y-m-dTH:i:sZ</code> format</div></div></div><div class="item"><div class="cols"><div class="name">till <span class="required" title="Required">*</span></div><div class="format">datetime</div><div class="description"><code>UTC</code>  datetime string in <code>Y-m-dTH:i:sZ</code> format</div></div></div><div class="item"><div class="cols"><div class="name">unit_id </div><div class="format">int[]</div><div class="description">Unit ID</div></div></div><div class="item"><div class="cols"><div class="name">alert_type </div><div class="format">string[]</div><div class="description">Alert type name</div></div></div><div class="item"><div class="cols"><div class="name">driver </div><div class="format">int</div><div class="description">Driver ID</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">string[]</div><div class="description">
+                                Include additional data in results:<br/>
+                                <code>id</code> - alert id<br/>
+                                <code>location</code> - coordinates of the location<br/>
+                                <code>address</code> - address of the location<br/>
+                                <code>driver</code> - driver id<br/>
+                                <code>name</code> - name of the driver<br/>
+                                <code>surname</code> - surname of the driver<br/>
+                                Driver data is included only if the driver belongs to the company.
+                                </div></div></div><div class="item"><div class="cols"><div class="name">limit </div><div class="format">int</div><div class="description">Results per page (<code>[1; 150], default = 20</code>)</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">The page of results (<code>1</code>)</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Time in <code>UTC</code> timezone.</div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;unit_id&#34;: 1,
+            &#34;time&#34;: &#34;2021-08-02T01:10:17Z&#34;,
+            &#34;alert_type&#34;: &#34;supply_voltage&#34;,
+            &#34;alert_val&#34;: &#34;9.865|battery_voltage&#34;,
+            &#34;msg&#34;: &#34;Supply voltage 9.865 (Internal battery). &#34;,
+            &#34;id&#34;: 123,
+            &#34;location&#34;: &#34;28.45721,-43.27190&#34;,
+            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 22,
+        &#34;total_pages&#34;: 4,
+        &#34;per_page&#34;: 7,
+        &#34;page&#34;: 4
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr><tr><td>2</td><td>Invalid parameter <code>from</code></td></tr><tr><td>3</td><td>Invalid parameter <code>till</code></td></tr><tr><td>4</td><td>Invalid period</td></tr><tr><td>5</td><td>Invalid period days</td></tr><tr><td>6</td><td>Invalid period length (max 31d)</td></tr><tr><td>7</td><td>Invalid parameter <code>limit</code></td></tr><tr><td>8</td><td>Invalid parameter <code>page</code></td></tr><tr><td>9</td><td>Invalid parameter <code>include</code></td></tr><tr><td>10</td><td>Invalid parameter <code>unit_id</code></td></tr><tr><td>11</td><td>Invalid parameter <code>alert_type</code></td></tr><tr><td>12</td><td>Invalid parameter <code>driver</code></td></tr></tbody></table></div></div></div><div id="method-alert-Alert-types" class="api-method"><h2>Alert types</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">alert/setup_types.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get list of supported &amp; accessible alert types that can be managed from API<br/><b>Note!</b> Not all alert types that are accessible from interface are supported by API.<br/>Access for alert types are obtained from the permissions of the user that created the API key!</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Some properties are localized in the response. They use the language of the user that has created the API key. <br/>The properties are:<ul><li><code>data.groups.group_name</code></li><li><code>data.groups.alert_types.title</code></li><li><code>data.groups.alert_types.description</code></li></ul></div><pre>{
+    &#34;groups&#34;: [
+        {
+            &#34;group_id&#34;: &#34;objects&#34;,
+            &#34;group_name&#34;: &#34;Object alerts&#34;,
+            &#34;alert_types&#34;: [
+                {
+                    &#34;type&#34;: &#34;in_object&#34;,
+                    &#34;title&#34;: &#34;Arrives\/leaves the object&#34;,
+                    &#34;description&#34;: &#34;You will be announced when vehicle arrives at the object!&#34;
+                }
+            ]
+        },
+        {
+            &#34;group_id&#34;: &#34;technical&#34;,
+            &#34;group_name&#34;: &#34;Technical alerts&#34;,
+            &#34;alert_types&#34;: [
+                {
+                    &#34;type&#34;: &#34;no_power&#34;,
+                    &#34;title&#34;: &#34;Power off&#34;,
+                    &#34;description&#34;: &#34;You will be announced, if equipment has been disconnected!&#34;
+                },
+                {
+                    &#34;type&#34;: &#34;supply_voltage&#34;,
+                    &#34;title&#34;: &#34;Supply voltage alert&#34;,
+                    &#34;description&#34;: &#34;We will alert when voltage will be lower then set &#34;
+                },
+                {
+                    &#34;type&#34;: &#34;battery_level&#34;,
+                    &#34;title&#34;: &#34;Battery level&#34;,
+                    &#34;description&#34;: &#34;We will alert when battery level will be lower then set &#34;
+                }
+            ]
+        },
+        {
+            &#34;group_id&#34;: &#34;moving&#34;,
+            &#34;group_name&#34;: &#34;Driving alerts&#34;,
+            &#34;alert_types&#34;: [
+                {
+                    &#34;type&#34;: &#34;speeding&#34;,
+                    &#34;title&#34;: &#34;Overspeeding&#34;,
+                    &#34;description&#34;: &#34;You will be announced if vehicle overspeeds!&#34;
+                },
+                {
+                    &#34;type&#34;: &#34;moving&#34;,
+                    &#34;title&#34;: &#34;Vehicle started movement&#34;,
+                    &#34;description&#34;: &#34;Vehicle started movement&#34;
+                }
+            ]
+        },
+        {
+            &#34;group_id&#34;: &#34;other&#34;,
+            &#34;group_name&#34;: &#34;Other alerts&#34;,
+            &#34;alert_types&#34;: [
+                {
+                    &#34;type&#34;: &#34;sosbutton&#34;,
+                    &#34;title&#34;: &#34;SOS Button&#34;,
+                    &#34;description&#34;: &#34;Notification will be sent every time your SOS button is triggered.&#34;
+                }
+            ]
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr></tbody></table></div></div></div><div id="method-alert-Alert-type-fields" class="api-method"><h2>Alert type fields</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">alert/setup_fields.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Obtain supported fields for given alert type. The same fields are required to be passed when storing alert setups</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">alert_type <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">One of types obtained from &#34;Alert types&#34; <code>setup_types</code> endpoint</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">Some properties are localized in the response. They use the language of the user that has created the API key.<br/>Response structure:<ul>
+                                <li><code>fields</code> array of field objects, grouped by <code>field_group</code></li>
+                                <li><code>field_groups</code> List of available field groups for the selected alert type</li>
+                           </ul><br/><code>fields</code> properties:<ul>
+                                <li><code>type</code><span class="required" title="Required">*</span> - string. Indicates field type. Possible values: <code>select</code>, <code>date</code>, <code>phone</code>, <code>email</code>, <code>checkbox</code>, <code>text</code>, <code>numeric</code>, <code>integer</code></li>
+                                <li><code>title</code><span class="required" title="Required">*</span> - string. Localized field name.</li>
+                                <li><code>field</code><span class="required" title="Required">*</span> - string. Field key. Required to use the exact same field when passing values to alert setup storage endpoint. Alert setup list endpoint uses the same field keys to specify field values</li>
+                                <li><code>field_group</code><span class="required" title="Required">*</span> - string. Field group key. Related fields are grouped together with the same <code>field_group</code> key</li>
+                                <li><code>description</code> - string. Localized field description. Included only if exists</li>
+                                <li><code>required</code> - bool. If <code>true</code> field is mandatory. Present for all field types, except <code>checkbox</code></li>
+                                <li><code>required_if</code> - string. Value format: <code>field:value</code>. Indicates that the field will be treated as required if another field has a specific value.</li>
+                                <li><code>multiple</code> - bool. Indicates if field can have multiple values. Always included with <code>select</code> field type. For other field types it is included only when <code>true</code> - the field accepts multiple values</li>
+                                <li><code>options</code> - array. List of accepted field values. Only included with <code>select</code> field type. Each option has <code>title</code> and <code>value</code> properties</li>
+                                <li><code>range</code> - array. Allowed (inclusive) range of values. Only included with <code>numeric</code> or <code>integer</code> field types . Format: <code>[X,Y]</code></li>
+                           </ul></div><pre>{
+    &#34;fields&#34;: {
+        &#34;other&#34;: [
+            {
+                &#34;type&#34;: &#34;text&#34;,
+                &#34;title&#34;: &#34;Additional reminder text&#34;,
+                &#34;required&#34;: true,
+                &#34;field&#34;: &#34;alert_text&#34;
+            }
+        ],
+        &#34;objects&#34;: [
+            {
+                &#34;field&#34;: &#34;object_visits&#34;,
+                &#34;field_group&#34;: &#34;objects&#34;,
+                &#34;title&#34;: &#34;Arrives\/leaves the object&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: true,
+                &#34;required&#34;: true,
+                &#34;options&#34;: [
+                    {
+                        &#34;value&#34;: &#34;object_visit&#34;,
+                        &#34;title&#34;: &#34;Arrives at the object&#34;
+                    },
+                    {
+                        &#34;value&#34;: &#34;object_leave&#34;,
+                        &#34;title&#34;: &#34;Leaves the object!&#34;
+                    }
+                ]
+            },
+            {
+                &#34;field&#34;: &#34;object_type&#34;,
+                &#34;field_group&#34;: &#34;objects&#34;,
+                &#34;title&#34;: &#34;Objects&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;required&#34;: true,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;All objects&#34;,
+                        &#34;value&#34;: &#34;all_objects&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;Objects&#34;,
+                        &#34;value&#34;: &#34;objects&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;Object groups&#34;,
+                        &#34;value&#34;: &#34;object_groups&#34;
+                    }
+                ]
+            },
+            {
+                &#34;field&#34;: &#34;objects&#34;,
+                &#34;field_group&#34;: &#34;objects&#34;,
+                &#34;title&#34;: &#34;Objects&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: true,
+                &#34;required&#34;: true,
+                &#34;options&#34;: {
+                    &#34;631312&#34;: {
+                        &#34;title&#34;: &#34;A4 Gorlitz&#34;,
+                        &#34;value&#34;: 631312
+                    },
+                    &#34;631336&#34;: {
+                        &#34;title&#34;: &#34;56000 Vannes&#34;,
+                        &#34;value&#34;: 631336
+                    },
+                    &#34;668462&#34;: {
+                        &#34;title&#34;: &#34;Leaflet&#34;,
+                        &#34;value&#34;: 668462
+                    },
+                    &#34;678063&#34;: {
+                        &#34;title&#34;: &#34;THIAROYE 13+450&#34;,
+                        &#34;value&#34;: 678063
+                    },
+                    &#34;743134&#34;: {
+                        &#34;title&#34;: &#34;2 As Oy Alakartanontie 17&#34;,
+                        &#34;value&#34;: 743134
+                    },
+                    &#34;808312&#34;: {
+                        &#34;title&#34;: &#34;Malgrat parking&#34;,
+                        &#34;value&#34;: 808312
+                    },
+                    &#34;943377&#34;: {
+                        &#34;title&#34;: &#34;\ufeffMULTIVEND SERVICES LIMITED&#34;,
+                        &#34;value&#34;: 943377
+                    },
+                    &#34;943379&#34;: {
+                        &#34;title&#34;: &#34;SAVEWISE SUPERMARKET&#34;,
+                        &#34;value&#34;: 943379
+                    }
+                }
+            },
+            {
+                &#34;field&#34;: &#34;object_groups&#34;,
+                &#34;field_group&#34;: &#34;objects&#34;,
+                &#34;title&#34;: &#34;Object groups&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: true,
+                &#34;required&#34;: true,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;Alerts&#34;,
+                        &#34;value&#34;: 24158
+                    },
+                    {
+                        &#34;title&#34;: &#34;GRP 2&#34;,
+                        &#34;value&#34;: 19850
+                    },
+                    {
+                        &#34;title&#34;: &#34;as24fuel&#34;,
+                        &#34;value&#34;: 22049
+                    }
+                ]
+            }
+        ],
+        &#34;vehicles&#34;: [
+            {
+                &#34;field&#34;: &#34;car_type&#34;,
+                &#34;field_group&#34;: &#34;vehicles&#34;,
+                &#34;title&#34;: &#34;Vehicles&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;required&#34;: true,
+                &#34;options&#34;: [
+                    {
+                        &#34;value&#34;: &#34;all_cars&#34;,
+                        &#34;title&#34;: &#34;All vehicles&#34;
+                    },
+                    {
+                        &#34;value&#34;: &#34;cars&#34;,
+                        &#34;title&#34;: &#34;Vehicles&#34;
+                    },
+                    {
+                        &#34;value&#34;: &#34;cars_groups&#34;,
+                        &#34;title&#34;: &#34;Vehicle groups&#34;
+                    }
+                ]
+            },
+            {
+                &#34;field&#34;: &#34;cars&#34;,
+                &#34;field_group&#34;: &#34;vehicles&#34;,
+                &#34;title&#34;: &#34;Vehicles&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: true,
+                &#34;required&#34;: true,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;AB-1234 (Volvo FH)&#34;,
+                        &#34;value&#34;: 297802
+                    },
+                    {
+                        &#34;title&#34;: &#34;Android&#34;,
+                        &#34;value&#34;: 270233
+                    },
+                    {
+                        &#34;title&#34;: &#34;BLE-115 (BLE test)&#34;,
+                        &#34;value&#34;: 383462
+                    },
+                    {
+                        &#34;title&#34;: &#34;JG-1402 (DAF 105)&#34;,
+                        &#34;value&#34;: 312725
+                    },
+                    {
+                        &#34;title&#34;: &#34;JL-2400 (BMW)&#34;,
+                        &#34;value&#34;: 81297
+                    }
+                ]
+            },
+            {
+                &#34;field&#34;: &#34;cars_groups&#34;,
+                &#34;field_group&#34;: &#34;vehicles&#34;,
+                &#34;title&#34;: &#34;Vehicle groups&#34;,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: true,
+                &#34;required&#34;: true,
+                &#34;options&#34;: []
+            }
+        ],
+        &#34;active_times&#34;: [
+            {
+                &#34;title&#34;: &#34;Time from&#34;,
+                &#34;field&#34;: &#34;time_hour_from&#34;,
+                &#34;field_group&#34;: &#34;active_times&#34;,
+                &#34;required&#34;: true,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;01&#34;,
+                        &#34;value&#34;: &#34;01&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;02&#34;,
+                        &#34;value&#34;: &#34;02&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;03&#34;,
+                        &#34;value&#34;: &#34;03&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;04&#34;,
+                        &#34;value&#34;: &#34;04&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;06&#34;,
+                        &#34;value&#34;: &#34;06&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;07&#34;,
+                        &#34;value&#34;: &#34;07&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;08&#34;,
+                        &#34;value&#34;: &#34;08&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;09&#34;,
+                        &#34;value&#34;: &#34;09&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;11&#34;,
+                        &#34;value&#34;: &#34;11&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;12&#34;,
+                        &#34;value&#34;: &#34;12&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;13&#34;,
+                        &#34;value&#34;: &#34;13&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;14&#34;,
+                        &#34;value&#34;: &#34;14&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;16&#34;,
+                        &#34;value&#34;: &#34;16&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;17&#34;,
+                        &#34;value&#34;: &#34;17&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;18&#34;,
+                        &#34;value&#34;: &#34;18&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;19&#34;,
+                        &#34;value&#34;: &#34;19&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;21&#34;,
+                        &#34;value&#34;: &#34;21&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;22&#34;,
+                        &#34;value&#34;: &#34;22&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;23&#34;,
+                        &#34;value&#34;: &#34;23&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;Minutes&#34;,
+                &#34;field&#34;: &#34;time_minute_from&#34;,
+                &#34;field_group&#34;: &#34;active_times&#34;,
+                &#34;required&#34;: true,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;25&#34;,
+                        &#34;value&#34;: &#34;25&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;30&#34;,
+                        &#34;value&#34;: &#34;30&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;35&#34;,
+                        &#34;value&#34;: &#34;35&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;40&#34;,
+                        &#34;value&#34;: &#34;40&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;45&#34;,
+                        &#34;value&#34;: &#34;45&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;50&#34;,
+                        &#34;value&#34;: &#34;50&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;55&#34;,
+                        &#34;value&#34;: &#34;55&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;59&#34;,
+                        &#34;value&#34;: &#34;59&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;Time to&#34;,
+                &#34;field&#34;: &#34;time_hour_to&#34;,
+                &#34;field_group&#34;: &#34;active_times&#34;,
+                &#34;required&#34;: true,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;01&#34;,
+                        &#34;value&#34;: &#34;01&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;02&#34;,
+                        &#34;value&#34;: &#34;02&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;03&#34;,
+                        &#34;value&#34;: &#34;03&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;04&#34;,
+                        &#34;value&#34;: &#34;04&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;06&#34;,
+                        &#34;value&#34;: &#34;06&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;07&#34;,
+                        &#34;value&#34;: &#34;07&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;08&#34;,
+                        &#34;value&#34;: &#34;08&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;09&#34;,
+                        &#34;value&#34;: &#34;09&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;11&#34;,
+                        &#34;value&#34;: &#34;11&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;12&#34;,
+                        &#34;value&#34;: &#34;12&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;13&#34;,
+                        &#34;value&#34;: &#34;13&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;14&#34;,
+                        &#34;value&#34;: &#34;14&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;16&#34;,
+                        &#34;value&#34;: &#34;16&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;17&#34;,
+                        &#34;value&#34;: &#34;17&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;18&#34;,
+                        &#34;value&#34;: &#34;18&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;19&#34;,
+                        &#34;value&#34;: &#34;19&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;21&#34;,
+                        &#34;value&#34;: &#34;21&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;22&#34;,
+                        &#34;value&#34;: &#34;22&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;23&#34;,
+                        &#34;value&#34;: &#34;23&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;Minutes&#34;,
+                &#34;field&#34;: &#34;time_minute_to&#34;,
+                &#34;field_group&#34;: &#34;active_times&#34;,
+                &#34;required&#34;: true,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;25&#34;,
+                        &#34;value&#34;: &#34;25&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;30&#34;,
+                        &#34;value&#34;: &#34;30&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;35&#34;,
+                        &#34;value&#34;: &#34;35&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;40&#34;,
+                        &#34;value&#34;: &#34;40&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;45&#34;,
+                        &#34;value&#34;: &#34;45&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;50&#34;,
+                        &#34;value&#34;: &#34;50&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;55&#34;,
+                        &#34;value&#34;: &#34;55&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;59&#34;,
+                        &#34;value&#34;: &#34;59&#34;
+                    }
+                ]
+            },
+            {
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;title&#34;: &#34;Days&#34;,
+                &#34;required&#34;: true,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;Mo&#34;,
+                        &#34;value&#34;: 1
+                    },
+                    {
+                        &#34;title&#34;: &#34;Tu&#34;,
+                        &#34;value&#34;: 2
+                    },
+                    {
+                        &#34;title&#34;: &#34;We&#34;,
+                        &#34;value&#34;: 3
+                    },
+                    {
+                        &#34;title&#34;: &#34;Th&#34;,
+                        &#34;value&#34;: 4
+                    },
+                    {
+                        &#34;title&#34;: &#34;Fr&#34;,
+                        &#34;value&#34;: 5
+                    },
+                    {
+                        &#34;title&#34;: &#34;St&#34;,
+                        &#34;value&#34;: 6
+                    },
+                    {
+                        &#34;title&#34;: &#34;Sn&#34;,
+                        &#34;value&#34;: 7
+                    }
+                ],
+                &#34;field_group&#34;: &#34;active_times&#34;,
+                &#34;multiple&#34;: true,
+                &#34;field&#34;: &#34;days&#34;
+            }
+        ],
+        &#34;delivery&#34;: [
+            {
+                &#34;type&#34;: &#34;checkbox&#34;,
+                &#34;title&#34;: &#34;To e-mail: %email%&#34;,
+                &#34;field&#34;: &#34;email&#34;,
+                &#34;field_group&#34;: &#34;delivery&#34;
+            },
+            {
+                &#34;type&#34;: &#34;checkbox&#34;,
+                &#34;title&#34;: &#34;To phone: %phone%&#34;,
+                &#34;field&#34;: &#34;phone&#34;,
+                &#34;field_group&#34;: &#34;delivery&#34;
+            },
+            {
+                &#34;type&#34;: &#34;checkbox&#34;,
+                &#34;title&#34;: &#34;Pop-up window (WEB)&#34;,
+                &#34;field&#34;: &#34;show_popup&#34;,
+                &#34;field_group&#34;: &#34;delivery&#34;
+            },
+            {
+                &#34;type&#34;: &#34;email&#34;,
+                &#34;multiple&#34;: true,
+                &#34;title&#34;: &#34;Additional e-mails&#34;,
+                &#34;field_group&#34;: &#34;delivery&#34;,
+                &#34;field&#34;: &#34;additional_emails&#34;
+            },
+            {
+                &#34;type&#34;: &#34;phone&#34;,
+                &#34;multiple&#34;: true,
+                &#34;title&#34;: &#34;Additional phones&#34;,
+                &#34;field_group&#34;: &#34;delivery&#34;,
+                &#34;field&#34;: &#34;additional_phones&#34;
+            }
+        ],
+        &#34;active_period&#34;: [
+            {
+                &#34;title&#34;: &#34;Active&#34;,
+                &#34;field&#34;: &#34;active&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: true,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;Active always&#34;,
+                        &#34;value&#34;: &#34;always&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;Active in period&#34;,
+                        &#34;value&#34;: &#34;period&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;Date from&#34;,
+                &#34;field&#34;: &#34;date_active_from&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: false,
+                &#34;type&#34;: &#34;date&#34;
+            },
+            {
+                &#34;title&#34;: &#34;Time from&#34;,
+                &#34;field&#34;: &#34;hour_active_from&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: false,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;01&#34;,
+                        &#34;value&#34;: &#34;01&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;02&#34;,
+                        &#34;value&#34;: &#34;02&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;03&#34;,
+                        &#34;value&#34;: &#34;03&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;04&#34;,
+                        &#34;value&#34;: &#34;04&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;06&#34;,
+                        &#34;value&#34;: &#34;06&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;07&#34;,
+                        &#34;value&#34;: &#34;07&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;08&#34;,
+                        &#34;value&#34;: &#34;08&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;09&#34;,
+                        &#34;value&#34;: &#34;09&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;11&#34;,
+                        &#34;value&#34;: &#34;11&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;12&#34;,
+                        &#34;value&#34;: &#34;12&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;13&#34;,
+                        &#34;value&#34;: &#34;13&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;14&#34;,
+                        &#34;value&#34;: &#34;14&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;16&#34;,
+                        &#34;value&#34;: &#34;16&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;17&#34;,
+                        &#34;value&#34;: &#34;17&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;18&#34;,
+                        &#34;value&#34;: &#34;18&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;19&#34;,
+                        &#34;value&#34;: &#34;19&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;21&#34;,
+                        &#34;value&#34;: &#34;21&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;22&#34;,
+                        &#34;value&#34;: &#34;22&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;23&#34;,
+                        &#34;value&#34;: &#34;23&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;&#34;,
+                &#34;field&#34;: &#34;minute_active_from&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: false,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;25&#34;,
+                        &#34;value&#34;: &#34;25&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;30&#34;,
+                        &#34;value&#34;: &#34;30&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;35&#34;,
+                        &#34;value&#34;: &#34;35&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;40&#34;,
+                        &#34;value&#34;: &#34;40&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;45&#34;,
+                        &#34;value&#34;: &#34;45&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;50&#34;,
+                        &#34;value&#34;: &#34;50&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;55&#34;,
+                        &#34;value&#34;: &#34;55&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;59&#34;,
+                        &#34;value&#34;: &#34;59&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;Date to&#34;,
+                &#34;field&#34;: &#34;date_active_to&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: false,
+                &#34;type&#34;: &#34;date&#34;
+            },
+            {
+                &#34;title&#34;: &#34;Time to&#34;,
+                &#34;field&#34;: &#34;hour_active_to&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: false,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;01&#34;,
+                        &#34;value&#34;: &#34;01&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;02&#34;,
+                        &#34;value&#34;: &#34;02&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;03&#34;,
+                        &#34;value&#34;: &#34;03&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;04&#34;,
+                        &#34;value&#34;: &#34;04&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;06&#34;,
+                        &#34;value&#34;: &#34;06&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;07&#34;,
+                        &#34;value&#34;: &#34;07&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;08&#34;,
+                        &#34;value&#34;: &#34;08&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;09&#34;,
+                        &#34;value&#34;: &#34;09&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;11&#34;,
+                        &#34;value&#34;: &#34;11&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;12&#34;,
+                        &#34;value&#34;: &#34;12&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;13&#34;,
+                        &#34;value&#34;: &#34;13&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;14&#34;,
+                        &#34;value&#34;: &#34;14&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;16&#34;,
+                        &#34;value&#34;: &#34;16&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;17&#34;,
+                        &#34;value&#34;: &#34;17&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;18&#34;,
+                        &#34;value&#34;: &#34;18&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;19&#34;,
+                        &#34;value&#34;: &#34;19&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;21&#34;,
+                        &#34;value&#34;: &#34;21&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;22&#34;,
+                        &#34;value&#34;: &#34;22&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;23&#34;,
+                        &#34;value&#34;: &#34;23&#34;
+                    }
+                ]
+            },
+            {
+                &#34;title&#34;: &#34;&#34;,
+                &#34;field&#34;: &#34;minute_active_to&#34;,
+                &#34;field_group&#34;: &#34;active_period&#34;,
+                &#34;required&#34;: false,
+                &#34;type&#34;: &#34;select&#34;,
+                &#34;multiple&#34;: false,
+                &#34;options&#34;: [
+                    {
+                        &#34;title&#34;: &#34;00&#34;,
+                        &#34;value&#34;: &#34;00&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;05&#34;,
+                        &#34;value&#34;: &#34;05&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;10&#34;,
+                        &#34;value&#34;: &#34;10&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;15&#34;,
+                        &#34;value&#34;: &#34;15&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;20&#34;,
+                        &#34;value&#34;: &#34;20&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;25&#34;,
+                        &#34;value&#34;: &#34;25&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;30&#34;,
+                        &#34;value&#34;: &#34;30&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;35&#34;,
+                        &#34;value&#34;: &#34;35&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;40&#34;,
+                        &#34;value&#34;: &#34;40&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;45&#34;,
+                        &#34;value&#34;: &#34;45&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;50&#34;,
+                        &#34;value&#34;: &#34;50&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;55&#34;,
+                        &#34;value&#34;: &#34;55&#34;
+                    },
+                    {
+                        &#34;title&#34;: &#34;59&#34;,
+                        &#34;value&#34;: &#34;59&#34;
+                    }
+                ]
+            }
+        ]
+    },
+    &#34;field_groups&#34;: [
+        &#34;other&#34;,
+        &#34;objects&#34;,
+        &#34;vehicles&#34;,
+        &#34;active_times&#34;,
+        &#34;delivery&#34;,
+        &#34;active_period&#34;
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr><tr><td>2</td><td>Parameter &#34;alert_type&#34; can not be empty</td></tr><tr><td>3</td><td>The provided alert type is not supported</td></tr><tr><td>4</td><td>The provided alert type is not accessible</td></tr></tbody></table></div></div></div><div id="method-alert-Get-alert-setups" class="api-method"><h2>Get alert setups</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">alert/list_setups.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Get a list of all created alert setups. <b>IMPORTANT</b> - private alert setups are not obtainable via this endpoint</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">alert_type </div><div class="format">string</div><div class="description">One of types obtained from &#34;Alert types&#34; <code>setup_types</code> endpoint</div></div></div><div class="item"><div class="cols"><div class="name">setup_id </div><div class="format">string</div><div class="description">Search for a specific setup. The <code>setup_id</code> value can be obtained from response of this method. Recommended to use without other filters (<code>alert_type</code>, <code>unit_ids</code>) as it will not override those filters and you may end up with no results.</div></div></div><div class="item"><div class="cols"><div class="name">unit_ids </div><div class="format">int[]</div><div class="description">Array of unit ids for which to find alert setups</div></div></div><div class="item"><div class="cols"><div class="name">include </div><div class="format">string[]</div><div class="description">
+                                Include additional data in results:<br/>
+                                <code>condition</code> - alert condition message. Localized.<br/>
+                                <code>units_title</code> - formatted title for alert setup units. Localized.<br/>
+                                <code>created</code> - information about alert setup creator and creation time<br/>
+                                <code>modified</code> - information about last alert setup modification (time and actor)<br/>
+                                <code>fields</code> - list of alert setup field values<br/>
+                                </div></div></div><div class="item"><div class="cols"><div class="name">show_inactive </div><div class="format">int</div><div class="description">Pass this flag to include inactive alert setups. Inactive - expired or not yet active. Supported values - <code>0</code> and <code>1</code></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        The <code>fields</code> object property keys match those that are returned in <code>setup_fields</code> endpoint.<br/>
+                        Some properties are localized in the response. They use the language and measurement units of the user that has created the API key. 
+                        Those properties are: <code>title</code>, <code>condition</code> and <code>units_title</code>.<br/>
+                        All fields containing dates and times are returned in UTC timezone, regardless of the format<br/>
+                    </div><pre>{
+    &#34;setups&#34;: [
+        {
+            &#34;setup_id&#34;: &#34;MzY3MjI6aW5fb2JqZWN0OmV2ZW50&#34;,
+            &#34;alert_type&#34;: &#34;in_object&#34;,
+            &#34;title&#34;: &#34;Arrives\/leaves the object&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;Arrives\/leaves the object 3 territories  (00:00-23:59) Mo, Tu, We, Th, Fr&#34;,
+            &#34;units_title&#34;: &#34;All vehicles (104)&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2023-03-10T09:47:18Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: null,
+            &#34;fields&#34;: {
+                &#34;objects&#34;: [
+                    1143954,
+                    1184388,
+                    1189089
+                ],
+                &#34;alert_text&#34;: &#34;&#34;,
+                &#34;days&#34;: [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                &#34;email&#34;: true,
+                &#34;phone&#34;: true,
+                &#34;show_popup&#34;: true,
+                &#34;additional_emails&#34;: [],
+                &#34;additional_phones&#34;: [],
+                &#34;object_visits&#34;: [
+                    &#34;object_visit&#34;,
+                    &#34;object_leave&#34;
+                ],
+                &#34;car_type&#34;: &#34;all_cars&#34;,
+                &#34;cars&#34;: null,
+                &#34;cars_groups&#34;: null,
+                &#34;object_type&#34;: &#34;objects&#34;,
+                &#34;object_groups&#34;: [],
+                &#34;time_hour_from&#34;: &#34;00&#34;,
+                &#34;time_minute_from&#34;: &#34;00&#34;,
+                &#34;time_hour_to&#34;: &#34;23&#34;,
+                &#34;time_minute_to&#34;: &#34;59&#34;,
+                &#34;active&#34;: &#34;always&#34;,
+                &#34;date_active_from&#34;: null,
+                &#34;hour_active_from&#34;: null,
+                &#34;minute_active_from&#34;: null,
+                &#34;date_active_to&#34;: null,
+                &#34;hour_active_to&#34;: null,
+                &#34;minute_active_to&#34;: null
+            }
+        },
+        {
+            &#34;setup_id&#34;: &#34;MzY3MjE6c3BlZWRpbmdfZXZlbnQ6ZXZlbnQ=&#34;,
+            &#34;alert_type&#34;: &#34;speeding&#34;,
+            &#34;title&#34;: &#34;Overspeeding&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;Driving speed is &gt;120 km\/h for 3min&#34;,
+            &#34;units_title&#34;: &#34;4 Vehicles&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2023-03-10T09:44:39Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: null,
+            &#34;fields&#34;: {
+                &#34;speed&#34;: 120,
+                &#34;duration&#34;: 180,
+                &#34;days&#34;: [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                &#34;email&#34;: true,
+                &#34;phone&#34;: false,
+                &#34;show_popup&#34;: true,
+                &#34;additional_emails&#34;: [],
+                &#34;additional_phones&#34;: [],
+                &#34;car_type&#34;: &#34;cars&#34;,
+                &#34;cars&#34;: {
+                    &#34;133982&#34;: 133982,
+                    &#34;213572&#34;: 213572,
+                    &#34;265317&#34;: 265317,
+                    &#34;297802&#34;: 297802
+                },
+                &#34;cars_groups&#34;: null,
+                &#34;time_hour_from&#34;: &#34;00&#34;,
+                &#34;time_minute_from&#34;: &#34;00&#34;,
+                &#34;time_hour_to&#34;: &#34;23&#34;,
+                &#34;time_minute_to&#34;: &#34;59&#34;,
+                &#34;active&#34;: &#34;always&#34;,
+                &#34;date_active_from&#34;: null,
+                &#34;hour_active_from&#34;: null,
+                &#34;minute_active_from&#34;: null,
+                &#34;date_active_to&#34;: null,
+                &#34;hour_active_to&#34;: null,
+                &#34;minute_active_to&#34;: null
+            }
+        },
+        {
+            &#34;setup_id&#34;: &#34;NDM4MzEyOm1vdmluZzphbGVydA==&#34;,
+            &#34;alert_type&#34;: &#34;moving&#34;,
+            &#34;title&#34;: &#34;Vehicle started movement&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;(00:00-23:59) Mo, Tu, We, Th, Fr&#34;,
+            &#34;units_title&#34;: &#34;56 Vehicles&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2023-03-10T09:41:09Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: null,
+            &#34;fields&#34;: {
+                &#34;days&#34;: [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                &#34;email&#34;: true,
+                &#34;phone&#34;: false,
+                &#34;show_popup&#34;: true,
+                &#34;additional_emails&#34;: [],
+                &#34;additional_phones&#34;: [],
+                &#34;car_type&#34;: &#34;cars_groups&#34;,
+                &#34;cars&#34;: null,
+                &#34;cars_groups&#34;: {
+                    &#34;361&#34;: 361,
+                    &#34;59877&#34;: 59877
+                },
+                &#34;time_hour_from&#34;: &#34;00&#34;,
+                &#34;time_minute_from&#34;: &#34;00&#34;,
+                &#34;time_hour_to&#34;: &#34;23&#34;,
+                &#34;time_minute_to&#34;: &#34;59&#34;,
+                &#34;active&#34;: &#34;period&#34;,
+                &#34;date_active_from&#34;: &#34;2023-03-10&#34;,
+                &#34;hour_active_from&#34;: &#34;00&#34;,
+                &#34;minute_active_from&#34;: &#34;00&#34;,
+                &#34;date_active_to&#34;: &#34;2023-03-31&#34;,
+                &#34;hour_active_to&#34;: &#34;23&#34;,
+                &#34;minute_active_to&#34;: &#34;59&#34;
+            }
+        },
+        {
+            &#34;setup_id&#34;: &#34;MzY3MjA6c29zYnV0dG9uX2V2ZW50OmV2ZW50&#34;,
+            &#34;alert_type&#34;: &#34;sosbutton&#34;,
+            &#34;title&#34;: &#34;SOS Button&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;SOS Button triggered&#34;,
+            &#34;units_title&#34;: &#34;All vehicles (14)&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2023-03-10T09:39:42Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: {
+                &#34;modified_at&#34;: &#34;2023-03-10T09:48:13Z&#34;,
+                &#34;modified_by&#34;: &#34;&#34;
+            },
+            &#34;fields&#34;: {
+                &#34;days&#34;: [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                &#34;email&#34;: false,
+                &#34;phone&#34;: false,
+                &#34;show_popup&#34;: false,
+                &#34;additional_emails&#34;: [],
+                &#34;additional_phones&#34;: [],
+                &#34;car_type&#34;: &#34;all_cars&#34;,
+                &#34;cars&#34;: null,
+                &#34;cars_groups&#34;: null,
+                &#34;time_hour_from&#34;: &#34;00&#34;,
+                &#34;time_minute_from&#34;: &#34;00&#34;,
+                &#34;time_hour_to&#34;: &#34;23&#34;,
+                &#34;time_minute_to&#34;: &#34;59&#34;,
+                &#34;active&#34;: &#34;always&#34;,
+                &#34;date_active_from&#34;: null,
+                &#34;hour_active_from&#34;: null,
+                &#34;minute_active_from&#34;: null,
+                &#34;date_active_to&#34;: null,
+                &#34;hour_active_to&#34;: null,
+                &#34;minute_active_to&#34;: null
+            }
+        },
+        {
+            &#34;setup_id&#34;: &#34;NDM4MzExOm5vX3Bvd2VyOmFsZXJ0&#34;,
+            &#34;alert_type&#34;: &#34;no_power&#34;,
+            &#34;title&#34;: &#34;Power off&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;Equipment has been disconnected!&#34;,
+            &#34;units_title&#34;: &#34;All vehicles (104)&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2023-03-10T09:38:33Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: null,
+            &#34;fields&#34;: {
+                &#34;alert_connecting&#34;: true,
+                &#34;days&#34;: [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                &#34;email&#34;: true,
+                &#34;phone&#34;: true,
+                &#34;show_popup&#34;: true,
+                &#34;additional_emails&#34;: [],
+                &#34;additional_phones&#34;: [],
+                &#34;car_type&#34;: &#34;all_cars&#34;,
+                &#34;cars&#34;: null,
+                &#34;cars_groups&#34;: null,
+                &#34;time_hour_from&#34;: &#34;02&#34;,
+                &#34;time_minute_from&#34;: &#34;45&#34;,
+                &#34;time_hour_to&#34;: &#34;19&#34;,
+                &#34;time_minute_to&#34;: &#34;45&#34;,
+                &#34;active&#34;: &#34;always&#34;,
+                &#34;date_active_from&#34;: null,
+                &#34;hour_active_from&#34;: null,
+                &#34;minute_active_from&#34;: null,
+                &#34;date_active_to&#34;: null,
+                &#34;hour_active_to&#34;: null,
+                &#34;minute_active_to&#34;: null
+            }
+        },
+        {
+            &#34;setup_id&#34;: &#34;NDA1MzAzOnN1cHBseV92b2x0YWdlX25ldzphbGVydA==&#34;,
+            &#34;alert_type&#34;: &#34;supply_voltage&#34;,
+            &#34;title&#34;: &#34;Supply voltage alert&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;Supply voltage 12.00 (External power).&#34;,
+            &#34;units_title&#34;: &#34;Audi-A4-MG-test (Audi a4)&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2022-08-12T06:07:57Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: {
+                &#34;modified_at&#34;: &#34;2023-03-10T09:37:11Z&#34;,
+                &#34;modified_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;fields&#34;: {
+                &#34;min_supply_voltage&#34;: 12,
+                &#34;supply_types&#34;: [
+                    &#34;power&#34;
+                ],
+                &#34;object&#34;: 1189088,
+                &#34;duration&#34;: 0,
+                &#34;email&#34;: false,
+                &#34;phone&#34;: false,
+                &#34;show_popup&#34;: false,
+                &#34;additional_emails&#34;: [
+                    &#34;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dba8b4b6bef5aea8bea99bbea3bab6abb7bef5b8b4b6">[email protected]</a>&#34;
+                ],
+                &#34;additional_phones&#34;: [
+                    &#34;+123 12345678&#34;
+                ],
+                &#34;car_type&#34;: &#34;cars&#34;,
+                &#34;cars&#34;: {
+                    &#34;197798&#34;: 197798
+                },
+                &#34;cars_groups&#34;: null,
+                &#34;active&#34;: &#34;always&#34;,
+                &#34;date_active_from&#34;: null,
+                &#34;hour_active_from&#34;: null,
+                &#34;minute_active_from&#34;: null,
+                &#34;date_active_to&#34;: null,
+                &#34;hour_active_to&#34;: null,
+                &#34;minute_active_to&#34;: null
+            }
+        },
+        {
+            &#34;setup_id&#34;: &#34;MzE2MjQ3OmJhdHRlcnlfbGV2ZWw6YWxlcnQ=&#34;,
+            &#34;alert_type&#34;: &#34;battery_level&#34;,
+            &#34;title&#34;: &#34;Battery level&#34;,
+            &#34;expired&#34;: false,
+            &#34;active&#34;: true,
+            &#34;condition&#34;: &#34;Battery level under 35%&#34;,
+            &#34;units_title&#34;: &#34;JT-821 (AlfaRomeo 156)&#34;,
+            &#34;created&#34;: {
+                &#34;created_at&#34;: &#34;2020-11-03T09:25:51Z&#34;,
+                &#34;created_by&#34;: &#34;Admin User&#34;
+            },
+            &#34;modified&#34;: {
+                &#34;modified_at&#34;: &#34;2021-10-30T22:50:43Z&#34;,
+                &#34;modified_by&#34;: &#34;28065 test&#34;
+            },
+            &#34;fields&#34;: {
+                &#34;level&#34;: 35,
+                &#34;remind_level&#34;: null,
+                &#34;object&#34;: null,
+                &#34;email&#34;: false,
+                &#34;phone&#34;: true,
+                &#34;show_popup&#34;: true,
+                &#34;additional_emails&#34;: [],
+                &#34;additional_phones&#34;: [
+                    &#34;+123456789&#34;
+                ],
+                &#34;car_type&#34;: &#34;cars&#34;,
+                &#34;cars&#34;: {
+                    &#34;93843&#34;: 93843
+                },
+                &#34;cars_groups&#34;: null,
+                &#34;active&#34;: &#34;always&#34;,
+                &#34;date_active_from&#34;: null,
+                &#34;hour_active_from&#34;: null,
+                &#34;minute_active_from&#34;: null,
+                &#34;date_active_to&#34;: null,
+                &#34;hour_active_to&#34;: null,
+                &#34;minute_active_to&#34;: null
+            }
+        }
+    ]
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr><tr><td>2</td><td>Parameter &#34;alert_type&#34; can not be empty</td></tr><tr><td>3</td><td>The provided alert type is not supported</td></tr><tr><td>4</td><td>The provided alert type is not accessible</td></tr><tr><td>5</td><td>Parameter &#34;setup_id&#34; can not be empty</td></tr><tr><td>6</td><td>Invalid parameter &#34;setup_id&#34;</td></tr><tr><td>7</td><td>Alert setup not found</td></tr><tr><td>9</td><td>Invalid include</td></tr><tr><td>10</td><td>Invalid or missing &#34;unit_id&#34; parameter</td></tr></tbody></table></div></div></div><div id="method-alert-Save-alert-setup" class="api-method"><h2>Save alert setup</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">alert/store_setup.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create or update alert setup</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">setup_id </div><div class="format">string</div><div class="description">Required if updating existing setup. MUST use the <code>setup_id</code> property obtained from <code>list_setups</code> endpoint</div></div></div><div class="item"><div class="cols"><div class="name">alert_type </div><div class="format">string</div><div class="description">Required if creating new setup. One of types obtained from &#34;Alert types&#34; <code>setup_types</code> endpoint</div></div></div><div class="item"><div class="cols"><div class="name">fields <span class="required" title="Required">*</span></div><div class="format">object</div><div class="description">Key:value pairs of the setup fields. The supported fields and their value formats can be obtained from <code>setup_fields</code> endpoint. MUST use property <code>field</code> as key and set the value according to limitations and format indicated in the response<br/><b>Important!</b> All field values that contain dates and times MUST be passed in UTC timezone, regardless of format</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        The <code>validation_errors</code> property will be <code>null</code> if no validation errors have been encountered.<br/>
+                        If there are validation errors, then the <code>validation_errors</code> property will contain array of fields that failed to pass validation along with messages about violated rules.<br/>
+                        If saving of the setup succeeds then <code>id</code> will contain setup id and <code>success</code> will be <code>true</code>. If it fails then <code>id</code> will be <code>null</code> and <code>success</code> will be <code>false</code>
+                    </div><pre>{
+    &#34;id&#34;: null,
+    &#34;success&#34;: false,
+    &#34;validation_errors&#34;: {
+        &#34;objects&#34;: [
+            &#34;can not be empty!&#34;
+        ],
+        &#34;cars_groups&#34;: [
+            &#34;Illegal value&#34;
+        ],
+        &#34;additional_emails&#34;: [
+            &#34;Invalid e-mail&#34;
+        ]
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr><tr><td>2</td><td>Parameter &#34;alert_type&#34; can not be empty</td></tr><tr><td>3</td><td>The provided alert type is not supported</td></tr><tr><td>4</td><td>The provided alert type is not accessible</td></tr><tr><td>5</td><td>Parameter &#34;setup_id&#34; can not be empty</td></tr><tr><td>6</td><td>Invalid parameter &#34;setup_id&#34;</td></tr><tr><td>7</td><td>Alert setup not found</td></tr><tr><td>8</td><td>Parameter &#34;fields&#34; is required</td></tr><tr><td>9</td><td>Failed to save alert setup</td></tr></tbody></table></div></div></div><div id="method-alert-Delete-alert-setup" class="api-method"><h2>Delete alert setup</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">alert/delete_setup.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Delete a single alert setup</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">setup_id <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">MUST use the <code>setup_id</code> property obtained from <code>list_setups</code> endpoint</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;success&#34;: true
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>Invalid user</td></tr><tr><td>2</td><td>Parameter &#34;alert_type&#34; can not be empty</td></tr><tr><td>3</td><td>The provided alert type is not supported</td></tr><tr><td>4</td><td>The provided alert type is not accessible</td></tr><tr><td>5</td><td>Parameter &#34;setup_id&#34; can not be empty</td></tr><tr><td>6</td><td>Invalid parameter &#34;setup_id&#34;</td></tr><tr><td>7</td><td>Alert setup not found</td></tr><tr><td>8</td><td>Internal error. Failed to delete alert setup</td></tr></tbody></table></div></div></div></div>

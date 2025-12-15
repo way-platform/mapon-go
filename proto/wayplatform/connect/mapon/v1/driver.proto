@@ -1,0 +1,37 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// Driver represents a vehicle driver.
+message Driver {
+  // Unique identifier for the driver.
+  int64 driver_id = 1;
+
+  // First name of the driver.
+  string name = 2;
+
+  // Last name of the driver.
+  string surname = 3;
+
+  // Contact email address.
+  string email = 4;
+
+  // Contact phone number.
+  string phone = 5;
+
+  // iButton ID (Dallas key) for driver identification.
+  string ibutton_value = 6;
+
+  // Tachograph driver card ID.
+  string tachograph_id = 7;
+
+  // Indicates if the driver is blocked from system access.
+  bool blocked = 8;
+
+  // Timestamp when the driver record was created.
+  google.protobuf.Timestamp created_at = 9;
+}

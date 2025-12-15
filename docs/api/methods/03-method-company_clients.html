@@ -1,0 +1,76 @@
+<div id="method-company_clients" class="api-method-group"><h1>Company_clients</h1><div id="method-company_clients-Create" class="api-method"><h2>Create</h2><div class="call-url"><code>POST</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">company_clients/create.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li><li><a href="javascript:" data-target="errors">Error codes</a></li></ul><div class="tab description">Create client</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">name <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description"></div></div></div><div class="item"><div class="cols"><div class="name">address <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description"></div></div></div><div class="item"><div class="cols"><div class="name">email </div><div class="format">string</div><div class="description"></div></div></div><div class="item"><div class="cols"><div class="name">phone </div><div class="format">string</div><div class="description"></div></div></div><div class="item"><div class="cols"><div class="name">comments </div><div class="format">string</div><div class="description"></div></div></div><div class="item"><div class="cols"><div class="name">working_days </div><div class="format">object</div><div class="description"></div></div></div><div class="sub"><div class="item"><div class="cols"><div class="name">monday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default: <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">tuesday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default: <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">wednesday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default: <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">thursday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default: <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">friday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default: <code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">saturday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default:<code>0</code></div></div></div><div class="item"><div class="cols"><div class="name">sunday </div><div class="format">int</div><div class="description">Allowed values <code>0</code>;<code>1</code>. Default: <code>0</code></div></div></div></div><div class="item"><div class="cols"><div class="name">working_times </div><div class="format">object</div><div class="description">Start time must not match end time (e.g. 14:15-14:15 not allowed). Overnight allowed (e.g. 22:00-03:00). If parameter is not set, the default value {from:<code>00:00</code>, to:<code>23:59</code>} is saved.</div></div></div><div class="sub"><div class="item"><div class="cols"><div class="name">from <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">24-hour format of an hour with leading zeros. Allowed hours range: <code>00</code>-<code>23</code>. Allowed minutes range: <code>00</code>-<code>59</code>.</div></div></div><div class="item"><div class="cols"><div class="name">to <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">24-hour format of an hour with leading zeros. Allowed hours range: <code>00</code>-<code>23</code>. Allowed minutes range: <code>00</code>-<code>59</code>.</div></div></div></div></div></div><div class="tab response hidden"><div class="param-block"><pre>{
+    &#34;data&#34;: {
+        &#34;id&#34;: 1
+    }
+}</pre></div></div><div class="tab errors hidden"><div class="param-block"><table><tbody><tr><th>Code</th><th>Description</th></tr><tr><td>1</td><td>invalid or missing <code>name</code> parameter</td></tr><tr><td>3</td><td>invalid <code>email</code> parameter</td></tr><tr><td>4</td><td>invalid <code>address</code> parameter</td></tr><tr><td>8</td><td>invalid <code>working_times</code> item <code>from</code> parameter</td></tr><tr><td>9</td><td>invalid <code>working_times</code> item <code>to</code> parameter</td></tr><tr><td>11</td><td>working_times parameters must be different</td></tr></tbody></table></div></div></div><div id="method-company_clients-List" class="api-method"><h2>List</h2><div class="call-url"><code>GET</code> <span class="domain">https://mapon.com/api/v1/</span><span class="uri">company_clients/list.json</span></div><ul class="nav nav-tabs"><li class="active"><a href="javascript:" data-target="description">Description</a></li><li><a href="javascript:" data-target="parameters">Parameters</a></li><li><a href="javascript:" data-target="response">Response</a></li></ul><div class="tab description">Create client</div><div class="tab parameters hidden"><div class="param-block"><div class="item"><div class="cols"><div class="name">key <span class="required" title="Required">*</span></div><div class="format">string</div><div class="description">API Key</div></div></div><div class="item"><div class="cols"><div class="name">page </div><div class="format">int</div><div class="description">Starts with:<code>1</code></div></div></div><div class="item"><div class="cols"><div class="name">per_page </div><div class="format">int</div><div class="description">Min value:<code>1</code>;Max value:<code>200</code></div></div></div><div class="item"><div class="cols"><div class="name">name </div><div class="format">string</div><div class="description">Get client by name. Exact match</div></div></div></div></div><div class="tab response hidden"><div class="param-block"><div class="response_description">
+                        <code>array</code> data
+                        <ul>
+                            <li><code>int</code> id</li>
+                            <li><code>string</code> name</li>
+                            <li><code>string</code> address</li>
+                            <li><code>float</code> address_lat</li>
+                            <li><code>float</code> address_lng</li>
+                            <li><code>string</code> phone</li>
+                            <li><code>string</code> email</li>
+                            <li><code>string</code> comments</li>
+                            <li>
+                                <code>object|null</code> working_days
+                                <ul>
+                                    <li><code>bool</code> monday</li>
+                                    <li><code>bool</code> tuesday</li>
+                                    <li><code>bool</code> wednesday</li>
+                                    <li><code>bool</code> thursday</li>
+                                    <li><code>bool</code> friday</li>
+                                    <li><code>bool</code> saturday</li>
+                                    <li><code>bool</code> sunday</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <code>object|null</code> working_times
+                                <ul>
+                                    <li><code>string</code> from</li>
+                                    <li><code>string</code> to</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <code>object</code> _meta
+                        <ul>
+                            <li><code>int</code> total</li>
+                            <li><code>int</code> total_pages</li>
+                            <li><code>int</code> per_pages</li>
+                            <li><code>int</code> page</li>
+                        </ul>
+                       
+                    </div><pre>{
+    &#34;data&#34;: [
+        {
+            &#34;id&#34;: 1,
+            &#34;name&#34;: &#34;A&#34;,
+            &#34;address&#34;: &#34;123 Main Street, City, AB 12345&#34;,
+            &#34;address_lat&#34;: 28.45721,
+            &#34;address_lng&#34;: -43.2719,
+            &#34;phone&#34;: &#34;+1234567890&#34;,
+            &#34;email&#34;: &#34;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="03696c6b6d2d706e6a776b43667b626e736f662d606c6e">[email protected]</a>&#34;,
+            &#34;comments&#34;: &#34;Some comments&#34;,
+            &#34;working_days&#34;: {
+                &#34;monday&#34;: true,
+                &#34;tuesday&#34;: true,
+                &#34;wednesday&#34;: true,
+                &#34;thursday&#34;: true,
+                &#34;friday&#34;: true,
+                &#34;saturday&#34;: false,
+                &#34;sunday&#34;: false
+            },
+            &#34;working_times&#34;: {
+                &#34;from&#34;: &#34;09:00&#34;,
+                &#34;to&#34;: &#34;18:59&#34;
+            }
+        }
+    ],
+    &#34;_meta&#34;: {
+        &#34;total&#34;: 1,
+        &#34;total_pages&#34;: 1,
+        &#34;per_page&#34;: 100,
+        &#34;page&#34;: 1
+    }
+}</pre></div></div></div></div>
