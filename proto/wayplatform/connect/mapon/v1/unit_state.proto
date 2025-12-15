@@ -4,6 +4,7 @@ package wayplatform.connect.mapon.v1;
 
 import "google/protobuf/timestamp.proto";
 import "wayplatform/connect/mapon/v1/common.proto";
+import "wayplatform/connect/mapon/v1/movement_status.proto";
 
 option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
 
@@ -30,8 +31,11 @@ message UnitState {
   int64 ignition_total_duration_s = 6;
 
   // Current movement status.
-  // Common values: "driving", "standing", "nodata", "nogps", "service".
-  string movement_status = 7;
+  MovementStatus movement_status = 7;
+
+  // The raw string value of the movement status if it is not one of the known MovementStatus enum values.
+  // This field is populated only when 'movement_status' is MOVEMENT_STATUS_UNRECOGNIZED.
+  string unrecognized_movement_status = 13;
 
   // Fuel level in liters.
   // Note: If unit's consumption is kg/100km, this might represent kg.
@@ -42,4 +46,10 @@ message UnitState {
 
   // Battery voltage in volts.
   double battery_voltage_v = 10;
+
+  // Timestamp when this state started (e.g., when the unit started moving or standing).
+  google.protobuf.Timestamp start_time = 11;
+
+  // Duration of this state in seconds.
+  int64 duration_s = 12;
 }
