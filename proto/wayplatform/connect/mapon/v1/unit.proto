@@ -2,6 +2,8 @@ edition = "2023";
 
 package wayplatform.connect.mapon.v1;
 
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/fuel_type.proto";
 import "wayplatform/connect/mapon/v1/unit_state.proto";
 import "wayplatform/connect/mapon/v1/unit_type.proto";
 
@@ -36,6 +38,34 @@ message Unit {
 
   // Device associated with the unit.
   Device device = 9;
+
+  // Country code (ISO 3166-1 alpha-2).
+  string country_code = 10;
+
+  // Timestamp when the unit was created.
+  google.protobuf.Timestamp created_at = 11;
+
+  // Identifier of the tracking box/device (if available directly).
+  int64 box_id = 12;
+
+  // Icon name associated with the unit.
+  string icon = 13;
+
+  // Vehicle title.
+  string vehicle_title = 14;
+
+  // Car registration certificate number.
+  string car_reg_certificate = 15;
+
+  // Registration country.
+  string reg_country = 16;
+
+  // Fuel type.
+  FuelType fuel_type = 17;
+
+  // The raw string value of the fuel type if it is not one of the known FuelType enum values.
+  // This field is populated only when 'fuel_type' is FUEL_TYPE_UNRECOGNIZED.
+  string unrecognized_fuel_type = 18;
 
   // Device represents the tracking hardware installed in the unit.
   message Device {

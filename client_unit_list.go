@@ -111,20 +111,30 @@ type jsonError struct {
 }
 
 type jsonUnit struct {
-	UnitID    int64   `json:"unit_id"`
-	Label     string  `json:"label"`
-	Number    string  `json:"number"`
-	VIN       string  `json:"vin"`
-	Type      string  `json:"type"` // "car", "truck", etc.
-	Mileage   float64 `json:"mileage"` // Meters
-	Speed     int32   `json:"speed"`
-	Direction int32   `json:"direction"`
+	UnitID            int64       `json:"unit_id"`
+	BoxID             int64       `json:"box_id"`
+	CompanyID         int64       `json:"company_id"`
+	CountryCode       *string     `json:"country_code"`
+	Label             *string     `json:"label"`
+	Number            *string     `json:"number"`
+	VehicleTitle      *string     `json:"vehicle_title"`
+	CarRegCertificate *string     `json:"car_reg_certificate"`
+	RegCountry        *string     `json:"reg_country"`
+	VIN               *string     `json:"vin"`
+	Type              *string     `json:"type"` // "car", "truck", etc.
+	Icon              *string     `json:"icon"`
+	Mileage           float64     `json:"mileage"` // Meters
+	Speed             *int32      `json:"speed"`
+	Direction         int32       `json:"direction"`
+	FuelType          *string     `json:"fuel_type"`
+	CreatedAt         string      `json:"created_at"`
 
 	LastUpdate string `json:"last_update"` // "2017-05-22T12:23:46Z"
 
 	State struct {
-		Name  string `json:"name"` // "standing", "driving"
-		Start string `json:"start"`
+		Name     string `json:"name"` // "standing", "driving"
+		Start    string `json:"start"`
+		Duration int64  `json:"duration"`
 	} `json:"state"`
 
 	// Flattened from API example structure or separate fields
@@ -158,80 +168,336 @@ type jsonUnit struct {
 func mapJSONUnitToProto(j jsonUnit) *maponv1.Unit {
 	u := &maponv1.Unit{}
 	u.SetUnitId(j.UnitID)
-	u.SetLabel(j.Label)
-	u.SetNumber(j.Number)
-	u.SetVin(j.VIN)
-	u.SetType(mapUnitType(j.Type))
-
-	if j.Type != "" && u.GetType() == maponv1.UnitType_UNIT_TYPE_UNRECOGNIZED {
-		u.SetUnrecognizedType(j.Type)
-	}
-
-	// Device
-	if j.Device != nil {
-		imeiStr := fmt.Sprintf("%v", j.Device.IMEI)
-		dev := &maponv1.Unit_Device{}
-		dev.SetDeviceId(j.Device.ID)
-		dev.SetSerialNumber(j.Device.SerialNumber)
-		dev.SetImei(imeiStr)
-		u.SetDevice(dev)
-	}
-
-	// State
-	state := &maponv1.UnitState{}
-	
-	loc := &maponv1.Location{}
-	loc.SetLatitude(j.Lat)
-	loc.SetLongitude(j.Lng)
-	state.SetLocation(loc)
-
-	state.SetSpeedKmh(j.Speed)
-	state.SetDirectionDeg(j.Direction)
-	state.SetOdometerM(int64(j.Mileage))
-	state.SetIgnitionTotalDurationS(j.IgnitionTotalTime)
-	state.SetMovementStatus(j.State.Name)
-
-	// Time
-	if t, err := time.Parse(time.RFC3339, j.LastUpdate); err == nil {
-		state.SetTime(timestamppb.New(t))
-	}
-
-	// Fuel
-	for _, f := range j.Fuel {
-		// Assuming we want the first valid liquid fuel or just the first one
-		if f.Metrics == "L" {
-			state.SetFuelLevelL(f.Value)
-			break
+		u.SetCompanyId(j.CompanyID)
+		u.SetBoxId(j.BoxID)
+		if j.Label != nil && *j.Label != "" {
+			u.SetLabel(*j.Label)
 		}
-	}
-
-	// Voltages
-	if j.SupplyVoltage != nil {
-		state.SetSupplyVoltageV(j.SupplyVoltage.Value)
-	}
-	if j.BatteryVoltage != nil {
-		state.SetBatteryVoltageV(j.BatteryVoltage.Value)
-	}
-
-	u.SetState(state)
-	return u
-}
-
-func mapUnitType(t string) maponv1.UnitType {
-	switch strings.ToLower(t) {
-	case "car":
-		return maponv1.UnitType_CAR
-	case "truck":
-		return maponv1.UnitType_TRUCK
-	case "trailer":
-		return maponv1.UnitType_TRAILER
-	case "van":
-		return maponv1.UnitType_VAN
-	case "bus":
-		return maponv1.UnitType_BUS
-	case "tractor":
-		return maponv1.UnitType_TRACTOR
-	default:
-		return maponv1.UnitType_UNIT_TYPE_UNRECOGNIZED
-	}
-}
+		if j.Number != nil && *j.Number != "" {
+			u.SetNumber(*j.Number)
+		}
+		if j.CountryCode != nil && *j.CountryCode != "" {
+			u.SetCountryCode(*j.CountryCode)
+		}
+		if j.VehicleTitle != nil && *j.VehicleTitle != "" {
+			u.SetVehicleTitle(*j.VehicleTitle)
+		}
+		if j.CarRegCertificate != nil && *j.CarRegCertificate != "" {
+			u.SetCarRegCertificate(*j.CarRegCertificate)
+		}
+		if j.RegCountry != nil && *j.RegCountry != "" {
+			u.SetRegCountry(*j.RegCountry)
+		}
+		if j.VIN != nil && *j.VIN != "" {
+			u.SetVin(*j.VIN)
+		}
+		
+	typeStr := ""
+		if j.Type != nil {
+			typeStr = *j.Type
+			if typeStr != "" {
+				u.SetType(mapUnitType(typeStr))
+			}
+		}
+	
+			if j.Icon != nil && *j.Icon != "" {
+	
+				u.SetIcon(*j.Icon)
+	
+			}
+	
+			
+	
+			if j.FuelType != nil && *j.FuelType != "" {
+	
+				fuelType := mapFuelType(*j.FuelType)
+	
+				u.SetFuelType(fuelType)
+	
+				if fuelType == maponv1.FuelType_FUEL_TYPE_UNRECOGNIZED {
+	
+					u.SetUnrecognizedFuelType(*j.FuelType)
+	
+				}
+	
+			}
+	
+			
+	
+			if t, err := time.Parse(time.RFC3339, j.CreatedAt); err == nil {
+	
+				u.SetCreatedAt(timestamppb.New(t))
+	
+			}
+	
+		
+	
+			if typeStr != "" && u.GetType() == maponv1.UnitType_UNIT_TYPE_UNRECOGNIZED {
+	
+				u.SetUnrecognizedType(typeStr)
+	
+			}
+	
+		
+	
+			// Device
+	
+			if j.Device != nil {
+	
+				imeiStr := fmt.Sprintf("%v", j.Device.IMEI)
+	
+				dev := &maponv1.Unit_Device{}
+	
+				dev.SetDeviceId(j.Device.ID)
+	
+				dev.SetSerialNumber(j.Device.SerialNumber)
+	
+				if imeiStr != "" {
+	
+					dev.SetImei(imeiStr)
+	
+				}
+	
+				u.SetDevice(dev)
+	
+			}
+	
+		
+	
+			// State
+	
+			state := &maponv1.UnitState{}
+	
+			
+	
+			loc := &maponv1.Location{}
+	
+			loc.SetLatitude(j.Lat)
+	
+			loc.SetLongitude(j.Lng)
+	
+			state.SetLocation(loc)
+	
+		
+	
+			if j.Speed != nil {
+	
+				state.SetSpeedKmh(*j.Speed)
+	
+			}
+	
+			state.SetDirectionDeg(j.Direction)
+	
+			state.SetOdometerM(int64(j.Mileage))
+	
+			state.SetIgnitionTotalDurationS(j.IgnitionTotalTime)
+	
+			
+	
+			if j.State.Name != "" {
+	
+				moveStatus := mapMovementStatus(j.State.Name)
+	
+				state.SetMovementStatus(moveStatus)
+	
+				if moveStatus == maponv1.MovementStatus_MOVEMENT_STATUS_UNRECOGNIZED {
+	
+					state.SetUnrecognizedMovementStatus(j.State.Name)
+	
+				}
+	
+			}
+	
+			
+	
+			state.SetDurationS(j.State.Duration)
+	
+		
+	
+			if t, err := time.Parse(time.RFC3339, j.State.Start); err == nil {
+	
+				state.SetStartTime(timestamppb.New(t))
+	
+			}
+	
+		
+	
+			// Time
+	
+			if t, err := time.Parse(time.RFC3339, j.LastUpdate); err == nil {
+	
+				state.SetTime(timestamppb.New(t))
+	
+			}
+	
+		
+	
+			// Fuel
+	
+			for _, f := range j.Fuel {
+	
+				// Assuming we want the first valid liquid fuel or just the first one
+	
+				if f.Metrics == "L" {
+	
+					state.SetFuelLevelL(f.Value)
+	
+					break
+	
+				}
+	
+			}
+	
+		
+	
+			// Voltages
+	
+			if j.SupplyVoltage != nil {
+	
+				state.SetSupplyVoltageV(j.SupplyVoltage.Value)
+	
+			}
+	
+			if j.BatteryVoltage != nil {
+	
+				state.SetBatteryVoltageV(j.BatteryVoltage.Value)
+	
+			}
+	
+		
+	
+			u.SetState(state)
+	
+			return u
+	
+		}
+	
+		
+	
+		func mapUnitType(t string) maponv1.UnitType {
+	
+			switch strings.ToLower(t) {
+	
+			case "car":
+	
+				return maponv1.UnitType_CAR
+	
+			case "truck":
+	
+				return maponv1.UnitType_TRUCK
+	
+			case "trailer":
+	
+				return maponv1.UnitType_TRAILER
+	
+			case "van":
+	
+				return maponv1.UnitType_VAN
+	
+			case "bus":
+	
+				return maponv1.UnitType_BUS
+	
+			case "tractor":
+	
+				return maponv1.UnitType_TRACTOR
+	
+			default:
+	
+				return maponv1.UnitType_UNIT_TYPE_UNRECOGNIZED
+	
+			}
+	
+		}
+	
+		
+	
+		func mapFuelType(t string) maponv1.FuelType {
+	
+			switch strings.ToUpper(t) {
+	
+			case "P":
+	
+				return maponv1.FuelType_PETROL
+	
+			case "D":
+	
+				return maponv1.FuelType_DIESEL
+	
+			case "G":
+	
+				return maponv1.FuelType_LPG
+	
+			case "E":
+	
+				return maponv1.FuelType_ELECTRIC
+	
+			case "PROPANE":
+	
+				return maponv1.FuelType_PROPANE
+	
+			case "LNG":
+	
+				return maponv1.FuelType_LNG
+	
+			case "CNG":
+	
+				return maponv1.FuelType_CNG
+	
+			case "ETHANOL":
+	
+				return maponv1.FuelType_ETHANOL
+	
+			case "HYDROGEN":
+	
+				return maponv1.FuelType_HYDROGEN
+	
+			case "HYBRID":
+	
+				return maponv1.FuelType_HYBRID
+	
+			case "L":
+	
+				return maponv1.FuelType_AGRICULTURE_FUEL
+	
+			default:
+	
+				return maponv1.FuelType_FUEL_TYPE_UNRECOGNIZED
+	
+			}
+	
+		}
+	
+		
+	
+		func mapMovementStatus(s string) maponv1.MovementStatus {
+	
+			switch strings.ToLower(s) {
+	
+			case "driving":
+	
+				return maponv1.MovementStatus_DRIVING
+	
+			case "standing":
+	
+				return maponv1.MovementStatus_STANDING
+	
+			case "nodata":
+	
+				return maponv1.MovementStatus_NODATA
+	
+			case "nogps":
+	
+				return maponv1.MovementStatus_NOGPS
+	
+			case "service":
+	
+				return maponv1.MovementStatus_SERVICE
+	
+			default:
+	
+				return maponv1.MovementStatus_MOVEMENT_STATUS_UNRECOGNIZED
+	
+			}
+	
+		}

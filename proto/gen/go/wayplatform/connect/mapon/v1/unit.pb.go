@@ -9,6 +9,7 @@ package maponv1
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	unsafe "unsafe"
 )
@@ -22,20 +23,29 @@ const (
 
 // Unit represents a vehicle or tracking unit in the Mapon system.
 type Unit struct {
-	state                       protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_UnitId           int64                  `protobuf:"varint,1,opt,name=unit_id,json=unitId"`
-	xxx_hidden_CompanyId        int64                  `protobuf:"varint,2,opt,name=company_id,json=companyId"`
-	xxx_hidden_Label            *string                `protobuf:"bytes,3,opt,name=label"`
-	xxx_hidden_Number           *string                `protobuf:"bytes,4,opt,name=number"`
-	xxx_hidden_Vin              *string                `protobuf:"bytes,5,opt,name=vin"`
-	xxx_hidden_Type             UnitType               `protobuf:"varint,6,opt,name=type,enum=wayplatform.connect.mapon.v1.UnitType"`
-	xxx_hidden_UnrecognizedType *string                `protobuf:"bytes,7,opt,name=unrecognized_type,json=unrecognizedType"`
-	xxx_hidden_State            *UnitState             `protobuf:"bytes,8,opt,name=state"`
-	xxx_hidden_Device           *Unit_Device           `protobuf:"bytes,9,opt,name=device"`
-	XXX_raceDetectHookData      protoimpl.RaceDetectHookData
-	XXX_presence                [1]uint32
-	unknownFields               protoimpl.UnknownFields
-	sizeCache                   protoimpl.SizeCache
+	state                           protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_UnitId               int64                  `protobuf:"varint,1,opt,name=unit_id,json=unitId"`
+	xxx_hidden_CompanyId            int64                  `protobuf:"varint,2,opt,name=company_id,json=companyId"`
+	xxx_hidden_Label                *string                `protobuf:"bytes,3,opt,name=label"`
+	xxx_hidden_Number               *string                `protobuf:"bytes,4,opt,name=number"`
+	xxx_hidden_Vin                  *string                `protobuf:"bytes,5,opt,name=vin"`
+	xxx_hidden_Type                 UnitType               `protobuf:"varint,6,opt,name=type,enum=wayplatform.connect.mapon.v1.UnitType"`
+	xxx_hidden_UnrecognizedType     *string                `protobuf:"bytes,7,opt,name=unrecognized_type,json=unrecognizedType"`
+	xxx_hidden_State                *UnitState             `protobuf:"bytes,8,opt,name=state"`
+	xxx_hidden_Device               *Unit_Device           `protobuf:"bytes,9,opt,name=device"`
+	xxx_hidden_CountryCode          *string                `protobuf:"bytes,10,opt,name=country_code,json=countryCode"`
+	xxx_hidden_CreatedAt            *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=created_at,json=createdAt"`
+	xxx_hidden_BoxId                int64                  `protobuf:"varint,12,opt,name=box_id,json=boxId"`
+	xxx_hidden_Icon                 *string                `protobuf:"bytes,13,opt,name=icon"`
+	xxx_hidden_VehicleTitle         *string                `protobuf:"bytes,14,opt,name=vehicle_title,json=vehicleTitle"`
+	xxx_hidden_CarRegCertificate    *string                `protobuf:"bytes,15,opt,name=car_reg_certificate,json=carRegCertificate"`
+	xxx_hidden_RegCountry           *string                `protobuf:"bytes,16,opt,name=reg_country,json=regCountry"`
+	xxx_hidden_FuelType             FuelType               `protobuf:"varint,17,opt,name=fuel_type,json=fuelType,enum=wayplatform.connect.mapon.v1.FuelType"`
+	xxx_hidden_UnrecognizedFuelType *string                `protobuf:"bytes,18,opt,name=unrecognized_fuel_type,json=unrecognizedFuelType"`
+	XXX_raceDetectHookData          protoimpl.RaceDetectHookData
+	XXX_presence                    [1]uint32
+	unknownFields                   protoimpl.UnknownFields
+	sizeCache                       protoimpl.SizeCache
 }
 
 func (x *Unit) Reset() {
@@ -140,39 +150,122 @@ func (x *Unit) GetDevice() *Unit_Device {
 	return nil
 }
 
+func (x *Unit) GetCountryCode() string {
+	if x != nil {
+		if x.xxx_hidden_CountryCode != nil {
+			return *x.xxx_hidden_CountryCode
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.xxx_hidden_CreatedAt
+	}
+	return nil
+}
+
+func (x *Unit) GetBoxId() int64 {
+	if x != nil {
+		return x.xxx_hidden_BoxId
+	}
+	return 0
+}
+
+func (x *Unit) GetIcon() string {
+	if x != nil {
+		if x.xxx_hidden_Icon != nil {
+			return *x.xxx_hidden_Icon
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit) GetVehicleTitle() string {
+	if x != nil {
+		if x.xxx_hidden_VehicleTitle != nil {
+			return *x.xxx_hidden_VehicleTitle
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit) GetCarRegCertificate() string {
+	if x != nil {
+		if x.xxx_hidden_CarRegCertificate != nil {
+			return *x.xxx_hidden_CarRegCertificate
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit) GetRegCountry() string {
+	if x != nil {
+		if x.xxx_hidden_RegCountry != nil {
+			return *x.xxx_hidden_RegCountry
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit) GetFuelType() FuelType {
+	if x != nil {
+		if protoimpl.X.Present(&(x.XXX_presence[0]), 16) {
+			return x.xxx_hidden_FuelType
+		}
+	}
+	return FuelType_FUEL_TYPE_UNSPECIFIED
+}
+
+func (x *Unit) GetUnrecognizedFuelType() string {
+	if x != nil {
+		if x.xxx_hidden_UnrecognizedFuelType != nil {
+			return *x.xxx_hidden_UnrecognizedFuelType
+		}
+		return ""
+	}
+	return ""
+}
+
 func (x *Unit) SetUnitId(v int64) {
 	x.xxx_hidden_UnitId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 18)
 }
 
 func (x *Unit) SetCompanyId(v int64) {
 	x.xxx_hidden_CompanyId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 18)
 }
 
 func (x *Unit) SetLabel(v string) {
 	x.xxx_hidden_Label = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 18)
 }
 
 func (x *Unit) SetNumber(v string) {
 	x.xxx_hidden_Number = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 18)
 }
 
 func (x *Unit) SetVin(v string) {
 	x.xxx_hidden_Vin = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 18)
 }
 
 func (x *Unit) SetType(v UnitType) {
 	x.xxx_hidden_Type = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 18)
 }
 
 func (x *Unit) SetUnrecognizedType(v string) {
 	x.xxx_hidden_UnrecognizedType = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 9)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 18)
 }
 
 func (x *Unit) SetState(v *UnitState) {
@@ -181,6 +274,50 @@ func (x *Unit) SetState(v *UnitState) {
 
 func (x *Unit) SetDevice(v *Unit_Device) {
 	x.xxx_hidden_Device = v
+}
+
+func (x *Unit) SetCountryCode(v string) {
+	x.xxx_hidden_CountryCode = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 18)
+}
+
+func (x *Unit) SetCreatedAt(v *timestamppb.Timestamp) {
+	x.xxx_hidden_CreatedAt = v
+}
+
+func (x *Unit) SetBoxId(v int64) {
+	x.xxx_hidden_BoxId = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 11, 18)
+}
+
+func (x *Unit) SetIcon(v string) {
+	x.xxx_hidden_Icon = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 12, 18)
+}
+
+func (x *Unit) SetVehicleTitle(v string) {
+	x.xxx_hidden_VehicleTitle = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 13, 18)
+}
+
+func (x *Unit) SetCarRegCertificate(v string) {
+	x.xxx_hidden_CarRegCertificate = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 14, 18)
+}
+
+func (x *Unit) SetRegCountry(v string) {
+	x.xxx_hidden_RegCountry = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 15, 18)
+}
+
+func (x *Unit) SetFuelType(v FuelType) {
+	x.xxx_hidden_FuelType = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 16, 18)
+}
+
+func (x *Unit) SetUnrecognizedFuelType(v string) {
+	x.xxx_hidden_UnrecognizedFuelType = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 17, 18)
 }
 
 func (x *Unit) HasUnitId() bool {
@@ -246,6 +383,69 @@ func (x *Unit) HasDevice() bool {
 	return x.xxx_hidden_Device != nil
 }
 
+func (x *Unit) HasCountryCode() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 9)
+}
+
+func (x *Unit) HasCreatedAt() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_CreatedAt != nil
+}
+
+func (x *Unit) HasBoxId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 11)
+}
+
+func (x *Unit) HasIcon() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 12)
+}
+
+func (x *Unit) HasVehicleTitle() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 13)
+}
+
+func (x *Unit) HasCarRegCertificate() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 14)
+}
+
+func (x *Unit) HasRegCountry() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 15)
+}
+
+func (x *Unit) HasFuelType() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 16)
+}
+
+func (x *Unit) HasUnrecognizedFuelType() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 17)
+}
+
 func (x *Unit) ClearUnitId() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_UnitId = 0
@@ -289,6 +489,50 @@ func (x *Unit) ClearDevice() {
 	x.xxx_hidden_Device = nil
 }
 
+func (x *Unit) ClearCountryCode() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 9)
+	x.xxx_hidden_CountryCode = nil
+}
+
+func (x *Unit) ClearCreatedAt() {
+	x.xxx_hidden_CreatedAt = nil
+}
+
+func (x *Unit) ClearBoxId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 11)
+	x.xxx_hidden_BoxId = 0
+}
+
+func (x *Unit) ClearIcon() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 12)
+	x.xxx_hidden_Icon = nil
+}
+
+func (x *Unit) ClearVehicleTitle() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 13)
+	x.xxx_hidden_VehicleTitle = nil
+}
+
+func (x *Unit) ClearCarRegCertificate() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 14)
+	x.xxx_hidden_CarRegCertificate = nil
+}
+
+func (x *Unit) ClearRegCountry() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 15)
+	x.xxx_hidden_RegCountry = nil
+}
+
+func (x *Unit) ClearFuelType() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 16)
+	x.xxx_hidden_FuelType = FuelType_FUEL_TYPE_UNSPECIFIED
+}
+
+func (x *Unit) ClearUnrecognizedFuelType() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 17)
+	x.xxx_hidden_UnrecognizedFuelType = nil
+}
+
 type Unit_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -311,6 +555,25 @@ type Unit_builder struct {
 	State *UnitState
 	// Device associated with the unit.
 	Device *Unit_Device
+	// Country code (ISO 3166-1 alpha-2).
+	CountryCode *string
+	// Timestamp when the unit was created.
+	CreatedAt *timestamppb.Timestamp
+	// Identifier of the tracking box/device (if available directly).
+	BoxId *int64
+	// Icon name associated with the unit.
+	Icon *string
+	// Vehicle title.
+	VehicleTitle *string
+	// Car registration certificate number.
+	CarRegCertificate *string
+	// Registration country.
+	RegCountry *string
+	// Fuel type.
+	FuelType *FuelType
+	// The raw string value of the fuel type if it is not one of the known FuelType enum values.
+	// This field is populated only when 'fuel_type' is FUEL_TYPE_UNRECOGNIZED.
+	UnrecognizedFuelType *string
 }
 
 func (b0 Unit_builder) Build() *Unit {
@@ -318,35 +581,68 @@ func (b0 Unit_builder) Build() *Unit {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.UnitId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 18)
 		x.xxx_hidden_UnitId = *b.UnitId
 	}
 	if b.CompanyId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 18)
 		x.xxx_hidden_CompanyId = *b.CompanyId
 	}
 	if b.Label != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 18)
 		x.xxx_hidden_Label = b.Label
 	}
 	if b.Number != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 18)
 		x.xxx_hidden_Number = b.Number
 	}
 	if b.Vin != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 18)
 		x.xxx_hidden_Vin = b.Vin
 	}
 	if b.Type != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 18)
 		x.xxx_hidden_Type = *b.Type
 	}
 	if b.UnrecognizedType != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 9)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 18)
 		x.xxx_hidden_UnrecognizedType = b.UnrecognizedType
 	}
 	x.xxx_hidden_State = b.State
 	x.xxx_hidden_Device = b.Device
+	if b.CountryCode != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 18)
+		x.xxx_hidden_CountryCode = b.CountryCode
+	}
+	x.xxx_hidden_CreatedAt = b.CreatedAt
+	if b.BoxId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 11, 18)
+		x.xxx_hidden_BoxId = *b.BoxId
+	}
+	if b.Icon != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 12, 18)
+		x.xxx_hidden_Icon = b.Icon
+	}
+	if b.VehicleTitle != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 13, 18)
+		x.xxx_hidden_VehicleTitle = b.VehicleTitle
+	}
+	if b.CarRegCertificate != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 14, 18)
+		x.xxx_hidden_CarRegCertificate = b.CarRegCertificate
+	}
+	if b.RegCountry != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 15, 18)
+		x.xxx_hidden_RegCountry = b.RegCountry
+	}
+	if b.FuelType != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 16, 18)
+		x.xxx_hidden_FuelType = *b.FuelType
+	}
+	if b.UnrecognizedFuelType != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 17, 18)
+		x.xxx_hidden_UnrecognizedFuelType = b.UnrecognizedFuelType
+	}
 	return m0
 }
 
@@ -499,7 +795,7 @@ var File_wayplatform_connect_mapon_v1_unit_proto protoreflect.FileDescriptor
 
 const file_wayplatform_connect_mapon_v1_unit_proto_rawDesc = "" +
 	"\n" +
-	"'wayplatform/connect/mapon/v1/unit.proto\x12\x1cwayplatform.connect.mapon.v1\x1a-wayplatform/connect/mapon/v1/unit_state.proto\x1a,wayplatform/connect/mapon/v1/unit_type.proto\"\xc9\x03\n" +
+	"'wayplatform/connect/mapon/v1/unit.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a,wayplatform/connect/mapon/v1/fuel_type.proto\x1a-wayplatform/connect/mapon/v1/unit_state.proto\x1a,wayplatform/connect/mapon/v1/unit_type.proto\"\xc3\x06\n" +
 	"\x04Unit\x12\x17\n" +
 	"\aunit_id\x18\x01 \x01(\x03R\x06unitId\x12\x1d\n" +
 	"\n" +
@@ -510,7 +806,19 @@ const file_wayplatform_connect_mapon_v1_unit_proto_rawDesc = "" +
 	"\x04type\x18\x06 \x01(\x0e2&.wayplatform.connect.mapon.v1.UnitTypeR\x04type\x12+\n" +
 	"\x11unrecognized_type\x18\a \x01(\tR\x10unrecognizedType\x12=\n" +
 	"\x05state\x18\b \x01(\v2'.wayplatform.connect.mapon.v1.UnitStateR\x05state\x12A\n" +
-	"\x06device\x18\t \x01(\v2).wayplatform.connect.mapon.v1.Unit.DeviceR\x06device\x1a^\n" +
+	"\x06device\x18\t \x01(\v2).wayplatform.connect.mapon.v1.Unit.DeviceR\x06device\x12!\n" +
+	"\fcountry_code\x18\n" +
+	" \x01(\tR\vcountryCode\x129\n" +
+	"\n" +
+	"created_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x15\n" +
+	"\x06box_id\x18\f \x01(\x03R\x05boxId\x12\x12\n" +
+	"\x04icon\x18\r \x01(\tR\x04icon\x12#\n" +
+	"\rvehicle_title\x18\x0e \x01(\tR\fvehicleTitle\x12.\n" +
+	"\x13car_reg_certificate\x18\x0f \x01(\tR\x11carRegCertificate\x12\x1f\n" +
+	"\vreg_country\x18\x10 \x01(\tR\n" +
+	"regCountry\x12C\n" +
+	"\tfuel_type\x18\x11 \x01(\x0e2&.wayplatform.connect.mapon.v1.FuelTypeR\bfuelType\x124\n" +
+	"\x16unrecognized_fuel_type\x18\x12 \x01(\tR\x14unrecognizedFuelType\x1a^\n" +
 	"\x06Device\x12\x1b\n" +
 	"\tdevice_id\x18\x01 \x01(\x03R\bdeviceId\x12#\n" +
 	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\x12\x12\n" +
@@ -519,20 +827,24 @@ const file_wayplatform_connect_mapon_v1_unit_proto_rawDesc = "" +
 
 var file_wayplatform_connect_mapon_v1_unit_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_wayplatform_connect_mapon_v1_unit_proto_goTypes = []any{
-	(*Unit)(nil),        // 0: wayplatform.connect.mapon.v1.Unit
-	(*Unit_Device)(nil), // 1: wayplatform.connect.mapon.v1.Unit.Device
-	(UnitType)(0),       // 2: wayplatform.connect.mapon.v1.UnitType
-	(*UnitState)(nil),   // 3: wayplatform.connect.mapon.v1.UnitState
+	(*Unit)(nil),                  // 0: wayplatform.connect.mapon.v1.Unit
+	(*Unit_Device)(nil),           // 1: wayplatform.connect.mapon.v1.Unit.Device
+	(UnitType)(0),                 // 2: wayplatform.connect.mapon.v1.UnitType
+	(*UnitState)(nil),             // 3: wayplatform.connect.mapon.v1.UnitState
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(FuelType)(0),                 // 5: wayplatform.connect.mapon.v1.FuelType
 }
 var file_wayplatform_connect_mapon_v1_unit_proto_depIdxs = []int32{
 	2, // 0: wayplatform.connect.mapon.v1.Unit.type:type_name -> wayplatform.connect.mapon.v1.UnitType
 	3, // 1: wayplatform.connect.mapon.v1.Unit.state:type_name -> wayplatform.connect.mapon.v1.UnitState
 	1, // 2: wayplatform.connect.mapon.v1.Unit.device:type_name -> wayplatform.connect.mapon.v1.Unit.Device
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	4, // 3: wayplatform.connect.mapon.v1.Unit.created_at:type_name -> google.protobuf.Timestamp
+	5, // 4: wayplatform.connect.mapon.v1.Unit.fuel_type:type_name -> wayplatform.connect.mapon.v1.FuelType
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_wayplatform_connect_mapon_v1_unit_proto_init() }
@@ -540,6 +852,7 @@ func file_wayplatform_connect_mapon_v1_unit_proto_init() {
 	if File_wayplatform_connect_mapon_v1_unit_proto != nil {
 		return
 	}
+	file_wayplatform_connect_mapon_v1_fuel_type_proto_init()
 	file_wayplatform_connect_mapon_v1_unit_state_proto_init()
 	file_wayplatform_connect_mapon_v1_unit_type_proto_init()
 	type x struct{}

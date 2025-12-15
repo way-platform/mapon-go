@@ -1,0 +1,35 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// FuelType represents the type of fuel used by a unit.
+enum FuelType {
+  // Default value, used when the fuel type is missing or not set.
+  FUEL_TYPE_UNSPECIFIED = 0;
+  // Used when the received value does not match any known enum member.
+  FUEL_TYPE_UNRECOGNIZED = 1;
+  // Petrol (Benzine).
+  PETROL = 2;
+  // Diesel.
+  DIESEL = 3;
+  // LPG (Liquefied Petroleum Gas).
+  LPG = 4;
+  // Electric.
+  ELECTRIC = 5;
+  // Propane.
+  PROPANE = 6;
+  // LNG (Liquefied Natural Gas).
+  LNG = 7;
+  // CNG (Compressed Natural Gas).
+  CNG = 8;
+  // Ethanol.
+  ETHANOL = 9;
+  // Hydrogen.
+  HYDROGEN = 10;
+  // Hybrid.
+  HYBRID = 11;
+  // Agriculture fuel.
+  AGRICULTURE_FUEL = 12;
+}

@@ -1,0 +1,23 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// MovementStatus represents the current movement or operational state of a unit.
+enum MovementStatus {
+  // Default value, used when the status is missing or not set.
+  MOVEMENT_STATUS_UNSPECIFIED = 0;
+  // Used when the received value does not match any known enum member.
+  MOVEMENT_STATUS_UNRECOGNIZED = 1;
+  // Unit is moving.
+  DRIVING = 2;
+  // Unit is stationary.
+  STANDING = 3;
+  // No data is being received from the unit.
+  NODATA = 4;
+  // Unit is sending data but has no valid GPS fix.
+  NOGPS = 5;
+  // Unit is in service mode.
+  SERVICE = 6;
+}

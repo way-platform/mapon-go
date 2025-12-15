@@ -24,21 +24,24 @@ const (
 // UnitState represents the dynamic telemetry data of a unit at a specific point in time.
 // This message is used for both the current state of a unit and historical snapshots (e.g., route start/end).
 type UnitState struct {
-	state                             protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_Time                   *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=time"`
-	xxx_hidden_Location               *Location              `protobuf:"bytes,2,opt,name=location"`
-	xxx_hidden_SpeedKmh               int32                  `protobuf:"varint,3,opt,name=speed_kmh,json=speedKmh"`
-	xxx_hidden_DirectionDeg           int32                  `protobuf:"varint,4,opt,name=direction_deg,json=directionDeg"`
-	xxx_hidden_OdometerM              int64                  `protobuf:"varint,5,opt,name=odometer_m,json=odometerM"`
-	xxx_hidden_IgnitionTotalDurationS int64                  `protobuf:"varint,6,opt,name=ignition_total_duration_s,json=ignitionTotalDurationS"`
-	xxx_hidden_MovementStatus         *string                `protobuf:"bytes,7,opt,name=movement_status,json=movementStatus"`
-	xxx_hidden_FuelLevelL             float64                `protobuf:"fixed64,8,opt,name=fuel_level_l,json=fuelLevelL"`
-	xxx_hidden_SupplyVoltageV         float64                `protobuf:"fixed64,9,opt,name=supply_voltage_v,json=supplyVoltageV"`
-	xxx_hidden_BatteryVoltageV        float64                `protobuf:"fixed64,10,opt,name=battery_voltage_v,json=batteryVoltageV"`
-	XXX_raceDetectHookData            protoimpl.RaceDetectHookData
-	XXX_presence                      [1]uint32
-	unknownFields                     protoimpl.UnknownFields
-	sizeCache                         protoimpl.SizeCache
+	state                                 protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Time                       *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=time"`
+	xxx_hidden_Location                   *Location              `protobuf:"bytes,2,opt,name=location"`
+	xxx_hidden_SpeedKmh                   int32                  `protobuf:"varint,3,opt,name=speed_kmh,json=speedKmh"`
+	xxx_hidden_DirectionDeg               int32                  `protobuf:"varint,4,opt,name=direction_deg,json=directionDeg"`
+	xxx_hidden_OdometerM                  int64                  `protobuf:"varint,5,opt,name=odometer_m,json=odometerM"`
+	xxx_hidden_IgnitionTotalDurationS     int64                  `protobuf:"varint,6,opt,name=ignition_total_duration_s,json=ignitionTotalDurationS"`
+	xxx_hidden_MovementStatus             MovementStatus         `protobuf:"varint,7,opt,name=movement_status,json=movementStatus,enum=wayplatform.connect.mapon.v1.MovementStatus"`
+	xxx_hidden_UnrecognizedMovementStatus *string                `protobuf:"bytes,13,opt,name=unrecognized_movement_status,json=unrecognizedMovementStatus"`
+	xxx_hidden_FuelLevelL                 float64                `protobuf:"fixed64,8,opt,name=fuel_level_l,json=fuelLevelL"`
+	xxx_hidden_SupplyVoltageV             float64                `protobuf:"fixed64,9,opt,name=supply_voltage_v,json=supplyVoltageV"`
+	xxx_hidden_BatteryVoltageV            float64                `protobuf:"fixed64,10,opt,name=battery_voltage_v,json=batteryVoltageV"`
+	xxx_hidden_StartTime                  *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=start_time,json=startTime"`
+	xxx_hidden_DurationS                  int64                  `protobuf:"varint,12,opt,name=duration_s,json=durationS"`
+	XXX_raceDetectHookData                protoimpl.RaceDetectHookData
+	XXX_presence                          [1]uint32
+	unknownFields                         protoimpl.UnknownFields
+	sizeCache                             protoimpl.SizeCache
 }
 
 func (x *UnitState) Reset() {
@@ -108,10 +111,19 @@ func (x *UnitState) GetIgnitionTotalDurationS() int64 {
 	return 0
 }
 
-func (x *UnitState) GetMovementStatus() string {
+func (x *UnitState) GetMovementStatus() MovementStatus {
 	if x != nil {
-		if x.xxx_hidden_MovementStatus != nil {
-			return *x.xxx_hidden_MovementStatus
+		if protoimpl.X.Present(&(x.XXX_presence[0]), 6) {
+			return x.xxx_hidden_MovementStatus
+		}
+	}
+	return MovementStatus_MOVEMENT_STATUS_UNSPECIFIED
+}
+
+func (x *UnitState) GetUnrecognizedMovementStatus() string {
+	if x != nil {
+		if x.xxx_hidden_UnrecognizedMovementStatus != nil {
+			return *x.xxx_hidden_UnrecognizedMovementStatus
 		}
 		return ""
 	}
@@ -139,6 +151,20 @@ func (x *UnitState) GetBatteryVoltageV() float64 {
 	return 0
 }
 
+func (x *UnitState) GetStartTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.xxx_hidden_StartTime
+	}
+	return nil
+}
+
+func (x *UnitState) GetDurationS() int64 {
+	if x != nil {
+		return x.xxx_hidden_DurationS
+	}
+	return 0
+}
+
 func (x *UnitState) SetTime(v *timestamppb.Timestamp) {
 	x.xxx_hidden_Time = v
 }
@@ -149,42 +175,56 @@ func (x *UnitState) SetLocation(v *Location) {
 
 func (x *UnitState) SetSpeedKmh(v int32) {
 	x.xxx_hidden_SpeedKmh = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 13)
 }
 
 func (x *UnitState) SetDirectionDeg(v int32) {
 	x.xxx_hidden_DirectionDeg = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 13)
 }
 
 func (x *UnitState) SetOdometerM(v int64) {
 	x.xxx_hidden_OdometerM = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 13)
 }
 
 func (x *UnitState) SetIgnitionTotalDurationS(v int64) {
 	x.xxx_hidden_IgnitionTotalDurationS = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 13)
 }
 
-func (x *UnitState) SetMovementStatus(v string) {
-	x.xxx_hidden_MovementStatus = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 10)
+func (x *UnitState) SetMovementStatus(v MovementStatus) {
+	x.xxx_hidden_MovementStatus = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 13)
+}
+
+func (x *UnitState) SetUnrecognizedMovementStatus(v string) {
+	x.xxx_hidden_UnrecognizedMovementStatus = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 13)
 }
 
 func (x *UnitState) SetFuelLevelL(v float64) {
 	x.xxx_hidden_FuelLevelL = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 13)
 }
 
 func (x *UnitState) SetSupplyVoltageV(v float64) {
 	x.xxx_hidden_SupplyVoltageV = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 8, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 13)
 }
 
 func (x *UnitState) SetBatteryVoltageV(v float64) {
 	x.xxx_hidden_BatteryVoltageV = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 10)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 10, 13)
+}
+
+func (x *UnitState) SetStartTime(v *timestamppb.Timestamp) {
+	x.xxx_hidden_StartTime = v
+}
+
+func (x *UnitState) SetDurationS(v int64) {
+	x.xxx_hidden_DurationS = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 12, 13)
 }
 
 func (x *UnitState) HasTime() bool {
@@ -236,25 +276,46 @@ func (x *UnitState) HasMovementStatus() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
 }
 
-func (x *UnitState) HasFuelLevelL() bool {
+func (x *UnitState) HasUnrecognizedMovementStatus() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
 }
 
-func (x *UnitState) HasSupplyVoltageV() bool {
+func (x *UnitState) HasFuelLevelL() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 8)
 }
 
-func (x *UnitState) HasBatteryVoltageV() bool {
+func (x *UnitState) HasSupplyVoltageV() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 9)
+}
+
+func (x *UnitState) HasBatteryVoltageV() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 10)
+}
+
+func (x *UnitState) HasStartTime() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_StartTime != nil
+}
+
+func (x *UnitState) HasDurationS() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 12)
 }
 
 func (x *UnitState) ClearTime() {
@@ -287,22 +348,36 @@ func (x *UnitState) ClearIgnitionTotalDurationS() {
 
 func (x *UnitState) ClearMovementStatus() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
-	x.xxx_hidden_MovementStatus = nil
+	x.xxx_hidden_MovementStatus = MovementStatus_MOVEMENT_STATUS_UNSPECIFIED
+}
+
+func (x *UnitState) ClearUnrecognizedMovementStatus() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_UnrecognizedMovementStatus = nil
 }
 
 func (x *UnitState) ClearFuelLevelL() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
 	x.xxx_hidden_FuelLevelL = 0
 }
 
 func (x *UnitState) ClearSupplyVoltageV() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 8)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 9)
 	x.xxx_hidden_SupplyVoltageV = 0
 }
 
 func (x *UnitState) ClearBatteryVoltageV() {
-	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 9)
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 10)
 	x.xxx_hidden_BatteryVoltageV = 0
+}
+
+func (x *UnitState) ClearStartTime() {
+	x.xxx_hidden_StartTime = nil
+}
+
+func (x *UnitState) ClearDurationS() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 12)
+	x.xxx_hidden_DurationS = 0
 }
 
 type UnitState_builder struct {
@@ -322,8 +397,10 @@ type UnitState_builder struct {
 	// Total time the ignition has been on in seconds.
 	IgnitionTotalDurationS *int64
 	// Current movement status.
-	// Common values: "driving", "standing", "nodata", "nogps", "service".
-	MovementStatus *string
+	MovementStatus *MovementStatus
+	// The raw string value of the movement status if it is not one of the known MovementStatus enum values.
+	// This field is populated only when 'movement_status' is MOVEMENT_STATUS_UNRECOGNIZED.
+	UnrecognizedMovementStatus *string
 	// Fuel level in liters.
 	// Note: If unit's consumption is kg/100km, this might represent kg.
 	FuelLevelL *float64
@@ -331,6 +408,10 @@ type UnitState_builder struct {
 	SupplyVoltageV *float64
 	// Battery voltage in volts.
 	BatteryVoltageV *float64
+	// Timestamp when this state started (e.g., when the unit started moving or standing).
+	StartTime *timestamppb.Timestamp
+	// Duration of this state in seconds.
+	DurationS *int64
 }
 
 func (b0 UnitState_builder) Build() *UnitState {
@@ -340,36 +421,45 @@ func (b0 UnitState_builder) Build() *UnitState {
 	x.xxx_hidden_Time = b.Time
 	x.xxx_hidden_Location = b.Location
 	if b.SpeedKmh != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 13)
 		x.xxx_hidden_SpeedKmh = *b.SpeedKmh
 	}
 	if b.DirectionDeg != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 13)
 		x.xxx_hidden_DirectionDeg = *b.DirectionDeg
 	}
 	if b.OdometerM != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 13)
 		x.xxx_hidden_OdometerM = *b.OdometerM
 	}
 	if b.IgnitionTotalDurationS != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 13)
 		x.xxx_hidden_IgnitionTotalDurationS = *b.IgnitionTotalDurationS
 	}
 	if b.MovementStatus != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 10)
-		x.xxx_hidden_MovementStatus = b.MovementStatus
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 13)
+		x.xxx_hidden_MovementStatus = *b.MovementStatus
+	}
+	if b.UnrecognizedMovementStatus != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 13)
+		x.xxx_hidden_UnrecognizedMovementStatus = b.UnrecognizedMovementStatus
 	}
 	if b.FuelLevelL != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 13)
 		x.xxx_hidden_FuelLevelL = *b.FuelLevelL
 	}
 	if b.SupplyVoltageV != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 8, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 13)
 		x.xxx_hidden_SupplyVoltageV = *b.SupplyVoltageV
 	}
 	if b.BatteryVoltageV != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 10)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 10, 13)
 		x.xxx_hidden_BatteryVoltageV = *b.BatteryVoltageV
+	}
+	x.xxx_hidden_StartTime = b.StartTime
+	if b.DurationS != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 12, 13)
+		x.xxx_hidden_DurationS = *b.DurationS
 	}
 	return m0
 }
@@ -378,7 +468,7 @@ var File_wayplatform_connect_mapon_v1_unit_state_proto protoreflect.FileDescript
 
 const file_wayplatform_connect_mapon_v1_unit_state_proto_rawDesc = "" +
 	"\n" +
-	"-wayplatform/connect/mapon/v1/unit_state.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\"\xbc\x03\n" +
+	"-wayplatform/connect/mapon/v1/unit_state.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\x1a2wayplatform/connect/mapon/v1/movement_status.proto\"\x86\x05\n" +
 	"\tUnitState\x12.\n" +
 	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\x12B\n" +
 	"\blocation\x18\x02 \x01(\v2&.wayplatform.connect.mapon.v1.LocationR\blocation\x12\x1b\n" +
@@ -386,13 +476,18 @@ const file_wayplatform_connect_mapon_v1_unit_state_proto_rawDesc = "" +
 	"\rdirection_deg\x18\x04 \x01(\x05R\fdirectionDeg\x12\x1d\n" +
 	"\n" +
 	"odometer_m\x18\x05 \x01(\x03R\todometerM\x129\n" +
-	"\x19ignition_total_duration_s\x18\x06 \x01(\x03R\x16ignitionTotalDurationS\x12'\n" +
-	"\x0fmovement_status\x18\a \x01(\tR\x0emovementStatus\x12 \n" +
+	"\x19ignition_total_duration_s\x18\x06 \x01(\x03R\x16ignitionTotalDurationS\x12U\n" +
+	"\x0fmovement_status\x18\a \x01(\x0e2,.wayplatform.connect.mapon.v1.MovementStatusR\x0emovementStatus\x12@\n" +
+	"\x1cunrecognized_movement_status\x18\r \x01(\tR\x1aunrecognizedMovementStatus\x12 \n" +
 	"\ffuel_level_l\x18\b \x01(\x01R\n" +
 	"fuelLevelL\x12(\n" +
 	"\x10supply_voltage_v\x18\t \x01(\x01R\x0esupplyVoltageV\x12*\n" +
 	"\x11battery_voltage_v\x18\n" +
-	" \x01(\x01R\x0fbatteryVoltageVB\x99\x02\n" +
+	" \x01(\x01R\x0fbatteryVoltageV\x129\n" +
+	"\n" +
+	"start_time\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x12\x1d\n" +
+	"\n" +
+	"duration_s\x18\f \x01(\x03R\tdurationSB\x99\x02\n" +
 	" com.wayplatform.connect.mapon.v1B\x0eUnitStateProtoP\x01ZRgithub.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1\xa2\x02\x03WCM\xaa\x02\x1cWayplatform.Connect.Mapon.V1\xca\x02\x1cWayplatform\\Connect\\Mapon\\V1\xe2\x02(Wayplatform\\Connect\\Mapon\\V1\\GPBMetadata\xea\x02\x1fWayplatform::Connect::Mapon::V1b\beditionsp\xe8\a"
 
 var file_wayplatform_connect_mapon_v1_unit_state_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
@@ -400,15 +495,18 @@ var file_wayplatform_connect_mapon_v1_unit_state_proto_goTypes = []any{
 	(*UnitState)(nil),             // 0: wayplatform.connect.mapon.v1.UnitState
 	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 	(*Location)(nil),              // 2: wayplatform.connect.mapon.v1.Location
+	(MovementStatus)(0),           // 3: wayplatform.connect.mapon.v1.MovementStatus
 }
 var file_wayplatform_connect_mapon_v1_unit_state_proto_depIdxs = []int32{
 	1, // 0: wayplatform.connect.mapon.v1.UnitState.time:type_name -> google.protobuf.Timestamp
 	2, // 1: wayplatform.connect.mapon.v1.UnitState.location:type_name -> wayplatform.connect.mapon.v1.Location
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	3, // 2: wayplatform.connect.mapon.v1.UnitState.movement_status:type_name -> wayplatform.connect.mapon.v1.MovementStatus
+	1, // 3: wayplatform.connect.mapon.v1.UnitState.start_time:type_name -> google.protobuf.Timestamp
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_wayplatform_connect_mapon_v1_unit_state_proto_init() }
@@ -417,6 +515,7 @@ func file_wayplatform_connect_mapon_v1_unit_state_proto_init() {
 		return
 	}
 	file_wayplatform_connect_mapon_v1_common_proto_init()
+	file_wayplatform_connect_mapon_v1_movement_status_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
