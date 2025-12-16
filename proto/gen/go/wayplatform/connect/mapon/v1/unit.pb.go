@@ -23,25 +23,33 @@ const (
 
 // Unit represents a vehicle or tracking unit in the Mapon system.
 type Unit struct {
-	state                           protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_UnitId               int64                  `protobuf:"varint,1,opt,name=unit_id,json=unitId"`
-	xxx_hidden_CompanyId            int64                  `protobuf:"varint,2,opt,name=company_id,json=companyId"`
-	xxx_hidden_Label                *string                `protobuf:"bytes,3,opt,name=label"`
-	xxx_hidden_Number               *string                `protobuf:"bytes,4,opt,name=number"`
-	xxx_hidden_Vin                  *string                `protobuf:"bytes,5,opt,name=vin"`
-	xxx_hidden_Type                 UnitType               `protobuf:"varint,6,opt,name=type,enum=wayplatform.connect.mapon.v1.UnitType"`
-	xxx_hidden_UnrecognizedType     *string                `protobuf:"bytes,7,opt,name=unrecognized_type,json=unrecognizedType"`
-	xxx_hidden_State                *UnitState             `protobuf:"bytes,8,opt,name=state"`
-	xxx_hidden_Device               *Unit_Device           `protobuf:"bytes,9,opt,name=device"`
-	xxx_hidden_CountryCode          *string                `protobuf:"bytes,10,opt,name=country_code,json=countryCode"`
-	xxx_hidden_CreatedAt            *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=created_at,json=createdAt"`
-	xxx_hidden_BoxId                int64                  `protobuf:"varint,12,opt,name=box_id,json=boxId"`
-	xxx_hidden_Icon                 *string                `protobuf:"bytes,13,opt,name=icon"`
-	xxx_hidden_VehicleTitle         *string                `protobuf:"bytes,14,opt,name=vehicle_title,json=vehicleTitle"`
-	xxx_hidden_CarRegCertificate    *string                `protobuf:"bytes,15,opt,name=car_reg_certificate,json=carRegCertificate"`
-	xxx_hidden_RegCountry           *string                `protobuf:"bytes,16,opt,name=reg_country,json=regCountry"`
-	xxx_hidden_FuelType             FuelType               `protobuf:"varint,17,opt,name=fuel_type,json=fuelType,enum=wayplatform.connect.mapon.v1.FuelType"`
-	xxx_hidden_UnrecognizedFuelType *string                `protobuf:"bytes,18,opt,name=unrecognized_fuel_type,json=unrecognizedFuelType"`
+	state                           protoimpl.MessageState  `protogen:"opaque.v1"`
+	xxx_hidden_UnitId               int64                   `protobuf:"varint,1,opt,name=unit_id,json=unitId"`
+	xxx_hidden_CompanyId            int64                   `protobuf:"varint,2,opt,name=company_id,json=companyId"`
+	xxx_hidden_Label                *string                 `protobuf:"bytes,3,opt,name=label"`
+	xxx_hidden_Number               *string                 `protobuf:"bytes,4,opt,name=number"`
+	xxx_hidden_Vin                  *string                 `protobuf:"bytes,5,opt,name=vin"`
+	xxx_hidden_Type                 UnitType                `protobuf:"varint,6,opt,name=type,enum=wayplatform.connect.mapon.v1.UnitType"`
+	xxx_hidden_UnrecognizedType     *string                 `protobuf:"bytes,7,opt,name=unrecognized_type,json=unrecognizedType"`
+	xxx_hidden_State                *UnitState              `protobuf:"bytes,8,opt,name=state"`
+	xxx_hidden_Device               *Unit_Device            `protobuf:"bytes,9,opt,name=device"`
+	xxx_hidden_CountryCode          *string                 `protobuf:"bytes,10,opt,name=country_code,json=countryCode"`
+	xxx_hidden_CreatedAt            *timestamppb.Timestamp  `protobuf:"bytes,11,opt,name=created_at,json=createdAt"`
+	xxx_hidden_BoxId                int64                   `protobuf:"varint,12,opt,name=box_id,json=boxId"`
+	xxx_hidden_Icon                 *string                 `protobuf:"bytes,13,opt,name=icon"`
+	xxx_hidden_VehicleTitle         *string                 `protobuf:"bytes,14,opt,name=vehicle_title,json=vehicleTitle"`
+	xxx_hidden_CarRegCertificate    *string                 `protobuf:"bytes,15,opt,name=car_reg_certificate,json=carRegCertificate"`
+	xxx_hidden_RegCountry           *string                 `protobuf:"bytes,16,opt,name=reg_country,json=regCountry"`
+	xxx_hidden_FuelType             FuelType                `protobuf:"varint,17,opt,name=fuel_type,json=fuelType,enum=wayplatform.connect.mapon.v1.FuelType"`
+	xxx_hidden_UnrecognizedFuelType *string                 `protobuf:"bytes,18,opt,name=unrecognized_fuel_type,json=unrecognizedFuelType"`
+	xxx_hidden_Shortcut             *string                 `protobuf:"bytes,19,opt,name=shortcut"`
+	xxx_hidden_AvgFuelConsumption   *Unit_FuelConsumption   `protobuf:"bytes,20,opt,name=avg_fuel_consumption,json=avgFuelConsumption"`
+	xxx_hidden_FuelTank             *Unit_FuelTank          `protobuf:"bytes,21,opt,name=fuel_tank,json=fuelTank"`
+	xxx_hidden_TechnicalDetails     *Unit_TechnicalDetails  `protobuf:"bytes,22,opt,name=technical_details,json=technicalDetails"`
+	xxx_hidden_MovementState        *Unit_MovementState     `protobuf:"bytes,23,opt,name=movement_state,json=movementState"`
+	xxx_hidden_Connected            *Unit_ConnectedTrailer  `protobuf:"bytes,24,opt,name=connected"`
+	xxx_hidden_InObjects            *[]*Unit_ObjectLocation `protobuf:"bytes,25,rep,name=in_objects,json=inObjects"`
+	xxx_hidden_SavedValues          *[]*Unit_SavedValue     `protobuf:"bytes,26,rep,name=saved_values,json=savedValues"`
 	XXX_raceDetectHookData          protoimpl.RaceDetectHookData
 	XXX_presence                    [1]uint32
 	unknownFields                   protoimpl.UnknownFields
@@ -233,39 +241,102 @@ func (x *Unit) GetUnrecognizedFuelType() string {
 	return ""
 }
 
+func (x *Unit) GetShortcut() string {
+	if x != nil {
+		if x.xxx_hidden_Shortcut != nil {
+			return *x.xxx_hidden_Shortcut
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit) GetAvgFuelConsumption() *Unit_FuelConsumption {
+	if x != nil {
+		return x.xxx_hidden_AvgFuelConsumption
+	}
+	return nil
+}
+
+func (x *Unit) GetFuelTank() *Unit_FuelTank {
+	if x != nil {
+		return x.xxx_hidden_FuelTank
+	}
+	return nil
+}
+
+func (x *Unit) GetTechnicalDetails() *Unit_TechnicalDetails {
+	if x != nil {
+		return x.xxx_hidden_TechnicalDetails
+	}
+	return nil
+}
+
+func (x *Unit) GetMovementState() *Unit_MovementState {
+	if x != nil {
+		return x.xxx_hidden_MovementState
+	}
+	return nil
+}
+
+func (x *Unit) GetConnected() *Unit_ConnectedTrailer {
+	if x != nil {
+		return x.xxx_hidden_Connected
+	}
+	return nil
+}
+
+func (x *Unit) GetInObjects() []*Unit_ObjectLocation {
+	if x != nil {
+		if x.xxx_hidden_InObjects != nil {
+			return *x.xxx_hidden_InObjects
+		}
+	}
+	return nil
+}
+
+func (x *Unit) GetSavedValues() []*Unit_SavedValue {
+	if x != nil {
+		if x.xxx_hidden_SavedValues != nil {
+			return *x.xxx_hidden_SavedValues
+		}
+	}
+	return nil
+}
+
 func (x *Unit) SetUnitId(v int64) {
 	x.xxx_hidden_UnitId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 26)
 }
 
 func (x *Unit) SetCompanyId(v int64) {
 	x.xxx_hidden_CompanyId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 26)
 }
 
 func (x *Unit) SetLabel(v string) {
 	x.xxx_hidden_Label = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 26)
 }
 
 func (x *Unit) SetNumber(v string) {
 	x.xxx_hidden_Number = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 26)
 }
 
 func (x *Unit) SetVin(v string) {
 	x.xxx_hidden_Vin = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 26)
 }
 
 func (x *Unit) SetType(v UnitType) {
 	x.xxx_hidden_Type = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 26)
 }
 
 func (x *Unit) SetUnrecognizedType(v string) {
 	x.xxx_hidden_UnrecognizedType = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 26)
 }
 
 func (x *Unit) SetState(v *UnitState) {
@@ -278,7 +349,7 @@ func (x *Unit) SetDevice(v *Unit_Device) {
 
 func (x *Unit) SetCountryCode(v string) {
 	x.xxx_hidden_CountryCode = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 9, 26)
 }
 
 func (x *Unit) SetCreatedAt(v *timestamppb.Timestamp) {
@@ -287,37 +358,70 @@ func (x *Unit) SetCreatedAt(v *timestamppb.Timestamp) {
 
 func (x *Unit) SetBoxId(v int64) {
 	x.xxx_hidden_BoxId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 11, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 11, 26)
 }
 
 func (x *Unit) SetIcon(v string) {
 	x.xxx_hidden_Icon = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 12, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 12, 26)
 }
 
 func (x *Unit) SetVehicleTitle(v string) {
 	x.xxx_hidden_VehicleTitle = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 13, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 13, 26)
 }
 
 func (x *Unit) SetCarRegCertificate(v string) {
 	x.xxx_hidden_CarRegCertificate = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 14, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 14, 26)
 }
 
 func (x *Unit) SetRegCountry(v string) {
 	x.xxx_hidden_RegCountry = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 15, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 15, 26)
 }
 
 func (x *Unit) SetFuelType(v FuelType) {
 	x.xxx_hidden_FuelType = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 16, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 16, 26)
 }
 
 func (x *Unit) SetUnrecognizedFuelType(v string) {
 	x.xxx_hidden_UnrecognizedFuelType = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 17, 18)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 17, 26)
+}
+
+func (x *Unit) SetShortcut(v string) {
+	x.xxx_hidden_Shortcut = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 18, 26)
+}
+
+func (x *Unit) SetAvgFuelConsumption(v *Unit_FuelConsumption) {
+	x.xxx_hidden_AvgFuelConsumption = v
+}
+
+func (x *Unit) SetFuelTank(v *Unit_FuelTank) {
+	x.xxx_hidden_FuelTank = v
+}
+
+func (x *Unit) SetTechnicalDetails(v *Unit_TechnicalDetails) {
+	x.xxx_hidden_TechnicalDetails = v
+}
+
+func (x *Unit) SetMovementState(v *Unit_MovementState) {
+	x.xxx_hidden_MovementState = v
+}
+
+func (x *Unit) SetConnected(v *Unit_ConnectedTrailer) {
+	x.xxx_hidden_Connected = v
+}
+
+func (x *Unit) SetInObjects(v []*Unit_ObjectLocation) {
+	x.xxx_hidden_InObjects = &v
+}
+
+func (x *Unit) SetSavedValues(v []*Unit_SavedValue) {
+	x.xxx_hidden_SavedValues = &v
 }
 
 func (x *Unit) HasUnitId() bool {
@@ -446,6 +550,48 @@ func (x *Unit) HasUnrecognizedFuelType() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 17)
 }
 
+func (x *Unit) HasShortcut() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 18)
+}
+
+func (x *Unit) HasAvgFuelConsumption() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_AvgFuelConsumption != nil
+}
+
+func (x *Unit) HasFuelTank() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_FuelTank != nil
+}
+
+func (x *Unit) HasTechnicalDetails() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_TechnicalDetails != nil
+}
+
+func (x *Unit) HasMovementState() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_MovementState != nil
+}
+
+func (x *Unit) HasConnected() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Connected != nil
+}
+
 func (x *Unit) ClearUnitId() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_UnitId = 0
@@ -533,6 +679,31 @@ func (x *Unit) ClearUnrecognizedFuelType() {
 	x.xxx_hidden_UnrecognizedFuelType = nil
 }
 
+func (x *Unit) ClearShortcut() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 18)
+	x.xxx_hidden_Shortcut = nil
+}
+
+func (x *Unit) ClearAvgFuelConsumption() {
+	x.xxx_hidden_AvgFuelConsumption = nil
+}
+
+func (x *Unit) ClearFuelTank() {
+	x.xxx_hidden_FuelTank = nil
+}
+
+func (x *Unit) ClearTechnicalDetails() {
+	x.xxx_hidden_TechnicalDetails = nil
+}
+
+func (x *Unit) ClearMovementState() {
+	x.xxx_hidden_MovementState = nil
+}
+
+func (x *Unit) ClearConnected() {
+	x.xxx_hidden_Connected = nil
+}
+
 type Unit_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -574,6 +745,22 @@ type Unit_builder struct {
 	// The raw string value of the fuel type if it is not one of the known FuelType enum values.
 	// This field is populated only when 'fuel_type' is FUEL_TYPE_UNRECOGNIZED.
 	UnrecognizedFuelType *string
+	// Unit shortcut identifier.
+	Shortcut *string
+	// Average fuel consumption information.
+	AvgFuelConsumption *Unit_FuelConsumption
+	// Fuel tank capacity information.
+	FuelTank *Unit_FuelTank
+	// Vehicle technical details.
+	TechnicalDetails *Unit_TechnicalDetails
+	// Movement state information (separate from the main state).
+	MovementState *Unit_MovementState
+	// Connected trailer information.
+	Connected *Unit_ConnectedTrailer
+	// Objects where the unit is currently located.
+	InObjects []*Unit_ObjectLocation
+	// Saved values from mappings.
+	SavedValues []*Unit_SavedValue
 }
 
 func (b0 Unit_builder) Build() *Unit {
@@ -581,68 +768,79 @@ func (b0 Unit_builder) Build() *Unit {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.UnitId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 26)
 		x.xxx_hidden_UnitId = *b.UnitId
 	}
 	if b.CompanyId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 26)
 		x.xxx_hidden_CompanyId = *b.CompanyId
 	}
 	if b.Label != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 26)
 		x.xxx_hidden_Label = b.Label
 	}
 	if b.Number != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 26)
 		x.xxx_hidden_Number = b.Number
 	}
 	if b.Vin != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 26)
 		x.xxx_hidden_Vin = b.Vin
 	}
 	if b.Type != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 26)
 		x.xxx_hidden_Type = *b.Type
 	}
 	if b.UnrecognizedType != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 26)
 		x.xxx_hidden_UnrecognizedType = b.UnrecognizedType
 	}
 	x.xxx_hidden_State = b.State
 	x.xxx_hidden_Device = b.Device
 	if b.CountryCode != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 9, 26)
 		x.xxx_hidden_CountryCode = b.CountryCode
 	}
 	x.xxx_hidden_CreatedAt = b.CreatedAt
 	if b.BoxId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 11, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 11, 26)
 		x.xxx_hidden_BoxId = *b.BoxId
 	}
 	if b.Icon != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 12, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 12, 26)
 		x.xxx_hidden_Icon = b.Icon
 	}
 	if b.VehicleTitle != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 13, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 13, 26)
 		x.xxx_hidden_VehicleTitle = b.VehicleTitle
 	}
 	if b.CarRegCertificate != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 14, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 14, 26)
 		x.xxx_hidden_CarRegCertificate = b.CarRegCertificate
 	}
 	if b.RegCountry != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 15, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 15, 26)
 		x.xxx_hidden_RegCountry = b.RegCountry
 	}
 	if b.FuelType != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 16, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 16, 26)
 		x.xxx_hidden_FuelType = *b.FuelType
 	}
 	if b.UnrecognizedFuelType != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 17, 18)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 17, 26)
 		x.xxx_hidden_UnrecognizedFuelType = b.UnrecognizedFuelType
 	}
+	if b.Shortcut != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 18, 26)
+		x.xxx_hidden_Shortcut = b.Shortcut
+	}
+	x.xxx_hidden_AvgFuelConsumption = b.AvgFuelConsumption
+	x.xxx_hidden_FuelTank = b.FuelTank
+	x.xxx_hidden_TechnicalDetails = b.TechnicalDetails
+	x.xxx_hidden_MovementState = b.MovementState
+	x.xxx_hidden_Connected = b.Connected
+	x.xxx_hidden_InObjects = &b.InObjects
+	x.xxx_hidden_SavedValues = &b.SavedValues
 	return m0
 }
 
@@ -652,6 +850,7 @@ type Unit_Device struct {
 	xxx_hidden_DeviceId     int64                  `protobuf:"varint,1,opt,name=device_id,json=deviceId"`
 	xxx_hidden_SerialNumber *string                `protobuf:"bytes,2,opt,name=serial_number,json=serialNumber"`
 	xxx_hidden_Imei         *string                `protobuf:"bytes,3,opt,name=imei"`
+	xxx_hidden_Sim          *string                `protobuf:"bytes,4,opt,name=sim"`
 	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
 	XXX_presence            [1]uint32
 	unknownFields           protoimpl.UnknownFields
@@ -710,19 +909,34 @@ func (x *Unit_Device) GetImei() string {
 	return ""
 }
 
+func (x *Unit_Device) GetSim() string {
+	if x != nil {
+		if x.xxx_hidden_Sim != nil {
+			return *x.xxx_hidden_Sim
+		}
+		return ""
+	}
+	return ""
+}
+
 func (x *Unit_Device) SetDeviceId(v int64) {
 	x.xxx_hidden_DeviceId = v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 4)
 }
 
 func (x *Unit_Device) SetSerialNumber(v string) {
 	x.xxx_hidden_SerialNumber = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 4)
 }
 
 func (x *Unit_Device) SetImei(v string) {
 	x.xxx_hidden_Imei = &v
-	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 4)
+}
+
+func (x *Unit_Device) SetSim(v string) {
+	x.xxx_hidden_Sim = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 4)
 }
 
 func (x *Unit_Device) HasDeviceId() bool {
@@ -746,6 +960,13 @@ func (x *Unit_Device) HasImei() bool {
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
 }
 
+func (x *Unit_Device) HasSim() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
 func (x *Unit_Device) ClearDeviceId() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
 	x.xxx_hidden_DeviceId = 0
@@ -761,6 +982,11 @@ func (x *Unit_Device) ClearImei() {
 	x.xxx_hidden_Imei = nil
 }
 
+func (x *Unit_Device) ClearSim() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_Sim = nil
+}
+
 type Unit_Device_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
@@ -770,6 +996,8 @@ type Unit_Device_builder struct {
 	SerialNumber *string
 	// IMEI (International Mobile Equipment Identity) of the device.
 	Imei *string
+	// SIM card number.
+	Sim *string
 }
 
 func (b0 Unit_Device_builder) Build() *Unit_Device {
@@ -777,17 +1005,1201 @@ func (b0 Unit_Device_builder) Build() *Unit_Device {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.DeviceId != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 4)
 		x.xxx_hidden_DeviceId = *b.DeviceId
 	}
 	if b.SerialNumber != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 4)
 		x.xxx_hidden_SerialNumber = b.SerialNumber
 	}
 	if b.Imei != nil {
-		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 4)
 		x.xxx_hidden_Imei = b.Imei
 	}
+	if b.Sim != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 4)
+		x.xxx_hidden_Sim = b.Sim
+	}
+	return m0
+}
+
+// FuelConsumption represents average fuel consumption data.
+type Unit_FuelConsumption struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Norm        float64                `protobuf:"fixed64,1,opt,name=norm"`
+	xxx_hidden_Measurement *string                `protobuf:"bytes,2,opt,name=measurement"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Unit_FuelConsumption) Reset() {
+	*x = Unit_FuelConsumption{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_FuelConsumption) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_FuelConsumption) ProtoMessage() {}
+
+func (x *Unit_FuelConsumption) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_FuelConsumption) GetNorm() float64 {
+	if x != nil {
+		return x.xxx_hidden_Norm
+	}
+	return 0
+}
+
+func (x *Unit_FuelConsumption) GetMeasurement() string {
+	if x != nil {
+		if x.xxx_hidden_Measurement != nil {
+			return *x.xxx_hidden_Measurement
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_FuelConsumption) SetNorm(v float64) {
+	x.xxx_hidden_Norm = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *Unit_FuelConsumption) SetMeasurement(v string) {
+	x.xxx_hidden_Measurement = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *Unit_FuelConsumption) HasNorm() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_FuelConsumption) HasMeasurement() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Unit_FuelConsumption) ClearNorm() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Norm = 0
+}
+
+func (x *Unit_FuelConsumption) ClearMeasurement() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Measurement = nil
+}
+
+type Unit_FuelConsumption_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Normal consumption value.
+	Norm *float64
+	// Measurement unit (e.g., "l/100km", "l/h", "kg/100km").
+	Measurement *string
+}
+
+func (b0 Unit_FuelConsumption_builder) Build() *Unit_FuelConsumption {
+	m0 := &Unit_FuelConsumption{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Norm != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_Norm = *b.Norm
+	}
+	if b.Measurement != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Measurement = b.Measurement
+	}
+	return m0
+}
+
+// FuelTank represents fuel tank capacity information.
+type Unit_FuelTank struct {
+	state                   protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_TotalVolL    float64                `protobuf:"fixed64,1,opt,name=total_vol_l,json=totalVolL"`
+	xxx_hidden_TankVolumesL map[int32]float64      `protobuf:"bytes,2,rep,name=tank_volumes_l,json=tankVolumesL" protobuf_key:"varint,1,opt,name=key" protobuf_val:"fixed64,2,opt,name=value"`
+	XXX_raceDetectHookData  protoimpl.RaceDetectHookData
+	XXX_presence            [1]uint32
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
+}
+
+func (x *Unit_FuelTank) Reset() {
+	*x = Unit_FuelTank{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_FuelTank) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_FuelTank) ProtoMessage() {}
+
+func (x *Unit_FuelTank) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_FuelTank) GetTotalVolL() float64 {
+	if x != nil {
+		return x.xxx_hidden_TotalVolL
+	}
+	return 0
+}
+
+func (x *Unit_FuelTank) GetTankVolumesL() map[int32]float64 {
+	if x != nil {
+		return x.xxx_hidden_TankVolumesL
+	}
+	return nil
+}
+
+func (x *Unit_FuelTank) SetTotalVolL(v float64) {
+	x.xxx_hidden_TotalVolL = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *Unit_FuelTank) SetTankVolumesL(v map[int32]float64) {
+	x.xxx_hidden_TankVolumesL = v
+}
+
+func (x *Unit_FuelTank) HasTotalVolL() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_FuelTank) ClearTotalVolL() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_TotalVolL = 0
+}
+
+type Unit_FuelTank_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Total volume of all tanks in liters.
+	TotalVolL *float64
+	// Individual tank volumes (tank index -> volume in liters).
+	TankVolumesL map[int32]float64
+}
+
+func (b0 Unit_FuelTank_builder) Build() *Unit_FuelTank {
+	m0 := &Unit_FuelTank{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.TotalVolL != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_TotalVolL = *b.TotalVolL
+	}
+	x.xxx_hidden_TankVolumesL = b.TankVolumesL
+	return m0
+}
+
+// TechnicalDetails represents vehicle technical information.
+type Unit_TechnicalDetails struct {
+	state                          protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_StageClassification *string                `protobuf:"bytes,1,opt,name=stage_classification,json=stageClassification"`
+	xxx_hidden_EmissionClass       *string                `protobuf:"bytes,2,opt,name=emission_class,json=emissionClass"`
+	xxx_hidden_GrossWeightKg       int64                  `protobuf:"varint,3,opt,name=gross_weight_kg,json=grossWeightKg"`
+	xxx_hidden_MakeYear            *string                `protobuf:"bytes,4,opt,name=make_year,json=makeYear"`
+	xxx_hidden_MakeMonth           *string                `protobuf:"bytes,5,opt,name=make_month,json=makeMonth"`
+	xxx_hidden_PowerPs             int32                  `protobuf:"varint,6,opt,name=power_ps,json=powerPs"`
+	xxx_hidden_PowerKw             int32                  `protobuf:"varint,7,opt,name=power_kw,json=powerKw"`
+	xxx_hidden_CubicCapacityL      float64                `protobuf:"fixed64,8,opt,name=cubic_capacity_l,json=cubicCapacityL"`
+	xxx_hidden_Co2Emissions        *Unit_CO2Emissions     `protobuf:"bytes,9,opt,name=co2_emissions,json=co2Emissions"`
+	XXX_raceDetectHookData         protoimpl.RaceDetectHookData
+	XXX_presence                   [1]uint32
+	unknownFields                  protoimpl.UnknownFields
+	sizeCache                      protoimpl.SizeCache
+}
+
+func (x *Unit_TechnicalDetails) Reset() {
+	*x = Unit_TechnicalDetails{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_TechnicalDetails) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_TechnicalDetails) ProtoMessage() {}
+
+func (x *Unit_TechnicalDetails) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_TechnicalDetails) GetStageClassification() string {
+	if x != nil {
+		if x.xxx_hidden_StageClassification != nil {
+			return *x.xxx_hidden_StageClassification
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_TechnicalDetails) GetEmissionClass() string {
+	if x != nil {
+		if x.xxx_hidden_EmissionClass != nil {
+			return *x.xxx_hidden_EmissionClass
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_TechnicalDetails) GetGrossWeightKg() int64 {
+	if x != nil {
+		return x.xxx_hidden_GrossWeightKg
+	}
+	return 0
+}
+
+func (x *Unit_TechnicalDetails) GetMakeYear() string {
+	if x != nil {
+		if x.xxx_hidden_MakeYear != nil {
+			return *x.xxx_hidden_MakeYear
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_TechnicalDetails) GetMakeMonth() string {
+	if x != nil {
+		if x.xxx_hidden_MakeMonth != nil {
+			return *x.xxx_hidden_MakeMonth
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_TechnicalDetails) GetPowerPs() int32 {
+	if x != nil {
+		return x.xxx_hidden_PowerPs
+	}
+	return 0
+}
+
+func (x *Unit_TechnicalDetails) GetPowerKw() int32 {
+	if x != nil {
+		return x.xxx_hidden_PowerKw
+	}
+	return 0
+}
+
+func (x *Unit_TechnicalDetails) GetCubicCapacityL() float64 {
+	if x != nil {
+		return x.xxx_hidden_CubicCapacityL
+	}
+	return 0
+}
+
+func (x *Unit_TechnicalDetails) GetCo2Emissions() *Unit_CO2Emissions {
+	if x != nil {
+		return x.xxx_hidden_Co2Emissions
+	}
+	return nil
+}
+
+func (x *Unit_TechnicalDetails) SetStageClassification(v string) {
+	x.xxx_hidden_StageClassification = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetEmissionClass(v string) {
+	x.xxx_hidden_EmissionClass = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetGrossWeightKg(v int64) {
+	x.xxx_hidden_GrossWeightKg = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetMakeYear(v string) {
+	x.xxx_hidden_MakeYear = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 3, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetMakeMonth(v string) {
+	x.xxx_hidden_MakeMonth = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 4, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetPowerPs(v int32) {
+	x.xxx_hidden_PowerPs = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 5, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetPowerKw(v int32) {
+	x.xxx_hidden_PowerKw = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 6, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetCubicCapacityL(v float64) {
+	x.xxx_hidden_CubicCapacityL = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 7, 9)
+}
+
+func (x *Unit_TechnicalDetails) SetCo2Emissions(v *Unit_CO2Emissions) {
+	x.xxx_hidden_Co2Emissions = v
+}
+
+func (x *Unit_TechnicalDetails) HasStageClassification() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_TechnicalDetails) HasEmissionClass() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Unit_TechnicalDetails) HasGrossWeightKg() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *Unit_TechnicalDetails) HasMakeYear() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 3)
+}
+
+func (x *Unit_TechnicalDetails) HasMakeMonth() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 4)
+}
+
+func (x *Unit_TechnicalDetails) HasPowerPs() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 5)
+}
+
+func (x *Unit_TechnicalDetails) HasPowerKw() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 6)
+}
+
+func (x *Unit_TechnicalDetails) HasCubicCapacityL() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 7)
+}
+
+func (x *Unit_TechnicalDetails) HasCo2Emissions() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Co2Emissions != nil
+}
+
+func (x *Unit_TechnicalDetails) ClearStageClassification() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_StageClassification = nil
+}
+
+func (x *Unit_TechnicalDetails) ClearEmissionClass() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_EmissionClass = nil
+}
+
+func (x *Unit_TechnicalDetails) ClearGrossWeightKg() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_GrossWeightKg = 0
+}
+
+func (x *Unit_TechnicalDetails) ClearMakeYear() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 3)
+	x.xxx_hidden_MakeYear = nil
+}
+
+func (x *Unit_TechnicalDetails) ClearMakeMonth() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 4)
+	x.xxx_hidden_MakeMonth = nil
+}
+
+func (x *Unit_TechnicalDetails) ClearPowerPs() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 5)
+	x.xxx_hidden_PowerPs = 0
+}
+
+func (x *Unit_TechnicalDetails) ClearPowerKw() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 6)
+	x.xxx_hidden_PowerKw = 0
+}
+
+func (x *Unit_TechnicalDetails) ClearCubicCapacityL() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 7)
+	x.xxx_hidden_CubicCapacityL = 0
+}
+
+func (x *Unit_TechnicalDetails) ClearCo2Emissions() {
+	x.xxx_hidden_Co2Emissions = nil
+}
+
+type Unit_TechnicalDetails_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Stage classification (e.g., "Stage2").
+	StageClassification *string
+	// Emission class (e.g., "Euro1", "Euro6").
+	EmissionClass *string
+	// Gross weight in kilograms.
+	GrossWeightKg *int64
+	// Manufacturing year.
+	MakeYear *string
+	// Manufacturing month.
+	MakeMonth *string
+	// Power in PS (Pferdestärke).
+	PowerPs *int32
+	// Power in kilowatts.
+	PowerKw *int32
+	// Cubic capacity in liters.
+	CubicCapacityL *float64
+	// CO2 emissions information.
+	Co2Emissions *Unit_CO2Emissions
+}
+
+func (b0 Unit_TechnicalDetails_builder) Build() *Unit_TechnicalDetails {
+	m0 := &Unit_TechnicalDetails{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.StageClassification != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 9)
+		x.xxx_hidden_StageClassification = b.StageClassification
+	}
+	if b.EmissionClass != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 9)
+		x.xxx_hidden_EmissionClass = b.EmissionClass
+	}
+	if b.GrossWeightKg != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 9)
+		x.xxx_hidden_GrossWeightKg = *b.GrossWeightKg
+	}
+	if b.MakeYear != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 3, 9)
+		x.xxx_hidden_MakeYear = b.MakeYear
+	}
+	if b.MakeMonth != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 4, 9)
+		x.xxx_hidden_MakeMonth = b.MakeMonth
+	}
+	if b.PowerPs != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 5, 9)
+		x.xxx_hidden_PowerPs = *b.PowerPs
+	}
+	if b.PowerKw != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 6, 9)
+		x.xxx_hidden_PowerKw = *b.PowerKw
+	}
+	if b.CubicCapacityL != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 7, 9)
+		x.xxx_hidden_CubicCapacityL = *b.CubicCapacityL
+	}
+	x.xxx_hidden_Co2Emissions = b.Co2Emissions
+	return m0
+}
+
+// CO2Emissions represents CO2 emission data.
+type Unit_CO2Emissions struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Value       *string                `protobuf:"bytes,1,opt,name=value"`
+	xxx_hidden_Metrics     *string                `protobuf:"bytes,2,opt,name=metrics"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Unit_CO2Emissions) Reset() {
+	*x = Unit_CO2Emissions{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_CO2Emissions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_CO2Emissions) ProtoMessage() {}
+
+func (x *Unit_CO2Emissions) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_CO2Emissions) GetValue() string {
+	if x != nil {
+		if x.xxx_hidden_Value != nil {
+			return *x.xxx_hidden_Value
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_CO2Emissions) GetMetrics() string {
+	if x != nil {
+		if x.xxx_hidden_Metrics != nil {
+			return *x.xxx_hidden_Metrics
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_CO2Emissions) SetValue(v string) {
+	x.xxx_hidden_Value = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *Unit_CO2Emissions) SetMetrics(v string) {
+	x.xxx_hidden_Metrics = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *Unit_CO2Emissions) HasValue() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_CO2Emissions) HasMetrics() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Unit_CO2Emissions) ClearValue() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Value = nil
+}
+
+func (x *Unit_CO2Emissions) ClearMetrics() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Metrics = nil
+}
+
+type Unit_CO2Emissions_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Emission value.
+	Value *string
+	// Metrics unit (e.g., "g/km").
+	Metrics *string
+}
+
+func (b0 Unit_CO2Emissions_builder) Build() *Unit_CO2Emissions {
+	m0 := &Unit_CO2Emissions{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Value != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_Value = b.Value
+	}
+	if b.Metrics != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Metrics = b.Metrics
+	}
+	return m0
+}
+
+// MovementState represents movement state information.
+type Unit_MovementState struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,1,opt,name=name"`
+	xxx_hidden_Start       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=start"`
+	xxx_hidden_DurationS   int64                  `protobuf:"varint,3,opt,name=duration_s,json=durationS"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Unit_MovementState) Reset() {
+	*x = Unit_MovementState{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_MovementState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_MovementState) ProtoMessage() {}
+
+func (x *Unit_MovementState) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_MovementState) GetName() string {
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_MovementState) GetStart() *timestamppb.Timestamp {
+	if x != nil {
+		return x.xxx_hidden_Start
+	}
+	return nil
+}
+
+func (x *Unit_MovementState) GetDurationS() int64 {
+	if x != nil {
+		return x.xxx_hidden_DurationS
+	}
+	return 0
+}
+
+func (x *Unit_MovementState) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *Unit_MovementState) SetStart(v *timestamppb.Timestamp) {
+	x.xxx_hidden_Start = v
+}
+
+func (x *Unit_MovementState) SetDurationS(v int64) {
+	x.xxx_hidden_DurationS = v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 2, 3)
+}
+
+func (x *Unit_MovementState) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_MovementState) HasStart() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Start != nil
+}
+
+func (x *Unit_MovementState) HasDurationS() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 2)
+}
+
+func (x *Unit_MovementState) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Name = nil
+}
+
+func (x *Unit_MovementState) ClearStart() {
+	x.xxx_hidden_Start = nil
+}
+
+func (x *Unit_MovementState) ClearDurationS() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 2)
+	x.xxx_hidden_DurationS = 0
+}
+
+type Unit_MovementState_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Movement status name (e.g., "driving", "standing").
+	Name *string
+	// Timestamp when this movement state started.
+	Start *timestamppb.Timestamp
+	// Duration of this movement state in seconds.
+	DurationS *int64
+}
+
+func (b0 Unit_MovementState_builder) Build() *Unit_MovementState {
+	m0 := &Unit_MovementState{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_Name = b.Name
+	}
+	x.xxx_hidden_Start = b.Start
+	if b.DurationS != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 2, 3)
+		x.xxx_hidden_DurationS = *b.DurationS
+	}
+	return m0
+}
+
+// ConnectedTrailer represents information about a connected trailer.
+type Unit_ConnectedTrailer struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_UnitId      *string                `protobuf:"bytes,1,opt,name=unit_id,json=unitId"`
+	xxx_hidden_Type        *string                `protobuf:"bytes,2,opt,name=type"`
+	xxx_hidden_Location    *Location              `protobuf:"bytes,3,opt,name=location"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Unit_ConnectedTrailer) Reset() {
+	*x = Unit_ConnectedTrailer{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_ConnectedTrailer) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_ConnectedTrailer) ProtoMessage() {}
+
+func (x *Unit_ConnectedTrailer) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_ConnectedTrailer) GetUnitId() string {
+	if x != nil {
+		if x.xxx_hidden_UnitId != nil {
+			return *x.xxx_hidden_UnitId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_ConnectedTrailer) GetType() string {
+	if x != nil {
+		if x.xxx_hidden_Type != nil {
+			return *x.xxx_hidden_Type
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_ConnectedTrailer) GetLocation() *Location {
+	if x != nil {
+		return x.xxx_hidden_Location
+	}
+	return nil
+}
+
+func (x *Unit_ConnectedTrailer) SetUnitId(v string) {
+	x.xxx_hidden_UnitId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *Unit_ConnectedTrailer) SetType(v string) {
+	x.xxx_hidden_Type = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *Unit_ConnectedTrailer) SetLocation(v *Location) {
+	x.xxx_hidden_Location = v
+}
+
+func (x *Unit_ConnectedTrailer) HasUnitId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_ConnectedTrailer) HasType() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Unit_ConnectedTrailer) HasLocation() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Location != nil
+}
+
+func (x *Unit_ConnectedTrailer) ClearUnitId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_UnitId = nil
+}
+
+func (x *Unit_ConnectedTrailer) ClearType() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Type = nil
+}
+
+func (x *Unit_ConnectedTrailer) ClearLocation() {
+	x.xxx_hidden_Location = nil
+}
+
+type Unit_ConnectedTrailer_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Unit ID of the connected trailer.
+	UnitId *string
+	// Type of the connected unit (e.g., "trailer").
+	Type *string
+	// Location of the connected trailer.
+	Location *Location
+}
+
+func (b0 Unit_ConnectedTrailer_builder) Build() *Unit_ConnectedTrailer {
+	m0 := &Unit_ConnectedTrailer{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.UnitId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_UnitId = b.UnitId
+	}
+	if b.Type != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_Type = b.Type
+	}
+	x.xxx_hidden_Location = b.Location
+	return m0
+}
+
+// ObjectLocation represents an object where the unit is located.
+type Unit_ObjectLocation struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_ObjectId    *string                `protobuf:"bytes,1,opt,name=object_id,json=objectId"`
+	xxx_hidden_Name        *string                `protobuf:"bytes,2,opt,name=name"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Unit_ObjectLocation) Reset() {
+	*x = Unit_ObjectLocation{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_ObjectLocation) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_ObjectLocation) ProtoMessage() {}
+
+func (x *Unit_ObjectLocation) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_ObjectLocation) GetObjectId() string {
+	if x != nil {
+		if x.xxx_hidden_ObjectId != nil {
+			return *x.xxx_hidden_ObjectId
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_ObjectLocation) GetName() string {
+	if x != nil {
+		if x.xxx_hidden_Name != nil {
+			return *x.xxx_hidden_Name
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_ObjectLocation) SetObjectId(v string) {
+	x.xxx_hidden_ObjectId = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
+}
+
+func (x *Unit_ObjectLocation) SetName(v string) {
+	x.xxx_hidden_Name = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
+}
+
+func (x *Unit_ObjectLocation) HasObjectId() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_ObjectLocation) HasName() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Unit_ObjectLocation) ClearObjectId() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_ObjectId = nil
+}
+
+func (x *Unit_ObjectLocation) ClearName() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Name = nil
+}
+
+type Unit_ObjectLocation_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Object ID.
+	ObjectId *string
+	// Object name.
+	Name *string
+}
+
+func (b0 Unit_ObjectLocation_builder) Build() *Unit_ObjectLocation {
+	m0 := &Unit_ObjectLocation{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.ObjectId != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
+		x.xxx_hidden_ObjectId = b.ObjectId
+	}
+	if b.Name != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
+		x.xxx_hidden_Name = b.Name
+	}
+	return m0
+}
+
+// SavedValue represents a saved value from mappings.
+type Unit_SavedValue struct {
+	state                  protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Key         *string                `protobuf:"bytes,1,opt,name=key"`
+	xxx_hidden_Value       *string                `protobuf:"bytes,2,opt,name=value"`
+	xxx_hidden_Gmt         *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=gmt"`
+	XXX_raceDetectHookData protoimpl.RaceDetectHookData
+	XXX_presence           [1]uint32
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *Unit_SavedValue) Reset() {
+	*x = Unit_SavedValue{}
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Unit_SavedValue) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Unit_SavedValue) ProtoMessage() {}
+
+func (x *Unit_SavedValue) ProtoReflect() protoreflect.Message {
+	mi := &file_wayplatform_connect_mapon_v1_unit_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+func (x *Unit_SavedValue) GetKey() string {
+	if x != nil {
+		if x.xxx_hidden_Key != nil {
+			return *x.xxx_hidden_Key
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_SavedValue) GetValue() string {
+	if x != nil {
+		if x.xxx_hidden_Value != nil {
+			return *x.xxx_hidden_Value
+		}
+		return ""
+	}
+	return ""
+}
+
+func (x *Unit_SavedValue) GetGmt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.xxx_hidden_Gmt
+	}
+	return nil
+}
+
+func (x *Unit_SavedValue) SetKey(v string) {
+	x.xxx_hidden_Key = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 3)
+}
+
+func (x *Unit_SavedValue) SetValue(v string) {
+	x.xxx_hidden_Value = &v
+	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 3)
+}
+
+func (x *Unit_SavedValue) SetGmt(v *timestamppb.Timestamp) {
+	x.xxx_hidden_Gmt = v
+}
+
+func (x *Unit_SavedValue) HasKey() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
+}
+
+func (x *Unit_SavedValue) HasValue() bool {
+	if x == nil {
+		return false
+	}
+	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
+}
+
+func (x *Unit_SavedValue) HasGmt() bool {
+	if x == nil {
+		return false
+	}
+	return x.xxx_hidden_Gmt != nil
+}
+
+func (x *Unit_SavedValue) ClearKey() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
+	x.xxx_hidden_Key = nil
+}
+
+func (x *Unit_SavedValue) ClearValue() {
+	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
+	x.xxx_hidden_Value = nil
+}
+
+func (x *Unit_SavedValue) ClearGmt() {
+	x.xxx_hidden_Gmt = nil
+}
+
+type Unit_SavedValue_builder struct {
+	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
+
+	// Key name.
+	Key *string
+	// Value.
+	Value *string
+	// Timestamp when the value was saved.
+	Gmt *timestamppb.Timestamp
+}
+
+func (b0 Unit_SavedValue_builder) Build() *Unit_SavedValue {
+	m0 := &Unit_SavedValue{}
+	b, x := &b0, m0
+	_, _ = b, x
+	if b.Key != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 3)
+		x.xxx_hidden_Key = b.Key
+	}
+	if b.Value != nil {
+		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 3)
+		x.xxx_hidden_Value = b.Value
+	}
+	x.xxx_hidden_Gmt = b.Gmt
 	return m0
 }
 
@@ -795,7 +2207,7 @@ var File_wayplatform_connect_mapon_v1_unit_proto protoreflect.FileDescriptor
 
 const file_wayplatform_connect_mapon_v1_unit_proto_rawDesc = "" +
 	"\n" +
-	"'wayplatform/connect/mapon/v1/unit.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a,wayplatform/connect/mapon/v1/fuel_type.proto\x1a-wayplatform/connect/mapon/v1/unit_state.proto\x1a,wayplatform/connect/mapon/v1/unit_type.proto\"\xc3\x06\n" +
+	"'wayplatform/connect/mapon/v1/unit.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a)wayplatform/connect/mapon/v1/common.proto\x1a,wayplatform/connect/mapon/v1/fuel_type.proto\x1a-wayplatform/connect/mapon/v1/unit_state.proto\x1a,wayplatform/connect/mapon/v1/unit_type.proto\"\xdb\x14\n" +
 	"\x04Unit\x12\x17\n" +
 	"\aunit_id\x18\x01 \x01(\x03R\x06unitId\x12\x1d\n" +
 	"\n" +
@@ -818,33 +2230,105 @@ const file_wayplatform_connect_mapon_v1_unit_proto_rawDesc = "" +
 	"\vreg_country\x18\x10 \x01(\tR\n" +
 	"regCountry\x12C\n" +
 	"\tfuel_type\x18\x11 \x01(\x0e2&.wayplatform.connect.mapon.v1.FuelTypeR\bfuelType\x124\n" +
-	"\x16unrecognized_fuel_type\x18\x12 \x01(\tR\x14unrecognizedFuelType\x1a^\n" +
+	"\x16unrecognized_fuel_type\x18\x12 \x01(\tR\x14unrecognizedFuelType\x12\x1a\n" +
+	"\bshortcut\x18\x13 \x01(\tR\bshortcut\x12d\n" +
+	"\x14avg_fuel_consumption\x18\x14 \x01(\v22.wayplatform.connect.mapon.v1.Unit.FuelConsumptionR\x12avgFuelConsumption\x12H\n" +
+	"\tfuel_tank\x18\x15 \x01(\v2+.wayplatform.connect.mapon.v1.Unit.FuelTankR\bfuelTank\x12`\n" +
+	"\x11technical_details\x18\x16 \x01(\v23.wayplatform.connect.mapon.v1.Unit.TechnicalDetailsR\x10technicalDetails\x12W\n" +
+	"\x0emovement_state\x18\x17 \x01(\v20.wayplatform.connect.mapon.v1.Unit.MovementStateR\rmovementState\x12Q\n" +
+	"\tconnected\x18\x18 \x01(\v23.wayplatform.connect.mapon.v1.Unit.ConnectedTrailerR\tconnected\x12P\n" +
+	"\n" +
+	"in_objects\x18\x19 \x03(\v21.wayplatform.connect.mapon.v1.Unit.ObjectLocationR\tinObjects\x12P\n" +
+	"\fsaved_values\x18\x1a \x03(\v2-.wayplatform.connect.mapon.v1.Unit.SavedValueR\vsavedValues\x1ap\n" +
 	"\x06Device\x12\x1b\n" +
 	"\tdevice_id\x18\x01 \x01(\x03R\bdeviceId\x12#\n" +
 	"\rserial_number\x18\x02 \x01(\tR\fserialNumber\x12\x12\n" +
-	"\x04imei\x18\x03 \x01(\tR\x04imeiB\x94\x02\n" +
+	"\x04imei\x18\x03 \x01(\tR\x04imei\x12\x10\n" +
+	"\x03sim\x18\x04 \x01(\tR\x03sim\x1aG\n" +
+	"\x0fFuelConsumption\x12\x12\n" +
+	"\x04norm\x18\x01 \x01(\x01R\x04norm\x12 \n" +
+	"\vmeasurement\x18\x02 \x01(\tR\vmeasurement\x1a\xd0\x01\n" +
+	"\bFuelTank\x12\x1e\n" +
+	"\vtotal_vol_l\x18\x01 \x01(\x01R\ttotalVolL\x12c\n" +
+	"\x0etank_volumes_l\x18\x02 \x03(\v2=.wayplatform.connect.mapon.v1.Unit.FuelTank.TankVolumesLEntryR\ftankVolumesL\x1a?\n" +
+	"\x11TankVolumesLEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\x05R\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\x01R\x05value:\x028\x01\x1a\x86\x03\n" +
+	"\x10TechnicalDetails\x121\n" +
+	"\x14stage_classification\x18\x01 \x01(\tR\x13stageClassification\x12%\n" +
+	"\x0eemission_class\x18\x02 \x01(\tR\remissionClass\x12&\n" +
+	"\x0fgross_weight_kg\x18\x03 \x01(\x03R\rgrossWeightKg\x12\x1b\n" +
+	"\tmake_year\x18\x04 \x01(\tR\bmakeYear\x12\x1d\n" +
+	"\n" +
+	"make_month\x18\x05 \x01(\tR\tmakeMonth\x12\x19\n" +
+	"\bpower_ps\x18\x06 \x01(\x05R\apowerPs\x12\x19\n" +
+	"\bpower_kw\x18\a \x01(\x05R\apowerKw\x12(\n" +
+	"\x10cubic_capacity_l\x18\b \x01(\x01R\x0ecubicCapacityL\x12T\n" +
+	"\rco2_emissions\x18\t \x01(\v2/.wayplatform.connect.mapon.v1.Unit.CO2EmissionsR\fco2Emissions\x1a>\n" +
+	"\fCO2Emissions\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\x12\x18\n" +
+	"\ametrics\x18\x02 \x01(\tR\ametrics\x1at\n" +
+	"\rMovementState\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x120\n" +
+	"\x05start\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x05start\x12\x1d\n" +
+	"\n" +
+	"duration_s\x18\x03 \x01(\x03R\tdurationS\x1a\x83\x01\n" +
+	"\x10ConnectedTrailer\x12\x17\n" +
+	"\aunit_id\x18\x01 \x01(\tR\x06unitId\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12B\n" +
+	"\blocation\x18\x03 \x01(\v2&.wayplatform.connect.mapon.v1.LocationR\blocation\x1aA\n" +
+	"\x0eObjectLocation\x12\x1b\n" +
+	"\tobject_id\x18\x01 \x01(\tR\bobjectId\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x1ab\n" +
+	"\n" +
+	"SavedValue\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\x12,\n" +
+	"\x03gmt\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x03gmtB\x94\x02\n" +
 	" com.wayplatform.connect.mapon.v1B\tUnitProtoP\x01ZRgithub.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1\xa2\x02\x03WCM\xaa\x02\x1cWayplatform.Connect.Mapon.V1\xca\x02\x1cWayplatform\\Connect\\Mapon\\V1\xe2\x02(Wayplatform\\Connect\\Mapon\\V1\\GPBMetadata\xea\x02\x1fWayplatform::Connect::Mapon::V1b\beditionsp\xe8\a"
 
-var file_wayplatform_connect_mapon_v1_unit_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_wayplatform_connect_mapon_v1_unit_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_wayplatform_connect_mapon_v1_unit_proto_goTypes = []any{
 	(*Unit)(nil),                  // 0: wayplatform.connect.mapon.v1.Unit
 	(*Unit_Device)(nil),           // 1: wayplatform.connect.mapon.v1.Unit.Device
-	(UnitType)(0),                 // 2: wayplatform.connect.mapon.v1.UnitType
-	(*UnitState)(nil),             // 3: wayplatform.connect.mapon.v1.UnitState
-	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
-	(FuelType)(0),                 // 5: wayplatform.connect.mapon.v1.FuelType
+	(*Unit_FuelConsumption)(nil),  // 2: wayplatform.connect.mapon.v1.Unit.FuelConsumption
+	(*Unit_FuelTank)(nil),         // 3: wayplatform.connect.mapon.v1.Unit.FuelTank
+	(*Unit_TechnicalDetails)(nil), // 4: wayplatform.connect.mapon.v1.Unit.TechnicalDetails
+	(*Unit_CO2Emissions)(nil),     // 5: wayplatform.connect.mapon.v1.Unit.CO2Emissions
+	(*Unit_MovementState)(nil),    // 6: wayplatform.connect.mapon.v1.Unit.MovementState
+	(*Unit_ConnectedTrailer)(nil), // 7: wayplatform.connect.mapon.v1.Unit.ConnectedTrailer
+	(*Unit_ObjectLocation)(nil),   // 8: wayplatform.connect.mapon.v1.Unit.ObjectLocation
+	(*Unit_SavedValue)(nil),       // 9: wayplatform.connect.mapon.v1.Unit.SavedValue
+	nil,                           // 10: wayplatform.connect.mapon.v1.Unit.FuelTank.TankVolumesLEntry
+	(UnitType)(0),                 // 11: wayplatform.connect.mapon.v1.UnitType
+	(*UnitState)(nil),             // 12: wayplatform.connect.mapon.v1.UnitState
+	(*timestamppb.Timestamp)(nil), // 13: google.protobuf.Timestamp
+	(FuelType)(0),                 // 14: wayplatform.connect.mapon.v1.FuelType
+	(*Location)(nil),              // 15: wayplatform.connect.mapon.v1.Location
 }
 var file_wayplatform_connect_mapon_v1_unit_proto_depIdxs = []int32{
-	2, // 0: wayplatform.connect.mapon.v1.Unit.type:type_name -> wayplatform.connect.mapon.v1.UnitType
-	3, // 1: wayplatform.connect.mapon.v1.Unit.state:type_name -> wayplatform.connect.mapon.v1.UnitState
-	1, // 2: wayplatform.connect.mapon.v1.Unit.device:type_name -> wayplatform.connect.mapon.v1.Unit.Device
-	4, // 3: wayplatform.connect.mapon.v1.Unit.created_at:type_name -> google.protobuf.Timestamp
-	5, // 4: wayplatform.connect.mapon.v1.Unit.fuel_type:type_name -> wayplatform.connect.mapon.v1.FuelType
-	5, // [5:5] is the sub-list for method output_type
-	5, // [5:5] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	11, // 0: wayplatform.connect.mapon.v1.Unit.type:type_name -> wayplatform.connect.mapon.v1.UnitType
+	12, // 1: wayplatform.connect.mapon.v1.Unit.state:type_name -> wayplatform.connect.mapon.v1.UnitState
+	1,  // 2: wayplatform.connect.mapon.v1.Unit.device:type_name -> wayplatform.connect.mapon.v1.Unit.Device
+	13, // 3: wayplatform.connect.mapon.v1.Unit.created_at:type_name -> google.protobuf.Timestamp
+	14, // 4: wayplatform.connect.mapon.v1.Unit.fuel_type:type_name -> wayplatform.connect.mapon.v1.FuelType
+	2,  // 5: wayplatform.connect.mapon.v1.Unit.avg_fuel_consumption:type_name -> wayplatform.connect.mapon.v1.Unit.FuelConsumption
+	3,  // 6: wayplatform.connect.mapon.v1.Unit.fuel_tank:type_name -> wayplatform.connect.mapon.v1.Unit.FuelTank
+	4,  // 7: wayplatform.connect.mapon.v1.Unit.technical_details:type_name -> wayplatform.connect.mapon.v1.Unit.TechnicalDetails
+	6,  // 8: wayplatform.connect.mapon.v1.Unit.movement_state:type_name -> wayplatform.connect.mapon.v1.Unit.MovementState
+	7,  // 9: wayplatform.connect.mapon.v1.Unit.connected:type_name -> wayplatform.connect.mapon.v1.Unit.ConnectedTrailer
+	8,  // 10: wayplatform.connect.mapon.v1.Unit.in_objects:type_name -> wayplatform.connect.mapon.v1.Unit.ObjectLocation
+	9,  // 11: wayplatform.connect.mapon.v1.Unit.saved_values:type_name -> wayplatform.connect.mapon.v1.Unit.SavedValue
+	10, // 12: wayplatform.connect.mapon.v1.Unit.FuelTank.tank_volumes_l:type_name -> wayplatform.connect.mapon.v1.Unit.FuelTank.TankVolumesLEntry
+	5,  // 13: wayplatform.connect.mapon.v1.Unit.TechnicalDetails.co2_emissions:type_name -> wayplatform.connect.mapon.v1.Unit.CO2Emissions
+	13, // 14: wayplatform.connect.mapon.v1.Unit.MovementState.start:type_name -> google.protobuf.Timestamp
+	15, // 15: wayplatform.connect.mapon.v1.Unit.ConnectedTrailer.location:type_name -> wayplatform.connect.mapon.v1.Location
+	13, // 16: wayplatform.connect.mapon.v1.Unit.SavedValue.gmt:type_name -> google.protobuf.Timestamp
+	17, // [17:17] is the sub-list for method output_type
+	17, // [17:17] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_wayplatform_connect_mapon_v1_unit_proto_init() }
@@ -852,6 +2336,7 @@ func file_wayplatform_connect_mapon_v1_unit_proto_init() {
 	if File_wayplatform_connect_mapon_v1_unit_proto != nil {
 		return
 	}
+	file_wayplatform_connect_mapon_v1_common_proto_init()
 	file_wayplatform_connect_mapon_v1_fuel_type_proto_init()
 	file_wayplatform_connect_mapon_v1_unit_state_proto_init()
 	file_wayplatform_connect_mapon_v1_unit_type_proto_init()
@@ -861,7 +2346,7 @@ func file_wayplatform_connect_mapon_v1_unit_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wayplatform_connect_mapon_v1_unit_proto_rawDesc), len(file_wayplatform_connect_mapon_v1_unit_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

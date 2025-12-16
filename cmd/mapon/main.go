@@ -106,7 +106,6 @@ func newListUnitsCommand() *cobra.Command {
 		GroupID: "units",
 	}
 	ids := cmd.Flags().StringSlice("id", nil, "Filter by unit ID")
-	include := cmd.Flags().StringSlice("include", nil, "Include additional data (fuel, drivers, location, routes)")
 
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		client, err := newClient(cmd)
@@ -123,7 +122,6 @@ func newListUnitsCommand() *cobra.Command {
 		}
 		response, err := client.ListUnits(cmd.Context(), &mapon.ListUnitsRequest{
 			UnitIDs: unitIDs,
-			Include: *include,
 		})
 		if err != nil {
 			return err
