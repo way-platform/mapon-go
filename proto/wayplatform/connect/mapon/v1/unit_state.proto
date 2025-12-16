@@ -73,4 +73,106 @@ message UnitState {
 
   // Total fuel used lifetime in liters.
   double total_fuel_used_lifetime_l = 20;
+
+  // Timestamp when supply voltage was last updated.
+  google.protobuf.Timestamp supply_voltage_time = 21;
+
+  // Timestamp when battery voltage was last updated.
+  google.protobuf.Timestamp battery_voltage_time = 22;
+
+  // Current ignition state (true if on).
+  bool ignition_state = 23;
+
+  // Timestamp when ignition state was last updated.
+  google.protobuf.Timestamp ignition_time = 24;
+
+  // Ambient temperature in Celsius.
+  double ambient_temperature_c = 25;
+
+  // Timestamp when ambient temperature was last updated.
+  google.protobuf.Timestamp ambient_temperature_time = 26;
+
+  // Debug message from state debug_info.
+  string debug_message = 27;
+
+  // CAN odometer timestamp.
+  google.protobuf.Timestamp can_odometer_time = 28;
+
+  // CAN fuel total timestamp.
+  google.protobuf.Timestamp can_fuel_total_time = 29;
+
+  // CAN engine RPM.
+  double can_engine_rpm = 30;
+
+  // Timestamp when CAN engine RPM was last updated.
+  google.protobuf.Timestamp can_engine_rpm_time = 31;
+
+  // CAN fuel level in liters.
+  double can_fuel_level_l = 32;
+
+  // Timestamp when CAN fuel level was last updated.
+  google.protobuf.Timestamp can_fuel_level_time = 33;
+
+  // CAN engine hours.
+  double can_engine_hours_h = 34;
+
+  // Timestamp when CAN engine hours was last updated.
+  google.protobuf.Timestamp can_engine_hours_time = 35;
+
+  // Axis weights (axis number -> weight data).
+  map<int32, AxisWeight> axis_weights = 36;
+
+  // Powered weight in kilograms.
+  double powered_weight_kg = 37;
+
+  // Timestamp when powered weight was last updated.
+  google.protobuf.Timestamp powered_weight_time = 38;
+
+  // Timestamp when combination weight was last updated.
+  google.protobuf.Timestamp combination_weight_time = 39;
+
+  // Fuel entries with detailed information.
+  repeated FuelEntry fuel_entries = 40;
+
+  // Timestamp when altitude was last updated.
+  google.protobuf.Timestamp altitude_time = 41;
+
+  // EV charger connected state (true if connected).
+  bool ev_charger_connected = 42;
+
+  // Timestamp when EV charger connected state was last updated.
+  google.protobuf.Timestamp ev_charger_connected_time = 43;
+
+  // Timestamp when EV charging state was last updated.
+  google.protobuf.Timestamp ev_charging_time = 44;
+
+  // Timestamp when EV battery SOC percent was last updated.
+  google.protobuf.Timestamp battery_soc_percent_time = 45;
+
+  // Timestamp when EV battery SOC kWh was last updated.
+  google.protobuf.Timestamp battery_soc_kwh_time = 46;
+
+  // AxisWeight represents weight data for a specific axis.
+  message AxisWeight {
+    // Weight value in kilograms.
+    double weight_kg = 1;
+
+    // Timestamp when the weight was measured.
+    google.protobuf.Timestamp time = 2;
+  }
+
+  // FuelEntry represents a fuel level entry with metadata.
+  message FuelEntry {
+    // Fuel type (e.g., "CAN").
+    string type = 1;
+
+    // Metrics unit (e.g., "L", "KG", "pct").
+    string metrics = 2;
+
+    // Fuel value.
+    double value = 3;
+
+    // Timestamp when the fuel level was last updated.
+    google.protobuf.Timestamp last_update = 4;
+  }
 }

@@ -3,6 +3,7 @@ edition = "2023";
 package wayplatform.connect.mapon.v1;
 
 import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
 import "wayplatform/connect/mapon/v1/fuel_type.proto";
 import "wayplatform/connect/mapon/v1/unit_state.proto";
 import "wayplatform/connect/mapon/v1/unit_type.proto";
@@ -67,6 +68,30 @@ message Unit {
   // This field is populated only when 'fuel_type' is FUEL_TYPE_UNRECOGNIZED.
   string unrecognized_fuel_type = 18;
 
+  // Unit shortcut identifier.
+  string shortcut = 19;
+
+  // Average fuel consumption information.
+  FuelConsumption avg_fuel_consumption = 20;
+
+  // Fuel tank capacity information.
+  FuelTank fuel_tank = 21;
+
+  // Vehicle technical details.
+  TechnicalDetails technical_details = 22;
+
+  // Movement state information (separate from the main state).
+  MovementState movement_state = 23;
+
+  // Connected trailer information.
+  ConnectedTrailer connected = 24;
+
+  // Objects where the unit is currently located.
+  repeated ObjectLocation in_objects = 25;
+
+  // Saved values from mappings.
+  repeated SavedValue saved_values = 26;
+
   // Device represents the tracking hardware installed in the unit.
   message Device {
     // Unique identifier of the device.
@@ -77,5 +102,110 @@ message Unit {
 
     // IMEI (International Mobile Equipment Identity) of the device.
     string imei = 3;
+
+    // SIM card number.
+    string sim = 4;
+  }
+
+  // FuelConsumption represents average fuel consumption data.
+  message FuelConsumption {
+    // Normal consumption value.
+    double norm = 1;
+
+    // Measurement unit (e.g., "l/100km", "l/h", "kg/100km").
+    string measurement = 2;
+  }
+
+  // FuelTank represents fuel tank capacity information.
+  message FuelTank {
+    // Total volume of all tanks in liters.
+    double total_vol_l = 1;
+
+    // Individual tank volumes (tank index -> volume in liters).
+    map<int32, double> tank_volumes_l = 2;
+  }
+
+  // TechnicalDetails represents vehicle technical information.
+  message TechnicalDetails {
+    // Stage classification (e.g., "Stage2").
+    string stage_classification = 1;
+
+    // Emission class (e.g., "Euro1", "Euro6").
+    string emission_class = 2;
+
+    // Gross weight in kilograms.
+    int64 gross_weight_kg = 3;
+
+    // Manufacturing year.
+    string make_year = 4;
+
+    // Manufacturing month.
+    string make_month = 5;
+
+    // Power in PS (Pferdestärke).
+    int32 power_ps = 6;
+
+    // Power in kilowatts.
+    int32 power_kw = 7;
+
+    // Cubic capacity in liters.
+    double cubic_capacity_l = 8;
+
+    // CO2 emissions information.
+    CO2Emissions co2_emissions = 9;
+  }
+
+  // CO2Emissions represents CO2 emission data.
+  message CO2Emissions {
+    // Emission value.
+    string value = 1;
+
+    // Metrics unit (e.g., "g/km").
+    string metrics = 2;
+  }
+
+  // MovementState represents movement state information.
+  message MovementState {
+    // Movement status name (e.g., "driving", "standing").
+    string name = 1;
+
+    // Timestamp when this movement state started.
+    google.protobuf.Timestamp start = 2;
+
+    // Duration of this movement state in seconds.
+    int64 duration_s = 3;
+  }
+
+  // ConnectedTrailer represents information about a connected trailer.
+  message ConnectedTrailer {
+    // Unit ID of the connected trailer.
+    string unit_id = 1;
+
+    // Type of the connected unit (e.g., "trailer").
+    string type = 2;
+
+    // Location of the connected trailer.
+    Location location = 3;
+  }
+
+  // ObjectLocation represents an object where the unit is located.
+  message ObjectLocation {
+    // Object ID.
+    string object_id = 1;
+
+    // Object name.
+    string name = 2;
+  }
+
+  // SavedValue represents a saved value from mappings.
+  message SavedValue {
+    // Key name.
+    string key = 1;
+
+    // Value.
+    string value = 2;
+
+    // Timestamp when the value was saved.
+    google.protobuf.Timestamp gmt = 3;
   }
 }
