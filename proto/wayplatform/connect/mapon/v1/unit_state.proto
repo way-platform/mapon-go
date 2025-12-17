@@ -152,6 +152,24 @@ message UnitState {
   // Timestamp when EV battery SOC kWh was last updated.
   google.protobuf.Timestamp battery_soc_kwh_time = 46;
 
+  // CAN Service Brake Switch (true if active).
+  bool can_service_brake_switch = 47;
+
+  // Timestamp when CAN Service Brake Switch was last updated.
+  google.protobuf.Timestamp can_service_brake_switch_time = 48;
+
+  // CAN Parking Brake Switch (true if active).
+  bool can_parking_brake_switch = 49;
+
+  // Timestamp when CAN Parking Brake Switch was last updated.
+  google.protobuf.Timestamp can_parking_brake_switch_time = 50;
+
+  // CAN Engine Load in percent.
+  double can_engine_load_percent = 51;
+
+  // Timestamp when CAN Engine Load was last updated.
+  google.protobuf.Timestamp can_engine_load_time = 52;
+
   // AxisWeight represents weight data for a specific axis.
   message AxisWeight {
     // Weight value in kilograms.

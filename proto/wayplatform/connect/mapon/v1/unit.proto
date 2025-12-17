@@ -4,7 +4,9 @@ package wayplatform.connect.mapon.v1;
 
 import "google/protobuf/timestamp.proto";
 import "wayplatform/connect/mapon/v1/common.proto";
+import "wayplatform/connect/mapon/v1/driver.proto";
 import "wayplatform/connect/mapon/v1/fuel_type.proto";
+import "wayplatform/connect/mapon/v1/reefer.proto";
 import "wayplatform/connect/mapon/v1/unit_state.proto";
 import "wayplatform/connect/mapon/v1/unit_type.proto";
 
@@ -92,6 +94,15 @@ message Unit {
   // Saved values from mappings.
   repeated SavedValue saved_values = 26;
 
+  // List of drivers currently assigned to the unit.
+  repeated Driver drivers = 27;
+
+  // List of relays available on the unit.
+  repeated Relay relays = 28;
+
+  // Reefer (refrigeration unit) information.
+  Reefer reefer = 29;
+
   // Device represents the tracking hardware installed in the unit.
   message Device {
     // Unique identifier of the device.
@@ -105,6 +116,30 @@ message Unit {
 
     // SIM card number.
     string sim = 4;
+  }
+
+  // Relay represents a controllable relay on the unit.
+  message Relay {
+    // Unique identifier of the relay (1-based index).
+    int32 relay_id = 1;
+
+    // Current state (0 = off, 1 = on).
+    int32 relay_state = 2;
+
+    // Type of relay (e.g., "basic").
+    string type = 3;
+
+    // User-defined title/label for the relay.
+    string title = 4;
+
+    // Whether the logic is inverted.
+    int32 inverted = 5;
+
+    // Whether control is allowed while moving.
+    int32 control_while_moving = 6;
+
+    // Whether the relay is enabled.
+    int32 enabled = 7;
   }
 
   // FuelConsumption represents average fuel consumption data.
