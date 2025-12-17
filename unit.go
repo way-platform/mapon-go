@@ -577,7 +577,7 @@ func mapJSONUnitToProto(j jsonUnit) *maponv1.Unit {
 		state.SetTime(timestamppb.New(t))
 	}
 
-	// Fuel entries
+	// Fuel entries - this is the source of truth for fuel data including units
 	if len(j.Fuel) > 0 {
 		fuelEntries := make([]*maponv1.UnitState_FuelEntry, 0, len(j.Fuel))
 		for _, f := range j.Fuel {
@@ -598,6 +598,16 @@ func mapJSONUnitToProto(j jsonUnit) *maponv1.Unit {
 			// Also set fuel_level_l for backward compatibility (first L metric)
 			if f.Metrics == "L" && state.GetFuelLevelL() == 0 {
 				state.SetFuelLevelL(f.Value)
+			}
+			// Set canFuelLevelL from fuel_entries if it's a CAN entry with liters
+			// This ensures canFuelLevelL is derived from the source of truth, not from can_fuel
+			if f.Type == "CAN" && f.Metrics == "L" && !state.HasCanFuelLevelL() {
+				state.SetCanFuelLevelL(f.Value)
+				if f.LastUpdate != nil && *f.LastUpdate != "" {
+					if t, err := time.Parse(time.RFC3339, *f.LastUpdate); err == nil {
+						state.SetCanFuelLevelTime(timestamppb.New(t))
+					}
+				}
 			}
 		}
 		state.SetFuelEntries(fuelEntries)
@@ -670,15 +680,6 @@ func mapJSONUnitToProto(j jsonUnit) *maponv1.Unit {
 			if j.Can.EngineRPM.GMT != "" {
 				if t, err := time.Parse(time.RFC3339, j.Can.EngineRPM.GMT); err == nil {
 					state.SetCanEngineRpmTime(timestamppb.New(t))
-				}
-			}
-		}
-		if j.Can.CanFuel != nil && j.Can.CanFuel.Value != nil {
-			v, _ := parseFloat(j.Can.CanFuel.Value)
-			state.SetCanFuelLevelL(v)
-			if j.Can.CanFuel.GMT != "" {
-				if t, err := time.Parse(time.RFC3339, j.Can.CanFuel.GMT); err == nil {
-					state.SetCanFuelLevelTime(timestamppb.New(t))
 				}
 			}
 		}
