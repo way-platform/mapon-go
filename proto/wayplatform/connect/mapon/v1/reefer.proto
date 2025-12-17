@@ -1,0 +1,17 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// Reefer represents information about a refrigerated unit.
+message Reefer {
+  // Type of the refrigerator.
+  string refrigerator_type = 1;
+
+  // Number of refrigerator compartments.
+  int32 refrigerator_compartment_count = 2;
+
+  // Type of communication used by the refrigerator.
+  string refrigerator_communication_type = 3;
+}
