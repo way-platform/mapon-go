@@ -128,3 +128,4 @@ func isGoldenFile(filename string) bool {
 		len(filename) > len(".golden.json") &&
 		filename[len(filename)-len(".golden.json"):] == ".golden.json"
 }
+
