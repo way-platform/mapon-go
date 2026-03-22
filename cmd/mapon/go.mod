@@ -6,7 +6,8 @@ require (
 	charm.land/fang/v2 v2.0.1
 	charm.land/lipgloss/v2 v2.0.2
 	github.com/adrg/xdg v0.5.3
-	github.com/way-platform/mapon-go v0.0.0-00010101000000-000000000000
+	github.com/way-platform/mapon-go v0.0.0
+	github.com/way-platform/mapon-go/cli v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -36,7 +37,10 @@ require (
 	golang.org/x/sys v0.42.0 // indirect
 	golang.org/x/term v0.41.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
-	google.golang.org/protobuf v1.36.10 // indirect
+	google.golang.org/protobuf v1.36.11 // indirect
 )
 
-replace github.com/way-platform/mapon-go => ../..
+replace (
+	github.com/way-platform/mapon-go => ../..
+	github.com/way-platform/mapon-go/cli => ../../cli
+)
