@@ -3,6 +3,7 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 )
@@ -24,11 +25,17 @@ type Option func(*config)
 
 type config struct {
 	credentialStore Store
+	httpClient      *http.Client
 }
 
 // WithCredentialStore sets the credential store.
 func WithCredentialStore(s Store) Option {
 	return func(c *config) { c.credentialStore = s }
+}
+
+// WithHTTPClient sets the base HTTP client passed to the SDK.
+func WithHTTPClient(c *http.Client) Option {
+	return func(cfg *config) { cfg.httpClient = c }
 }
 
 // FileStore is a JSON file-backed store.

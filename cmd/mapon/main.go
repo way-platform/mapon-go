@@ -3,19 +3,28 @@ package main
 import (
 	"context"
 	"image/color"
+	"net/http"
 	"os"
 
 	"charm.land/fang/v2"
 	"charm.land/lipgloss/v2"
 	"github.com/adrg/xdg"
+	mapon "github.com/way-platform/mapon-go"
 	"github.com/way-platform/mapon-go/cli"
 )
 
 func main() {
 	credPath, _ := xdg.ConfigFile("mapon-go/credentials.json")
+	var debug bool
 	cmd := cli.NewCommand(
 		cli.WithCredentialStore(cli.NewFileStore(credPath)),
+		cli.WithHTTPClient(&http.Client{
+			Transport: &mapon.DebugTransport{
+				Enabled: &debug,
+			},
+		}),
 	)
+	cmd.PersistentFlags().BoolVar(&debug, "debug", false, "Enable debug mode")
 	if err := fang.Execute(
 		context.Background(),
 		cmd,

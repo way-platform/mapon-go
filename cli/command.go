@@ -25,7 +25,6 @@ func NewCommand(opts ...Option) *cobra.Command {
 		Use:   "mapon",
 		Short: "Mapon API CLI",
 	}
-	cmd.PersistentFlags().Bool("debug", false, "Enable debug mode")
 
 	cmd.AddGroup(&cobra.Group{ID: "units", Title: "Units"})
 	cmd.AddCommand(newListUnitsCommand(&cfg))
@@ -138,7 +137,6 @@ func newLogoutCommand(cfg *config) *cobra.Command {
 // --- Client ---
 
 func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
-	debug, _ := cmd.Root().PersistentFlags().GetBool("debug")
 	var creds Credentials
 	if cfg.credentialStore != nil {
 		if err := cfg.credentialStore.Read(&creds); err != nil {
@@ -148,11 +146,12 @@ func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
 			return nil, fmt.Errorf("read credentials: %w", err)
 		}
 	}
-	return mapon.NewClient(
-		cmd.Context(),
-		mapon.WithDebug(debug),
-		mapon.WithAPIKey(creds.APIKey),
-	)
+	var opts []mapon.ClientOption
+	if cfg.httpClient != nil {
+		opts = append(opts, mapon.WithHTTPClient(cfg.httpClient))
+	}
+	opts = append(opts, mapon.WithAPIKey(creds.APIKey))
+	return mapon.NewClient(cmd.Context(), opts...)
 }
 
 // --- Units ---
