@@ -10,6 +10,7 @@ managed:
 
 inputs:
   - directory: "."
+  - module: buf.build/bufbuild/protovalidate
 
 plugins:
   - local: ["go", "tool", "-modfile", "../tools/go.mod", "protoc-gen-go"]

@@ -1,0 +1,120 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// PushMessage represents a Mapon push API event with type-specific data.
+// Common fields are present for all pack types. The type field determines
+// which data submessage is populated. All values use OEM-native units.
+// This follows the type+submessage pattern established by FordEvent and
+// TrailerConnect PushMessage for flexible payload handling.
+message PushMessage {
+  // Mapon push event ID.
+  int64 id = 1;
+
+  // Mapon unit/car ID.
+  int64 car_id = 2;
+
+  // Device ID.
+  int64 device_id = 3;
+
+  // Company ID.
+  int64 company_id = 4;
+
+  // Pack type identifier (e.g., 1=Position, 3=Ignition, 5=Fuel, 26=Odometer, 55=Temperature).
+  int32 pack_id = 5;
+
+  // Vehicle timestamp, parsed from Mapon's gmt field (format: "YYYY-MM-DD HH:MM:SS" UTC).
+  google.protobuf.Timestamp vehicle_time = 6;
+
+  // Pack type enum. Determines which submessage field is populated.
+  Type type = 7;
+
+  // Type enum defining the pack types supported by the push API.
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_UNRECOGNIZED = 1;
+    TYPE_POSITION = 2;
+    TYPE_IGNITION = 3;
+    TYPE_FUEL = 4;
+    TYPE_ODOMETER = 5;
+    TYPE_TEMPERATURE = 6;
+  }
+
+  // Position represents GPS position data from pack #1.
+  // All coordinate values are in OEM-native units (degrees, km/h, meters).
+  Position position = 8;
+
+  message Position {
+    double latitude = 1;
+    double longitude = 2;
+    double speed_kmh = 3;
+    double heading_deg = 4;
+    double altitude_m = 5;
+    int32 satellites = 6;
+    double accuracy_m = 7;
+  }
+
+  option (buf.validate.message).cel = {
+    id: "type_position"
+    message: "position requires type to be TYPE_POSITION"
+    expression: "!has(this.position) || (this.type == 2)"
+  };
+
+  // Ignition represents ignition state from pack #3.
+  Ignition ignition = 9;
+
+  message Ignition {
+    bool state = 1;
+  }
+
+  option (buf.validate.message).cel = {
+    id: "type_ignition"
+    message: "ignition requires type to be TYPE_IGNITION"
+    expression: "!has(this.ignition) || (this.type == 3)"
+  };
+
+  // Fuel represents fuel level from pack #5 in OEM-native units (liters).
+  Fuel fuel = 10;
+
+  message Fuel {
+    double level_l = 1;
+  }
+
+  option (buf.validate.message).cel = {
+    id: "type_fuel"
+    message: "fuel requires type to be TYPE_FUEL"
+    expression: "!has(this.fuel) || (this.type == 4)"
+  };
+
+  // Odometer represents odometer reading from pack #26 in OEM-native units (meters).
+  Odometer odometer = 11;
+
+  message Odometer {
+    double value_m = 1;
+  }
+
+  option (buf.validate.message).cel = {
+    id: "type_odometer"
+    message: "odometer requires type to be TYPE_ODOMETER"
+    expression: "!has(this.odometer) || (this.type == 5)"
+  };
+
+  // Temperature represents temperature sensor reading from pack #55 in OEM-native units (Celsius).
+  Temperature temperature = 12;
+
+  message Temperature {
+    int32 sensor_id = 1;
+    double value_c = 2;
+  }
+
+  option (buf.validate.message).cel = {
+    id: "type_temperature"
+    message: "temperature requires type to be TYPE_TEMPERATURE"
+    expression: "!has(this.temperature) || (this.type == 6)"
+  };
+}
