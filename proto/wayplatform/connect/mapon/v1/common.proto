@@ -2,6 +2,8 @@ edition = "2023";
 
 package wayplatform.connect.mapon.v1;
 
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
 // Location represents a geographical point with optional address information.
 message Location {
   double latitude = 1;
