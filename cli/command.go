@@ -15,6 +15,29 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
+// resolveCredentials returns credentials from the provider or store.
+func resolveCredentials(cfg *config) (*Credentials, error) {
+	// Try provider first (way connect injects this).
+	if cfg.credentialProvider != nil {
+		creds, err := cfg.credentialProvider()
+		if err != nil {
+			return nil, fmt.Errorf("credential provider: %w", err)
+		}
+		if creds != nil {
+			return creds, nil
+		}
+	}
+	// Fall through to store (standalone mode).
+	if cfg.credentialStore != nil {
+		var creds Credentials
+		if err := cfg.credentialStore.Read(&creds); err != nil {
+			return nil, err
+		}
+		return &creds, nil
+	}
+	return nil, fmt.Errorf("no credential source configured")
+}
+
 // NewCommand builds the full CLI command tree for the Mapon SDK.
 func NewCommand(opts ...Option) *cobra.Command {
 	cfg := config{}
@@ -87,26 +110,30 @@ func newLoginCommand(cfg *config) *cobra.Command {
 	}
 	apiKey := cmd.Flags().String("api-key", "", "API key for authentication")
 	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
-		// Try loading stored credentials first.
-		creds := &maponv1.Credentials{}
-		if cfg.credentialStore != nil {
-			if err := cfg.credentialStore.Read(creds); err != nil && !errors.Is(err, fs.ErrNotExist) {
-				return fmt.Errorf("read credentials: %w", err)
+		creds := &Credentials{}
+		// Try provider for pre-fill (way connect --secret can pre-fill).
+		if cfg.credentialProvider != nil {
+			if provided, err := cfg.credentialProvider(); err == nil && provided != nil {
+				creds = provided
 			}
+		}
+		// Otherwise try loading from store.
+		if creds.APIKey == "" && cfg.credentialStore != nil {
+			_ = cfg.credentialStore.Read(creds) // ignore not-found
 		}
 		// Override with flag.
 		if *apiKey != "" {
-			creds.SetApiKey(*apiKey)
+			creds.APIKey = *apiKey
 		}
 		// Prompt for missing API key.
-		if creds.GetApiKey() == "" {
+		if creds.APIKey == "" {
 			val, err := promptSecret(cmd, "Enter API key: ")
 			if err != nil {
 				return err
 			}
-			creds.SetApiKey(val)
+			creds.APIKey = val
 		}
-		// Persist credentials.
+		// Persist to store.
 		if cfg.credentialStore != nil {
 			if err := cfg.credentialStore.Write(creds); err != nil {
 				return fmt.Errorf("write credentials: %w", err)
@@ -137,20 +164,18 @@ func newLogoutCommand(cfg *config) *cobra.Command {
 // --- Client ---
 
 func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
-	creds := &maponv1.Credentials{}
-	if cfg.credentialStore != nil {
-		if err := cfg.credentialStore.Read(creds); err != nil {
-			if errors.Is(err, fs.ErrNotExist) {
-				return nil, fmt.Errorf("no credentials found, please login using `mapon auth login`")
-			}
-			return nil, fmt.Errorf("read credentials: %w", err)
+	creds, err := resolveCredentials(cfg)
+	if err != nil {
+		if errors.Is(err, fs.ErrNotExist) {
+			return nil, fmt.Errorf("no credentials found, please login using `mapon auth login`")
 		}
+		return nil, err
 	}
 	var opts []mapon.ClientOption
 	if cfg.httpClient != nil {
 		opts = append(opts, mapon.WithHTTPClient(cfg.httpClient))
 	}
-	opts = append(opts, mapon.WithAPIKey(creds.GetApiKey()))
+	opts = append(opts, mapon.WithAPIKey(creds.APIKey))
 	return mapon.NewClient(cmd.Context(), opts...)
 }
 

@@ -21,14 +21,25 @@ type Store interface {
 // Option configures the CLI command tree.
 type Option func(*config)
 
+// Credentials holds the API key for Mapon authentication.
+type Credentials struct {
+	APIKey string `json:"api_key"`
+}
+
 type config struct {
-	credentialStore Store
-	httpClient      *http.Client
+	credentialStore    Store
+	credentialProvider func() (*Credentials, error)
+	httpClient         *http.Client
 }
 
 // WithCredentialStore sets the credential store.
 func WithCredentialStore(s Store) Option {
 	return func(c *config) { c.credentialStore = s }
+}
+
+// WithCredentialProvider sets a function that provides credentials programmatically.
+func WithCredentialProvider(fn func() (*Credentials, error)) Option {
+	return func(c *config) { c.credentialProvider = fn }
 }
 
 // WithHTTPClient sets the base HTTP client passed to the SDK.
