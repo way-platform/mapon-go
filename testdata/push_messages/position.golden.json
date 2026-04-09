@@ -1,0 +1,16 @@
+{
+  "id": "9000000000000001",
+  "carId": "100001",
+  "deviceId": "10000001",
+  "companyId": "10001",
+  "packId": 1,
+  "vehicleTime": "2025-06-15T14:30:00Z",
+  "type": "TYPE_POSITION",
+  "position": {
+    "latitude": 59.33258,
+    "longitude": 18.06489,
+    "speedKmh": 42,
+    "headingDeg": 180,
+    "altitudeM": 25
+  }
+}

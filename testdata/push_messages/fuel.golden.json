@@ -1,0 +1,12 @@
+{
+  "id": "9000000000000004",
+  "carId": "100001",
+  "deviceId": "10000001",
+  "companyId": "10001",
+  "packId": 5,
+  "vehicleTime": "2025-06-15T14:22:00Z",
+  "type": "TYPE_FUEL",
+  "fuel": {
+    "levelL": 245.5
+  }
+}

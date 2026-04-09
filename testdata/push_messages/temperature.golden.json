@@ -1,0 +1,13 @@
+{
+  "id": "9000000000000005",
+  "carId": "100001",
+  "deviceId": "10000001",
+  "companyId": "10001",
+  "packId": 55,
+  "vehicleTime": "2025-06-15T14:28:00Z",
+  "type": "TYPE_TEMPERATURE",
+  "temperature": {
+    "sensorId": 1,
+    "valueC": -18.5
+  }
+}
