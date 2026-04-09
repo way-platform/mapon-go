@@ -15,6 +15,11 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
+// credentials holds the API key for Mapon authentication.
+type credentials struct {
+	APIKey string `json:"api_key"`
+}
+
 // NewCommand builds the full CLI command tree for the Mapon SDK.
 func NewCommand(opts ...Option) *cobra.Command {
 	cfg := config{}
@@ -88,7 +93,7 @@ func newLoginCommand(cfg *config) *cobra.Command {
 	apiKey := cmd.Flags().String("api-key", "", "API key for authentication")
 	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
 		// Try loading stored credentials first.
-		creds := &maponv1.Credentials{}
+		creds := &credentials{}
 		if cfg.credentialStore != nil {
 			if err := cfg.credentialStore.Read(creds); err != nil && !errors.Is(err, fs.ErrNotExist) {
 				return fmt.Errorf("read credentials: %w", err)
@@ -96,15 +101,15 @@ func newLoginCommand(cfg *config) *cobra.Command {
 		}
 		// Override with flag.
 		if *apiKey != "" {
-			creds.SetApiKey(*apiKey)
+			creds.APIKey = *apiKey
 		}
 		// Prompt for missing API key.
-		if creds.GetApiKey() == "" {
+		if creds.APIKey == "" {
 			val, err := promptSecret(cmd, "Enter API key: ")
 			if err != nil {
 				return err
 			}
-			creds.SetApiKey(val)
+			creds.APIKey = val
 		}
 		// Persist credentials.
 		if cfg.credentialStore != nil {
@@ -137,7 +142,7 @@ func newLogoutCommand(cfg *config) *cobra.Command {
 // --- Client ---
 
 func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
-	creds := &maponv1.Credentials{}
+	creds := &credentials{}
 	if cfg.credentialStore != nil {
 		if err := cfg.credentialStore.Read(creds); err != nil {
 			if errors.Is(err, fs.ErrNotExist) {
@@ -150,7 +155,7 @@ func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
 	if cfg.httpClient != nil {
 		opts = append(opts, mapon.WithHTTPClient(cfg.httpClient))
 	}
-	opts = append(opts, mapon.WithAPIKey(creds.GetApiKey()))
+	opts = append(opts, mapon.WithAPIKey(creds.APIKey))
 	return mapon.NewClient(cmd.Context(), opts...)
 }
 
