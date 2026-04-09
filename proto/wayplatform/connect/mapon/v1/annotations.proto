@@ -1,0 +1,16 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+extend google.protobuf.EnumValueOptions {
+  // Mapon push API pack ID. Maps PushMessage.Type enum values to the
+  // numeric pack_id values used in the Mapon JSON wire format.
+  //
+  // Field number is the 28 most significant bits in the sha256 sum of
+  // `wayplatform.connect.mapon.v1.pack_id`.
+  int32 mapon_pack_id = 105627203;
+}

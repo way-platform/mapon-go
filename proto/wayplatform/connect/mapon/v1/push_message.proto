@@ -4,6 +4,7 @@ package wayplatform.connect.mapon.v1;
 
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/annotations.proto";
 
 option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
 
@@ -38,11 +39,11 @@ message PushMessage {
   enum Type {
     TYPE_UNSPECIFIED = 0;
     TYPE_UNRECOGNIZED = 1;
-    TYPE_POSITION = 2;
-    TYPE_IGNITION = 3;
-    TYPE_FUEL = 4;
-    TYPE_ODOMETER = 5;
-    TYPE_TEMPERATURE = 6;
+    TYPE_POSITION = 2 [(mapon_pack_id) = 1];
+    TYPE_IGNITION = 3 [(mapon_pack_id) = 3];
+    TYPE_FUEL = 4 [(mapon_pack_id) = 5];
+    TYPE_ODOMETER = 5 [(mapon_pack_id) = 26];
+    TYPE_TEMPERATURE = 6 [(mapon_pack_id) = 55];
   }
 
   // Position represents GPS position data from pack #1.
