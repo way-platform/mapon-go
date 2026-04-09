@@ -1063,7 +1063,7 @@ var File_wayplatform_connect_mapon_v1_push_message_proto protoreflect.FileDescri
 
 const file_wayplatform_connect_mapon_v1_push_message_proto_rawDesc = "" +
 	"\n" +
-	"/wayplatform/connect/mapon/v1/push_message.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xbe\r\n" +
+	"/wayplatform/connect/mapon/v1/push_message.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a.wayplatform/connect/mapon/v1/annotations.proto\"\xe6\r\n" +
 	"\vPushMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x15\n" +
 	"\x06car_id\x18\x02 \x01(\x03R\x05carId\x12\x1b\n" +
@@ -1100,15 +1100,15 @@ const file_wayplatform_connect_mapon_v1_push_message_proto_rawDesc = "" +
 	"\avalue_m\x18\x01 \x01(\x01R\x06valueM\x1aC\n" +
 	"\vTemperature\x12\x1b\n" +
 	"\tsensor_id\x18\x01 \x01(\x05R\bsensorId\x12\x17\n" +
-	"\avalue_c\x18\x02 \x01(\x01R\x06valueC\"\x91\x01\n" +
+	"\avalue_c\x18\x02 \x01(\x01R\x06valueC\"\xb9\x01\n" +
 	"\x04Type\x12\x14\n" +
 	"\x10TYPE_UNSPECIFIED\x10\x00\x12\x15\n" +
-	"\x11TYPE_UNRECOGNIZED\x10\x01\x12\x11\n" +
-	"\rTYPE_POSITION\x10\x02\x12\x11\n" +
-	"\rTYPE_IGNITION\x10\x03\x12\r\n" +
-	"\tTYPE_FUEL\x10\x04\x12\x11\n" +
-	"\rTYPE_ODOMETER\x10\x05\x12\x14\n" +
-	"\x10TYPE_TEMPERATURE\x10\x06:\xfe\x03\xbaH\xfa\x03\x1ad\n" +
+	"\x11TYPE_UNRECOGNIZED\x10\x01\x12\x19\n" +
+	"\rTYPE_POSITION\x10\x02\x1a\x06\x98\xe4\xf7\x92\x03\x01\x12\x19\n" +
+	"\rTYPE_IGNITION\x10\x03\x1a\x06\x98\xe4\xf7\x92\x03\x03\x12\x15\n" +
+	"\tTYPE_FUEL\x10\x04\x1a\x06\x98\xe4\xf7\x92\x03\x05\x12\x19\n" +
+	"\rTYPE_ODOMETER\x10\x05\x1a\x06\x98\xe4\xf7\x92\x03\x1a\x12\x1c\n" +
+	"\x10TYPE_TEMPERATURE\x10\x06\x1a\x06\x98\xe4\xf7\x92\x037:\xfe\x03\xbaH\xfa\x03\x1ad\n" +
 	"\rtype_position\x12*position requires type to be TYPE_POSITION\x1a'!has(this.position) || (this.type == 2)\x1ad\n" +
 	"\rtype_ignition\x12*ignition requires type to be TYPE_IGNITION\x1a'!has(this.ignition) || (this.type == 3)\x1aT\n" +
 	"\ttype_fuel\x12\"fuel requires type to be TYPE_FUEL\x1a#!has(this.fuel) || (this.type == 4)\x1ad\n" +
@@ -1148,6 +1148,7 @@ func file_wayplatform_connect_mapon_v1_push_message_proto_init() {
 	if File_wayplatform_connect_mapon_v1_push_message_proto != nil {
 		return
 	}
+	file_wayplatform_connect_mapon_v1_annotations_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
