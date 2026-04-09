@@ -88,27 +88,27 @@ func newLoginCommand(cfg *config) *cobra.Command {
 	apiKey := cmd.Flags().String("api-key", "", "API key for authentication")
 	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
 		// Try loading stored credentials first.
-		var creds Credentials
+		creds := &maponv1.Credentials{}
 		if cfg.credentialStore != nil {
-			if err := cfg.credentialStore.Read(&creds); err != nil && !errors.Is(err, fs.ErrNotExist) {
+			if err := cfg.credentialStore.Read(creds); err != nil && !errors.Is(err, fs.ErrNotExist) {
 				return fmt.Errorf("read credentials: %w", err)
 			}
 		}
 		// Override with flag.
 		if *apiKey != "" {
-			creds.APIKey = *apiKey
+			creds.SetApiKey(*apiKey)
 		}
 		// Prompt for missing API key.
-		if creds.APIKey == "" {
+		if creds.GetApiKey() == "" {
 			val, err := promptSecret(cmd, "Enter API key: ")
 			if err != nil {
 				return err
 			}
-			creds.APIKey = val
+			creds.SetApiKey(val)
 		}
 		// Persist credentials.
 		if cfg.credentialStore != nil {
-			if err := cfg.credentialStore.Write(&creds); err != nil {
+			if err := cfg.credentialStore.Write(creds); err != nil {
 				return fmt.Errorf("write credentials: %w", err)
 			}
 		}
@@ -137,9 +137,9 @@ func newLogoutCommand(cfg *config) *cobra.Command {
 // --- Client ---
 
 func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
-	var creds Credentials
+	creds := &maponv1.Credentials{}
 	if cfg.credentialStore != nil {
-		if err := cfg.credentialStore.Read(&creds); err != nil {
+		if err := cfg.credentialStore.Read(creds); err != nil {
 			if errors.Is(err, fs.ErrNotExist) {
 				return nil, fmt.Errorf("no credentials found, please login using `mapon auth login`")
 			}
@@ -150,7 +150,7 @@ func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
 	if cfg.httpClient != nil {
 		opts = append(opts, mapon.WithHTTPClient(cfg.httpClient))
 	}
-	opts = append(opts, mapon.WithAPIKey(creds.APIKey))
+	opts = append(opts, mapon.WithAPIKey(creds.GetApiKey()))
 	return mapon.NewClient(cmd.Context(), opts...)
 }
 

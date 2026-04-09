@@ -6,6 +6,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 )
 
 // Store reads and writes JSON-serializable data.
@@ -13,11 +16,6 @@ type Store interface {
 	Read(target any) error
 	Write(data any) error
 	Clear() error
-}
-
-// Credentials for Mapon API key authentication.
-type Credentials struct {
-	APIKey string `json:"apiKey"`
 }
 
 // Option configures the CLI command tree.
@@ -49,10 +47,17 @@ func NewFileStore(path string) *FileStore {
 }
 
 // Read unmarshals the file contents into target.
+// If target implements proto.Message, protojson is used; otherwise encoding/json.
 func (s *FileStore) Read(target any) error {
 	data, err := os.ReadFile(s.path)
 	if err != nil {
 		return fmt.Errorf("read store: %w", err)
+	}
+	if msg, ok := target.(proto.Message); ok {
+		if err := protojson.Unmarshal(data, msg); err != nil {
+			return fmt.Errorf("unmarshal store: %w", err)
+		}
+		return nil
 	}
 	if err := json.Unmarshal(data, target); err != nil {
 		return fmt.Errorf("unmarshal store: %w", err)
@@ -61,8 +66,15 @@ func (s *FileStore) Read(target any) error {
 }
 
 // Write marshals data and writes it to the file.
+// If data implements proto.Message, protojson is used; otherwise encoding/json.
 func (s *FileStore) Write(data any) error {
-	bytes, err := json.MarshalIndent(data, "", "  ")
+	var bytes []byte
+	var err error
+	if msg, ok := data.(proto.Message); ok {
+		bytes, err = protojson.MarshalOptions{Multiline: true, Indent: "  "}.Marshal(msg)
+	} else {
+		bytes, err = json.MarshalIndent(data, "", "  ")
+	}
 	if err != nil {
 		return fmt.Errorf("marshal store: %w", err)
 	}
