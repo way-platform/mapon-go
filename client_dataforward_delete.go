@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 // DeleteDataForwardRequest is the request for [Client.DeleteDataForward].
@@ -26,6 +27,7 @@ func (c *Client) DeleteDataForward(ctx context.Context, request *DeleteDataForwa
 	cfg := c.config.with(opts...)
 
 	params := url.Values{}
+	params.Add("key", cfg.apiKey)
 	params.Add("id", strconv.FormatInt(request.EndpointID, 10))
 
 	requestURL, err := url.Parse(c.baseURL + "/data_forward/delete.json")
@@ -33,11 +35,11 @@ func (c *Client) DeleteDataForward(ctx context.Context, request *DeleteDataForwa
 		return fmt.Errorf("invalid request URL: %w", err)
 	}
 
-	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL.String(), nil)
+	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL.String(), strings.NewReader(params.Encode()))
 	if err != nil {
 		return err
 	}
-	httpRequest.PostForm = params
+	httpRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
 	httpResponse, err := c.httpClient(cfg).Do(httpRequest)

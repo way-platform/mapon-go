@@ -13,8 +13,8 @@ func TestSaveDataForward(t *testing.T) {
 		if r.Method != http.MethodPost {
 			t.Errorf("expected POST, got %s", r.Method)
 		}
-		if r.URL.Path != "/data_forward/insert_update.json" {
-			t.Errorf("expected /data_forward/insert_update.json, got %s", r.URL.Path)
+		if r.URL.Path != "/data_forward/save.json" {
+			t.Errorf("expected /data_forward/save.json, got %s", r.URL.Path)
 		}
 
 		w.Header().Set("Content-Type", "application/json")

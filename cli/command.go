@@ -66,6 +66,9 @@ func NewCommand(opts ...Option) *cobra.Command {
 	cmd.AddGroup(&cobra.Group{ID: "alerts", Title: "Alerts"})
 	cmd.AddCommand(newListAlertsCommand(&cfg))
 
+	cmd.AddGroup(&cobra.Group{ID: "data-forward", Title: "Data Forwarding"})
+	cmd.AddCommand(newDataForwardCommand(&cfg))
+
 	cmd.AddGroup(&cobra.Group{ID: "auth", Title: "Authentication"})
 	cmd.AddCommand(newAuthCommand(&cfg))
 
@@ -817,4 +820,93 @@ func promptSecret(cmd *cobra.Command, prompt string) (string, error) {
 	}
 	cmd.Println()
 	return string(input), nil
+}
+
+// --- Data Forward ---
+
+func newDataForwardCommand(cfg *config) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "data-forward",
+		Short:   "Manage data forwarding endpoints",
+		GroupID: "data-forward",
+	}
+	cmd.AddCommand(newListDataForwardsCommand(cfg))
+	cmd.AddCommand(newSaveDataForwardCommand(cfg))
+	cmd.AddCommand(newDeleteDataForwardCommand(cfg))
+	return cmd
+}
+
+func newListDataForwardsCommand(cfg *config) *cobra.Command {
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List data forwarding endpoints",
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			client, err := newClient(cmd, cfg)
+			if err != nil {
+				return err
+			}
+			resp, err := client.ListDataForwards(cmd.Context())
+			if err != nil {
+				return err
+			}
+			for _, ep := range resp.Endpoints {
+				fmt.Printf("id=%d url=%s packs=%v\n", ep.ID, ep.URL, ep.Packs)
+			}
+			return nil
+		},
+	}
+}
+
+func newSaveDataForwardCommand(cfg *config) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "save",
+		Short: "Register a data forwarding endpoint",
+	}
+	id := cmd.Flags().Int64("id", 0, "Existing endpoint ID to update (omit to create new)")
+	webhookURL := cmd.Flags().String("url", "", "Webhook URL to receive data")
+	_ = cmd.MarkFlagRequired("url")
+	packs := cmd.Flags().Int32Slice("pack", nil, "Pack ID to forward (repeatable, e.g. --pack 1 --pack 3)")
+	_ = cmd.MarkFlagRequired("pack")
+	unitIDs := cmd.Flags().Int64Slice("unit-id", nil, "Unit IDs to forward (omit for all units)")
+	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
+		client, err := newClient(cmd, cfg)
+		if err != nil {
+			return err
+		}
+		endpointID, err := client.SaveDataForward(cmd.Context(), &mapon.SaveDataForwardRequest{
+			ID:      *id,
+			URL:     *webhookURL,
+			Packs:   *packs,
+			UnitIDs: *unitIDs,
+		})
+		if err != nil {
+			return err
+		}
+		fmt.Printf("registered endpoint id=%d\n", endpointID)
+		return nil
+	}
+	return cmd
+}
+
+func newDeleteDataForwardCommand(cfg *config) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "delete",
+		Short: "Delete a data forwarding endpoint",
+	}
+	id := cmd.Flags().Int64("id", 0, "Endpoint ID to delete")
+	_ = cmd.MarkFlagRequired("id")
+	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
+		client, err := newClient(cmd, cfg)
+		if err != nil {
+			return err
+		}
+		if err := client.DeleteDataForward(cmd.Context(), &mapon.DeleteDataForwardRequest{
+			EndpointID: *id,
+		}); err != nil {
+			return err
+		}
+		fmt.Printf("deleted endpoint id=%d\n", *id)
+		return nil
+	}
+	return cmd
 }
