@@ -15,9 +15,12 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-// credentials holds the API key for Mapon authentication.
-type credentials struct {
-	APIKey string `json:"api_key"`
+// resolveCredentials returns credentials from the store.
+func resolveCredentials(cfg *config) (*Credentials, error) {
+	if cfg.credentialStore == nil {
+		return nil, fmt.Errorf("no credential source configured")
+	}
+	return cfg.credentialStore.Load()
 }
 
 // NewCommand builds the full CLI command tree for the Mapon SDK.
@@ -93,10 +96,10 @@ func newLoginCommand(cfg *config) *cobra.Command {
 	apiKey := cmd.Flags().String("api-key", "", "API key for authentication")
 	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
 		// Try loading stored credentials first.
-		creds := &credentials{}
+		creds := &Credentials{}
 		if cfg.credentialStore != nil {
-			if err := cfg.credentialStore.Read(creds); err != nil && !errors.Is(err, fs.ErrNotExist) {
-				return fmt.Errorf("read credentials: %w", err)
+			if loaded, err := cfg.credentialStore.Load(); err == nil {
+				creds = loaded
 			}
 		}
 		// Override with flag.
@@ -113,7 +116,7 @@ func newLoginCommand(cfg *config) *cobra.Command {
 		}
 		// Persist credentials.
 		if cfg.credentialStore != nil {
-			if err := cfg.credentialStore.Write(creds); err != nil {
+			if err := cfg.credentialStore.Save(creds); err != nil {
 				return fmt.Errorf("write credentials: %w", err)
 			}
 		}
@@ -142,14 +145,12 @@ func newLogoutCommand(cfg *config) *cobra.Command {
 // --- Client ---
 
 func newClient(cmd *cobra.Command, cfg *config) (*mapon.Client, error) {
-	creds := &credentials{}
-	if cfg.credentialStore != nil {
-		if err := cfg.credentialStore.Read(creds); err != nil {
-			if errors.Is(err, fs.ErrNotExist) {
-				return nil, fmt.Errorf("no credentials found, please login using `mapon auth login`")
-			}
-			return nil, fmt.Errorf("read credentials: %w", err)
+	creds, err := resolveCredentials(cfg)
+	if err != nil {
+		if errors.Is(err, fs.ErrNotExist) {
+			return nil, fmt.Errorf("no credentials found, please login using `mapon auth login`")
 		}
+		return nil, err
 	}
 	var opts []mapon.ClientOption
 	if cfg.httpClient != nil {
