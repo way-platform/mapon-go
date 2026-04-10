@@ -1,17 +1,19 @@
 package mapon
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 )
 
 // SaveDataForwardRequest is the request for [Client.SaveDataForward].
 type SaveDataForwardRequest struct {
+	// ID is the existing endpoint ID to update. Zero means create a new endpoint.
+	ID int64
 	// URL is the webhook endpoint URL to receive data packets.
 	URL string
 	// Packs is the list of pack IDs to forward (e.g., 1, 3, 5, 26, 55 for car packs).
@@ -25,7 +27,7 @@ type SaveDataForwardResponse struct {
 	EndpointID int64
 }
 
-// SaveDataForward registers a push webhook endpoint with Mapon.
+// SaveDataForward registers or updates a push webhook endpoint with Mapon.
 // Returns the Mapon-assigned endpoint ID for later deregistration.
 func (c *Client) SaveDataForward(ctx context.Context, request *SaveDataForwardRequest, opts ...ClientOption) (_ int64, err error) {
 	defer func() {
@@ -35,27 +37,36 @@ func (c *Client) SaveDataForward(ctx context.Context, request *SaveDataForwardRe
 	}()
 	cfg := c.config.with(opts...)
 
-	params := url.Values{}
-	params.Add("url", request.URL)
-
-	for _, packID := range request.Packs {
-		params.Add("packs[]", strconv.FormatInt(int64(packID), 10))
+	inner := map[string]any{
+		"url": request.URL,
+	}
+	if request.ID != 0 {
+		inner["id"] = request.ID
+	}
+	body := map[string]any{
+		"key":   cfg.apiKey,
+		"data":  inner,
+		"packs": request.Packs,
+	}
+	if len(request.UnitIDs) > 0 {
+		body["unit_ids"] = request.UnitIDs
 	}
 
-	for _, unitID := range request.UnitIDs {
-		params.Add("unit_ids[]", strconv.FormatInt(unitID, 10))
+	encoded, err := json.Marshal(body)
+	if err != nil {
+		return 0, err
 	}
 
-	requestURL, err := url.Parse(c.baseURL + "/data_forward/insert_update.json")
+	requestURL, err := url.Parse(c.baseURL + "/data_forward/save.json")
 	if err != nil {
 		return 0, fmt.Errorf("invalid request URL: %w", err)
 	}
 
-	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL.String(), nil)
+	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL.String(), bytes.NewReader(encoded))
 	if err != nil {
 		return 0, err
 	}
-	httpRequest.PostForm = params
+	httpRequest.Header.Set("Content-Type", "application/json")
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
 	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
@@ -68,13 +79,13 @@ func (c *Client) SaveDataForward(ctx context.Context, request *SaveDataForwardRe
 		return 0, newResponseError(httpResponse)
 	}
 
-	data, err := io.ReadAll(httpResponse.Body)
+	respBytes, err := io.ReadAll(httpResponse.Body)
 	if err != nil {
 		return 0, err
 	}
 
 	var responseBody jsonDataForwardSaveResponse
-	if err := json.Unmarshal(data, &responseBody); err != nil {
+	if err := json.Unmarshal(respBytes, &responseBody); err != nil {
 		return 0, err
 	}
 

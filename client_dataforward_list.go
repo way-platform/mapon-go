@@ -33,10 +33,14 @@ func (c *Client) ListDataForwards(ctx context.Context, opts ...ClientOption) (_ 
 	}()
 	cfg := c.config.with(opts...)
 
+	params := url.Values{}
+	params.Add("key", cfg.apiKey)
+
 	requestURL, err := url.Parse(c.baseURL + "/data_forward/list.json")
 	if err != nil {
 		return nil, fmt.Errorf("invalid request URL: %w", err)
 	}
+	requestURL.RawQuery = params.Encode()
 
 	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodGet, requestURL.String(), nil)
 	if err != nil {
