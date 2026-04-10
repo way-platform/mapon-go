@@ -17,7 +17,7 @@ func main() {
 	credPath, _ := xdg.ConfigFile("mapon-go/credentials.json")
 	var debug bool
 	cmd := cli.NewCommand(
-		cli.WithCredentialStore(cli.NewFileStore(credPath)),
+		cli.WithCredentialStore(cli.NewCredentialFileStore(credPath)),
 		cli.WithHTTPClient(&http.Client{
 			Transport: &mapon.DebugTransport{
 				Enabled: &debug,
