@@ -17,37 +17,28 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type ListDigitalInputsExtendedRequest struct {
-	UnitIDs  []int64
-	InputIDs []int64
-	From     time.Time
-	To       time.Time
-}
-
-type ListDigitalInputsExtendedResponse struct {
-	Units []*maponv1.UnitDigitalInputsExtended
-}
-
 // ListDigitalInputsExtended returns switches states details for selected period.
 // Digital inputs are selected so that the digital inputs activity period is in selected period
 // and digital inputs switched on time is no more than 15 days before selected period start.
-func (c *Client) ListDigitalInputsExtended(ctx context.Context, request *ListDigitalInputsExtendedRequest, opts ...ClientOption) (_ *ListDigitalInputsExtendedResponse, err error) {
+func (c *Client) ListDigitalInputsExtended(
+	ctx context.Context,
+	request *maponv1.ListDigitalInputsExtendedRequest,
+) (_ *maponv1.ListDigitalInputsExtendedResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list digital inputs extended: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	for _, id := range request.InputIDs {
+	for _, id := range request.GetInputIds() {
 		params.Add("input_id[]", strconv.FormatInt(id, 10))
 	}
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 	params.Add("include[]", "label")
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/digital_inputs_extended.json")
@@ -62,11 +53,11 @@ func (c *Client) ListDigitalInputsExtended(ctx context.Context, request *ListDig
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -86,7 +77,7 @@ func (c *Client) ListDigitalInputsExtended(ctx context.Context, request *ListDig
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListDigitalInputsExtendedResponse{}
+	var units []*maponv1.UnitDigitalInputsExtended
 	for _, u := range responseBody.Data.Units {
 		udi := &maponv1.UnitDigitalInputsExtended{}
 		udi.SetUnitId(u.UnitID)
@@ -130,10 +121,12 @@ func (c *Client) ListDigitalInputsExtended(ctx context.Context, request *ListDig
 			extendedInputs = append(extendedInputs, did)
 		}
 		udi.SetInputs(extendedInputs)
-		res.Units = append(res.Units, udi)
+		units = append(units, udi)
 	}
 
-	return res, nil
+	resp := &maponv1.ListDigitalInputsExtendedResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonDigitalInputsExtendedResponse struct {

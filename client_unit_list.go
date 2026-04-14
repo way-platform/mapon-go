@@ -14,29 +14,19 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/08-method-unit.html
 
-// ListUnitsRequest is the request for [Client.ListUnits].
-type ListUnitsRequest struct {
-	// UnitIDs is a list of unit IDs to filter by.
-	UnitIDs []int64
-}
-
-// ListUnitsResponse is the response for [Client.ListUnits].
-type ListUnitsResponse struct {
-	// Units is the list of units returned by the API.
-	Units []*maponv1.Unit
-}
-
 // ListUnits lists the units available for the current API key.
-func (c *Client) ListUnits(ctx context.Context, request *ListUnitsRequest, opts ...ClientOption) (_ *ListUnitsResponse, err error) {
+func (c *Client) ListUnits(
+	ctx context.Context,
+	request *maponv1.ListUnitsRequest,
+) (_ *maponv1.ListUnitsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list units: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
 	// Always include all available data
@@ -79,11 +69,11 @@ func (c *Client) ListUnits(ctx context.Context, request *ListUnitsRequest, opts 
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -99,7 +89,7 @@ func (c *Client) ListUnits(ctx context.Context, request *ListUnitsRequest, opts 
 		return nil, err
 	}
 
-	return &ListUnitsResponse{
-		Units: units,
-	}, nil
+	resp := &maponv1.ListUnitsResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }

@@ -8,92 +8,81 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+
+	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 )
-
-// SaveDataForwardRequest is the request for [Client.SaveDataForward].
-type SaveDataForwardRequest struct {
-	// ID is the existing endpoint ID to update. Zero means create a new endpoint.
-	ID int64
-	// URL is the webhook endpoint URL to receive data packets.
-	URL string
-	// Packs is the list of pack IDs to forward (e.g., 1, 3, 5, 26, 55 for car packs).
-	Packs []int32
-	// UnitIDs is the list of unit IDs to forward (empty = all units for this API key).
-	UnitIDs []int64
-}
-
-// SaveDataForwardResponse is the response for [Client.SaveDataForward].
-type SaveDataForwardResponse struct {
-	EndpointID int64
-}
 
 // SaveDataForward registers or updates a push webhook endpoint with Mapon.
 // Returns the Mapon-assigned endpoint ID for later deregistration.
-func (c *Client) SaveDataForward(ctx context.Context, request *SaveDataForwardRequest, opts ...ClientOption) (_ int64, err error) {
+func (c *Client) SaveDataForward(
+	ctx context.Context,
+	request *maponv1.SaveDataForwardRequest,
+) (_ *maponv1.SaveDataForwardResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: save data forward: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	inner := map[string]any{
-		"url": request.URL,
+		"url": request.GetUrl(),
 	}
-	if request.ID != 0 {
-		inner["id"] = request.ID
+	if request.GetId() != 0 {
+		inner["id"] = request.GetId()
 	}
 	body := map[string]any{
-		"key":   cfg.apiKey,
+		"key":   c.config.apiKey,
 		"data":  inner,
-		"packs": request.Packs,
+		"packs": request.GetPacks(),
 	}
-	if len(request.UnitIDs) > 0 {
-		body["unit_ids"] = request.UnitIDs
+	if len(request.GetUnitIds()) > 0 {
+		body["unit_ids"] = request.GetUnitIds()
 	}
 
 	encoded, err := json.Marshal(body)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	requestURL, err := url.Parse(c.baseURL + "/data_forward/save.json")
 	if err != nil {
-		return 0, fmt.Errorf("invalid request URL: %w", err)
+		return nil, fmt.Errorf("invalid request URL: %w", err)
 	}
 
 	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL.String(), bytes.NewReader(encoded))
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	httpRequest.Header.Set("Content-Type", "application/json")
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
-		return 0, newResponseError(httpResponse)
+		return nil, newResponseError(httpResponse)
 	}
 
 	respBytes, err := io.ReadAll(httpResponse.Body)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	var responseBody jsonDataForwardSaveResponse
 	if err := json.Unmarshal(respBytes, &responseBody); err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	if responseBody.Error != nil {
-		return 0, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
+		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	return responseBody.Data.ID, nil
+	resp := &maponv1.SaveDataForwardResponse{}
+	resp.SetEndpointId(responseBody.Data.ID)
+	return resp, nil
 }
 
 type jsonDataForwardSaveResponse struct {

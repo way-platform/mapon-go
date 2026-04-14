@@ -17,33 +17,23 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-// ListIgnitionsRequest is the request for [Client.ListIgnitions].
-type ListIgnitionsRequest struct {
-	UnitIDs []int64
-	From    time.Time
-	To      time.Time
-}
-
-// ListIgnitionsResponse is the response for [Client.ListIgnitions].
-type ListIgnitionsResponse struct {
-	Units []*maponv1.UnitIgnitions
-}
-
 // ListIgnitions returns ignition events for the specified units and period.
-func (c *Client) ListIgnitions(ctx context.Context, request *ListIgnitionsRequest, opts ...ClientOption) (_ *ListIgnitionsResponse, err error) {
+func (c *Client) ListIgnitions(
+	ctx context.Context,
+	request *maponv1.ListIgnitionsRequest,
+) (_ *maponv1.ListIgnitionsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list ignitions: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/ignitions.json")
 	if err != nil {
@@ -57,11 +47,11 @@ func (c *Client) ListIgnitions(ctx context.Context, request *ListIgnitionsReques
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -81,8 +71,7 @@ func (c *Client) ListIgnitions(ctx context.Context, request *ListIgnitionsReques
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListIgnitionsResponse{}
-
+	var units []*maponv1.UnitIgnitions
 	for _, u := range responseBody.Data.Units {
 		ui := &maponv1.UnitIgnitions{}
 		ui.SetUnitId(u.UnitID)
@@ -101,10 +90,12 @@ func (c *Client) ListIgnitions(ctx context.Context, request *ListIgnitionsReques
 			events = append(events, protoEvt)
 		}
 		ui.SetIgnitions(events)
-		res.Units = append(res.Units, ui)
+		units = append(units, ui)
 	}
 
-	return res, nil
+	resp := &maponv1.ListIgnitionsResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonIgnitionResponse struct {

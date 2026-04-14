@@ -17,33 +17,25 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type ListDigitalInputsRequest struct {
-	UnitIDs []int64
-	From    time.Time
-	To      time.Time
-}
-
-type ListDigitalInputsResponse struct {
-	Units []*maponv1.UnitDigitalInputs
-}
-
 // ListDigitalInputs returns switches states for selected period.
 // Digital inputs are selected so that the digital inputs activity period is in selected period
 // and digital inputs switched on time is no more than 15 days before selected period start.
-func (c *Client) ListDigitalInputs(ctx context.Context, request *ListDigitalInputsRequest, opts ...ClientOption) (_ *ListDigitalInputsResponse, err error) {
+func (c *Client) ListDigitalInputs(
+	ctx context.Context,
+	request *maponv1.ListDigitalInputsRequest,
+) (_ *maponv1.ListDigitalInputsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list digital inputs: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/digital_inputs.json")
 	if err != nil {
@@ -57,11 +49,11 @@ func (c *Client) ListDigitalInputs(ctx context.Context, request *ListDigitalInpu
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -81,7 +73,7 @@ func (c *Client) ListDigitalInputs(ctx context.Context, request *ListDigitalInpu
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListDigitalInputsResponse{}
+	var units []*maponv1.UnitDigitalInputs
 	for _, u := range responseBody.Data.Units {
 		udi := &maponv1.UnitDigitalInputs{}
 		udi.SetUnitId(u.UnitID)
@@ -106,10 +98,12 @@ func (c *Client) ListDigitalInputs(ctx context.Context, request *ListDigitalInpu
 			inputDataList = append(inputDataList, did)
 		}
 		udi.SetInputs(inputDataList)
-		res.Units = append(res.Units, udi)
+		units = append(units, udi)
 	}
 
-	return res, nil
+	resp := &maponv1.ListDigitalInputsResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonDigitalInputsResponse struct {

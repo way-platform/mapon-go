@@ -17,29 +17,20 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/19-method-driver.html
 
-// ListDriversRequest is the request for [Client.ListDrivers].
-type ListDriversRequest struct {
-	// ID filters by a specific driver ID.
-	ID int64
-}
-
-// ListDriversResponse is the response for [Client.ListDrivers].
-type ListDriversResponse struct {
-	Drivers []*maponv1.Driver
-}
-
 // ListDrivers lists the drivers available for the current API key.
-func (c *Client) ListDrivers(ctx context.Context, request *ListDriversRequest, opts ...ClientOption) (_ *ListDriversResponse, err error) {
+func (c *Client) ListDrivers(
+	ctx context.Context,
+	request *maponv1.ListDriversRequest,
+) (_ *maponv1.ListDriversResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list drivers: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	if request.ID != 0 {
-		params.Add("id", strconv.FormatInt(request.ID, 10))
+	if request.GetId() != 0 {
+		params.Add("id", strconv.FormatInt(request.GetId(), 10))
 	}
 
 	requestURL, err := url.Parse(c.baseURL + "/driver/list.json")
@@ -54,11 +45,11 @@ func (c *Client) ListDrivers(ctx context.Context, request *ListDriversRequest, o
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -83,9 +74,9 @@ func (c *Client) ListDrivers(ctx context.Context, request *ListDriversRequest, o
 		drivers = append(drivers, mapJSONDriverToProto(d))
 	}
 
-	return &ListDriversResponse{
-		Drivers: drivers,
-	}, nil
+	resp := &maponv1.ListDriversResponse{}
+	resp.SetDrivers(drivers)
+	return resp, nil
 }
 
 type jsonDriverResponse struct {

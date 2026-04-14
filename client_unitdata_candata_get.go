@@ -17,27 +17,20 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type GetCanPointDataRequest struct {
-	UnitID   int64
-	Datetime time.Time
-}
-
-type GetCanPointDataResponse struct {
-	Units []*maponv1.CanDataPoint
-}
-
 // GetCanDataPoint returns CAN data in specific datetime.
-func (c *Client) GetCanDataPoint(ctx context.Context, request *GetCanPointDataRequest, opts ...ClientOption) (_ *GetCanPointDataResponse, err error) {
+func (c *Client) GetCanDataPoint(
+	ctx context.Context,
+	request *maponv1.GetCanDataPointRequest,
+) (_ *maponv1.GetCanDataPointResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: get can point data: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
-	params.Add("datetime", request.Datetime.UTC().Format(time.RFC3339))
+	params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
+	params.Add("datetime", request.GetDatetime().AsTime().UTC().Format(time.RFC3339))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/can_point.json")
 	if err != nil {
@@ -51,11 +44,11 @@ func (c *Client) GetCanDataPoint(ctx context.Context, request *GetCanPointDataRe
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -75,10 +68,10 @@ func (c *Client) GetCanDataPoint(ctx context.Context, request *GetCanPointDataRe
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &GetCanPointDataResponse{}
+	var units []*maponv1.CanDataPoint
 	for _, u := range responseBody.Data.Units {
 		cdp := &maponv1.CanDataPoint{}
-		cdp.SetTime(timestamppb.New(request.Datetime))
+		cdp.SetTime(timestamppb.New(request.GetDatetime().AsTime()))
 
 		cdp.SetRpmAverage(int32(parseCanFloat(u.RpmAverage.Value)))
 		cdp.SetRpmMax(int32(parseCanFloat(u.RpmMax.Value)))
@@ -98,10 +91,12 @@ func (c *Client) GetCanDataPoint(ctx context.Context, request *GetCanPointDataRe
 		}
 		cdp.SetAxisWeights(axes)
 
-		res.Units = append(res.Units, cdp)
+		units = append(units, cdp)
 	}
 
-	return res, nil
+	resp := &maponv1.GetCanDataPointResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 func parseCanFloat(v interface{}) float64 {

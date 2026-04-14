@@ -17,31 +17,21 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/35-method-tell_tale.html
 
-// ListTellTaleValuesRequest is the request for [Client.ListTellTaleValues].
-type ListTellTaleValuesRequest struct {
-	UnitID int64
-	From   time.Time
-	To     time.Time
-}
-
-// ListTellTaleValuesResponse is the response for [Client.ListTellTaleValues].
-type ListTellTaleValuesResponse struct {
-	Data *maponv1.UnitTellTaleData
-}
-
 // ListTellTaleValues retrieves FMS tell tale values for a specified unit within a date range.
-func (c *Client) ListTellTaleValues(ctx context.Context, request *ListTellTaleValuesRequest, opts ...ClientOption) (_ *ListTellTaleValuesResponse, err error) {
+func (c *Client) ListTellTaleValues(
+	ctx context.Context,
+	request *maponv1.ListTellTaleValuesRequest,
+) (_ *maponv1.ListTellTaleValuesResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list tell tale values: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
 	requestURL, err := url.Parse(c.baseURL + "/tell_tale/values.json")
 	if err != nil {
@@ -55,11 +45,11 @@ func (c *Client) ListTellTaleValues(ctx context.Context, request *ListTellTaleVa
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -81,7 +71,7 @@ func (c *Client) ListTellTaleValues(ctx context.Context, request *ListTellTaleVa
 
 	// The API returns data keyed by unit ID string.
 	// We expect data for the requested UnitID.
-	unitIDStr := strconv.FormatInt(request.UnitID, 10)
+	unitIDStr := strconv.FormatInt(request.GetUnitId(), 10)
 	var values []*maponv1.TellTaleValue
 
 	if list, ok := responseBody.Data[unitIDStr]; ok {
@@ -100,12 +90,12 @@ func (c *Client) ListTellTaleValues(ctx context.Context, request *ListTellTaleVa
 	}
 
 	responseData := &maponv1.UnitTellTaleData{}
-	responseData.SetUnitId(request.UnitID)
+	responseData.SetUnitId(request.GetUnitId())
 	responseData.SetValues(values)
 
-	return &ListTellTaleValuesResponse{
-		Data: responseData,
-	}, nil
+	resp := &maponv1.ListTellTaleValuesResponse{}
+	resp.SetData(responseData)
+	return resp, nil
 }
 
 type jsonTellTaleResponse struct {

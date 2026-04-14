@@ -18,38 +18,26 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/13-method-route.html
 
-// ListRoutesRequest is the request for [Client.ListRoutes].
-type ListRoutesRequest struct {
-	From    time.Time
-	To      time.Time
-	UnitIDs []int64
-	// Include additional data. E.g., "polyline".
-	Include []string
-}
-
-// ListRoutesResponse is the response for [Client.ListRoutes].
-type ListRoutesResponse struct {
-	Routes []*maponv1.Route
-}
-
 // ListRoutes returns list of stops and routes for units in the specified period.
-func (c *Client) ListRoutes(ctx context.Context, request *ListRoutesRequest, opts ...ClientOption) (_ *ListRoutesResponse, err error) {
+func (c *Client) ListRoutes(
+	ctx context.Context,
+	request *maponv1.ListRoutesRequest,
+) (_ *maponv1.ListRoutesResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list routes: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
 	// API expects Y-m-dTH:i:sZ
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	for _, inc := range request.Include {
+	for _, inc := range request.GetInclude() {
 		params.Add("include[]", inc)
 	}
 
@@ -65,11 +53,11 @@ func (c *Client) ListRoutes(ctx context.Context, request *ListRoutesRequest, opt
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -96,9 +84,9 @@ func (c *Client) ListRoutes(ctx context.Context, request *ListRoutesRequest, opt
 		}
 	}
 
-	return &ListRoutesResponse{
-		Routes: routes,
-	}, nil
+	resp := &maponv1.ListRoutesResponse{}
+	resp.SetRoutes(routes)
+	return resp, nil
 }
 
 type jsonRouteResponse struct {

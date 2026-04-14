@@ -90,7 +90,10 @@ func TestParseUnitsResponse_GoldenFiles(t *testing.T) {
 
 			// Compare actual and expected
 			if !bytes.Equal(actual, expected) {
-				t.Errorf("output does not match golden file %s\nRun tests with -update flag to update golden files.", goldenPath)
+				t.Errorf(
+					"output does not match golden file %s\nRun tests with -update flag to update golden files.",
+					goldenPath,
+				)
 				t.Logf("Expected length: %d, Actual length: %d", len(expected), len(actual))
 			}
 		})
@@ -128,4 +131,3 @@ func isGoldenFile(filename string) bool {
 		len(filename) > len(".golden.json") &&
 		filename[len(filename)-len(".golden.json"):] == ".golden.json"
 }
-

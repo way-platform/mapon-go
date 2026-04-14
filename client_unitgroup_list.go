@@ -15,26 +15,20 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/10-method-unit_groups.html
 
-type ListUnitGroupsRequest struct {
-	UnitID int64 // Optional filter
-}
-
-type ListUnitGroupsResponse struct {
-	Groups []*maponv1.UnitGroup
-}
-
 // ListUnitGroups lists unit groups.
-func (c *Client) ListUnitGroups(ctx context.Context, request *ListUnitGroupsRequest, opts ...ClientOption) (_ *ListUnitGroupsResponse, err error) {
+func (c *Client) ListUnitGroups(
+	ctx context.Context,
+	request *maponv1.ListUnitGroupsRequest,
+) (_ *maponv1.ListUnitGroupsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list unit groups: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	if request.UnitID != 0 {
-		params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
+	if request.GetUnitId() != 0 {
+		params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
 	}
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_groups/list.json")
@@ -49,11 +43,11 @@ func (c *Client) ListUnitGroups(ctx context.Context, request *ListUnitGroupsRequ
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -73,7 +67,7 @@ func (c *Client) ListUnitGroups(ctx context.Context, request *ListUnitGroupsRequ
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListUnitGroupsResponse{}
+	var groups []*maponv1.UnitGroup
 	for _, g := range responseBody.Data {
 		grp := &maponv1.UnitGroup{}
 		grp.SetGroupId(g.ID)
@@ -86,10 +80,12 @@ func (c *Client) ListUnitGroups(ctx context.Context, request *ListUnitGroupsRequ
 				grp.SetParentId(pid)
 			}
 		}
-		res.Groups = append(res.Groups, grp)
+		groups = append(groups, grp)
 	}
 
-	return res, nil
+	resp := &maponv1.ListUnitGroupsResponse{}
+	resp.SetGroups(groups)
+	return resp, nil
 }
 
 type jsonUnitGroupsResponse struct {

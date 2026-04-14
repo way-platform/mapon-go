@@ -5,7 +5,11 @@ import (
 	"net/http"
 	"runtime/debug"
 	"time"
+
+	maponv1connect "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1/maponv1connect"
 )
+
+var _ maponv1connect.MaponApiClient = (*Client)(nil)
 
 // BaseURL is the default base URL for the Mapon API.
 const BaseURL = "https://mapon.com/api/v1"
@@ -43,13 +47,6 @@ func newClientConfig() clientConfig {
 		retryCount: 3,
 		timeout:    30 * time.Second,
 	}
-}
-
-func (cc clientConfig) with(opts ...ClientOption) clientConfig {
-	for _, opt := range opts {
-		opt(&cc)
-	}
-	return cc
 }
 
 // ClientOption is a configuration option for a [Client].
@@ -92,7 +89,7 @@ func WithInterceptor(interceptor func(http.RoundTripper) http.RoundTripper) Clie
 }
 
 func (c *Client) httpClient(cfg clientConfig) *http.Client {
-	var transport http.RoundTripper = http.DefaultTransport
+	transport := http.RoundTripper(http.DefaultTransport)
 	timeout := cfg.timeout
 	if cfg.httpClient != nil {
 		if cfg.httpClient.Transport != nil {

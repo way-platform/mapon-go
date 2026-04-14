@@ -8,30 +8,26 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+
+	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 )
 
 // This API endpoint is documented in:
 // docs/api/methods/10-method-unit_groups.html
 
-type ListUnitsInGroupRequest struct {
-	GroupID int64
-}
-
-type ListUnitsInGroupResponse struct {
-	UnitIDs []int64
-}
-
 // ListUnitsInGroup lists units in a group.
-func (c *Client) ListUnitsInGroup(ctx context.Context, request *ListUnitsInGroupRequest, opts ...ClientOption) (_ *ListUnitsInGroupResponse, err error) {
+func (c *Client) ListUnitsInGroup(
+	ctx context.Context,
+	request *maponv1.ListUnitsInGroupRequest,
+) (_ *maponv1.ListUnitsInGroupResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list units in group: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("id", strconv.FormatInt(request.GroupID, 10))
+	params.Add("id", strconv.FormatInt(request.GetGroupId(), 10))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_groups/list_units.json")
 	if err != nil {
@@ -45,11 +41,11 @@ func (c *Client) ListUnitsInGroup(ctx context.Context, request *ListUnitsInGroup
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -69,12 +65,14 @@ func (c *Client) ListUnitsInGroup(ctx context.Context, request *ListUnitsInGroup
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListUnitsInGroupResponse{}
+	resp := &maponv1.ListUnitsInGroupResponse{}
+	var unitIDs []int64
 	for _, u := range responseBody.Data.Units {
-		res.UnitIDs = append(res.UnitIDs, u.ID)
+		unitIDs = append(unitIDs, u.ID)
 	}
+	resp.SetUnitIds(unitIDs)
 
-	return res, nil
+	return resp, nil
 }
 
 type jsonUnitGroupUnitsResponse struct {

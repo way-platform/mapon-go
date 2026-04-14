@@ -17,29 +17,21 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type GetHistoryPointDataRequest struct {
-	UnitID   int64
-	Datetime time.Time
-	Include  []string // "can_total_distance", "mileage", "position"
-}
-
-type GetHistoryPointDataResponse struct {
-	Units []*maponv1.UnitHistoryPoint
-}
-
 // GetHistoryPointData returns historical vehicle data at specific datetime.
-func (c *Client) GetHistoryPointData(ctx context.Context, request *GetHistoryPointDataRequest, opts ...ClientOption) (_ *GetHistoryPointDataResponse, err error) {
+func (c *Client) GetHistoryPointData(
+	ctx context.Context,
+	request *maponv1.GetHistoryPointDataRequest,
+) (_ *maponv1.GetHistoryPointDataResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: get history point data: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
-	params.Add("datetime", request.Datetime.UTC().Format(time.RFC3339))
-	for _, inc := range request.Include {
+	params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
+	params.Add("datetime", request.GetDatetime().AsTime().UTC().Format(time.RFC3339))
+	for _, inc := range request.GetInclude() {
 		params.Add("include[]", inc)
 	}
 
@@ -55,11 +47,11 @@ func (c *Client) GetHistoryPointData(ctx context.Context, request *GetHistoryPoi
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -79,7 +71,7 @@ func (c *Client) GetHistoryPointData(ctx context.Context, request *GetHistoryPoi
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &GetHistoryPointDataResponse{}
+	var units []*maponv1.UnitHistoryPoint
 	for _, u := range responseBody.Data.Units {
 		uhp := &maponv1.UnitHistoryPoint{}
 		uhp.SetUnitId(u.UnitID)
@@ -112,10 +104,12 @@ func (c *Client) GetHistoryPointData(ctx context.Context, request *GetHistoryPoi
 			}
 		}
 
-		res.Units = append(res.Units, uhp)
+		units = append(units, uhp)
 	}
 
-	return res, nil
+	resp := &maponv1.GetHistoryPointDataResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonHistoryPointResponse struct {

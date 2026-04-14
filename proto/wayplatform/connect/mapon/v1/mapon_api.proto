@@ -1,0 +1,330 @@
+edition = "2023";
+
+package wayplatform.connect.mapon.v1;
+
+import "google/protobuf/timestamp.proto";
+import "wayplatform/connect/mapon/v1/alert.proto";
+import "wayplatform/connect/mapon/v1/can_data_point.proto";
+import "wayplatform/connect/mapon/v1/can_metric_value.proto";
+import "wayplatform/connect/mapon/v1/common.proto";
+import "wayplatform/connect/mapon/v1/digital_input_event.proto";
+import "wayplatform/connect/mapon/v1/digital_input_extended_event.proto";
+import "wayplatform/connect/mapon/v1/driver.proto";
+import "wayplatform/connect/mapon/v1/driving_time_info.proto";
+import "wayplatform/connect/mapon/v1/humidity_record.proto";
+import "wayplatform/connect/mapon/v1/ibutton_event.proto";
+import "wayplatform/connect/mapon/v1/ignition_event.proto";
+import "wayplatform/connect/mapon/v1/object.proto";
+import "wayplatform/connect/mapon/v1/route.proto";
+import "wayplatform/connect/mapon/v1/tell_tale.proto";
+import "wayplatform/connect/mapon/v1/temperature_record.proto";
+import "wayplatform/connect/mapon/v1/unit.proto";
+import "wayplatform/connect/mapon/v1/unit_debug_info.proto";
+import "wayplatform/connect/mapon/v1/unit_field.proto";
+import "wayplatform/connect/mapon/v1/unit_group.proto";
+import "wayplatform/connect/mapon/v1/unit_history_point.proto";
+
+option go_package = "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1;maponv1";
+
+// MaponApi is the interface definition for Mapon's APIs.
+service MaponApi {
+  // ListAlerts returns triggered alerts.
+  rpc ListAlerts(ListAlertsRequest) returns (ListAlertsResponse);
+  // DeleteDataForward deregisters a push webhook endpoint from Mapon.
+  rpc DeleteDataForward(DeleteDataForwardRequest) returns (DeleteDataForwardResponse);
+  // ListDataForwards returns all registered push webhook endpoints for the API key.
+  rpc ListDataForwards(ListDataForwardsRequest) returns (ListDataForwardsResponse);
+  // SaveDataForward registers a push webhook endpoint with Mapon.
+  rpc SaveDataForward(SaveDataForwardRequest) returns (SaveDataForwardResponse);
+  // ListDrivers lists the drivers available for the current API key.
+  rpc ListDrivers(ListDriversRequest) returns (ListDriversResponse);
+  // ListObjects lists the geofence objects.
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse);
+  // ListRoutes returns list of stops and routes for units in the specified period.
+  rpc ListRoutes(ListRoutesRequest) returns (ListRoutesResponse);
+  // ListTellTaleValues retrieves FMS tell tale values for a specified unit within a date range.
+  rpc ListTellTaleValues(ListTellTaleValuesRequest) returns (ListTellTaleValuesResponse);
+  // ListUnits lists the units available for the current API key.
+  rpc ListUnits(ListUnitsRequest) returns (ListUnitsResponse);
+  // ListUnitGroups lists unit groups.
+  rpc ListUnitGroups(ListUnitGroupsRequest) returns (ListUnitGroupsResponse);
+  // ListUnitsInGroup lists units in a group.
+  rpc ListUnitsInGroup(ListUnitsInGroupRequest) returns (ListUnitsInGroupResponse);
+  // GetCanDataPoint returns CAN data at a specific datetime.
+  rpc GetCanDataPoint(GetCanDataPointRequest) returns (GetCanDataPointResponse);
+  // ListCanPeriodData returns CAN data for a given period.
+  rpc ListCanPeriodData(ListCanPeriodDataRequest) returns (ListCanPeriodDataResponse);
+  // GetUnitDebugInfo returns various information about unit to help debug problems.
+  rpc GetUnitDebugInfo(GetUnitDebugInfoRequest) returns (GetUnitDebugInfoResponse);
+  // ListDigitalInputs returns switches states for selected period.
+  rpc ListDigitalInputs(ListDigitalInputsRequest) returns (ListDigitalInputsResponse);
+  // ListDigitalInputsExtended returns switches states details for selected period.
+  rpc ListDigitalInputsExtended(ListDigitalInputsExtendedRequest) returns (ListDigitalInputsExtendedResponse);
+  // GetDrivingTimeExtended returns drivers information about driving time.
+  rpc GetDrivingTimeExtended(GetDrivingTimeExtendedRequest) returns (GetDrivingTimeExtendedResponse);
+  // GetUnitFields returns additional data about unit.
+  rpc GetUnitFields(GetUnitFieldsRequest) returns (GetUnitFieldsResponse);
+  // GetHistoryPointData returns historical vehicle data at specific datetime.
+  rpc GetHistoryPointData(GetHistoryPointDataRequest) returns (GetHistoryPointDataResponse);
+  // ListHumidity returns humidity levels in tanks.
+  rpc ListHumidity(ListHumidityRequest) returns (ListHumidityResponse);
+  // ListIbuttons returns ibuttons for selected period.
+  rpc ListIbuttons(ListIbuttonsRequest) returns (ListIbuttonsResponse);
+  // ListIgnitions returns ignition events for the specified units and period.
+  rpc ListIgnitions(ListIgnitionsRequest) returns (ListIgnitionsResponse);
+  // ListTemperatures returns measured temperature points.
+  rpc ListTemperatures(ListTemperaturesRequest) returns (ListTemperaturesResponse);
+}
+
+// DataForwardEndpoint represents a configured data forwarding endpoint.
+message DataForwardEndpoint {
+  int64 id = 1;
+  string url = 2;
+  repeated int32 packs = 3;
+}
+
+// -- Alert --
+
+message ListAlertsRequest {
+  google.protobuf.Timestamp from_time = 1;
+  google.protobuf.Timestamp to_time = 2;
+  repeated int64 unit_ids = 3;
+  int64 driver = 4;
+}
+
+message ListAlertsResponse {
+  repeated Alert alerts = 1;
+}
+
+// -- DataForward --
+
+message DeleteDataForwardRequest {
+  int64 endpoint_id = 1;
+}
+
+message DeleteDataForwardResponse {}
+
+message ListDataForwardsRequest {}
+
+message ListDataForwardsResponse {
+  repeated DataForwardEndpoint endpoints = 1;
+}
+
+message SaveDataForwardRequest {
+  // Existing endpoint ID to update. Zero means create a new endpoint.
+  int64 id = 1;
+
+  string url = 2;
+  repeated int32 packs = 3;
+  repeated int64 unit_ids = 4;
+}
+
+message SaveDataForwardResponse {
+  int64 endpoint_id = 1;
+}
+
+// -- Driver --
+
+message ListDriversRequest {
+  int64 id = 1;
+}
+
+message ListDriversResponse {
+  repeated Driver drivers = 1;
+}
+
+// -- Object --
+
+message ListObjectsRequest {}
+
+message ListObjectsResponse {
+  repeated Object objects = 1;
+}
+
+// -- Route --
+
+message ListRoutesRequest {
+  google.protobuf.Timestamp from_time = 1;
+  google.protobuf.Timestamp to_time = 2;
+  repeated int64 unit_ids = 3;
+  repeated string include = 4;
+}
+
+message ListRoutesResponse {
+  repeated Route routes = 1;
+}
+
+// -- TellTale --
+
+message ListTellTaleValuesRequest {
+  int64 unit_id = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+}
+
+message ListTellTaleValuesResponse {
+  UnitTellTaleData data = 1;
+}
+
+// -- Unit --
+
+message ListUnitsRequest {
+  repeated int64 unit_ids = 1;
+}
+
+message ListUnitsResponse {
+  repeated Unit units = 1;
+}
+
+// -- UnitGroup --
+
+message ListUnitGroupsRequest {
+  int64 unit_id = 1;
+}
+
+message ListUnitGroupsResponse {
+  repeated UnitGroup groups = 1;
+}
+
+message ListUnitsInGroupRequest {
+  int64 group_id = 1;
+}
+
+message ListUnitsInGroupResponse {
+  repeated int64 unit_ids = 1;
+}
+
+// -- UnitData: CAN --
+
+message GetCanDataPointRequest {
+  int64 unit_id = 1;
+  google.protobuf.Timestamp datetime = 2;
+}
+
+message GetCanDataPointResponse {
+  repeated CanDataPoint units = 1;
+}
+
+message ListCanPeriodDataRequest {
+  int64 unit_id = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+  repeated string include = 4;
+}
+
+message ListCanPeriodDataResponse {
+  repeated UnitCanPeriodData units = 1;
+}
+
+// -- UnitData: Debug --
+
+message GetUnitDebugInfoRequest {
+  repeated int64 unit_ids = 1;
+}
+
+message GetUnitDebugInfoResponse {
+  repeated UnitDebugInfoData units = 1;
+}
+
+// -- UnitData: DigitalInputs --
+
+message ListDigitalInputsRequest {
+  repeated int64 unit_ids = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+}
+
+message ListDigitalInputsResponse {
+  repeated UnitDigitalInputs units = 1;
+}
+
+message ListDigitalInputsExtendedRequest {
+  repeated int64 unit_ids = 1;
+  repeated int64 input_ids = 2;
+  google.protobuf.Timestamp from_time = 3;
+  google.protobuf.Timestamp to_time = 4;
+}
+
+message ListDigitalInputsExtendedResponse {
+  repeated UnitDigitalInputsExtended units = 1;
+}
+
+// -- UnitData: DrivingTime --
+
+message GetDrivingTimeExtendedRequest {
+  int64 unit_id = 1;
+}
+
+message GetDrivingTimeExtendedResponse {
+  repeated DrivingTimeInfo drivers = 1;
+}
+
+// -- UnitData: Fields --
+
+message GetUnitFieldsRequest {
+  int64 unit_id = 1;
+}
+
+message GetUnitFieldsResponse {
+  repeated UnitFields units = 1;
+}
+
+// -- UnitData: HistoryPoint --
+
+message GetHistoryPointDataRequest {
+  int64 unit_id = 1;
+  google.protobuf.Timestamp datetime = 2;
+  repeated string include = 3;
+}
+
+message GetHistoryPointDataResponse {
+  repeated UnitHistoryPoint units = 1;
+}
+
+// -- UnitData: Humidity --
+
+message ListHumidityRequest {
+  repeated int64 unit_ids = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+}
+
+message ListHumidityResponse {
+  repeated UnitHumidity units = 1;
+}
+
+// -- UnitData: Ibuttons --
+
+message ListIbuttonsRequest {
+  repeated int64 unit_ids = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+}
+
+message ListIbuttonsResponse {
+  repeated UnitIbuttons units = 1;
+}
+
+// -- UnitData: Ignitions --
+
+message ListIgnitionsRequest {
+  repeated int64 unit_ids = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+}
+
+message ListIgnitionsResponse {
+  repeated UnitIgnitions units = 1;
+}
+
+// -- UnitData: Temperatures --
+
+message ListTemperaturesRequest {
+  repeated int64 unit_ids = 1;
+  google.protobuf.Timestamp from_time = 2;
+  google.protobuf.Timestamp to_time = 3;
+}
+
+message ListTemperaturesResponse {
+  repeated UnitTemperatures units = 1;
+}
