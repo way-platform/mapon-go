@@ -17,31 +17,22 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type ListCanPeriodDataRequest struct {
-	UnitID  int64
-	From    time.Time
-	To      time.Time
-	Include []string
-}
-
-type ListCanPeriodDataResponse struct {
-	Units []*maponv1.UnitCanPeriodData
-}
-
 // ListCanPeriodData returns CAN data for a given period.
-func (c *Client) ListCanPeriodData(ctx context.Context, request *ListCanPeriodDataRequest, opts ...ClientOption) (_ *ListCanPeriodDataResponse, err error) {
+func (c *Client) ListCanPeriodData(
+	ctx context.Context,
+	request *maponv1.ListCanPeriodDataRequest,
+) (_ *maponv1.ListCanPeriodDataResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list can period data: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
-	for _, inc := range request.Include {
+	params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
+	for _, inc := range request.GetInclude() {
 		params.Add("include[]", inc)
 	}
 
@@ -57,11 +48,11 @@ func (c *Client) ListCanPeriodData(ctx context.Context, request *ListCanPeriodDa
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -81,7 +72,7 @@ func (c *Client) ListCanPeriodData(ctx context.Context, request *ListCanPeriodDa
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListCanPeriodDataResponse{}
+	var units []*maponv1.UnitCanPeriodData
 	for _, u := range responseBody.Data.Units {
 		ucpd := &maponv1.UnitCanPeriodData{}
 		ucpd.SetUnitId(u.UnitID)
@@ -103,10 +94,12 @@ func (c *Client) ListCanPeriodData(ctx context.Context, request *ListCanPeriodDa
 
 		ucpd.SetWeightOnAxis(mapAxisWeightList(u.WeightOnAxis))
 
-		res.Units = append(res.Units, ucpd)
+		units = append(units, ucpd)
 	}
 
-	return res, nil
+	resp := &maponv1.ListCanPeriodDataResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 func mapCanMetricList(in []jsonCanValue) []*maponv1.CanMetricValue {
@@ -154,16 +147,16 @@ type jsonAxisWeight struct {
 type jsonCanPeriodResponse struct {
 	Data struct {
 		Units []struct {
-			UnitID               int64          `json:"unit_id"`
-			RpmAverage           []jsonCanValue `json:"rpm_average"`
-			RpmMax               []jsonCanValue `json:"rpm_max"`
-			FuelLevel            []jsonCanValue `json:"fuel_level"`
-			ServiceDistance      []jsonCanValue `json:"service_distance"`
-			TotalDistance        []jsonCanValue `json:"total_distance"`
-			TotalFuel            []jsonCanValue `json:"total_fuel"`
-			TotalEngineHours     []jsonCanValue `json:"total_engine_hours"`
-			AmbientTemp          []jsonCanValue `json:"ambient_temperature"`
-			WeightOnChassisTotal []jsonCanValue `json:"weight_on_chassis_total"`
+			UnitID               int64            `json:"unit_id"`
+			RpmAverage           []jsonCanValue   `json:"rpm_average"`
+			RpmMax               []jsonCanValue   `json:"rpm_max"`
+			FuelLevel            []jsonCanValue   `json:"fuel_level"`
+			ServiceDistance      []jsonCanValue   `json:"service_distance"`
+			TotalDistance        []jsonCanValue   `json:"total_distance"`
+			TotalFuel            []jsonCanValue   `json:"total_fuel"`
+			TotalEngineHours     []jsonCanValue   `json:"total_engine_hours"`
+			AmbientTemp          []jsonCanValue   `json:"ambient_temperature"`
+			WeightOnChassisTotal []jsonCanValue   `json:"weight_on_chassis_total"`
 			WeightOnAxis         []jsonAxisWeight `json:"weight_on_axis"`
 			EvValues             *struct {
 				CanEvBatteryRel []jsonCanValue `json:"can_ev_battery_rel"`

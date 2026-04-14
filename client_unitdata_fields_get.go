@@ -15,25 +15,19 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type GetUnitFieldsRequest struct {
-	UnitID int64
-}
-
-type GetUnitFieldsResponse struct {
-	Units []*maponv1.UnitFields
-}
-
 // GetUnitFields returns additional data about unit.
-func (c *Client) GetUnitFields(ctx context.Context, request *GetUnitFieldsRequest, opts ...ClientOption) (_ *GetUnitFieldsResponse, err error) {
+func (c *Client) GetUnitFields(
+	ctx context.Context,
+	request *maponv1.GetUnitFieldsRequest,
+) (_ *maponv1.GetUnitFieldsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: get unit fields: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
+	params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/fields.json")
 	if err != nil {
@@ -47,11 +41,11 @@ func (c *Client) GetUnitFields(ctx context.Context, request *GetUnitFieldsReques
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -71,7 +65,7 @@ func (c *Client) GetUnitFields(ctx context.Context, request *GetUnitFieldsReques
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &GetUnitFieldsResponse{}
+	var units []*maponv1.UnitFields
 	for _, u := range responseBody.Data.Units {
 		uf := &maponv1.UnitFields{}
 		uf.SetUnitId(u.UnitID)
@@ -84,10 +78,12 @@ func (c *Client) GetUnitFields(ctx context.Context, request *GetUnitFieldsReques
 			fields = append(fields, f)
 		}
 		uf.SetFields(fields)
-		res.Units = append(res.Units, uf)
+		units = append(units, uf)
 	}
 
-	return res, nil
+	resp := &maponv1.GetUnitFieldsResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonUnitFieldsResponse struct {

@@ -9,64 +9,67 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+
+	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 )
 
-// DeleteDataForwardRequest is the request for [Client.DeleteDataForward].
-type DeleteDataForwardRequest struct {
-	// EndpointID is the Mapon data forwarding endpoint ID to delete.
-	EndpointID int64
-}
-
 // DeleteDataForward deregisters a push webhook endpoint from Mapon.
-func (c *Client) DeleteDataForward(ctx context.Context, request *DeleteDataForwardRequest, opts ...ClientOption) (err error) {
+func (c *Client) DeleteDataForward(
+	ctx context.Context,
+	request *maponv1.DeleteDataForwardRequest,
+) (_ *maponv1.DeleteDataForwardResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: delete data forward: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("key", cfg.apiKey)
-	params.Add("id", strconv.FormatInt(request.EndpointID, 10))
+	params.Add("key", c.config.apiKey)
+	params.Add("id", strconv.FormatInt(request.GetEndpointId(), 10))
 
 	requestURL, err := url.Parse(c.baseURL + "/data_forward/delete.json")
 	if err != nil {
-		return fmt.Errorf("invalid request URL: %w", err)
+		return nil, fmt.Errorf("invalid request URL: %w", err)
 	}
 
-	httpRequest, err := http.NewRequestWithContext(ctx, http.MethodPost, requestURL.String(), strings.NewReader(params.Encode()))
+	httpRequest, err := http.NewRequestWithContext(
+		ctx,
+		http.MethodPost,
+		requestURL.String(),
+		strings.NewReader(params.Encode()),
+	)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	httpRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
-		return newResponseError(httpResponse)
+		return nil, newResponseError(httpResponse)
 	}
 
 	data, err := io.ReadAll(httpResponse.Body)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	var responseBody jsonDataForwardDeleteResponse
 	if err := json.Unmarshal(data, &responseBody); err != nil {
-		return err
+		return nil, err
 	}
 
 	if responseBody.Error != nil {
-		return fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
+		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	return nil
+	return &maponv1.DeleteDataForwardResponse{}, nil
 }
 
 type jsonDataForwardDeleteResponse struct {

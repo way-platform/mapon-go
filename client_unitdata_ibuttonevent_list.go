@@ -17,31 +17,23 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type ListIbuttonsRequest struct {
-	UnitIDs []int64
-	From    time.Time
-	To      time.Time
-}
-
-type ListIbuttonsResponse struct {
-	Units []*maponv1.UnitIbuttons
-}
-
 // ListIbuttons returns ibuttons for selected period.
-func (c *Client) ListIbuttons(ctx context.Context, request *ListIbuttonsRequest, opts ...ClientOption) (_ *ListIbuttonsResponse, err error) {
+func (c *Client) ListIbuttons(
+	ctx context.Context,
+	request *maponv1.ListIbuttonsRequest,
+) (_ *maponv1.ListIbuttonsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list ibuttons: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/ibuttons.json")
 	if err != nil {
@@ -55,11 +47,11 @@ func (c *Client) ListIbuttons(ctx context.Context, request *ListIbuttonsRequest,
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -79,7 +71,7 @@ func (c *Client) ListIbuttons(ctx context.Context, request *ListIbuttonsRequest,
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListIbuttonsResponse{}
+	var units []*maponv1.UnitIbuttons
 	for _, u := range responseBody.Data.Units {
 		ui := &maponv1.UnitIbuttons{}
 		ui.SetUnitId(u.UnitID)
@@ -94,10 +86,12 @@ func (c *Client) ListIbuttons(ctx context.Context, request *ListIbuttonsRequest,
 			events = append(events, evt)
 		}
 		ui.SetIbuttons(events)
-		res.Units = append(res.Units, ui)
+		units = append(units, ui)
 	}
 
-	return res, nil
+	resp := &maponv1.ListIbuttonsResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonIbuttonsResponse struct {

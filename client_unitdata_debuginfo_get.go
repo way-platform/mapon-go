@@ -17,25 +17,19 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type GetUnitDebugInfoRequest struct {
-	UnitIDs []int64
-}
-
-type GetUnitDebugInfoResponse struct {
-	Units []*maponv1.UnitDebugInfoData
-}
-
 // GetUnitDebugInfo returns various information about unit to help debug problems.
-func (c *Client) GetUnitDebugInfo(ctx context.Context, request *GetUnitDebugInfoRequest, opts ...ClientOption) (_ *GetUnitDebugInfoResponse, err error) {
+func (c *Client) GetUnitDebugInfo(
+	ctx context.Context,
+	request *maponv1.GetUnitDebugInfoRequest,
+) (_ *maponv1.GetUnitDebugInfoResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: get unit debug info: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
 
@@ -51,11 +45,11 @@ func (c *Client) GetUnitDebugInfo(ctx context.Context, request *GetUnitDebugInfo
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -75,7 +69,7 @@ func (c *Client) GetUnitDebugInfo(ctx context.Context, request *GetUnitDebugInfo
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &GetUnitDebugInfoResponse{}
+	var units []*maponv1.UnitDebugInfoData
 	for _, u := range responseBody.Data.Units {
 		udi := &maponv1.UnitDebugInfo{}
 
@@ -112,13 +106,15 @@ func (c *Client) GetUnitDebugInfo(ctx context.Context, request *GetUnitDebugInfo
 			}
 		}
 
-		data := &maponv1.UnitDebugInfoData{}
-		data.SetUnitId(u.UnitID)
-		data.SetDebugInfo(udi)
-		res.Units = append(res.Units, data)
+		debugData := &maponv1.UnitDebugInfoData{}
+		debugData.SetUnitId(u.UnitID)
+		debugData.SetDebugInfo(udi)
+		units = append(units, debugData)
 	}
 
-	return res, nil
+	resp := &maponv1.GetUnitDebugInfoResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonDebugInfoResponse struct {

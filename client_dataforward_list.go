@@ -7,34 +7,23 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+
+	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 )
 
-// DataForwardEndpoint represents a configured data forwarding endpoint.
-type DataForwardEndpoint struct {
-	// ID is the Mapon endpoint ID.
-	ID int64
-	// URL is the webhook URL.
-	URL string
-	// Packs is the list of pack IDs configured for this endpoint.
-	Packs []int32
-}
-
-// ListDataForwardsResponse is the response for [Client.ListDataForwards].
-type ListDataForwardsResponse struct {
-	Endpoints []DataForwardEndpoint
-}
-
 // ListDataForwards returns all registered push webhook endpoints for the API key.
-func (c *Client) ListDataForwards(ctx context.Context, opts ...ClientOption) (_ *ListDataForwardsResponse, err error) {
+func (c *Client) ListDataForwards(
+	ctx context.Context,
+	request *maponv1.ListDataForwardsRequest,
+) (_ *maponv1.ListDataForwardsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list data forwards: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("key", cfg.apiKey)
+	params.Add("key", c.config.apiKey)
 
 	requestURL, err := url.Parse(c.baseURL + "/data_forward/list.json")
 	if err != nil {
@@ -48,11 +37,11 @@ func (c *Client) ListDataForwards(ctx context.Context, opts ...ClientOption) (_ 
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -72,18 +61,18 @@ func (c *Client) ListDataForwards(ctx context.Context, opts ...ClientOption) (_ 
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	var endpoints []DataForwardEndpoint
+	var endpoints []*maponv1.DataForwardEndpoint
 	for _, e := range responseBody.Data.Endpoints {
-		endpoints = append(endpoints, DataForwardEndpoint{
-			ID:    e.ID,
-			URL:   e.URL,
-			Packs: e.Packs,
-		})
+		ep := &maponv1.DataForwardEndpoint{}
+		ep.SetId(e.ID)
+		ep.SetUrl(e.URL)
+		ep.SetPacks(e.Packs)
+		endpoints = append(endpoints, ep)
 	}
 
-	return &ListDataForwardsResponse{
-		Endpoints: endpoints,
-	}, nil
+	resp := &maponv1.ListDataForwardsResponse{}
+	resp.SetEndpoints(endpoints)
+	return resp, nil
 }
 
 type jsonDataForwardListResponse struct {

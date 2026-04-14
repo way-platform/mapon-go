@@ -15,25 +15,19 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type GetDrivingTimeExtendedRequest struct {
-	UnitID int64
-}
-
-type GetDrivingTimeExtendedResponse struct {
-	Drivers []*maponv1.DrivingTimeInfo
-}
-
 // GetDrivingTimeExtended returns drivers information about driving time.
-func (c *Client) GetDrivingTimeExtended(ctx context.Context, request *GetDrivingTimeExtendedRequest, opts ...ClientOption) (_ *GetDrivingTimeExtendedResponse, err error) {
+func (c *Client) GetDrivingTimeExtended(
+	ctx context.Context,
+	request *maponv1.GetDrivingTimeExtendedRequest,
+) (_ *maponv1.GetDrivingTimeExtendedResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: get driving time extended: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("unit_id", strconv.FormatInt(request.UnitID, 10))
+	params.Add("unit_id", strconv.FormatInt(request.GetUnitId(), 10))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/driving_time_extended.json")
 	if err != nil {
@@ -47,11 +41,11 @@ func (c *Client) GetDrivingTimeExtended(ctx context.Context, request *GetDriving
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -71,13 +65,12 @@ func (c *Client) GetDrivingTimeExtended(ctx context.Context, request *GetDriving
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &GetDrivingTimeExtendedResponse{}
-
 	var driverMap map[string]jsonDriverInfo
 	if err := json.Unmarshal(responseBody.Data, &driverMap); err != nil {
 		return nil, fmt.Errorf("failed to parse drivers map: %w", err)
 	}
 
+	var drivers []*maponv1.DrivingTimeInfo
 	for _, d := range driverMap {
 		dti := &maponv1.DrivingTimeInfo{}
 		dti.SetCurrentState(d.CurrentState)
@@ -98,10 +91,12 @@ func (c *Client) GetDrivingTimeExtended(ctx context.Context, request *GetDriving
 			dti.SetWeekDrivingRemainingS(d.Week.DrivingRemaining)
 		}
 
-		res.Drivers = append(res.Drivers, dti)
+		drivers = append(drivers, dti)
 	}
 
-	return res, nil
+	resp := &maponv1.GetDrivingTimeExtendedResponse{}
+	resp.SetDrivers(drivers)
+	return resp, nil
 }
 
 type jsonDrivingTimeResponse struct {
@@ -110,11 +105,11 @@ type jsonDrivingTimeResponse struct {
 }
 
 type jsonDriverInfo struct {
-	CurrentState string `json:"current_state"`
-	DriverID     int64  `json:"driver_id"`
-	DriverName   string `json:"driver_name"`
+	CurrentState  string `json:"current_state"`
+	DriverID      int64  `json:"driver_id"`
+	DriverName    string `json:"driver_name"`
 	DriverSurname string `json:"driver_surname"`
-	Now *struct {
+	Now           *struct {
 		Driving          int64 `json:"driving"`
 		DrivingRemaining int64 `json:"driving_remaining"`
 	} `json:"now"`

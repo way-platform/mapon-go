@@ -18,37 +18,26 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/01-method-alert.html
 
-// ListAlertsRequest is the request for [Client.ListAlerts].
-type ListAlertsRequest struct {
-	From    time.Time
-	To      time.Time
-	UnitIDs []int64
-	Driver  int64
-}
-
-// ListAlertsResponse is the response for [Client.ListAlerts].
-type ListAlertsResponse struct {
-	Alerts []*maponv1.Alert
-}
-
 // ListAlerts returns triggered alerts.
-func (c *Client) ListAlerts(ctx context.Context, request *ListAlertsRequest, opts ...ClientOption) (_ *ListAlertsResponse, err error) {
+func (c *Client) ListAlerts(
+	ctx context.Context,
+	request *maponv1.ListAlertsRequest,
+) (_ *maponv1.ListAlertsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list alerts: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	if request.Driver != 0 {
-		params.Add("driver", strconv.FormatInt(request.Driver, 10))
+	if request.GetDriver() != 0 {
+		params.Add("driver", strconv.FormatInt(request.GetDriver(), 10))
 	}
 	// Always include details
 	params.Add("include[]", "location")
@@ -67,11 +56,11 @@ func (c *Client) ListAlerts(ctx context.Context, request *ListAlertsRequest, opt
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -96,9 +85,9 @@ func (c *Client) ListAlerts(ctx context.Context, request *ListAlertsRequest, opt
 		alerts = append(alerts, mapJSONAlertToProto(a))
 	}
 
-	return &ListAlertsResponse{
-		Alerts: alerts,
-	}, nil
+	resp := &maponv1.ListAlertsResponse{}
+	resp.SetAlerts(alerts)
+	return resp, nil
 }
 
 type jsonAlertResponse struct {

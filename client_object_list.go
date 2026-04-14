@@ -15,24 +15,16 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/16-method-object.html
 
-// ListObjectsRequest is the request for [Client.ListObjects].
-type ListObjectsRequest struct {
-	// Optional filters can be added here if supported.
-}
-
-// ListObjectsResponse is the response for [Client.ListObjects].
-type ListObjectsResponse struct {
-	Objects []*maponv1.Object
-}
-
 // ListObjects lists the geofence objects.
-func (c *Client) ListObjects(ctx context.Context, request *ListObjectsRequest, opts ...ClientOption) (_ *ListObjectsResponse, err error) {
+func (c *Client) ListObjects(
+	ctx context.Context,
+	request *maponv1.ListObjectsRequest,
+) (_ *maponv1.ListObjectsResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list objects: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	requestURL, err := url.Parse(c.baseURL + "/object/list.json")
 	if err != nil {
@@ -45,11 +37,11 @@ func (c *Client) ListObjects(ctx context.Context, request *ListObjectsRequest, o
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -74,9 +66,9 @@ func (c *Client) ListObjects(ctx context.Context, request *ListObjectsRequest, o
 		objects = append(objects, mapJSONObjectToProto(o))
 	}
 
-	return &ListObjectsResponse{
-		Objects: objects,
-	}, nil
+	resp := &maponv1.ListObjectsResponse{}
+	resp.SetObjects(objects)
+	return resp, nil
 }
 
 type jsonObjectResponse struct {

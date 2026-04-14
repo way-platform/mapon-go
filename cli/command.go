@@ -9,10 +9,11 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/way-platform/mapon-go"
+	mapon "github.com/way-platform/mapon-go"
 	maponv1 "github.com/way-platform/mapon-go/proto/gen/go/wayplatform/connect/mapon/v1"
 	"golang.org/x/term"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // resolveCredentials returns credentials from the store.
@@ -185,13 +186,13 @@ func newListUnitsCommand(cfg *config) *cobra.Command {
 			}
 			unitIDs = append(unitIDs, id)
 		}
-		response, err := client.ListUnits(cmd.Context(), &mapon.ListUnitsRequest{
-			UnitIDs: unitIDs,
-		})
+		req := &maponv1.ListUnitsRequest{}
+		req.SetUnitIds(unitIDs)
+		response, err := client.ListUnits(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, unit := range response.Units {
+		for _, unit := range response.GetUnits() {
 			fmt.Println(protojson.Format(unit))
 		}
 		return nil
@@ -219,15 +220,15 @@ func newListIgnitionsCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListIgnitions(cmd.Context(), &mapon.ListIgnitionsRequest{
-			UnitIDs: unitIDs,
-			From:    *from,
-			To:      *to,
-		})
+		req := &maponv1.ListIgnitionsRequest{}
+		req.SetUnitIds(unitIDs)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		res, err := client.ListIgnitions(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -253,15 +254,15 @@ func newListTemperaturesCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListTemperatures(cmd.Context(), &mapon.ListTemperaturesRequest{
-			UnitIDs: unitIDs,
-			From:    *from,
-			To:      *to,
-		})
+		req := &maponv1.ListTemperaturesRequest{}
+		req.SetUnitIds(unitIDs)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		res, err := client.ListTemperatures(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -287,15 +288,15 @@ func newListDigitalInputsCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListDigitalInputs(cmd.Context(), &mapon.ListDigitalInputsRequest{
-			UnitIDs: unitIDs,
-			From:    *from,
-			To:      *to,
-		})
+		req := &maponv1.ListDigitalInputsRequest{}
+		req.SetUnitIds(unitIDs)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		res, err := client.ListDigitalInputs(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -321,15 +322,15 @@ func newListDigitalInputsExtendedCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListDigitalInputsExtended(cmd.Context(), &mapon.ListDigitalInputsExtendedRequest{
-			UnitIDs: unitIDs,
-			From:    *from,
-			To:      *to,
-		})
+		req := &maponv1.ListDigitalInputsExtendedRequest{}
+		req.SetUnitIds(unitIDs)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		res, err := client.ListDigitalInputsExtended(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -355,15 +356,15 @@ func newListIbuttonsCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListIbuttons(cmd.Context(), &mapon.ListIbuttonsRequest{
-			UnitIDs: unitIDs,
-			From:    *from,
-			To:      *to,
-		})
+		req := &maponv1.ListIbuttonsRequest{}
+		req.SetUnitIds(unitIDs)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		res, err := client.ListIbuttons(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -389,15 +390,15 @@ func newListHumidityCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListHumidity(cmd.Context(), &mapon.ListHumidityRequest{
-			UnitIDs: unitIDs,
-			From:    *from,
-			To:      *to,
-		})
+		req := &maponv1.ListHumidityRequest{}
+		req.SetUnitIds(unitIDs)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		res, err := client.ListHumidity(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -424,16 +425,16 @@ func newListCanPeriodDataCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
 		}
-		res, err := client.ListCanPeriodData(cmd.Context(), &mapon.ListCanPeriodDataRequest{
-			UnitID:  unitID,
-			From:    *from,
-			To:      *to,
-			Include: *include,
-		})
+		req := &maponv1.ListCanPeriodDataRequest{}
+		req.SetUnitId(unitID)
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		req.SetInclude(*include)
+		res, err := client.ListCanPeriodData(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -458,14 +459,14 @@ func newGetCanPointDataCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
 		}
-		res, err := client.GetCanDataPoint(cmd.Context(), &mapon.GetCanPointDataRequest{
-			UnitID:   unitID,
-			Datetime: *datetime,
-		})
+		req := &maponv1.GetCanDataPointRequest{}
+		req.SetUnitId(unitID)
+		req.SetDatetime(timestamppb.New(*datetime))
+		res, err := client.GetCanDataPoint(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -491,15 +492,15 @@ func newGetHistoryPointDataCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
 		}
-		res, err := client.GetHistoryPointData(cmd.Context(), &mapon.GetHistoryPointDataRequest{
-			UnitID:   unitID,
-			Datetime: *datetime,
-			Include:  *include,
-		})
+		req := &maponv1.GetHistoryPointDataRequest{}
+		req.SetUnitId(unitID)
+		req.SetDatetime(timestamppb.New(*datetime))
+		req.SetInclude(*include)
+		res, err := client.GetHistoryPointData(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -523,13 +524,13 @@ func newGetUnitFieldsCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
 		}
-		res, err := client.GetUnitFields(cmd.Context(), &mapon.GetUnitFieldsRequest{
-			UnitID: unitID,
-		})
+		req := &maponv1.GetUnitFieldsRequest{}
+		req.SetUnitId(unitID)
+		res, err := client.GetUnitFields(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -553,13 +554,13 @@ func newGetUnitDebugInfoCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.GetUnitDebugInfo(cmd.Context(), &mapon.GetUnitDebugInfoRequest{
-			UnitIDs: unitIDs,
-		})
+		req := &maponv1.GetUnitDebugInfoRequest{}
+		req.SetUnitIds(unitIDs)
+		res, err := client.GetUnitDebugInfo(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, u := range res.Units {
+		for _, u := range res.GetUnits() {
 			fmt.Println(protojson.Format(u))
 		}
 		return nil
@@ -583,13 +584,13 @@ func newGetDrivingTimeExtendedCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return fmt.Errorf("invalid unit ID %s: %w", args[0], err)
 		}
-		res, err := client.GetDrivingTimeExtended(cmd.Context(), &mapon.GetDrivingTimeExtendedRequest{
-			UnitID: unitID,
-		})
+		req := &maponv1.GetDrivingTimeExtendedRequest{}
+		req.SetUnitId(unitID)
+		res, err := client.GetDrivingTimeExtended(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, d := range res.Drivers {
+		for _, d := range res.GetDrivers() {
 			fmt.Println(protojson.Format(d))
 		}
 		return nil
@@ -621,13 +622,13 @@ func newListUnitGroupsCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListUnitGroups(cmd.Context(), &mapon.ListUnitGroupsRequest{
-			UnitID: *unitID,
-		})
+		req := &maponv1.ListUnitGroupsRequest{}
+		req.SetUnitId(*unitID)
+		res, err := client.ListUnitGroups(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, g := range res.Groups {
+		for _, g := range res.GetGroups() {
 			fmt.Println(protojson.Format(g))
 		}
 		return nil
@@ -647,14 +648,14 @@ func newListUnitsInGroupCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		res, err := client.ListUnitsInGroup(cmd.Context(), &mapon.ListUnitsInGroupRequest{
-			GroupID: *groupID,
-		})
+		req := &maponv1.ListUnitsInGroupRequest{}
+		req.SetGroupId(*groupID)
+		res, err := client.ListUnitsInGroup(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
 		list := &maponv1.UnitIDsList{}
-		list.SetIds(res.UnitIDs)
+		list.SetIds(res.GetUnitIds())
 		fmt.Println(protojson.Format(list))
 		return nil
 	}
@@ -675,13 +676,13 @@ func newListDriversCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		response, err := client.ListDrivers(cmd.Context(), &mapon.ListDriversRequest{
-			ID: *id,
-		})
+		req := &maponv1.ListDriversRequest{}
+		req.SetId(*id)
+		response, err := client.ListDrivers(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, driver := range response.Drivers {
+		for _, driver := range response.GetDrivers() {
 			fmt.Println(protojson.Format(driver))
 		}
 		return nil
@@ -714,16 +715,16 @@ func newListRoutesCommand(cfg *config) *cobra.Command {
 			}
 			unitIDs = append(unitIDs, id)
 		}
-		response, err := client.ListRoutes(cmd.Context(), &mapon.ListRoutesRequest{
-			From:    *from,
-			To:      *to,
-			UnitIDs: unitIDs,
-			Include: *include,
-		})
+		req := &maponv1.ListRoutesRequest{}
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		req.SetUnitIds(unitIDs)
+		req.SetInclude(*include)
+		response, err := client.ListRoutes(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, route := range response.Routes {
+		for _, route := range response.GetRoutes() {
 			fmt.Println(protojson.Format(route))
 		}
 		return nil
@@ -744,11 +745,11 @@ func newListObjectsCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		response, err := client.ListObjects(cmd.Context(), &mapon.ListObjectsRequest{})
+		response, err := client.ListObjects(cmd.Context(), &maponv1.ListObjectsRequest{})
 		if err != nil {
 			return err
 		}
-		for _, object := range response.Objects {
+		for _, object := range response.GetObjects() {
 			fmt.Println(protojson.Format(object))
 		}
 		return nil
@@ -781,16 +782,16 @@ func newListAlertsCommand(cfg *config) *cobra.Command {
 			}
 			unitIDs = append(unitIDs, id)
 		}
-		response, err := client.ListAlerts(cmd.Context(), &mapon.ListAlertsRequest{
-			From:    *from,
-			To:      *to,
-			UnitIDs: unitIDs,
-			Driver:  *driver,
-		})
+		req := &maponv1.ListAlertsRequest{}
+		req.SetFromTime(timestamppb.New(*from))
+		req.SetToTime(timestamppb.New(*to))
+		req.SetUnitIds(unitIDs)
+		req.SetDriver(*driver)
+		response, err := client.ListAlerts(cmd.Context(), req)
 		if err != nil {
 			return err
 		}
-		for _, alert := range response.Alerts {
+		for _, alert := range response.GetAlerts() {
 			fmt.Println(protojson.Format(alert))
 		}
 		return nil
@@ -845,12 +846,12 @@ func newListDataForwardsCommand(cfg *config) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			resp, err := client.ListDataForwards(cmd.Context())
+			resp, err := client.ListDataForwards(cmd.Context(), maponv1.ListDataForwardsRequest_builder{}.Build())
 			if err != nil {
 				return err
 			}
-			for _, ep := range resp.Endpoints {
-				fmt.Printf("id=%d url=%s packs=%v\n", ep.ID, ep.URL, ep.Packs)
+			for _, ep := range resp.GetEndpoints() {
+				fmt.Printf("id=%d url=%s packs=%v\n", ep.GetId(), ep.GetUrl(), ep.GetPacks())
 			}
 			return nil
 		},
@@ -873,16 +874,17 @@ func newSaveDataForwardCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		endpointID, err := client.SaveDataForward(cmd.Context(), &mapon.SaveDataForwardRequest{
-			ID:      *id,
-			URL:     *webhookURL,
-			Packs:   *packs,
-			UnitIDs: *unitIDs,
-		})
+		resp, err := client.SaveDataForward(cmd.Context(),
+			maponv1.SaveDataForwardRequest_builder{
+				Id:      new(*id),
+				Url:     new(*webhookURL),
+				Packs:   *packs,
+				UnitIds: *unitIDs,
+			}.Build())
 		if err != nil {
 			return err
 		}
-		fmt.Printf("registered endpoint id=%d\n", endpointID)
+		fmt.Printf("registered endpoint id=%d\n", resp.GetEndpointId())
 		return nil
 	}
 	return cmd
@@ -900,9 +902,10 @@ func newDeleteDataForwardCommand(cfg *config) *cobra.Command {
 		if err != nil {
 			return err
 		}
-		if err := client.DeleteDataForward(cmd.Context(), &mapon.DeleteDataForwardRequest{
-			EndpointID: *id,
-		}); err != nil {
+		if _, err := client.DeleteDataForward(cmd.Context(),
+			maponv1.DeleteDataForwardRequest_builder{
+				EndpointId: new(*id),
+			}.Build()); err != nil {
 			return err
 		}
 		fmt.Printf("deleted endpoint id=%d\n", *id)

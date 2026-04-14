@@ -17,31 +17,23 @@ import (
 // This API endpoint is documented in:
 // docs/api/methods/09-method-unit_data.html
 
-type ListHumidityRequest struct {
-	UnitIDs []int64
-	From    time.Time
-	To      time.Time
-}
-
-type ListHumidityResponse struct {
-	Units []*maponv1.UnitHumidity
-}
-
 // ListHumidity returns humidity levels in tanks.
-func (c *Client) ListHumidity(ctx context.Context, request *ListHumidityRequest, opts ...ClientOption) (_ *ListHumidityResponse, err error) {
+func (c *Client) ListHumidity(
+	ctx context.Context,
+	request *maponv1.ListHumidityRequest,
+) (_ *maponv1.ListHumidityResponse, err error) {
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("mapon: list humidity: %w", err)
 		}
 	}()
-	cfg := c.config.with(opts...)
 
 	params := url.Values{}
-	for _, id := range request.UnitIDs {
+	for _, id := range request.GetUnitIds() {
 		params.Add("unit_id[]", strconv.FormatInt(id, 10))
 	}
-	params.Add("from", request.From.UTC().Format(time.RFC3339))
-	params.Add("till", request.To.UTC().Format(time.RFC3339))
+	params.Add("from", request.GetFromTime().AsTime().UTC().Format(time.RFC3339))
+	params.Add("till", request.GetToTime().AsTime().UTC().Format(time.RFC3339))
 
 	requestURL, err := url.Parse(c.baseURL + "/unit_data/humidity.json")
 	if err != nil {
@@ -55,11 +47,11 @@ func (c *Client) ListHumidity(ctx context.Context, request *ListHumidityRequest,
 	}
 	httpRequest.Header.Set("User-Agent", getUserAgent())
 
-	httpResponse, err := c.httpClient(cfg).Do(httpRequest)
+	httpResponse, err := c.httpClient(c.config).Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
-	defer httpResponse.Body.Close()
+	defer func() { _ = httpResponse.Body.Close() }()
 
 	if httpResponse.StatusCode != http.StatusOK {
 		return nil, newResponseError(httpResponse)
@@ -79,7 +71,7 @@ func (c *Client) ListHumidity(ctx context.Context, request *ListHumidityRequest,
 		return nil, fmt.Errorf("api error %d: %s", responseBody.Error.Code, responseBody.Error.Msg)
 	}
 
-	res := &ListHumidityResponse{}
+	var units []*maponv1.UnitHumidity
 	for _, u := range responseBody.Data.Units {
 		uh := &maponv1.UnitHumidity{}
 		uh.SetUnitId(u.UnitID)
@@ -102,10 +94,12 @@ func (c *Client) ListHumidity(ctx context.Context, request *ListHumidityRequest,
 			sensors = append(sensors, us)
 		}
 		uh.SetSensors(sensors)
-		res.Units = append(res.Units, uh)
+		units = append(units, uh)
 	}
 
-	return res, nil
+	resp := &maponv1.ListHumidityResponse{}
+	resp.SetUnits(units)
+	return resp, nil
 }
 
 type jsonHumidityResponse struct {
