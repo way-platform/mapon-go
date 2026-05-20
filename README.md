@@ -46,18 +46,17 @@ for _, unit := range response.Units {
 
 #### Building
 
-The project is built using [Mage](https://magefile.org), see
-[tools/magefile.go](./tools/magefile.go) and the [tools/mage](./tools/mage)
-helper script.
+The project is built using [mise](https://mise.jdx.dev):
 
 ```bash
-$ ./tools/mage build
+$ mise install      # install pinned tools
+$ mise run build    # full CI build
 ```
 
 For all available build tasks, see:
 
 ```bash
-$ ./tools/mage -l
+$ mise tasks
 ```
 
 ## CLI tool
