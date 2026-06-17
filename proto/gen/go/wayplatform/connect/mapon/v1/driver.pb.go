@@ -363,15 +363,15 @@ var File_wayplatform_connect_mapon_v1_driver_proto protoreflect.FileDescriptor
 
 const file_wayplatform_connect_mapon_v1_driver_proto_rawDesc = "" +
 	"\n" +
-	")wayplatform/connect/mapon/v1/driver.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9e\x02\n" +
+	")wayplatform/connect/mapon/v1/driver.proto\x12\x1cwayplatform.connect.mapon.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb7\x02\n" +
 	"\x06Driver\x12\x1b\n" +
-	"\tdriver_id\x18\x01 \x01(\x03R\bdriverId\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
-	"\asurname\x18\x03 \x01(\tR\asurname\x12\x14\n" +
-	"\x05email\x18\x04 \x01(\tR\x05email\x12\x14\n" +
-	"\x05phone\x18\x05 \x01(\tR\x05phone\x12#\n" +
-	"\ributton_value\x18\x06 \x01(\tR\fibuttonValue\x12#\n" +
-	"\rtachograph_id\x18\a \x01(\tR\ftachographId\x12\x18\n" +
+	"\tdriver_id\x18\x01 \x01(\x03R\bdriverId\x12\x17\n" +
+	"\x04name\x18\x02 \x01(\tB\x03\x80\x01\x01R\x04name\x12\x1d\n" +
+	"\asurname\x18\x03 \x01(\tB\x03\x80\x01\x01R\asurname\x12\x19\n" +
+	"\x05email\x18\x04 \x01(\tB\x03\x80\x01\x01R\x05email\x12\x19\n" +
+	"\x05phone\x18\x05 \x01(\tB\x03\x80\x01\x01R\x05phone\x12#\n" +
+	"\ributton_value\x18\x06 \x01(\tR\fibuttonValue\x12(\n" +
+	"\rtachograph_id\x18\a \x01(\tB\x03\x80\x01\x01R\ftachographId\x12\x18\n" +
 	"\ablocked\x18\b \x01(\bR\ablocked\x129\n" +
 	"\n" +
 	"created_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAtB\x96\x02\n" +

@@ -12,22 +12,22 @@ message Driver {
   int64 driver_id = 1;
 
   // First name of the driver.
-  string name = 2;
+  string name = 2 [debug_redact = true];
 
   // Last name of the driver.
-  string surname = 3;
+  string surname = 3 [debug_redact = true];
 
   // Contact email address.
-  string email = 4;
+  string email = 4 [debug_redact = true];
 
   // Contact phone number.
-  string phone = 5;
+  string phone = 5 [debug_redact = true];
 
   // iButton ID (Dallas key) for driver identification.
   string ibutton_value = 6;
 
   // Tachograph driver card ID.
-  string tachograph_id = 7;
+  string tachograph_id = 7 [debug_redact = true];
 
   // Indicates if the driver is blocked from system access.
   bool blocked = 8;
